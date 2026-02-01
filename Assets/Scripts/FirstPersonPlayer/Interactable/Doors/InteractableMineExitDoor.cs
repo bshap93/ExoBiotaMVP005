@@ -1,0 +1,74 @@
+﻿using EditorScripts;
+using Helpers.Events;
+using Helpers.Events.UI;
+using LevelConstruct;
+using Manager;
+using MoreMountains.Feedbacks;
+using Objectives.ScriptableObjects;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace FirstPersonPlayer.Interactable.Doors
+{
+    public class InteractableMineExitDoor : InteractableDoor
+    {
+        [SerializeField] MMFeedbacks denyEntryFeedbacks;
+        [SerializeField] SpawnInfoEditor spawnInfo;
+        [SerializeField] ObjectiveObject objectiveIfActiveToComplete;
+
+        public override void Interact()
+        {
+            if (!TryOpenWithAccess()) return;
+            BillboardEvent.Trigger(data, BillboardEventType.Hide);
+            AlertEvent.Trigger(
+                AlertReason.UseDoor,
+                "Exit the mine and return to the dirigible?", "Use Door", AlertType.ChoiceModal, 0f,
+                onConfirm: () =>
+                {
+                    MyUIEvent.Trigger(UIType.Any, UIActionType.Close);
+                    SceneTransitionUIEvent.Trigger(SceneTransitionUIEventType.Show);
+                    SaveDataEvent.Trigger();
+
+                    // Set the bridge target before loading the bridge scene
+                    BridgeData.SetTarget(
+                        spawnInfo.SceneName,
+                        spawnInfo.Mode,
+                        spawnInfo.SpawnPointId
+                    );
+
+                    // Load the universal Bridge scene
+                    SceneManager.LoadScene("Bridge");
+
+                    if (objectiveIfActiveToComplete != null)
+                        ObjectiveEvent.Trigger(
+                            objectiveIfActiveToComplete.objectiveId, ObjectiveEventType.ObjectiveCompleted);
+                },
+                onCancel: () => { });
+        }
+
+        public override string GetName()
+        {
+            return "Go to Dock";
+        }
+
+        public override Sprite GetIcon()
+        {
+            return ExaminationManager.Instance.iconRepository.dockIcon;
+        }
+
+        public override string ShortBlurb()
+        {
+            return string.Empty;
+        }
+
+        public override Sprite GetActionIcon()
+        {
+            return ExaminationManager.Instance.iconRepository.doorIcon;
+        }
+
+        public override string GetActionText()
+        {
+            return "Enter";
+        }
+    }
+}

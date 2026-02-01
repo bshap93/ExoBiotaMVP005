@@ -1,0 +1,22 @@
+title: NavHelp_M1_E
+---
+Navigation Server: What is your bearing?
+// -> East
+//     <<jump NavHelp_M1_North>>
+-> North
+    <<jump NavHelp_M1_North>>
+-> South
+    <<jump NavHelp_M1_South>>
+===
+
+
+title: NavHelp_M1_North
+---
+Navigation Server: Lower Levels
+===
+
+
+title: NavHelp_M1_South
+---
+Navigation Server: Forward Operating Base
+===

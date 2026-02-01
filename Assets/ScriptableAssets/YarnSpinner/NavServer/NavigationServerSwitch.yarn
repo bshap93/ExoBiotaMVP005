@@ -1,0 +1,31 @@
+title: NavigationServerSwitch
+---
+Navigation Server: Stand by for navigation data...
+===
+
+title: NavHelp_C1_BH
+---
+Navigation Server: What is your bearing?
+-> East
+    <<jump NavHelp_C1_BH_East>>
+-> North
+    <<jump NavHelp_C1_BH_North>>
+// -> South
+//     <<jump NavHelp_C1_BH_South>>
+=== 
+
+title: NavHelp_C1_BH_North
+---
+Navigation Server: Hot Springs
+===
+
+title: NavHelp_C1_BH_East
+---
+Navigation Server: Blue Hole Access
+===
+
+title: NavHelp_C1_BH_South
+---
+Navigation Server: Forward Operating Base, Science Directorate
+===
+
