@@ -2,6 +2,7 @@
 using CompassNavigatorPro;
 using MoreMountains.InventoryEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstPersonPlayer.Tools.ItemObjectTypes
 {
@@ -29,6 +30,8 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
 
             return base.Equip(playerID);
         }
+
+        [FormerlySerializedAs("ToolReach")] public float toolReach;
         public Vector3 GetToolAttackOrigin()
         {
             return Vector3.zero;

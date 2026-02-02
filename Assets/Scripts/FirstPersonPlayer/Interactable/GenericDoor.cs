@@ -1,6 +1,7 @@
 using DG.Tweening;
 using FirstPersonPlayer.Interface;
 using MoreMountains.Feedbacks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstPersonPlayer.Interactable
@@ -9,8 +10,19 @@ namespace FirstPersonPlayer.Interactable
     {
         [Header("Rotation Settings")] [SerializeField]
         GameObject doorModel;
+        [SerializeField] bool useRotationChange = true;
+        [ShowIf("useRotationChange")]
         [SerializeField] Vector3 openRotation;
+        [ShowIf("useRotationChange")]
         [SerializeField] Vector3 closedRotation;
+        
+        [Header("Position Settings")] 
+        [SerializeField] bool usePositionChange;
+        [ShowIf("usePositionChange")]
+        [SerializeField]
+        Vector3 openPosition;
+        [ShowIf("usePositionChange")]
+        [SerializeField] Vector3 closedPosition;
 
         [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
         [SerializeField] MMFeedbacks closeFeedback;
@@ -60,14 +72,20 @@ namespace FirstPersonPlayer.Interactable
         public void OpenDoor()
         {
             openFeedback?.PlayFeedbacks();
-            doorModel.transform.DOLocalRotate(openRotation, openCloseDuration);
+            if (useRotationChange)
+                doorModel.transform.DOLocalRotate(openRotation, openCloseDuration);
+            if (usePositionChange)
+                doorModel.transform.DOLocalMove(openPosition, openCloseDuration);
             _isOpen = true;
         }
 
         public void CloseDoor()
         {
             closeFeedback?.PlayFeedbacks();
-            doorModel.transform.DOLocalRotate(closedRotation, openCloseDuration);
+            if (useRotationChange)
+                doorModel.transform.DOLocalRotate(closedRotation, openCloseDuration);
+            if (usePositionChange)
+                doorModel.transform.DOLocalMove(closedPosition, openCloseDuration);
             _isOpen = false;
         }
     }
