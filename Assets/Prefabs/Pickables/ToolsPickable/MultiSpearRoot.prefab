@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 95088452094175394}
   - component: {fileID: 2849275970232466736}
   - component: {fileID: 1661447844682205688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 151310524876369807}
   - component: {fileID: 1892385006485232089}
   - component: {fileID: 6270175742530914853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 4831662425096165252}
   - component: {fileID: 254095522441468439}
   - component: {fileID: 2710479438715479088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 9061283193357726695}
   - component: {fileID: 7653731688481953437}
   - component: {fileID: 2164726764009074024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 1467924088850188294}
   - component: {fileID: 2440947824999478691}
   - component: {fileID: 6053376572258987221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 169804664854859019}
   - component: {fileID: 7697782199454228494}
   - component: {fileID: 7848597853504848425}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_Fi_Guard_Weapon.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 520108530546375570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Addons
   m_TagString: Untagged
   m_Icon: {fileID: 0}

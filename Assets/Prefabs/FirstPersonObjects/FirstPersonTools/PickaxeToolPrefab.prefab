@@ -1015,7 +1015,7 @@ MonoBehaviour:
   attributesManager: {fileID: 0}
   agilityCooldownSecondsReducePerPoint: 0.04
   detectableType: 1
-  rightHandEquippableTool: {fileID: 0}
+  rightHandEquippableTool: {fileID: 11400000, guid: ae727801d55a88c47bda1cec3f032593, type: 2}
   useMultipleSwings: 1
   swing01HitDelay: 0.5
   swing02HitDelay: 0.5
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   hitRigidOrganismFeedbacks: {fileID: 2215188712371121997}
   hitFleshyFeedbacks: {fileID: 4476328586239247021}
   mainCamera: {fileID: 0}
-  reach: 3.74
+  reach: 3
   hitMask:
     serializedVersion: 2
     m_Bits: 150994943

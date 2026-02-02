@@ -8,7 +8,7 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
         fileName = "PickaxeItemObject", menuName = "Scriptable Objects/Items/PickaxeItemObject",
         order = 0)]
     [Serializable]
-    public class PickaxeItemObject : BaseTool
+    public class PickaxeItemObject : RightHandEquippableTool 
     {
         public override bool Equip(string playerID)
         {
