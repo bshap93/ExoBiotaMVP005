@@ -12,7 +12,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
     public class BaseSpearToolPrefab : MeleeToolPrefab, IRuntimeTool
     {
         public string[] allowedTags;
-        public float normalAttackCooldown = 1f;
+        public float normalAttackCooldown = 0.6f;
 
         public float spearPower = 1;
 
@@ -50,7 +50,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
             if (ChargeTimeElapsed > 0f && !ToolIsHeldInChargePosition)
             {
-                //
+                PerformToolAction();
+
+                ChargeTimeElapsed = 0f;
+                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+                return;
             }
 
             if (!ToolIsHeldInChargePosition)
@@ -66,6 +70,36 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 
                 PerformToolAction();
 
+                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            }
+            else if (ChargeTimeElapsed >= timeToFullCharge && ToolIsHeldInChargePosition)
+            {
+                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalAttack)
+                {
+                    // Not enough stamina
+                    AlertEvent.Trigger(
+                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
+
+
+                    return;
+                }
+
+                PerformHeavyChargedToolAction();
+                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            }
+            else if (ToolIsHeldInChargePosition)
+            {
+                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalAttack)
+                {
+                    // Not enough stamina
+                    AlertEvent.Trigger(
+                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
+
+
+                    return;
+                }
+
+                PerformPartiallyChargedToolAction();
                 ChargeToolEvent.Trigger(ChargeToolEventType.Release);
             }
         }
@@ -107,7 +141,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         public override void PerformToolAction()
         {
             normalAttackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time - lastAttackTime < normalAttackCooldown) return;
+            if (Time.time < lastAttackTime + normalAttackCooldown) return;
             lastAttackTime = Time.time;
             
             PlayerStatsEvent.Trigger(PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease, StaminaCostPerNormalAttack);
