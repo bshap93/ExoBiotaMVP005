@@ -70,7 +70,9 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.Slug
                     $"Slug Projectile: Projectile prefab '{ProjectilePrefab.value.name}' has no Rigidbody! Add a Rigidbody component for physics-based movement.");
             }
             
-            var projectileScript = projectile.GetComponent<MovingProjectileController>();
+            // var projectileScript = projectile.GetComponent<MovingProjectileController>();
+            
+            // if (ProjectileLayerMask != -1) projectile.layer = ProjectileLayerMask;
             
         }
     }

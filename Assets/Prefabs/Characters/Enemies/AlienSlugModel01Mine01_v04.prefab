@@ -27484,6 +27484,8 @@ MonoBehaviour:
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4213191547505358671}
+  hasRangedAttack: 0
+  rangedAttackOrigin: {fileID: 0}
   movementLoopFeedbacks: {fileID: 4182894261112851031}
 --- !u!114 &2748921063369638569
 MonoBehaviour:
@@ -27604,7 +27606,8 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDuration":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.StunDuration","_name":"stunDuration","_id":"22930af7-cfcc-41fc-ba44-3e9d17704b04","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDamage":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"hurlProjectileAnim":{"_value":9,"_name":"hurlProjectileAnim","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
-    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectilePrefab":{"_name":"projectilePrefab","_id":"5f84526e-fb56-49af-8d8b-9e28fb5a07c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 5459808956080126909}
@@ -27720,6 +27723,9 @@ MonoBehaviour:
     _references:
     - {fileID: 0}
     - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
+  - _json: '{"_name":"projectilePrefab","_id":"5f84526e-fb56-49af-8d8b-9e28fb5a07c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
 --- !u!114 &9030777537301804226
 MonoBehaviour:
   m_ObjectHideFlags: 0

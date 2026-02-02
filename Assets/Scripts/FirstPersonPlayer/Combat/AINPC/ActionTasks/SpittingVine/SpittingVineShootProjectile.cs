@@ -218,8 +218,8 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.SpittingVine
             }
 
             // Setup projectile script if using a custom component
-            var projectileScript = projectile.GetComponent<Projectile>();
-            if (projectileScript != null) projectileScript.speed = ProjectileSpeed.value;
+            // var projectileScript = projectile.GetComponent<Projectile>();
+            // if (projectileScript != null) projectileScript.speed = ProjectileSpeed.value;
 
             // Set layer if needed
             if (ProjectileLayerMask != -1) projectile.layer = GetLayerFromMask(ProjectileLayerMask);
