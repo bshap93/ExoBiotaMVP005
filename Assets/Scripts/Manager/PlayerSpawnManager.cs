@@ -229,7 +229,7 @@ namespace Manager
                 // Ashpool Mine,
                 "AshpoolMineDoorSpawn", "c1_entrance", "m1_entrance", "apm_debug", "m1_exit",
                 "C1_Bluehole_Intersection", "b1_foyer",
-                "chapel_center", "chapel_exit", "hotspring_house"
+                "chapel_center", "chapel_exit", "hotspring_house", "WestEntrySpawnHSAdjCorr"
             };
         }
 

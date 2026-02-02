@@ -16037,7 +16037,7 @@ MonoBehaviour:
         PlaybackDuration: {x: 0, y: 0}
         DopplerLevel: 1
         Spread: 0
-        RolloffMode: 1
+        RolloffMode: 0
         MinDistance: 1
         MaxDistance: 30
         UseCustomRolloffCurve: 0

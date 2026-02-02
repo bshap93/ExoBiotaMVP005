@@ -16,12 +16,13 @@ namespace NewScript
         [SerializeField] MMFeedbacks emergeFeedbacks;
         [SerializeField] Transform initialPosition;
         [SerializeField] float duration = 1f;
+        [SerializeField] bool shouldEmerge;
 
         bool _emerged;
 
         void Start()
         {
-            if (initialPosition != null)
+            if (initialPosition != null && shouldEmerge)
             {
                 childObject.transform.position = initialPosition.position;
                 childObject.transform.rotation = initialPosition.rotation;
@@ -39,6 +40,7 @@ namespace NewScript
 
         void OnTriggerEnter(Collider other)
         {
+            if (!shouldEmerge) return;
             if (other.CompareTag("Player") || other.CompareTag("FirstPersonPlayer"))
                 StartCoroutine(Emerge());
         }

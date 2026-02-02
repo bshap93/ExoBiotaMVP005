@@ -3,51 +3,55 @@ using FirstPersonPlayer.Interface;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
-public class LootboxInteractable : MonoBehaviour, IInteractable
+namespace FirstPersonPlayer.Interactable
 {
-    [SerializeField] GameObject topPiece;
-    [SerializeField] MMFeedbacks openFeedbacks;
-    [SerializeField] Vector3 openRotation;
-    [SerializeField] Vector3 closedRotation;
-    [SerializeField] float interactionDistance = 3.0f;
+    public class LootboxInteractable : MonoBehaviour, IInteractable
+    {
+        [SerializeField] GameObject topPiece;
+        [SerializeField] MMFeedbacks openFeedbacks;
+        [Header("Rotation Settings")]
+        [SerializeField] Vector3 openRotation;
+        [SerializeField] Vector3 closedRotation;
+        [Header("Position Settings")]
+        [SerializeField] Vector3 openPosition;
+        [SerializeField] Vector3 closedPosition;
+        [Header("Interaction Settings")]
+        [SerializeField] float interactionDistance = 3.0f;
+        [SerializeField] BoxCollider interactionCollider;
 
-    [Header("Settings")] [SerializeField] float openDuration = 1.0f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+        [Header("Settings")] [SerializeField] float openDuration = 1.0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-    public void Interact()
-    {
-        openFeedbacks?.PlayFeedbacks();
-        if (topPiece != null) topPiece.transform.DORotate(openRotation, openDuration);
-    }
-    public void OnInteractionStart()
-    {
-    }
-    public void OnInteractionEnd(string param)
-    {
-    }
-    public bool CanInteract()
-    {
-        return true;
-    }
-    public bool IsInteractable()
-    {
-        return true;
-    }
-    public void OnFocus()
-    {
-    }
-    public void OnUnfocus()
-    {
-    }
-    public float GetInteractionDistance()
-    {
-        return interactionDistance;
+        // Update is called once per frame
+        public void Interact()
+        {
+            openFeedbacks?.PlayFeedbacks();
+            if (topPiece != null) topPiece.transform.DORotate(openRotation, openDuration);
+            if (topPiece != null) topPiece.transform.DOLocalMove(openPosition, openDuration);
+            interactionCollider.enabled = false;
+        }
+        public void OnInteractionStart()
+        {
+        }
+        public void OnInteractionEnd(string param)
+        {
+        }
+        public bool CanInteract()
+        {
+            return true;
+        }
+        public bool IsInteractable()
+        {
+            return true;
+        }
+        public void OnFocus()
+        {
+        }
+        public void OnUnfocus()
+        {
+        }
+        public float GetInteractionDistance()
+        {
+            return interactionDistance;
+        }
     }
 }

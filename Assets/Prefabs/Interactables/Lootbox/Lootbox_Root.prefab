@@ -865,7 +865,7 @@ MonoBehaviour:
   seeThroughTextureUVSpace: 0
   seeThroughTextureScale: 1
   seeThroughChildrenSortingMode: 0
-  rmsCount: 4
+  rmsCount: 5
   hitFxInitialIntensity: 1
   hitFxMode: 0
   hitFxFadeOutDuration: 0.25
@@ -1081,7 +1081,10 @@ MonoBehaviour:
   openFeedbacks: {fileID: 0}
   openRotation: {x: -139, y: 0, z: 0}
   closedRotation: {x: -90, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  closedPosition: {x: 0, y: 0, z: 0}
   interactionDistance: 3
+  interactionCollider: {fileID: 0}
   openDuration: 1
 --- !u!65 &5824921338575206653
 BoxCollider:
@@ -1114,7 +1117,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1283113117182981135, guid: c290ea15c38597b4893a844f3a1411da, type: 3}
       propertyPath: m_Lightmapping
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4704927587820830770, guid: c290ea15c38597b4893a844f3a1411da, type: 3}
       propertyPath: m_StaticEditorFlags

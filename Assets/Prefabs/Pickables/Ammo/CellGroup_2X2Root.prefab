@@ -80,19 +80,21 @@ MonoBehaviour:
       m_Calls: []
   objectiveOnPick: {fileID: 0}
   incrementObjectiveOnPick: 1
-  inventoryItem: {fileID: 0}
+  inventoryItem: {fileID: 11400000, guid: 6a48d56c1e2708345aaaec00c3ec288e, type: 2}
   examinableObjectData:
     ActionIcon: {fileID: 0}
-    ActionText: 
-    Icon: {fileID: 0}
+    ActionText: Pick Item
+    Icon: {fileID: 21300000, guid: 58e2b65b463f8954ba3638d940c9b995, type: 3}
     Id: 
-    Name: 
-    ShortBlurb: 
-    FullDescription: 
+    Name: Magnium Energy Cell Basic
+    ShortBlurb: A standard weapons grade magnium battery cell.
+    FullDescription: Standardized on the energetic magnium molecule found on several
+      planets in the l 98-59 system, including on Sheol. Has about 80mg of pure enriched
+      Magnium.
     IdentificationMode: 0
-    UnknownIcon: {fileID: 0}
+    UnknownIcon: {fileID: 21300448, guid: 99cbc473450af4147999e9e68398877b, type: 3}
     UnknownShortBlurb: 
-    UnkonwnName: 
+    UnkonwnName: Unknown Item
   onPickFeedbacks: {fileID: 0}
   canBeMoved: 1
   placedByPlayerEvent:
@@ -468,7 +470,6 @@ MonoBehaviour:
   onScanned:
     m_PersistentCalls:
       m_Calls: []
-  targetDuration: 3
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &7686639507100813955
 SphereCollider:
