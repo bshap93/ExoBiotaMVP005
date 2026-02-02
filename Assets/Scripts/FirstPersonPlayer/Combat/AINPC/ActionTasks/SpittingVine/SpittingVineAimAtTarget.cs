@@ -2,7 +2,7 @@
 using ParadoxNotion.Design;
 using UnityEngine;
 
-namespace FirstPersonPlayer.Combat.AINPC.ActionTasks
+namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.SpittingVine
 {
     [Category("AttackMoves")]
     [Description("Procedurally aims a spitting plant by bending its trunk segments toward the target")]

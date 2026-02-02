@@ -2,36 +2,39 @@ using AINPC.ScriptableObjects;
 using Helpers.Events.NPCs;
 using UnityEngine;
 
-public class MovingProjectileController : MonoBehaviour
+namespace NewScript
 {
-    [SerializeField] GameObject burstEffectPrefab;
-    [SerializeField] EnemyAttack enemyAttack;
-    [SerializeField] float maxLifetime = 5f;
-    [SerializeField] LayerMask ignoreLayers;
-
-    float _lifetimeTimer;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class MovingProjectileController : MonoBehaviour
     {
-        _lifetimeTimer = maxLifetime;
-    }
+        [SerializeField] GameObject burstEffectPrefab;
+        [SerializeField] EnemyAttack enemyAttack;
+        [SerializeField] float maxLifetime = 5f;
+        [SerializeField] LayerMask ignoreLayers;
 
-    // Update is called once per frame
-    void Update()
-    {
-        _lifetimeTimer -= Time.deltaTime;
-        if (_lifetimeTimer <= 0f) Destroy(gameObject);
-    }
+        float _lifetimeTimer;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            _lifetimeTimer = maxLifetime;
+        }
 
-    void OnTriggerEnter(Collider other)
-    {
-        // Ignore collisions with specified layers
-        if (((1 << other.gameObject.layer) & ignoreLayers) != 0) return;
-        // Instantiate burst effect at the collision point
-        if (burstEffectPrefab != null) Instantiate(burstEffectPrefab, transform.position, Quaternion.identity);
-        if (other.CompareTag("FirstPersonPlayer"))
-            NPCAttackEvent.Trigger(enemyAttack);
+        // Update is called once per frame
+        void Update()
+        {
+            _lifetimeTimer -= Time.deltaTime;
+            if (_lifetimeTimer <= 0f) Destroy(gameObject);
+        }
 
-        Destroy(gameObject);
+        void OnTriggerEnter(Collider other)
+        {
+            // Ignore collisions with specified layers
+            if (((1 << other.gameObject.layer) & ignoreLayers) != 0) return;
+            // Instantiate burst effect at the collision point
+            if (burstEffectPrefab != null) Instantiate(burstEffectPrefab, transform.position, Quaternion.identity);
+            if (other.CompareTag("FirstPersonPlayer"))
+                NPCAttackEvent.Trigger(enemyAttack);
+
+            Destroy(gameObject);
+        }
     }
 }

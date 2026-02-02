@@ -11,6 +11,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         [Header("Idle Animations")] public AnimationClip idleAnimation;
         public AnimationClip additionalIdleAnimation0;
         public AnimationClip additionalIdleAnimation1;
+        public AnimationClip rangedAttackAnimation;
 
         [Header("Idle Animation Speed Multipliers")] [Range(0, 3)]
         public int numberOfIdleAnimations = 1;

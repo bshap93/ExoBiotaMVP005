@@ -6,6 +6,7 @@ using FirstPersonPlayer.Combat.AINPC;
 using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using Helpers.Events.NPCs;
 using MoreMountains.Feedbacks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,9 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [SerializeField] protected NavMeshAgent navMeshAgent;
 
 
+        [SerializeField] bool hasRangedAttack;
+        [ShowIf("hasRangedAttack")]
+        [SerializeField] Transform rangedAttackOrigin;
         // [SerializeField] MMFeedbacks deathFeedbacks;
 
         [SerializeField] MMFeedbacks movementLoopFeedbacks;

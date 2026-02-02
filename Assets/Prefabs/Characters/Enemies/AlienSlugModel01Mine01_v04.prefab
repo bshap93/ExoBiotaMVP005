@@ -27603,7 +27603,8 @@ MonoBehaviour:
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"damageFleeThreshold":{"_value":10.0,"_name":"damageFleeThreshold","_id":"8ac74fe1-735f-472a-92f0-a04f57cced11","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDuration":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.StunDuration","_name":"stunDuration","_id":"22930af7-cfcc-41fc-ba44-3e9d17704b04","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDamage":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"hurlProjectileAnim":{"_value":9,"_name":"hurlProjectileAnim","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 5459808956080126909}
@@ -27614,6 +27615,7 @@ MonoBehaviour:
   - {fileID: 709852135956699652}
   - {fileID: 1245882690682072010, guid: d012efae3339615448803dc8a5f45070, type: 3}
   - {fileID: -5533903024747340832, guid: 0b3ae7b4d59b6fb4298ffde2e3a0df20, type: 3}
+  - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
   _serializedVariables:
   - _json: '{"_value":1,"_name":"playerTransform","_id":"1e0739de-cf1a-4914-a23c-0dd56246e2c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
@@ -27713,6 +27715,11 @@ MonoBehaviour:
   - _json: '{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
+  - _json: '{"_value":1,"_name":"hurlProjectileAnim","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+      UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references:
+    - {fileID: 0}
+    - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
 --- !u!114 &9030777537301804226
 MonoBehaviour:
   m_ObjectHideFlags: 0
