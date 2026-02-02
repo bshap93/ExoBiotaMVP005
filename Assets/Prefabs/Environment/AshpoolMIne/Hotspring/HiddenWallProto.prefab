@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: a7a0b4a7ef8825a4296d884750da861d, type: 2}
-  profileSync: 0
+  profileSync: 1
   camerasLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -621,7 +621,7 @@ MonoBehaviour:
   overlayTextureScrolling: {x: 0, y: 0}
   overlayVisibility: 0
   outline: 1
-  outlineColor: {r: 0.45627072, g: 0.33018857, b: 1, a: 1}
+  outlineColor: {r: 0.39920357, g: 0.25882354, b: 0.43529412, a: 1}
   outlineColorStyle: 0
   outlineGradient:
     serializedVersion: 2
@@ -654,50 +654,50 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   outlineGradientInLocalSpace: 0
-  outlineWidth: 0.8
+  outlineWidth: 0.6
   outlineBlurPasses: 2
   outlineQuality: 1
   outlineEdgeMode: 0
   outlineEdgeThreshold: 0.995
   outlineSharpness: 1
   outlineDownsampling: 2
-  outlineVisibility: 0
+  outlineVisibility: 1
   glowBlendMode: 0
   outlineBlitDebug: 0
   outlineIndependent: 0
   outlineContourStyle: 0
   outlineMaskMode: 0
   glow: 0
-  glowWidth: 0.5
-  glowQuality: 1
+  glowWidth: 0.001
+  glowQuality: 3
   glowBlurMethod: 0
   glowDownsampling: 2
   glowHQColor: {r: 0.64, g: 1, b: 0, a: 1}
-  glowDithering: 1
+  glowDithering: 0.519
   glowDitheringStyle: 0
   glowMagicNumber1: 0.75
   glowMagicNumber2: 0.5
   glowAnimationSpeed: 1
-  glowVisibility: 0
+  glowVisibility: 1
   glowBlitDebug: 0
   glowBlendPasses: 1
   glowPasses:
   - offset: 4
     alpha: 0.1
-    color: {r: 0.1882353, g: 0.8, b: 0.6784314, a: 1}
+    color: {r: 0.7272457, g: 0.7484276, b: 0.7442184, a: 1}
   - offset: 3
     alpha: 0.2
-    color: {r: 0.1882353, g: 0.8, b: 0.6784314, a: 1}
+    color: {r: 0.7251096, g: 0.7610062, b: 0.7538729, a: 1}
   - offset: 2
     alpha: 0.3
-    color: {r: 0.1882353, g: 0.8, b: 0.6784314, a: 1}
+    color: {r: 0.69825155, g: 0.72327036, b: 0.7182987, a: 1}
   - offset: 1
     alpha: 0.4
-    color: {r: 0.1882353, g: 0.8, b: 0.6784314, a: 1}
+    color: {r: 0.72427905, g: 0.735849, b: 0.73354983, a: 1}
   glowMaskMode: 0
-  innerGlow: 0.05
+  innerGlow: 0.1
   innerGlowWidth: 1
-  innerGlowColor: {r: 1, g: 1, b: 1, a: 1}
+  innerGlowColor: {r: 0.36477977, g: 0.32921946, b: 0.32921946, a: 1}
   innerGlowBlendMode: 0
   innerGlowVisibility: 0
   targetFX: 0
@@ -719,8 +719,8 @@ MonoBehaviour:
   targetFXTransitionDuration: 0.5
   targetFXStayDuration: 1.5
   targetFXVisibility: 1
-  iconFX: 0
-  iconFXMesh: {fileID: 0}
+  iconFX: 1
+  iconFXMesh: {fileID: 4300000, guid: 7fd1abd8e4a72f642b75cb7569fd5d82, type: 3}
   iconFXLightColor: {r: 1, g: 1, b: 1, a: 1}
   iconFXDarkColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   iconFXCenter: {fileID: 0}
@@ -728,11 +728,11 @@ MonoBehaviour:
   iconFXAnimationOption: 0
   iconFXAnimationAmount: 0.1
   iconFXAnimationSpeed: 3
-  iconFXScale: 1
+  iconFXScale: 0.5
   iconFXScaleToRenderBounds: 0
-  iconFXOffset: {x: 0, y: 1, z: 0}
+  iconFXOffset: {x: 0, y: 0, z: -1}
   iconFXTransitionDuration: 0.5
-  iconFXStayDuration: 1.5
+  iconFXStayDuration: 1.2
   seeThrough: 2
   seeThroughOccluderMask:
     serializedVersion: 2
