@@ -17,7 +17,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.Slug
         public BBParameter<GameObject> ProjectilePrefab;
         [Tooltip("Projectile speed (units per second)")]
         public BBParameter<float> ProjectileSpeed = 15f;
-        public Transform ProjectileOrigin;
+        public BBParameter<Transform> ProjectileOrigin;
         
         [RequiredField] [Tooltip("The target to shoot at")]
         public BBParameter<GameObject> ShootTarget;
@@ -29,7 +29,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.Slug
                 return;
             }
             
-            var creaturePosition = ProjectileOrigin.position;
+            var creaturePosition = ProjectileOrigin.value.position;
             
             var shootDirection = (ShootTarget.value.transform.position - creaturePosition).normalized;
             
@@ -52,7 +52,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.Slug
             if (rb != null)
             {
                 rb.isKinematic = false;
-                rb.useGravity = false;
+                rb.useGravity = true;
 #if UNITY_6000_0_OR_NEWER
                 rb.linearVelocity = direction * ProjectileSpeed.value;
                 Debug.Log(
@@ -70,10 +70,30 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.Slug
                     $"Slug Projectile: Projectile prefab '{ProjectilePrefab.value.name}' has no Rigidbody! Add a Rigidbody component for physics-based movement.");
             }
             
-            // var projectileScript = projectile.GetComponent<MovingProjectileController>();
-            
-            // if (ProjectileLayerMask != -1) projectile.layer = ProjectileLayerMask;
-            
+            // Setup projectile script if using a custom component
+            var projectileScript = projectile.GetComponent<Projectile>();
+            if (projectileScript != null) projectileScript.speed = ProjectileSpeed.value;
+
+            // Set layer if needed
+            if (ProjectileLayerMask != -1) projectile.layer = GetLayerFromMask(ProjectileLayerMask);
+
+            Debug.Log(
+                $"Projectile fired at {ProjectileSpeed.value} m/s toward {ShootTarget.value.name}, direction: {direction}");
+        }
+        
+        int GetLayerFromMask(LayerMask mask)
+        {
+            var layerNumber = 0;
+            var layer = mask.value;
+            while (layer > 1)
+            {
+                layer = layer >> 1;
+                layerNumber++;
+            }
+
+            return layerNumber;
         }
     }
+    
+    
 }
