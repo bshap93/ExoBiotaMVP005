@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1321897860645474070, guid: f8d546867e1f67844a257dd271662623, type: 3}
+      propertyPath: burstEffectPrefab
+      value: 
+      objectReference: {fileID: 3488845559809314002, guid: 59743eb59eda51d43acad0f1265de0c0, type: 3}
     - target: {fileID: 3811937761712741983, guid: f8d546867e1f67844a257dd271662623, type: 3}
       propertyPath: m_Color.b
       value: 0.022936597
