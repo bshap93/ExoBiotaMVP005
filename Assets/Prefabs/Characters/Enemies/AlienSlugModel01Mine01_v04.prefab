@@ -27428,7 +27428,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.74017113, z: 0, w: 0.67241853}
   m_LocalPosition: {x: 2.5231, y: -9.347, z: -4.7203}
-  m_LocalScale: {x: 0.70537, y: 0.70537, z: 0.70537}
+  m_LocalScale: {x: 0.7053702, y: 0.70537, z: 0.7053702}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9116758284883068482}
@@ -27605,7 +27605,7 @@ MonoBehaviour:
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"damageFleeThreshold":{"_value":10.0,"_name":"damageFleeThreshold","_id":"8ac74fe1-735f-472a-92f0-a04f57cced11","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDuration":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.StunDuration","_name":"stunDuration","_id":"22930af7-cfcc-41fc-ba44-3e9d17704b04","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDamage":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"hurlProjectileAnim":{"_value":9,"_name":"hurlProjectileAnim","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"rangedHurlAnimClip":{"_value":9,"_name":"rangedHurlAnimClip","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectilePrefab":{"_value":10,"_name":"projectilePrefab","_id":"5f84526e-fb56-49af-8d8b-9e28fb5a07c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectileOrigin":{"_value":11,"_name":"projectileOrigin","_id":"25572e61-6794-4611-9840-5f0998970aa8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"prepareToUseRange":{"_value":12,"_name":"prepareToUseRange","_id":"bb79b9d6-0729-41fa-a573-c782ca6a4107","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
@@ -27621,9 +27621,9 @@ MonoBehaviour:
   - {fileID: 1245882690682072010, guid: d012efae3339615448803dc8a5f45070, type: 3}
   - {fileID: -5533903024747340832, guid: 0b3ae7b4d59b6fb4298ffde2e3a0df20, type: 3}
   - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
-  - {fileID: 152696, guid: 5ec1ce7dcf17bcd4e9059e92623dbb68, type: 3}
+  - {fileID: 7036783973982609404, guid: f8d546867e1f67844a257dd271662623, type: 3}
   - {fileID: 4653782747825842691}
-  - {fileID: 1358262452650834379, guid: 1c82b9ef81e9c5f49a44101a4f927410, type: 3}
+  - {fileID: 7400000, guid: baa5b0c9b031d7a43bb18e59da5f8483, type: 2}
   _serializedVariables:
   - _json: '{"_value":1,"_name":"playerTransform","_id":"1e0739de-cf1a-4914-a23c-0dd56246e2c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
@@ -27723,7 +27723,7 @@ MonoBehaviour:
   - _json: '{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
-  - _json: '{"_value":1,"_name":"hurlProjectileAnim","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+  - _json: '{"_value":1,"_name":"rangedHurlAnimClip","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
       UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references:
     - {fileID: 0}
@@ -27732,7 +27732,7 @@ MonoBehaviour:
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references:
     - {fileID: 0}
-    - {fileID: 152696, guid: 5ec1ce7dcf17bcd4e9059e92623dbb68, type: 3}
+    - {fileID: 7036783973982609404, guid: f8d546867e1f67844a257dd271662623, type: 3}
   - _json: '{"_value":1,"_name":"projectileOrigin","_id":"25572e61-6794-4611-9840-5f0998970aa8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references:
@@ -27742,7 +27742,7 @@ MonoBehaviour:
       UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references:
     - {fileID: 0}
-    - {fileID: 1358262452650834379, guid: 1c82b9ef81e9c5f49a44101a4f927410, type: 3}
+    - {fileID: 7400000, guid: baa5b0c9b031d7a43bb18e59da5f8483, type: 2}
 --- !u!114 &9030777537301804226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28238,7 +28238,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.70600045, z: 1.544}
-  m_LocalScale: {x: 0.6568603, y: 0.41915566, z: 1.4553195}
+  m_LocalScale: {x: 0.85037136, y: 0.5426389, z: 1.8840567}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 134104576240316504}
