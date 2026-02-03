@@ -9,6 +9,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
     {
         Melee,
         Ranged,
+        AOEAttack,
         ContaminantPOE
     }
 

@@ -22,7 +22,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [SerializeField] bool hasRangedAttack;
         [ShowIf("hasRangedAttack")]
         [SerializeField] Transform rangedAttackOrigin;
-        // [SerializeField] MMFeedbacks deathFeedbacks;
 
         [SerializeField] MMFeedbacks movementLoopFeedbacks;
 
