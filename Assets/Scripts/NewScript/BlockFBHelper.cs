@@ -1,4 +1,4 @@
-using AINPC.ScriptableObjects;
+using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using FirstPersonPlayer.Tools;
 using Helpers.Events.NPCs;
 using MoreMountains.Feedbacks;

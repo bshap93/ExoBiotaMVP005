@@ -1,6 +1,6 @@
 using System;
-using AINPC.ScriptableObjects;
 using Animancer;
+using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using Helpers.Events.NPCs;
 using Helpers.ScriptableObjects.Animation;
 using MoreMountains.Tools;

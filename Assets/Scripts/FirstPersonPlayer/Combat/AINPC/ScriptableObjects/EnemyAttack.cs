@@ -1,8 +1,8 @@
 ﻿using System;
-using ParadoxNotion.Design;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace AINPC.ScriptableObjects
+namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
 {
     [Serializable]
     public enum NPCAttackType
@@ -30,12 +30,17 @@ namespace AINPC.ScriptableObjects
         public float knockbackForce = 1f;
         public bool causesBleeding;
         // showif
-        [ShowIf("causesBleeding", 1)] [Range(0f, 1f)]
+        [ShowIf("causesBleeding")] [Range(0f, 1f)]
         public float chanceToCauseBleeding;
         public bool causesStagger;
         // showif
-        [ShowIf("causesStagger", 1)] [Range(0f, 1f)]
+        [ShowIf("causesStagger")] [Range(0f, 1f)]
         public float chanceToCauseStagger;
+        
+        public bool causesPoisoning;
+        [ShowIf("causesPoisoning")] public float poisonAmount;
+        [ShowIf("causesPoisoning")] [Range(0f, 1f)] public float chanceToCausePoisoning;
+        [ShowIf("causesPoisoning")] public float poisonDuration;
 
         public NPCAttackType attackType;
         public string AttackId => name;

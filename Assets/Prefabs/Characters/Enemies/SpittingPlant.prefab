@@ -11300,7 +11300,7 @@ MonoBehaviour:
         Owner: {fileID: 6862988344883148186}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 0}
+        Sfx: {fileID: 8300000, guid: 05023c9d18c7b9240862e5fcf16f2d20, type: 3}
         AudioResourceToPlay: {fileID: 0}
         RandomSfx:
         - {fileID: 8300000, guid: 73e166bb10e1b1e408869eabaf6e34cd, type: 3}
@@ -11616,7 +11616,7 @@ MonoBehaviour:
         RemapCurveZero: 1
         RemapCurveOne: 0
         Offset: 0
-        AnimateX: 0
+        AnimateX: 1
         AnimateScaleTweenX:
           MMTweenDefinitionType: 0
           MMTweenCurve: 5
@@ -11657,7 +11657,7 @@ MonoBehaviour:
           ConditionPropertyName: AnimateX
           EnumConditionPropertyName: 
           EnumConditions: 0000000000000000000000000000000000000000000000000000000000000000
-        AnimateY: 1
+        AnimateY: 0
         AnimateScaleTweenY:
           MMTweenDefinitionType: 0
           MMTweenCurve: 5
@@ -12148,7 +12148,8 @@ MonoBehaviour:
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"spitFB":{"_value":3,"_name":"spitFB","_id":"d0ac9eb6-56fa-4cc4-8c76-f14851bff590","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isPeaceful":{"_name":"isPeaceful","_id":"462a0ebc-c79e-4f06-ad8a-bba5a0b4f02d","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"shootAnim":{"_value":4,"_name":"shootAnim","_id":"60ffef79-1cf3-419e-b25e-67c7ce3de2c5","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
-    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"shootRange":{"_value":20.0,"_name":"shootRange","_id":"310ac529-5b9a-47eb-be50-a17b0dc9fb27","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 2814150201899916695}
@@ -12263,6 +12264,9 @@ MonoBehaviour:
     _references:
     - {fileID: 0}
     - {fileID: 7400000, guid: b702ea7d42a8a3e46bc51bea3bd83325, type: 2}
+  - _json: '{"_value":20.0,"_name":"shootRange","_id":"310ac529-5b9a-47eb-be50-a17b0dc9fb27","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
 --- !u!114 &6051364946677830182
 MonoBehaviour:
   m_ObjectHideFlags: 0

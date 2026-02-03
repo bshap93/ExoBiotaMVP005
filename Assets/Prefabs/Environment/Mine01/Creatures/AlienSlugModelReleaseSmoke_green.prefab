@@ -70,39 +70,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: albedo.b
-      value: 0.79543924
+      value: 0.49164814
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: albedo.g
-      value: 0.9308176
+      value: 0.7106918
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: albedo.r
-      value: 0.7698271
+      value: 0.45368057
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
+      propertyPath: fadeInDuration
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: mainLightTint.b
-      value: 0.89894533
+      value: 0.63203716
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: mainLightTint.g
-      value: 0.99371064
+      value: 0.7987421
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: mainLightTint.r
-      value: 0.89683944
+      value: 0.62040657
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: ambientColorTint.b
-      value: 0.8687376
+      value: 0.6513719
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: ambientColorTint.g
-      value: 0.98742133
+      value: 0.8553459
       objectReference: {fileID: 0}
     - target: {fileID: 4357597741405609232, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: ambientColorTint.r
-      value: 0.85390204
+      value: 0.61057705
       objectReference: {fileID: 0}
     - target: {fileID: 6286065525519235199, guid: 1a325e89978fed34890abe9929d2c665, type: 3}
       propertyPath: managedReferences[6816597358848508096].SpatialBlend

@@ -1,4 +1,4 @@
-using AINPC.ScriptableObjects;
+using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using Helpers.Events.NPCs;
 using UnityEngine;
 

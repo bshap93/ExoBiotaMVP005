@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using AINPC.ScriptableObjects;
 using Animancer;
 using DG.Tweening;
 using FirstPersonPlayer.Combat.AINPC;

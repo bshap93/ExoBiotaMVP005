@@ -1,5 +1,4 @@
-﻿using AINPC.ScriptableObjects;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
 {

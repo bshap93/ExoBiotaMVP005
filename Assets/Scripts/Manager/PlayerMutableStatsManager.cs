@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using AINPC.ScriptableObjects;
+using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using FirstPersonPlayer.Tools;
 using FirstPersonPlayer.UI.Stats;
 using Helpers.Events;

@@ -34318,6 +34318,8 @@ MonoBehaviour:
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4910336818156672049}
+  hasRangedAttack: 0
+  rangedAttackOrigin: {fileID: 0}
   movementLoopFeedbacks: {fileID: 8523868604088296807}
 --- !u!114 &5604256302807840470
 MonoBehaviour:

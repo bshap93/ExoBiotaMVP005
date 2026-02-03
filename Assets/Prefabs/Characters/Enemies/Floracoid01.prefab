@@ -26581,7 +26581,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 4
+  m_Height: 3.6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7172297331656389351
@@ -31874,6 +31874,8 @@ MonoBehaviour:
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4739854027701427398}
+  hasRangedAttack: 0
+  rangedAttackOrigin: {fileID: 0}
   movementLoopFeedbacks: {fileID: 634697667294985226}
 --- !u!114 &8855108282264343631
 MonoBehaviour:
@@ -31945,6 +31947,8 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"alerted":{"_name":"alerted","_id":"82fa1a0f-75cb-418f-9efd-a36ed602cb95","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"wasHitAnimationClip":{"_value":6,"_name":"wasHitAnimationClip","_id":"f063a7d4-6454-433e-8a64-2b8789168d09","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"maxHealth":{"_value":1.0,"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.MaxHealth","_name":"maxHealth","_id":"faad22b3-ee40-4998-99c1-0b29ceda747e","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"waitTimeBeforeAttack":{"_value":0.5,"_name":"waitTimeBeforeAttack","_id":"7ecddd87-a4b2-46d7-83f2-dcb330ffc5bb","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"distanceToAttack":{"_value":3.6,"_name":"distanceToAttack","_id":"f9b9c7b6-39e2-482f-82c6-cda5f9758005","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
   _objectReferences:
   - {fileID: 0}
@@ -32025,6 +32029,12 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: -1185445123150118769, guid: 6df3e8b63318bdb469ecbe85fad623f0, type: 3}
   - _json: '{"_value":1.0,"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.MaxHealth","_name":"maxHealth","_id":"faad22b3-ee40-4998-99c1-0b29ceda747e","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
+  - _json: '{"_value":0.5,"_name":"waitTimeBeforeAttack","_id":"7ecddd87-a4b2-46d7-83f2-dcb330ffc5bb","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
+  - _json: '{"_value":3.6,"_name":"distanceToAttack","_id":"f9b9c7b6-39e2-482f-82c6-cda5f9758005","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
 --- !u!114 &6588288626416064837

@@ -1,4 +1,4 @@
-﻿using AINPC.ScriptableObjects;
+﻿using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using MoreMountains.Tools;
 
 namespace Helpers.Events.NPCs
