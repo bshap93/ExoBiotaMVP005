@@ -27466,7 +27466,7 @@ MonoBehaviour:
   meleeHitFeedbacksHeavy: {fileID: 363966855796393735}
   rangedHitFeedbacksHeavy: {fileID: 363966855796393735}
   secondsBeforeSettingShouldBeDestroyed: 5
-  currentHealth: 20
+  currentHealth: 30
   attackCount: 1
   attackInstances:
   - attackName: 
@@ -27586,7 +27586,7 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"attackFeedback":{"_value":3,"_name":"attackFeedback","_id":"bda4591b-259b-4035-9ba9-ee745bfbee6e","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"enemyTransform":{"_value":4,"_name":"enemyTransform","_id":"b655003a-34fb-46cc-aa95-f43048d52593","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isDead":{"_name":"isDead","_id":"ff8e8ca4-a48b-4522-8ea2-114f3f7c6695","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"attackDistance":{"_value":3.0,"_name":"attackDistance","_id":"f138f71a-4c61-4601-ba07-004900f625a7","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"attackDistance":{"_value":3.5,"_name":"attackDistance","_id":"f138f71a-4c61-4601-ba07-004900f625a7","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"canSeeLayerMask":{"_value":{"value":3849},"_name":"canSeeLayerMask","_id":"0106f851-426a-4fa6-bbc3-f32066e603c5","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.LayerMask,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"wasHit":{"_name":"wasHit","_id":"d1670856-5e86-4f12-bbc9-2bcef8d034fd","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"wasHitAnimationClip":{"_name":"wasHitAnimationClip","_id":"09cdb936-e3bd-4de5-836c-79e24209e46a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
@@ -27658,7 +27658,7 @@ MonoBehaviour:
   - _json: '{"_name":"isDead","_id":"ff8e8ca4-a48b-4522-8ea2-114f3f7c6695","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
-  - _json: '{"_value":3.0,"_name":"attackDistance","_id":"f138f71a-4c61-4601-ba07-004900f625a7","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+  - _json: '{"_value":3.5,"_name":"attackDistance","_id":"f138f71a-4c61-4601-ba07-004900f625a7","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
   - _json: '{"_value":{"value":3849},"_name":"canSeeLayerMask","_id":"0106f851-426a-4fa6-bbc3-f32066e603c5","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.LayerMask,
@@ -28238,7 +28238,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.70600045, z: 1.544}
-  m_LocalScale: {x: 0.90547544, y: 0.5778019, z: 2.0061436}
+  m_LocalScale: {x: 1.0868422, y: 0.69353557, z: 2.407974}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 134104576240316504}
