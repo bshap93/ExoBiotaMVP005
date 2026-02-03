@@ -6004,13 +6004,13 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 1073741823
-  initialGunMode: 0
+  initialGunMode: 2
   attackProfile: {fileID: 11400000, guid: 8e9d0dc8a71665e489c035d0f18bc257, type: 2}
+  stunAttackProfile: {fileID: 0}
   requiresEnergy: 1
   muzzlePosition: {fileID: 3044257727786208642}
   muzzleFlashPrefab: {fileID: 2533489141059133825, guid: 6963c0daa3346c540be4a218690e38bb, type: 3}
   hitSparksPrefab: {fileID: 7264065572978307275, guid: ec1e4ecb868579e41b40ec884b9c9ef8, type: 3}
-  missSparksPrefab: {fileID: 7264065572978307275, guid: ec1e4ecb868579e41b40ec884b9c9ef8, type: 3}
   stunMuzzleFlashPrefab: {fileID: 1244097275185869250, guid: 9c8b68410fdfa794ca504adde8f08343, type: 3}
   stunHitSparksPrefab: {fileID: 84516229166269364, guid: 9a575e7d2efae9343ae855e06d290dce, type: 3}
   stunMissSparksPrefab: {fileID: 84516229166269364, guid: 9a575e7d2efae9343ae855e06d290dce, type: 3}
@@ -6025,6 +6025,14 @@ MonoBehaviour:
   beamWidth: 0.04
   beamDuration: 0.1
   beamColor: {r: 1, g: 0.9687844, b: 0.90880495, a: 1}
+  stunBeamLineRenderers:
+  - {fileID: 5359607015401004913}
+  - {fileID: 6525090750220197965}
+  - {fileID: 4106519644860572760}
+  - {fileID: 2422282031132277605}
+  stunBeamWidth: 0.04
+  stunBeamDuration: 0.1
+  stunBeamColor: {r: 1, g: 1, b: 1, a: 1}
   recoilBackComponent: 0.009
   recoilBackDuration: 0.15
   recoilBackVibrato: 8

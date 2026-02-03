@@ -30,9 +30,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         [Header("Combat Settings")] [FormerlySerializedAs("initialPistolMode")] [SerializeField]
         EnergyGunMode initialGunMode;
-        [Header("Attack Profiles")]
-        [SerializeField] PlayerToolAttackProfile attackProfile;
-        [SerializeField] PlayerToolAttackProfile stunAttackProfile;
+        [Header("Attack Profiles")] [SerializeField]
+        PlayerToolAttackProfile attackProfile;
         [SerializeField] bool requiresEnergy = true;
 
         [Header("Visual Effects")] [SerializeField]
@@ -53,14 +52,12 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         [SerializeField] float beamVerticalOffset = -0.04f;
 
 
-        [Header("Laser Beam LineRenderers")]
-        [SerializeField]
+        [Header("Laser Beam LineRenderers")] [SerializeField]
         LineRenderer[] beamLineRenderers;
         [SerializeField] float beamWidth = 0.03f;
         [SerializeField] float beamDuration = 0.1f;
         [SerializeField] Color beamColor = Color.cyan;
-        [Header("Stun Beam LineRenderers")]
-        [SerializeField]
+        [Header("Stun Beam LineRenderers")] [SerializeField]
         LineRenderer[] stunBeamLineRenderers;
         [SerializeField] float stunBeamWidth = 0.03f;
         [SerializeField] float stunBeamDuration = 0.1f;
@@ -75,8 +72,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         [Header("Feedbacks")] [SerializeField] MMFeedbacks missFeedbacks;
         [SerializeField] MMFeedbacks outOfAmmoFeedbacks;
-        [Header("Set to Laser Mode")] 
-        [SerializeField]
+        [Header("Set to Laser Mode")] [SerializeField]
         MMFeedbacks shootFeedbacks;
         [FormerlySerializedAs("hitFeedbacks")] [SerializeField]
         MMFeedbacks nonLocalHitFeedbacks;
@@ -234,8 +230,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 }
 
                 // Ensure we only use the specified number of beams
-                numberOfBeams = Mathf.Min(numberOfBeams, stunBeamLineRenderers.Length); 
-                
+                numberOfBeams = Mathf.Min(numberOfBeams, stunBeamLineRenderers.Length);
+
                 for (var i = 0; i < stunBeamLineRenderers.Length; i++)
                 {
                     var beam = stunBeamLineRenderers[i];
@@ -461,9 +457,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         IEnumerator DrawMultipleBeams(Vector3 start, Vector3 end)
         {
             if (_currentGunMode == EnergyGunMode.Laser)
-            if (beamLineRenderers == null || beamLineRenderers.Length == 0) yield break;
-            else if (_currentGunMode == EnergyGunMode.Stun) 
-            if (stunBeamLineRenderers == null || stunBeamLineRenderers.Length == 0) yield break;
+                if (beamLineRenderers == null || beamLineRenderers.Length == 0) yield break;
+                else if (_currentGunMode == EnergyGunMode.Stun)
+                    if (stunBeamLineRenderers == null || stunBeamLineRenderers.Length == 0)
+                        yield break;
 
             // Calculate the camera's up vector for vertical offset
             var cameraUp = mainCamera.transform.up;
@@ -477,18 +474,18 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
             // Draw each beam with vertical offset
             if (_currentGunMode == EnergyGunMode.Laser)
-            for (var i = 0; i < numberOfBeams && i < beamLineRenderers.Length; i++)
-            {
-                var beam = beamLineRenderers[i];
-                if (beam == null) continue;
+                for (var i = 0; i < numberOfBeams && i < beamLineRenderers.Length; i++)
+                {
+                    var beam = beamLineRenderers[i];
+                    if (beam == null) continue;
 
-                // Calculate vertical offset for this beam
-                var verticalOffset = (i * beamVerticalSpacing - startOffset) * cameraUp + baseOffset;
+                    // Calculate vertical offset for this beam
+                    var verticalOffset = (i * beamVerticalSpacing - startOffset) * cameraUp + baseOffset;
 
-                beam.enabled = true;
-                beam.SetPosition(0, start + verticalOffset);
-                beam.SetPosition(1, end + verticalOffset);
-            }
+                    beam.enabled = true;
+                    beam.SetPosition(0, start + verticalOffset);
+                    beam.SetPosition(1, end + verticalOffset);
+                }
             else if (_currentGunMode == EnergyGunMode.Stun)
                 for (var i = 0; i < numberOfBeams && i < stunBeamLineRenderers.Length; i++)
                 {
@@ -505,7 +502,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
             if (_currentGunMode == EnergyGunMode.Laser)
                 yield return new WaitForSeconds(beamDuration);
-            else if (_currentGunMode == EnergyGunMode.Stun) 
+            else if (_currentGunMode == EnergyGunMode.Stun)
                 yield return new WaitForSeconds(stunBeamDuration);
 
             // Disable all beams
@@ -513,10 +510,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 for (var iL = 0; iL < numberOfBeams && iL < beamLineRenderers.Length; iL++)
                     if (beamLineRenderers[iL] != null)
                         beamLineRenderers[iL].enabled = false;
-            else if (_currentGunMode == EnergyGunMode.Stun)
-                for (var iS = 0; iS < numberOfBeams && iS < stunBeamLineRenderers.Length; iS++)
-                    if (stunBeamLineRenderers[iS] != null)
-                        stunBeamLineRenderers[iS].enabled = false;
+                    else if (_currentGunMode == EnergyGunMode.Stun)
+                        for (var iS = 0; iS < numberOfBeams && iS < stunBeamLineRenderers.Length; iS++)
+                            if (stunBeamLineRenderers[iS] != null)
+                                stunBeamLineRenderers[iS].enabled = false;
         }
 
 
@@ -566,7 +563,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                     SpawnHitFX(stunHitSparksPrefab, hit.point, hit.normal);
                     stunNonLocalHitFeedbacks?.PlayFeedbacks();
                 }
-
             }
             // Hit generic surface
             else
@@ -581,7 +577,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                     SpawnHitFX(stunHitSparksPrefab, hit.point, hit.normal);
                     stunNonLocalHitFeedbacks?.PlayFeedbacks();
                 }
-
             }
         }
 
