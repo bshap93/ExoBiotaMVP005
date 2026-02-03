@@ -28,17 +28,23 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         [SerializeField] float range = 50f;
         [SerializeField] LayerMask hitMask = ~0;
 
-        [Header("Combat Settings")] [SerializeField]
-        PlayerToolAttackProfile attackProfile;
+        [Header("Combat Settings")] [FormerlySerializedAs("initialPistolMode")] [SerializeField]
+        EnergyGunMode initialGunMode;
+        [Header("Attack Profiles")]
+        [SerializeField] PlayerToolAttackProfile attackProfile;
+        [SerializeField] PlayerToolAttackProfile stunAttackProfile;
         [SerializeField] bool requiresEnergy = true;
 
         [Header("Visual Effects")] [SerializeField]
         Transform muzzlePosition;
-        [SerializeField] GameObject muzzleFlashPrefab;
+        [Header("Set to Laser")] [SerializeField]
+        GameObject muzzleFlashPrefab;
         [SerializeField] GameObject hitSparksPrefab;
-        [SerializeField] GameObject missSparksPrefab;
-        [FormerlySerializedAs("initialPistolMode")] [SerializeField]
-        EnergyGunMode initialGunMode;
+        [Header("Set to Stun")] [SerializeField]
+        GameObject stunMuzzleFlashPrefab;
+        [SerializeField] GameObject stunHitSparksPrefab;
+        [SerializeField] GameObject stunMissSparksPrefab;
+
 
         [Header("Multi-Beam Settings")] [Tooltip("Number of beams to render (2 or 3 recommended)")] [SerializeField]
         int numberOfBeams = 3;
@@ -47,10 +53,18 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         [SerializeField] float beamVerticalOffset = -0.04f;
 
 
-        [SerializeField] LineRenderer[] beamLineRenderers;
+        [Header("Laser Beam LineRenderers")]
+        [SerializeField]
+        LineRenderer[] beamLineRenderers;
         [SerializeField] float beamWidth = 0.03f;
         [SerializeField] float beamDuration = 0.1f;
         [SerializeField] Color beamColor = Color.cyan;
+        [Header("Stun Beam LineRenderers")]
+        [SerializeField]
+        LineRenderer[] stunBeamLineRenderers;
+        [SerializeField] float stunBeamWidth = 0.03f;
+        [SerializeField] float stunBeamDuration = 0.1f;
+        [SerializeField] Color stunBeamColor = Color.white;
 
         [Header("Recoil Settings")] [SerializeField]
         float recoilBackComponent = 0.001f;
@@ -59,11 +73,17 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         [SerializeField] float recoilBackElasticity = 0.4f;
 
 
-        [Header("Feedbacks")] [SerializeField] MMFeedbacks shootFeedbacks;
+        [Header("Feedbacks")] [SerializeField] MMFeedbacks missFeedbacks;
+        [SerializeField] MMFeedbacks outOfAmmoFeedbacks;
+        [Header("Set to Laser Mode")] 
+        [SerializeField]
+        MMFeedbacks shootFeedbacks;
         [FormerlySerializedAs("hitFeedbacks")] [SerializeField]
         MMFeedbacks nonLocalHitFeedbacks;
-        [SerializeField] MMFeedbacks missFeedbacks;
-        [SerializeField] MMFeedbacks outOfAmmoFeedbacks;
+        [Header("Set to Stun Mode")] [SerializeField]
+        MMFeedbacks stunShootFeedbacks;
+        [SerializeField] MMFeedbacks stunNonLocalHitFeedbacks;
+
 
         [Header("Scriptable Object Reference")] [SerializeField]
         PistolToolObject pistolToolObject;
@@ -94,9 +114,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             // Setup multiple beam renderers
             SetupBeamRenderers();
             // Setup persistent muzzle flash (Hovl style)
-            if (muzzleFlashPrefab != null && muzzlePosition != null)
+            if (muzzlePosition != null)
             {
-                _muzzleFlashInstance = Instantiate(muzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+                if (muzzleFlashPrefab != null && _currentGunMode == EnergyGunMode.Laser)
+                    _muzzleFlashInstance = Instantiate(
+                        muzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+                else if (stunMuzzleFlashPrefab != null && _currentGunMode == EnergyGunMode.Stun)
+                    _muzzleFlashInstance = Instantiate(
+                        stunMuzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+
                 _muzzleFlashInstance.transform.SetParent(muzzlePosition);
                 _muzzleParticles = _muzzleFlashInstance.GetComponentsInChildren<ParticleSystem>();
 
@@ -109,9 +135,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             _currentGunMode = initialGunMode;
 
             // Setup persistent muzzle flash (Hovl style)
-            if (muzzleFlashPrefab != null && muzzlePosition != null)
+            if (muzzlePosition != null)
             {
-                _muzzleFlashInstance = Instantiate(muzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+                if (muzzleFlashPrefab != null && _currentGunMode == EnergyGunMode.Laser)
+                    _muzzleFlashInstance = Instantiate(
+                        muzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+                else if (stunMuzzleFlashPrefab != null && _currentGunMode == EnergyGunMode.Stun)
+                    _muzzleFlashInstance = Instantiate(
+                        stunMuzzleFlashPrefab, muzzlePosition.position, muzzlePosition.rotation);
+
                 _muzzleFlashInstance.transform.SetParent(muzzlePosition);
                 _muzzleParticles = _muzzleFlashInstance.GetComponentsInChildren<ParticleSystem>();
 
@@ -160,29 +192,70 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         void SetupBeamRenderers()
         {
-            if (beamLineRenderers == null || beamLineRenderers.Length == 0)
+            if (_currentGunMode == EnergyGunMode.Laser)
             {
-                Debug.LogWarning("No beam LineRenderers assigned. Please assign them in the Inspector.");
-                return;
-            }
-
-            // Ensure we only use the specified number of beams
-            numberOfBeams = Mathf.Min(numberOfBeams, beamLineRenderers.Length);
-
-            for (var i = 0; i < beamLineRenderers.Length; i++)
-            {
-                var beam = beamLineRenderers[i];
-                if (beam != null)
+                if (beamLineRenderers == null || beamLineRenderers.Length == 0)
                 {
-                    beam.enabled = false;
-                    beam.startColor = beamColor;
-                    beam.endColor = beamColor;
-                    beam.startWidth = beamWidth;
-                    beam.endWidth = beamWidth * 0.8f;
-                    beam.positionCount = 2;
+                    Debug.LogWarning("No beam LineRenderers assigned. Please assign them in the Inspector.");
+                    return;
+                }
 
-                    // Hide unused beams
-                    if (i >= numberOfBeams) beam.gameObject.SetActive(false);
+                // Ensure we only use the specified number of beams
+                numberOfBeams = Mathf.Min(numberOfBeams, beamLineRenderers.Length);
+
+                for (var i = 0; i < beamLineRenderers.Length; i++)
+                {
+                    var beam = beamLineRenderers[i];
+                    if (beam != null)
+                    {
+                        beam.enabled = false;
+                        beam.startColor = beamColor;
+
+
+                        beam.endColor = beamColor;
+
+
+                        // Rest are same for both modes
+                        beam.startWidth = beamWidth;
+                        beam.endWidth = beamWidth * 0.8f;
+                        beam.positionCount = 2;
+
+                        // Hide unused beams
+                        if (i >= numberOfBeams) beam.gameObject.SetActive(false);
+                    }
+                }
+            }
+            else if (_currentGunMode == EnergyGunMode.Stun)
+            {
+                if (stunBeamLineRenderers == null || stunBeamLineRenderers.Length == 0)
+                {
+                    Debug.LogWarning("No beam LineRenderers assigned. Please assign them in the Inspector.");
+                    return;
+                }
+
+                // Ensure we only use the specified number of beams
+                numberOfBeams = Mathf.Min(numberOfBeams, stunBeamLineRenderers.Length); 
+                
+                for (var i = 0; i < stunBeamLineRenderers.Length; i++)
+                {
+                    var beam = stunBeamLineRenderers[i];
+                    if (beam != null)
+                    {
+                        beam.enabled = false;
+                        beam.startColor = stunBeamColor;
+
+
+                        beam.endColor = stunBeamColor;
+
+
+                        // Rest are same for both modes
+                        beam.startWidth = stunBeamWidth;
+                        beam.endWidth = stunBeamWidth * 0.8f;
+                        beam.positionCount = 2;
+
+                        // Hide unused beams
+                        if (i >= numberOfBeams) beam.gameObject.SetActive(false);
+                    }
                 }
             }
         }
@@ -291,7 +364,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             // AnimateSlideOutAndBack();
             AnimateFrontEmitterOutAndBack();
             OnUseStarted();
-            shootFeedbacks?.PlayFeedbacks();
+            if (_currentGunMode == EnergyGunMode.Laser)
+                shootFeedbacks?.PlayFeedbacks();
+            else if (_currentGunMode == EnergyGunMode.Stun)
+                stunShootFeedbacks?.PlayFeedbacks();
 
             // Play muzzle flash particles (Hovl style)
             PlayMuzzleFlash();
@@ -384,7 +460,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         IEnumerator DrawMultipleBeams(Vector3 start, Vector3 end)
         {
+            if (_currentGunMode == EnergyGunMode.Laser)
             if (beamLineRenderers == null || beamLineRenderers.Length == 0) yield break;
+            else if (_currentGunMode == EnergyGunMode.Stun) 
+            if (stunBeamLineRenderers == null || stunBeamLineRenderers.Length == 0) yield break;
 
             // Calculate the camera's up vector for vertical offset
             var cameraUp = mainCamera.transform.up;
@@ -397,6 +476,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             var baseOffset = beamVerticalOffset * cameraUp;
 
             // Draw each beam with vertical offset
+            if (_currentGunMode == EnergyGunMode.Laser)
             for (var i = 0; i < numberOfBeams && i < beamLineRenderers.Length; i++)
             {
                 var beam = beamLineRenderers[i];
@@ -409,13 +489,34 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 beam.SetPosition(0, start + verticalOffset);
                 beam.SetPosition(1, end + verticalOffset);
             }
+            else if (_currentGunMode == EnergyGunMode.Stun)
+                for (var i = 0; i < numberOfBeams && i < stunBeamLineRenderers.Length; i++)
+                {
+                    var beam = stunBeamLineRenderers[i];
+                    if (beam == null) continue;
 
-            yield return new WaitForSeconds(beamDuration);
+                    // Calculate vertical offset for this beam
+                    var verticalOffset = (i * beamVerticalSpacing - startOffset) * cameraUp + baseOffset;
+
+                    beam.enabled = true;
+                    beam.SetPosition(0, start + verticalOffset);
+                    beam.SetPosition(1, end + verticalOffset);
+                }
+
+            if (_currentGunMode == EnergyGunMode.Laser)
+                yield return new WaitForSeconds(beamDuration);
+            else if (_currentGunMode == EnergyGunMode.Stun) 
+                yield return new WaitForSeconds(stunBeamDuration);
 
             // Disable all beams
-            for (var i = 0; i < numberOfBeams && i < beamLineRenderers.Length; i++)
-                if (beamLineRenderers[i] != null)
-                    beamLineRenderers[i].enabled = false;
+            if (_currentGunMode == EnergyGunMode.Laser)
+                for (var iL = 0; iL < numberOfBeams && iL < beamLineRenderers.Length; iL++)
+                    if (beamLineRenderers[iL] != null)
+                        beamLineRenderers[iL].enabled = false;
+            else if (_currentGunMode == EnergyGunMode.Stun)
+                for (var iS = 0; iS < numberOfBeams && iS < stunBeamLineRenderers.Length; iS++)
+                    if (stunBeamLineRenderers[iS] != null)
+                        stunBeamLineRenderers[iS].enabled = false;
         }
 
 
@@ -438,30 +539,49 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                     {
                         var attack = attackProfile?.basicAttack;
                         if (attack != null) creatureController.ProcessAttackDamage(attack, hit.point);
+                        nonLocalHitFeedbacks?.PlayFeedbacks();
                     }
                     else if (_currentGunMode == EnergyGunMode.Stun)
                     {
                         var attack = attackProfile?.basicStunAttack;
                         if (attack != null) creatureController.ProcessAttackDamage(attack, hit.point);
+                        stunNonLocalHitFeedbacks?.PlayFeedbacks();
                     }
 
 
-                    nonLocalHitFeedbacks?.PlayFeedbacks();
                     Debug.Log($"Energy pistol hit enemy: {creatureController.name}");
                 }
             }
             // Hit breakable object
             else if (go.TryGetComponent<IBreakable>(out var breakable))
             {
-                if (_currentGunMode == EnergyGunMode.Laser) breakable.ApplyHit(1, hit.point, hit.normal);
-                SpawnHitFX(hitSparksPrefab, hit.point, hit.normal);
-                nonLocalHitFeedbacks?.PlayFeedbacks();
+                if (_currentGunMode == EnergyGunMode.Laser)
+                {
+                    breakable.ApplyHit(1, hit.point, hit.normal);
+                    SpawnHitFX(hitSparksPrefab, hit.point, hit.normal);
+                    nonLocalHitFeedbacks?.PlayFeedbacks();
+                }
+                else if (_currentGunMode == EnergyGunMode.Stun)
+                {
+                    SpawnHitFX(stunHitSparksPrefab, hit.point, hit.normal);
+                    stunNonLocalHitFeedbacks?.PlayFeedbacks();
+                }
+
             }
             // Hit generic surface
             else
             {
-                SpawnHitFX(hitSparksPrefab, hit.point, hit.normal);
-                nonLocalHitFeedbacks?.PlayFeedbacks();
+                if (_currentGunMode == EnergyGunMode.Laser)
+                {
+                    SpawnHitFX(hitSparksPrefab, hit.point, hit.normal);
+                    nonLocalHitFeedbacks?.PlayFeedbacks();
+                }
+                else if (_currentGunMode == EnergyGunMode.Stun)
+                {
+                    SpawnHitFX(stunHitSparksPrefab, hit.point, hit.normal);
+                    stunNonLocalHitFeedbacks?.PlayFeedbacks();
+                }
+
             }
         }
 
