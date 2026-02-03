@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2645308577209755537}
   - component: {fileID: 5804589946731767809}
   - component: {fileID: 7301380691004115225}
+  - component: {fileID: 4817704168328360740}
   m_Layer: 8
   m_Name: HeatPistolPickable
   m_TagString: Untagged
@@ -95,6 +96,47 @@ MonoBehaviour:
     UnknownShortBlurb: 
     UnkonwnName: 
   onPickFeedbacks: {fileID: 8588988543313189854}
+  canBeMoved: 1
+  placedByPlayerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4817704168328360740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372835961917906587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab61beb303f4cc2af9de8675f8c712c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  actionId: 97
+  actionText: Pick
+  quantity: 1
+  interactionDistance: 2
+  onItemPicked:
+    m_PersistentCalls:
+      m_Calls: []
+  objectiveOnPick: {fileID: 0}
+  incrementObjectiveOnPick: 1
+  inventoryItem: {fileID: 11400000, guid: 641ae2d4f56c52f49a69871e1f0ac6cb, type: 2}
+  examinableObjectData:
+    ActionIcon: {fileID: 0}
+    ActionText: Pick Item
+    Icon: {fileID: 21300000, guid: 0f29a99d278aaa649a4a9712799550fb, type: 3}
+    Id: 
+    Name: Worn Stun Pistol
+    ShortBlurb: Standard Science Directorate self defense unit, standard issue Sheol
+      planetary armory.
+    FullDescription: 
+    IdentificationMode: 0
+    UnknownIcon: {fileID: 0}
+    UnknownShortBlurb: 
+    UnkonwnName: 
+  onPickFeedbacks: {fileID: 0}
   canBeMoved: 1
   placedByPlayerEvent:
     m_PersistentCalls:

@@ -44,31 +44,31 @@ namespace FirstPersonPlayer.Tools
 
         public void OnMMEvent(ToolEvent eventType)
         {
-            if (eventType.ToolType == ToolType.Shovel)
-                switch (eventType.ToolIteration)
-                {
-                    case ToolIteration.First:
-                        OnToolUseAction.Invoke();
-                        break;
-                    case ToolIteration.Second:
-                        Debug.Log("Tool used with second smallest iteration");
-                        OnToolUseAction.Invoke();
-                        break;
-                }
-            else if (eventType.ToolType == ToolType.Pickaxe)
-                switch (eventType.ToolIteration)
-                {
-                    case ToolIteration.First:
-                        Debug.Log("Tool used with first smallest iteration");
-                        OnToolUseAction.Invoke();
-                        break;
-                    case ToolIteration.Second:
-                        Debug.Log("Tool used with second smallest iteration");
-                        OnToolUseAction.Invoke();
-                        break;
-                }
-            else if (eventType.ToolType == ToolType.Scanner)
-                Debug.Log("Tool used with scanner");
+            // if (eventType.ToolType == ToolType.Shovel)
+            //     switch (eventType.ToolIteration)
+            //     {
+            //         case ToolIteration.First:
+            //             OnToolUseAction.Invoke();
+            //             break;
+            //         case ToolIteration.Second:
+            //             Debug.Log("Tool used with second smallest iteration");
+            //             OnToolUseAction.Invoke();
+            //             break;
+            //     }
+            // else if (eventType.ToolType == ToolType.Pickaxe)
+            //     switch (eventType.ToolIteration)
+            //     {
+            //         case ToolIteration.First:
+            //             Debug.Log("Tool used with first smallest iteration");
+            //             OnToolUseAction.Invoke();
+            //             break;
+            //         case ToolIteration.Second:
+            //             Debug.Log("Tool used with second smallest iteration");
+            //             OnToolUseAction.Invoke();
+            //             break;
+            //     }
+            // else if (eventType.ToolType == ToolType.Scanner)
+            //     Debug.Log("Tool used with scanner");
         }
 
 

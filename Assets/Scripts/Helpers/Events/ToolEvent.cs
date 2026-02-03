@@ -6,7 +6,8 @@ namespace Domains.Gameplay.Mining.Events
     public enum ToolEventType
     {
         UseTool,
-        UpgradeTool
+        UpgradeTool,
+        ToggleToolMode
     }
 
     public struct ToolEvent
@@ -14,16 +15,16 @@ namespace Domains.Gameplay.Mining.Events
         public static ToolEvent _e;
 
         public ToolEventType EventType;
-        public ToolType ToolType;
-        public ToolIteration ToolIteration;
+        // public ToolType ToolType;
+        // public ToolIteration ToolIteration;
 
 
-        public static void Trigger(ToolEventType eventType, ToolType toolType, ToolIteration toolIteration
+        public static void Trigger(ToolEventType eventType
         )
         {
             _e.EventType = eventType;
-            _e.ToolType = toolType;
-            _e.ToolIteration = toolIteration;
+            // _e.ToolType = toolType;
+            // _e.ToolIteration = toolIteration;
             MMEventManager.TriggerEvent(_e);
         }
     }

@@ -1,3 +1,5 @@
+using Domains.Gameplay.Mining.Events;
+using FirstPersonPlayer.Tools;
 using Helpers.Events;
 using Helpers.Events.Inventory;
 using MoreMountains.Tools;
@@ -142,6 +144,8 @@ namespace FirstPersonPlayer
                 {
                     _isHoldingDropPropOrHold = true;
                     _currentHoldTimeDropPropOrHold = 0f;
+                    
+                    ToolEvent.Trigger(ToolEventType.ToggleToolMode);
                 }
 
                 _currentHoldTimeDropPropOrHold += Time.deltaTime;
