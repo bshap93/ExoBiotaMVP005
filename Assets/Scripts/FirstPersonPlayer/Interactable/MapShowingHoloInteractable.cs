@@ -70,7 +70,7 @@ namespace FirstPersonPlayer.Interactable
         {
             return 3f;
         }
-        public string UniqueID { get; }
+        public string UniqueID => uniqueID;
         public void SetUniqueID()
         {
             uniqueID = Guid.NewGuid().ToString();

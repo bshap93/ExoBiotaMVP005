@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 6054873956375790255}
   - component: {fileID: 877310659920072728}
   - component: {fileID: 5694703793191537624}
+  - component: {fileID: 256746640102771953}
   m_Layer: 8
   m_Name: MetaServiceTerminal
   m_TagString: Untagged
@@ -511,3 +512,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4239376274457786259, guid: 032bcd6ba909d654ca3393fc7c0a6627, type: 3}
+--- !u!114 &256746640102771953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5070637943472329245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbcde0eb08054b94bb603fa281e7d189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
