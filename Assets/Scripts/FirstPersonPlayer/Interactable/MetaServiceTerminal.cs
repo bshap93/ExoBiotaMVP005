@@ -5,13 +5,14 @@ using Helpers.Events.Dialog;
 using Lightbug.Utilities;
 using Manager.DialogueScene;
 using MoreMountains.Feedbacks;
+using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Interface;
 
 namespace FirstPersonPlayer.Interactable
 {
-    public class MetaServiceTerminal : MonoBehaviour, IInteractable, IRequiresUniqueID
+    public class MetaServiceTerminal : MonoBehaviour, IInteractable, IRequiresUniqueID, IBillboardable
     {
         public string uniqueID;
         [SerializeField] MMFeedbacks startDialogueFeedback;
@@ -22,6 +23,26 @@ namespace FirstPersonPlayer.Interactable
 
         [ValueDropdown("GetNpcIdOptions")] public
             string npcId;
+        public string GetName()
+        {
+            throw new NotImplementedException();
+        }
+        public Sprite GetIcon()
+        {
+            throw new NotImplementedException();
+        }
+        public string ShortBlurb()
+        {
+            throw new NotImplementedException();
+        }
+        public Sprite GetActionIcon()
+        {
+            throw new NotImplementedException();
+        }
+        public string GetActionText()
+        {
+            throw new NotImplementedException();
+        }
         public void Interact()
         {
             if (!CanInteract()) return;
