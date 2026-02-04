@@ -18,6 +18,8 @@ namespace CustomAssets.AssetExtensions.InventoryEngine.PickupDisplayer
         [Tooltip("the prefab to use to display achievements")]
         public PickupDisplayItem PickupDisplayPrefab;
 
+        public string trashInventoryName;
+
         [Tooltip("the duration the pickup display item will remain on screen")]
         public float PickupDisplayDuration = 5;
 
@@ -106,6 +108,10 @@ namespace CustomAssets.AssetExtensions.InventoryEngine.PickupDisplayer
                 iconOverride = ExaminationManager.Instance.iconRepository.removeItemIcon;
 
             var item = inventoryEvent.EventItem;
+            // Do not display if the item is going to trash
+            if (item.TargetInventoryName == trashInventoryName) return;
+
+
             var quantity = inventoryEvent.Quantity;
             if (_displays.TryGetValue(item.ItemID, out var display))
             {

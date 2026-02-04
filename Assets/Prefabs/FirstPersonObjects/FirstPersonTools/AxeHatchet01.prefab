@@ -210,8 +210,8 @@ MonoBehaviour:
   detectableType: 0
   rightHandEquippableTool: {fileID: 11400000, guid: 65b3c94fbf4855643ae0eaf2d87b603d, type: 2}
   useMultipleSwings: 1
-  swing01HitDelay: 0.65
-  swing02HitDelay: 0.4
+  swing01HitDelay: 0.325
+  swing02HitDelay: 0.2
   swing03HitDelay: 0.4
   swingSpeedMultiplier: 1.5
   defaultHitDelay: 0.4
