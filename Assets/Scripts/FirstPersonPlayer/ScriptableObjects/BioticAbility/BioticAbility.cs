@@ -49,6 +49,6 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
 
         public float abilityBaseRange;
 
-        public GameObject runtimeAbilityPrefab;
+        // public GameObject runtimeAbilityPrefab;
     }
 }

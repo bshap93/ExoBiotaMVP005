@@ -5,11 +5,19 @@ namespace FirstPersonPlayer.Tools.Interface
 {
     public interface IRuntimeBioticAbility
     {
+
+        public enum UsageScheme
+        {
+            Activation,
+            UseTool,
+        }
         /// <summary>
         ///     Called when the ability is first activated
         /// </summary>
         void Activate(FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility abilityData,
             Transform originTransform);
+        
+        UsageScheme GetUsageScheme();
 
         /// <summary>
         ///     Called when the ability should stop (button released, ran out of resources, etc.)

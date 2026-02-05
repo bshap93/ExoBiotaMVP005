@@ -265,9 +265,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6287761734418792185}
-  - component: {fileID: 3237549041151409739}
+  - component: {fileID: 8880021896786010336}
   m_Layer: 0
-  m_Name: WitherBeamAbility
+  m_Name: StunBeamAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +290,7 @@ Transform:
   - {fileID: 2558118364625417175}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3237549041151409739
+--- !u!114 &8880021896786010336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,15 +299,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8552582018377281175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3804442fa4024ec6a2a69115b002dc7d, type: 3}
+  m_Script: {fileID: 11500000, guid: c2914819eb0c49c18a40c5a7bc638b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicalRoot: {fileID: 4018453037904610018}
-  muzzlePosition: {fileID: 2558118364625417175}
-  muzzleFlashPrefab: {fileID: 1252071660800121837, guid: ca912ef37642d3742b983840148fe812, type: 3}
-  hitSparksPrefab: {fileID: 0}
-  missSparksPrefab: {fileID: 0}
-  beamWidth: 0.03
-  beamDuration: 0.1
-  beamColor: {r: 0, g: 1, b: 0, a: 1}
-  lifeDrainBeamLineRenderer: {fileID: 3287167174705877219}
