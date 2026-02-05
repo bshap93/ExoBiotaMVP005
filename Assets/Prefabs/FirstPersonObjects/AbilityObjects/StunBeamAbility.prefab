@@ -219,7 +219,7 @@ MonoBehaviour:
         Owner: {fileID: 7182709680355473136}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 8300000, guid: c5918ba0659160c49b9d7f19f936f8a3, type: 3}
+        Sfx: {fileID: 8300000, guid: e7810133fafe2714ca514c7cd12cf0c3, type: 3}
         AudioResourceToPlay: {fileID: 0}
         RandomSfx: []
         SequentialOrder: 0
@@ -1553,9 +1553,12 @@ MonoBehaviour:
         Owner: {fileID: 3075260076576197309}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 8300000, guid: 9309f38dc7a307544843399da55a8d46, type: 3}
+        Sfx: {fileID: 0}
         AudioResourceToPlay: {fileID: 0}
-        RandomSfx: []
+        RandomSfx:
+        - {fileID: 8300000, guid: 1d040b1c52b77468ebd5e9369522377b, type: 3}
+        - {fileID: 8300000, guid: 7f3e09b6bc6ef48e5af99ee81c0d0a97, type: 3}
+        - {fileID: 8300000, guid: f85bd342b218c4bb99af6d1621f98952, type: 3}
         SequentialOrder: 1
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
@@ -2020,7 +2023,8 @@ MonoBehaviour:
         Sfx: {fileID: 0}
         AudioResourceToPlay: {fileID: 0}
         RandomSfx:
-        - {fileID: 8300000, guid: bef863a69cad1544cb85b4793ec53196, type: 3}
+        - {fileID: 8300000, guid: 90ab1d513c7824b1a83201ad88c74f4a, type: 3}
+        - {fileID: 8300000, guid: 622f10e1819d641debfe0e614bf59b27, type: 3}
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
@@ -2109,7 +2113,7 @@ MonoBehaviour:
         SoloAllTracks: 0
         AutoUnSoloOnEnd: 0
         PanStereo: 0
-        SpatialBlend: 1
+        SpatialBlend: 0
         AttachToTransform: {fileID: 0}
         BypassEffects: 0
         BypassListenerEffects: 0
@@ -2236,10 +2240,9 @@ MonoBehaviour:
         Owner: {fileID: 1308847032130834121}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 0}
+        Sfx: {fileID: 8300000, guid: fcdd83e453db3b64bb419c541efd3ea4, type: 3}
         AudioResourceToPlay: {fileID: 0}
-        RandomSfx:
-        - {fileID: 8300000, guid: 2b46abc6f8f5abb479530ecf4458e11d, type: 3}
+        RandomSfx: []
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
@@ -2549,6 +2552,7 @@ MonoBehaviour:
   numberOfBeams: 1
   beamVerticalSpacing: 0.03
   abilityData: {fileID: 11400000, guid: f79610d10f787234981ed1b7af71535b, type: 2}
+  delayBeforeBeamAfterFeedbacks: 0.4
   cooldownTime: 0.5
   hitMask:
     serializedVersion: 2

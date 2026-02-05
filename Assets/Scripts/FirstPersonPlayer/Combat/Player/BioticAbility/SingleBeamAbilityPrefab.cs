@@ -23,6 +23,8 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         [SerializeField] FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility
             abilityData; // Reference to the ScriptableObject for range and damage info
 
+        [Header("Delays")] [SerializeField] float delayBeforeBeamAfterFeedbacks;
+
         [Header("Shooting Settings")] [SerializeField]
         float cooldownTime = 0.5f;
         [SerializeField] LayerMask hitMask = ~0;
@@ -153,7 +155,7 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
             }
 
             // Fire the beam
-            FireBeam();
+            StartCoroutine(FireBeam());
 
             _readyToFire = false;
             _timeSinceLastUse = 0f;
@@ -195,17 +197,22 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
             return unequipFeedbacks;
         }
 
-        void FireBeam()
+        IEnumerator FireBeam()
         {
-            // Play feedbacks
-            shootFeedbacks?.PlayFeedbacks();
-            PlayMuzzleFlash();
-
             if (!_mainCamera)
                 _mainCamera = Camera.main;
 
             if (!_mainCamera)
-                return;
+                yield break;
+
+
+            // Play feedbacks
+            shootFeedbacks?.PlayFeedbacks();
+            yield return new WaitForSeconds(delayBeforeBeamAfterFeedbacks);
+
+
+            PlayMuzzleFlash();
+
 
             PlayerStatsEvent.Trigger(
                 PlayerStatsEvent.PlayerStat.CurrentContamination, PlayerStatsEvent.PlayerStatChangeType.Decrease,
