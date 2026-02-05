@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using MoreMountains.Feedbacks;
+using UnityEngine;
 
-namespace FirstPersonPlayer.Combat.Player.BioticAbility
+namespace FirstPersonPlayer.Tools.Interface
 {
     public interface IRuntimeBioticAbility
     {
@@ -19,5 +20,26 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         ///     Returns true if the ability is currently active
         /// </summary>
         bool IsActive();
+        
+        
+        void Initialize(PlayerEquippedAbility owner);
+
+        void Use();
+        
+        void Unequip();
+        
+        void Equip();
+        
+        bool CanInteractWithObject(GameObject colliderGameObject);
+        
+        bool AbilityMustBeHeldToUse();
+        
+        bool CanAbortAction();
+        
+        MMFeedbacks GetEquipFeedbacks();
+        MMFeedbacks GetUnequipFeedbacks();
+        
+        
+
     }
 }

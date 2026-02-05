@@ -7,7 +7,7 @@ using UnityEngine;
 
 // [WIP] Placeholder for revised First Person Interaction-Inventory system	
 
-namespace FirstPersonPlayer.UI
+namespace FirstPersonPlayer.UI.ProgressBars
 {
     public class ProgressBarBlue : MonoBehaviour, MMEventListener<EquipmentEvent>,
         MMEventListener<BioSampleEvent>, MMEventListener<ScannerEvent>,

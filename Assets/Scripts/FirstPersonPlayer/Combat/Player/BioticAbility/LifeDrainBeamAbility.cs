@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using FirstPersonPlayer.Tools.Interface;
+using MoreMountains.Feedbacks;
+using UnityEngine;
 
 namespace FirstPersonPlayer.Combat.Player.BioticAbility
 {
@@ -60,6 +62,42 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         public bool IsActive()
         {
             return _isActive;
+        }
+        public void Initialize(PlayerEquippedAbility owner)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void Use()
+        {
+            throw new System.NotImplementedException();
+        }
+        public void Unequip()
+        {
+            throw new System.NotImplementedException();
+        }
+        public void Equip()
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool CanInteractWithObject(GameObject colliderGameObject)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool AbilityMustBeHeldToUse()
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool CanAbortAction()
+        {
+            throw new System.NotImplementedException();
+        }
+        public MMFeedbacks GetEquipFeedbacks()
+        {
+            throw new System.NotImplementedException();
+        }
+        public MMFeedbacks GetUnequipFeedbacks()
+        {
+            throw new System.NotImplementedException();
         }
 
         void PlayMuzzleFlash(Transform originTransform)

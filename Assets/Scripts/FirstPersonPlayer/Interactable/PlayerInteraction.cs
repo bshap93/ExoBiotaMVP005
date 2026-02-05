@@ -10,6 +10,7 @@ using FirstPersonPlayer.UI;
 using Helpers.Events;
 using LevelConstruct.Interactable.ItemInteractables.ItemPicker;
 using MoreMountains.Tools;
+using Rewired;
 using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using Unity.Cinemachine;
@@ -32,7 +33,7 @@ namespace FirstPersonPlayer.Interactable
 
         [FormerlySerializedAs("RightHandEquipment")] [SerializeField]
         PlayerEquipment rightHandEquipment;
-        [SerializeField] PlayerBioticPowerEquipped equippedPlayerBioticPower;
+        [SerializeField] PlayerEquippedAbility equippedPlayerBioticPower;
         // [SerializeField] PlayerEquipment leftHandEquipment;
 
         public PlayerPropPickup propPickup;
@@ -61,7 +62,7 @@ namespace FirstPersonPlayer.Interactable
 
         bool _holdingItem;
 
-        public PlayerBioticPowerEquipped EquippedPlayerBioticPower => equippedPlayerBioticPower;
+        public PlayerEquippedAbility EquippedPlayerBioticPower => equippedPlayerBioticPower;
 
         // public PlayerEquipment LeftHandEquipment => leftHandEquipment;
 

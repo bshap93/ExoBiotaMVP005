@@ -401,7 +401,7 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 5
     - _id: 46
-      _name: Sprint
+      _name: SprintOrAbility
       _type: 1
       _descriptiveName: Action0
       _positiveDescriptiveName: 

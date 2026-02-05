@@ -8,7 +8,7 @@ using FirstPersonPlayer.Tools.Animation;
 using FirstPersonPlayer.Tools.Interface;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using FirstPersonPlayer.Tools.ToolPrefabScripts;
-using FirstPersonPlayer.UI;
+using FirstPersonPlayer.UI.ProgressBars;
 using Helpers.AnimancerHelper;
 using Helpers.Events;
 using Helpers.ScriptableObjects.Animation;
@@ -27,12 +27,6 @@ namespace FirstPersonPlayer.Tools
 {
     public class PlayerEquipment : MonoBehaviour, MMEventListener<MMInventoryEvent>
     {
-        public enum HandConfig
-        {
-            Primary,
-            ShooterHands
-        }
-
         public bool autoEquipLightSourceInLeftHand;
 
 #if UNITY_EDITOR
@@ -88,7 +82,6 @@ namespace FirstPersonPlayer.Tools
 
         [SerializeField] HandConfig _currentHandConfig = HandConfig.Primary;
         [SerializeField] Transform _currentToolAnchor;
-        // ToolAnimationSet _currentArmAnimationSet =
 
         Coroutine _equipInitRoutine;
 
@@ -547,6 +540,11 @@ namespace FirstPersonPlayer.Tools
                 yield return new ValueDropdownItem<int>(action.name, action.id);
         }
 #endif
+        enum HandConfig
+        {
+            Primary,
+            ShooterHands
+        }
 
         [Serializable]
         public class EquipObjectives

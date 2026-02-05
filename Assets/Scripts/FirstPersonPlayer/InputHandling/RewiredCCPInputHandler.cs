@@ -10,17 +10,17 @@ namespace FirstPersonPlayer.InputHandling
 {
     public class RewiredCcpInputHandler : InputHandler
     {
-        private const int MoveForwardBackActionId = 9;
-        private const int MoveLeftRightActionId = 10;
+        const int MoveForwardBackActionId = 9;
+        const int MoveLeftRightActionId = 10;
         public const int FirstPersonPlayerId = 0;
-        private const int LookXActionId = 44; // Add this
-        private const int LookYActionId = 45; // Add this
+        const int LookXActionId = 44; // Add this
+        const int LookYActionId = 45; // Add this
 
         [FormerlySerializedAs("_fpPlayerInput")] [SerializeField]
-        private RewiredFirstPersonInputs _rewiredFirstPersonInputs;
+        RewiredFirstPersonInputs _rewiredFirstPersonInputs;
 
         // Dictionary to map Vector2 action names to the two separate axes
-        private readonly Dictionary<string, Vector2Action> vector2Actions = new()
+        readonly Dictionary<string, Vector2Action> vector2Actions = new()
         {
             { "Movement", new Vector2Action(MoveLeftRightActionId, MoveForwardBackActionId) },
             // Add more Vector2 actions here if needed, like:
@@ -39,15 +39,19 @@ namespace FirstPersonPlayer.InputHandling
                         output = _rewiredFirstPersonInputs.GetButtonInput(RewiredFirstPersonInputs.InputActions.Jump);
                         break;
                     case "Run":
-                        output = _rewiredFirstPersonInputs.GetButtonInput(RewiredFirstPersonInputs.InputActions.Sprint);
+                        output = _rewiredFirstPersonInputs.GetButtonInput(
+                            RewiredFirstPersonInputs.InputActions.SprintOrAbility);
+
                         break;
                     case "Interact":
                         output = _rewiredFirstPersonInputs.GetButtonInput(
                             RewiredFirstPersonInputs.InputActions.Interact);
+
                         break;
                     case "Jet Pack":
                         output = _rewiredFirstPersonInputs.GetButtonInput(
                             RewiredFirstPersonInputs.InputActions.JumpHeld);
+
                         break;
                     case "Dash":
                         output = _rewiredFirstPersonInputs.GetButtonInput(RewiredFirstPersonInputs.InputActions.NoOp);
@@ -101,10 +105,14 @@ namespace FirstPersonPlayer.InputHandling
                 switch (actionName)
                 {
                     case "Movement":
-                        var moveX = _rewiredFirstPersonInputs.GetAxisInput(RewiredFirstPersonInputs.InputActions
-                            .MoveLeftRight);
-                        var moveY = _rewiredFirstPersonInputs.GetAxisInput(RewiredFirstPersonInputs.InputActions
-                            .MoveForwardBackward);
+                        var moveX = _rewiredFirstPersonInputs.GetAxisInput(
+                            RewiredFirstPersonInputs.InputActions
+                                .MoveLeftRight);
+
+                        var moveY = _rewiredFirstPersonInputs.GetAxisInput(
+                            RewiredFirstPersonInputs.InputActions
+                                .MoveForwardBackward);
+
                         output = new Vector2(moveX, moveY);
                         break;
 
@@ -128,7 +136,7 @@ namespace FirstPersonPlayer.InputHandling
         }
 
 
-        private struct Vector2Action
+        struct Vector2Action
         {
             public readonly int xActionId;
             public readonly int yActionId;

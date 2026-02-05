@@ -1,5 +1,4 @@
 using Domains.Gameplay.Mining.Events;
-using FirstPersonPlayer.Tools;
 using Helpers.Events;
 using Helpers.Events.Inventory;
 using MoreMountains.Tools;
@@ -25,7 +24,8 @@ namespace FirstPersonPlayer
             InteractHeld,
             JumpHeld,
             NoOp,
-            Sprint,
+            SprintOrAbility,
+            HeldSprintOrAbility,
             SprintStart,
             SprintStop,
             DropPropOrHold,
@@ -60,6 +60,9 @@ namespace FirstPersonPlayer
         public bool interact;
         public bool interactHeld;
         public bool crouch;
+        [FormerlySerializedAs("sprintOrAbility")]
+        public bool pressedSprintOrAbility;
+        public bool heldSprintOrAbility;
         public bool useEquipped;
         public bool heldEquipped;
         [FormerlySerializedAs("pickUpProp")] public bool dropPropOrHold;
@@ -121,6 +124,10 @@ namespace FirstPersonPlayer
             interact = _rewiredPlayer.GetButtonDown("Interact");
             interactHeld = _rewiredPlayer.GetButton("Interact");
             crouch = _rewiredPlayer.GetButton("Crouch");
+
+            pressedSprintOrAbility = _rewiredPlayer.GetButtonDown("SprintOrAbility");
+            heldSprintOrAbility = _rewiredPlayer.GetButton("SprintOrAbility");
+
             dropPropOrHold = _rewiredPlayer.GetButton("DropPropOrHold");
             dropPropOrHoldDown = _rewiredPlayer.GetButtonDown("DropPropOrHold");
             useEquipped = _rewiredPlayer.GetButtonDown("UseEquipped");
@@ -144,7 +151,7 @@ namespace FirstPersonPlayer
                 {
                     _isHoldingDropPropOrHold = true;
                     _currentHoldTimeDropPropOrHold = 0f;
-                    
+
                     ToolEvent.Trigger(ToolEventType.ToggleToolMode);
                 }
 
@@ -198,14 +205,12 @@ namespace FirstPersonPlayer
                 case InputActions.Crouch:
                     return crouch;
 
-                // case InputActions.Sprint:
-                //     return sprint;
-                //
-                // case InputActions.SprintStart:
-                //     return sprintStart;
-                //
-                // case InputActions.SprintStop:
-                //     return sprintStop;
+                case InputActions.SprintOrAbility:
+                    return pressedSprintOrAbility;
+
+                case InputActions.HeldSprintOrAbility:
+                    return heldSprintOrAbility;
+
 
                 case InputActions.InteractHeld:
                     return interactHeld;

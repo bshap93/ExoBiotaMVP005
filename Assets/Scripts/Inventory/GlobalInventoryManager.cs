@@ -23,6 +23,7 @@ namespace Inventory
             LHand,
             RHand,
             Back,
+            BioticAbility,
             NotEquippable,
             Unknown
         }
@@ -38,6 +39,7 @@ namespace Inventory
         public const string LeftHandEquipmentInventoryName = "LEquipmentInventory";
         public const string RightHandEquipmentInventoryName = "EquippedItemInventory";
         public const string BackEquipmentInventoryName = "BackEquippedItemInv";
+        public const string BioticAbilityInventoryName = "BioticAbilityInventory";
         public const string DirigibleInventoryName = "DirigibleInventory";
         public const string DirigibleScannerInventoryName = "DirigMainScannerInventory";
         public const string KeyTypeInventoryName = "KeyItemsInventory";
@@ -58,6 +60,7 @@ namespace Inventory
 
         public MoreMountains.InventoryEngine.Inventory equipmentInventory;
         public MoreMountains.InventoryEngine.Inventory backEquipmentInventory;
+        public MoreMountains.InventoryEngine.Inventory bioticAbilityInventory;
         public MoreMountains.InventoryEngine.Inventory keyItemInventory;
         [FormerlySerializedAs("innerCoresInventory")]
         public MoreMountains.InventoryEngine.Inventory outerCoresInventory;
@@ -73,6 +76,7 @@ namespace Inventory
         public DefaultInventoryDefinition equipmentStartingItems;
         public DefaultInventoryDefinition dirigibleStartingItems;
         public DefaultInventoryDefinition backEquipmentStartingItems;
+        public DefaultInventoryDefinition bioticAbilityStartingItems;
         public DefaultInventoryDefinition dirigibleScannerStartingItems;
         public DefaultInventoryDefinition keyItemStartingItems;
         [FormerlySerializedAs("innerCoresStartingItems")]
@@ -327,6 +331,8 @@ namespace Inventory
             PopulateInventory(dirigibleScannerSlot, dirigibleScannerStartingItems);
             PopulateInventory(keyItemInventory, keyItemStartingItems);
             PopulateInventory(outerCoresInventory, outerCoresStartingItems);
+            PopulateInventory(bioticAbilityInventory, bioticAbilityStartingItems);
+            PopulateInventory(ammoInventory, ammoStartingItems);
         }
 
         static void PopulateInventory(MoreMountains.InventoryEngine.Inventory inv,
@@ -359,6 +365,8 @@ namespace Inventory
             SaveOne(dirigibleScannerSlot);
             SaveOne(keyItemInventory);
             SaveOne(outerCoresInventory);
+            SaveOne(bioticAbilityInventory);
+            SaveOne(ammoInventory);
         }
         void TryEmptyIntoInventory(MoreMountains.InventoryEngine.Inventory rEquipInventory,
             MoreMountains.InventoryEngine.Inventory playerInventory1)
@@ -384,6 +392,8 @@ namespace Inventory
             ResetOne(dirigibleScannerSlot);
             ResetOne(keyItemInventory);
             ResetOne(outerCoresInventory);
+            ResetOne(bioticAbilityInventory);
+            ResetOne(ammoInventory);
         }
 
         public void LoadGlobalInventories()
@@ -396,6 +406,8 @@ namespace Inventory
             LoadOne(dirigibleScannerSlot);
             LoadOne(keyItemInventory);
             LoadOne(outerCoresInventory);
+            LoadOne(bioticAbilityInventory);
+            LoadOne(ammoInventory);
         }
 
         static void SaveOne(MoreMountains.InventoryEngine.Inventory inv)
