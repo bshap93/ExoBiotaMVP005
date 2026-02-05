@@ -60,7 +60,8 @@ namespace Helpers.Events
         BreakableToolIneffective,
         InRangeOfOverworldNPCDirect,
         CurrencyGained,
-        NotEnoughAmmo
+        NotEnoughAmmo,
+        NotEnoughContamination
     }
 
     [Serializable]

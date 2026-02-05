@@ -25,18 +25,15 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
             SingleUse,
             UseWhileHeld
         }
-        
-        public PlayerAttack GetPlayerAttack()
-        {
-            return hasAttackEffect ? playerAttack : null;
-        }
 
         [Header("Basic Properties")] public string displayName;
         public BioticAbilityType abilityType;
         public UsageType usageType;
 
-        [Header("Contamination Cost")] [ShowIf("usageType", UsageType.SingleUse)]
-        public float contaminationCostPerUse;
+        [FormerlySerializedAs("contaminationCostPerUse")]
+        [Header("Contamination Cost")]
+        [ShowIf("usageType", UsageType.SingleUse)]
+        public float baseContaminationCostPerUse;
 
         [ShowIf("usageType", UsageType.UseWhileHeld)]
         public float contaminationCostPerSecond; // Cost while held
@@ -48,6 +45,12 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
 
 
         public float abilityBaseRange;
+        public float bioticReductionFactor = 0.05f;
+
+        public PlayerAttack GetPlayerAttack()
+        {
+            return hasAttackEffect ? playerAttack : null;
+        }
 
         // public GameObject runtimeAbilityPrefab;
     }

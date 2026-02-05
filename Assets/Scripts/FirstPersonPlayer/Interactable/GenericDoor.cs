@@ -11,18 +11,17 @@ namespace FirstPersonPlayer.Interactable
         [Header("Rotation Settings")] [SerializeField]
         GameObject doorModel;
         [SerializeField] bool useRotationChange = true;
-        [ShowIf("useRotationChange")]
-        [SerializeField] Vector3 openRotation;
-        [ShowIf("useRotationChange")]
-        [SerializeField] Vector3 closedRotation;
-        
-        [Header("Position Settings")] 
-        [SerializeField] bool usePositionChange;
-        [ShowIf("usePositionChange")]
-        [SerializeField]
+        [ShowIf("useRotationChange")] [SerializeField]
+        Vector3 openRotation;
+        [ShowIf("useRotationChange")] [SerializeField]
+        Vector3 closedRotation;
+
+        [Header("Position Settings")] [SerializeField]
+        bool usePositionChange;
+        [ShowIf("usePositionChange")] [SerializeField]
         Vector3 openPosition;
-        [ShowIf("usePositionChange")]
-        [SerializeField] Vector3 closedPosition;
+        [ShowIf("usePositionChange")] [SerializeField]
+        Vector3 closedPosition;
 
         [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
         [SerializeField] MMFeedbacks closeFeedback;
@@ -31,10 +30,15 @@ namespace FirstPersonPlayer.Interactable
 
         [SerializeField] float distanceToInteract = 3f;
 
+        [SerializeField] Collider interactionCollider;
+        [SerializeField] bool shouldDisableColliderOnInteraction = true;
+
         bool _isOpen;
         public void Interact()
         {
             ToggleDoor();
+            if (interactionCollider != null && shouldDisableColliderOnInteraction)
+                interactionCollider.enabled = false;
         }
         public void OnInteractionStart()
         {
@@ -74,8 +78,10 @@ namespace FirstPersonPlayer.Interactable
             openFeedback?.PlayFeedbacks();
             if (useRotationChange)
                 doorModel.transform.DOLocalRotate(openRotation, openCloseDuration);
+
             if (usePositionChange)
                 doorModel.transform.DOLocalMove(openPosition, openCloseDuration);
+
             _isOpen = true;
         }
 
@@ -84,8 +90,10 @@ namespace FirstPersonPlayer.Interactable
             closeFeedback?.PlayFeedbacks();
             if (useRotationChange)
                 doorModel.transform.DOLocalRotate(closedRotation, openCloseDuration);
+
             if (usePositionChange)
                 doorModel.transform.DOLocalMove(closedPosition, openCloseDuration);
+
             _isOpen = false;
         }
     }

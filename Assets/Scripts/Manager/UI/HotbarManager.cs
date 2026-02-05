@@ -178,7 +178,7 @@ namespace Manager.UI
         {
             if (eventType.EventType == HotbarEvent.HotbarEventType.AddToHotbar)
             {
-                var isTool = inventoryManager.IsItemIDaTool(eventType.ItemID);
+                var isTool = inventoryManager.IsItemIDaType<RightHandEquippableTool>(eventType.ItemID);
                 var isConsumable = inventoryManager.IsItemIDaConsumableEffectItem(eventType.ItemID);
 
                 if (isTool)
@@ -191,7 +191,7 @@ namespace Manager.UI
             }
             else if (eventType.EventType == HotbarEvent.HotbarEventType.RemoveFromHotbar)
             {
-                var isTool = inventoryManager.IsItemIDaTool(eventType.ItemID);
+                var isTool = inventoryManager.IsItemIDaType<RightHandEquippableTool>(eventType.ItemID);
                 var isConsumable = inventoryManager.IsItemIDaConsumableEffectItem(eventType.ItemID);
 
                 if (isTool)
@@ -240,7 +240,8 @@ namespace Manager.UI
 
             // Check if it's a tool
             if (inventoryManager == null) inventoryManager = GlobalInventoryManager.Instance;
-            if (inventoryManager != null && inventoryManager.IsItemIDaTool(equippedItem.ItemID))
+            if (inventoryManager != null &&
+                inventoryManager.IsItemIDaType<RightHandEquippableTool>(equippedItem.ItemID))
             {
                 // Find this tool in the hotbar
                 var slotIndex = GetToolSlotIndex(equippedItem.ItemID);

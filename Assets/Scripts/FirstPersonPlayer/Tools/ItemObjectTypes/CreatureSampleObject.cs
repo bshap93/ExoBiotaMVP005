@@ -2,6 +2,7 @@
 using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using FirstPersonPlayer.ScriptableObjects;
 using Helpers.Events;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,6 +18,10 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
         [FormerlySerializedAs("CreatureSourceType")]
         public CreatureType creatureSourceType;
         public BioOrganismType bioOrganismType;
+
+        public bool hasAssociatedBioticAbility;
+
+        [ShowIf("hasAssociatedBioticAbility")] public BioticAbilityToolWrapper associatedBioticAbility;
 
         public override bool Pick(string playerID)
         {

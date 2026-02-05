@@ -13,6 +13,8 @@ namespace Helpers.AnimancerHelper
         [Header("References")] public ToolAnimationSet currentToolAnimationSet;
         public AnimancerComponent animancerComponent;
 
+        [SerializeField] GameObject leftArmReference;
+
         [Header("Settings")] [Tooltip("Default transition duration for smooth blending")]
         public float defaultTransitionDuration = 0.25f;
 

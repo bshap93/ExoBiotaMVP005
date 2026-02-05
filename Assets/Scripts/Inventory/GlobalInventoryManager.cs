@@ -506,7 +506,7 @@ namespace Inventory
 
             return highestPriorityCoreIndex;
         }
-        public bool IsItemIDaTool(string itemID)
+        public bool IsItemIDaType<T>(string itemID)
         {
             if (string.IsNullOrEmpty(itemID)) return false;
 
@@ -520,7 +520,7 @@ namespace Inventory
             if (item == null) return false;
 
             // Check if the item is a BaseTool
-            return item is BaseTool;
+            return item is T;
         }
         public bool IsItemIDaConsumableEffectItem(string itemID)
         {

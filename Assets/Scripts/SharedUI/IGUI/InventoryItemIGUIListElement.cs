@@ -159,7 +159,7 @@ namespace SharedUI.IGUI
                 return;
             }
 
-            var isTool = inventoryManager.IsItemIDaTool(_item.ItemID);
+            var isTool = inventoryManager.IsItemIDaType<RightHandEquippableTool>(_item.ItemID);
             var isConsumable = inventoryManager.IsItemIDaConsumableEffectItem(_item.ItemID);
 
             if (!isTool && !isConsumable)
@@ -414,7 +414,7 @@ namespace SharedUI.IGUI
 
             // Smart hotbar integration for right-hand tools
             var inventoryManager = GlobalInventoryManager.Instance;
-            if (inventoryManager != null && inventoryManager.IsItemIDaTool(_item.ItemID))
+            if (inventoryManager != null && inventoryManager.IsItemIDaType<RightHandEquippableTool>(_item.ItemID))
             {
                 var hotbarManager = HotbarManager.Instance;
                 if (hotbarManager != null) HandleSmartToolEquip(hotbarManager);
