@@ -30,7 +30,8 @@ namespace FirstPersonPlayer.Interactable
 
         [SerializeField] float distanceToInteract = 3f;
 
-        [SerializeField] Collider interactionCollider;
+        [ShowIf("shouldDisableColliderOnInteraction")] [SerializeField]
+        Collider[] interactionCollider;
         [SerializeField] bool shouldDisableColliderOnInteraction = true;
 
         bool _isOpen;
@@ -38,7 +39,8 @@ namespace FirstPersonPlayer.Interactable
         {
             ToggleDoor();
             if (interactionCollider != null && shouldDisableColliderOnInteraction)
-                interactionCollider.enabled = false;
+                foreach (var col in interactionCollider)
+                    col.enabled = false;
         }
         public void OnInteractionStart()
         {

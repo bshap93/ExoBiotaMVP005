@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FirstPersonPlayer.Tools.ItemObjectTypes;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using TMPro;
@@ -10,6 +11,12 @@ namespace Inventory.UI
 {
     public class EquippedToolPresenter : MonoBehaviour, MMEventListener<MMInventoryEvent>
     {
+        public enum EquipSlotType
+        {
+            RightHandedTools,
+            BioticAbilities
+        }
+
         public enum InventoryAction
         {
             Equip,
@@ -19,6 +26,8 @@ namespace Inventory.UI
         }
 
         [SerializeField] CanvasGroup canvasGroup;
+
+        [SerializeField] EquipSlotType equipSlotType;
 
         [SerializeField] Color defaultColor;
 
@@ -61,6 +70,18 @@ namespace Inventory.UI
         {
             if (inventoryEvent.TargetInventoryName != equippedToolInventory?.name ||
                 inventoryEvent.PlayerID != equippedToolInventory?.PlayerID) return;
+
+            var item = inventoryEvent.EventItem;
+
+            switch (equipSlotType)
+            {
+                case EquipSlotType.RightHandedTools:
+                    if (item == null || !(item is RightHandEquippableTool)) return;
+                    break;
+                case EquipSlotType.BioticAbilities:
+                    if (item == null || !(item is BioticAbilityToolWrapper)) return;
+                    break;
+            }
 
             if (inventoryEvent.InventoryEventType == MMInventoryEventType.ItemUnEquipped)
                 Refresh(InventoryAction.Unequip);
