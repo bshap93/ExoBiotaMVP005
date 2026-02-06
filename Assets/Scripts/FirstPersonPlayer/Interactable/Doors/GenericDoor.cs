@@ -26,6 +26,8 @@ namespace FirstPersonPlayer.Interactable.Doors
         [ShowIf("usePositionChange")] [SerializeField]
         Vector3 closedPosition;
 
+        [SerializeField] bool startOpen;
+
         [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
         [SerializeField] MMFeedbacks closeFeedback;
 
@@ -38,6 +40,10 @@ namespace FirstPersonPlayer.Interactable.Doors
         [SerializeField] bool shouldDisableColliderOnInteraction = true;
 
         bool _isOpen;
+        void Start()
+        {
+            _isOpen = startOpen;
+        }
         public virtual void Interact()
         {
             ToggleDoor();
