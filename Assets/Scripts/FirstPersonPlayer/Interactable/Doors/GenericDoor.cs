@@ -1,13 +1,16 @@
+using System;
 using DG.Tweening;
 using FirstPersonPlayer.Interface;
 using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utilities.Interface;
 
-namespace FirstPersonPlayer.Interactable
+namespace FirstPersonPlayer.Interactable.Doors
 {
-    public class GenericDoor : MonoBehaviour, IInteractable
+    public class GenericDoor : MonoBehaviour, IInteractable, IRequiresUniqueID
     {
+        public string uniqueID;
         [Header("Rotation Settings")] [SerializeField]
         GameObject doorModel;
         [SerializeField] bool useRotationChange = true;
@@ -35,7 +38,7 @@ namespace FirstPersonPlayer.Interactable
         [SerializeField] bool shouldDisableColliderOnInteraction = true;
 
         bool _isOpen;
-        public void Interact()
+        public virtual void Interact()
         {
             ToggleDoor();
             if (interactionCollider != null && shouldDisableColliderOnInteraction)
@@ -65,6 +68,15 @@ namespace FirstPersonPlayer.Interactable
         public float GetInteractionDistance()
         {
             return distanceToInteract;
+        }
+        public string UniqueID => uniqueID;
+        public void SetUniqueID()
+        {
+            uniqueID = Guid.NewGuid().ToString();
+        }
+        public bool IsUniqueIDEmpty()
+        {
+            return string.IsNullOrEmpty(uniqueID);
         }
 
         public void ToggleDoor()
