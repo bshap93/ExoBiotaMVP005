@@ -3,7 +3,7 @@ using System.Collections;
 using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using Helpers.Events;
 using HighlightPlus;
-using Manager;
+using Manager.ProgressionMangers;
 using Manager.SceneManagers;
 using MoreMountains.Feedbacks;
 using RayFire;

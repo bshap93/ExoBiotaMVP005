@@ -5,6 +5,7 @@ using Helpers.Events;
 using Helpers.Events.Gated;
 using Helpers.Events.Progression;
 using Manager;
+using Manager.ProgressionMangers;
 using Manager.UI;
 using Michsky.MUIP;
 using MoreMountains.Feedbacks;
@@ -26,7 +27,8 @@ namespace SharedUI.Interact
             Infected
         }
 
-        [FormerlySerializedAs("innerCoresDisplay")] [SerializeField] OuterCoresDisplay outerCoresDisplay;
+        [FormerlySerializedAs("innerCoresDisplay")] [SerializeField]
+        OuterCoresDisplay outerCoresDisplay;
 
         [SerializeField] MediStatType mediStatType = MediStatType.Standard;
 
@@ -76,7 +78,6 @@ namespace SharedUI.Interact
         // Float Stats
         float _pendingNewMaxHealth;
         float _pendingNewMaxStamina;
-        int _pendingNewMentalToughness;
         int _pendingNewStrength;
 
         int _pendingNewUnusedXP;
@@ -137,17 +138,7 @@ namespace SharedUI.Interact
                         dexteritySetter.Initialize(eventType.AttrLevelTarget, _pendingNewUnusedXP);
                         dexteritySetter.canDecrease = true;
                         break;
-                    case AttributeType.MentalToughness:
-                        _pendingNewMentalToughness = eventType.AttrLevelTarget;
-                        _pendingNewMaxStamina += AttributesManager.Instance.GetStaminaPerMentalToughnessIncrease();
-                        _pendingNewContaminationResistance +=
-                            AttributesManager.Instance.GetContaminationResistPerMentalToughnessIncrease();
 
-                        UpdateFloatStatsUI();
-
-                        mentalToughnessSetter.Initialize(eventType.AttrLevelTarget, _pendingNewUnusedXP);
-                        mentalToughnessSetter.canDecrease = true;
-                        break;
                     case AttributeType.Agility:
                         _pendingNewAgility = eventType.AttrLevelTarget;
                         _pendingNewMaxStamina += AttributesManager.Instance.GetStaminaPerAgilityIncrease();
@@ -211,13 +202,7 @@ namespace SharedUI.Interact
                         dexteritySetter.Initialize(eventType.AttrLevelTarget, _pendingNewUnusedXP);
                         dexteritySetter.canDecrease = eventType.AttrLevelTarget >= _initialDexterity;
                         break;
-                    case AttributeType.MentalToughness:
-                        _pendingNewMentalToughness = eventType.AttrLevelTarget;
-                        mentalToughnessSetter.Initialize(eventType.AttrLevelTarget, _pendingNewUnusedXP);
-                        _pendingNewMaxStamina -= AttributesManager.Instance.GetStaminaPerMentalToughnessIncrease();
-                        UpdateFloatStatsUI();
-                        mentalToughnessSetter.canDecrease = eventType.AttrLevelTarget >= _initialMentalToughness;
-                        break;
+
                     case AttributeType.Agility:
                         _pendingNewAgility = eventType.AttrLevelTarget;
                         agilitySetter.Initialize(eventType.AttrLevelTarget, _pendingNewUnusedXP);
@@ -324,7 +309,6 @@ namespace SharedUI.Interact
 
             _initialAgility = attributeManager.Agility;
             _initialDexterity = attributeManager.Dexterity;
-            _initialMentalToughness = attributeManager.MentalToughness;
             _initialStrength = attributeManager.Strength;
             _initialExobiotic = attributeManager.Exobiotic;
 
@@ -334,7 +318,6 @@ namespace SharedUI.Interact
 
             _pendingNewAgility = _initialAgility;
             _pendingNewDexterity = _initialDexterity;
-            _pendingNewMentalToughness = _initialMentalToughness;
             _pendingNewStrength = _initialStrength;
             _pendingNewExobiotic = _initialExobiotic;
 
@@ -352,7 +335,6 @@ namespace SharedUI.Interact
             var attributeManager = AttributesManager.Instance;
             // Attribute Setters
             dexteritySetter.Initialize(attributeManager.Dexterity, _pendingNewUnusedXP);
-            mentalToughnessSetter.Initialize(attributeManager.MentalToughness, _pendingNewUnusedXP);
             agilitySetter.Initialize(attributeManager.Agility, _pendingNewUnusedXP);
             strengthSetter.Initialize(attributeManager.Strength, _pendingNewUnusedXP);
             if (exobioticSetter != null) exobioticSetter.Initialize(attributeManager.Exobiotic, _pendingNewUnusedXP);
@@ -373,8 +355,6 @@ namespace SharedUI.Interact
             _pendingNewAgility = _initialAgility;
             _initialDexterity = AttributesManager.Instance.Dexterity;
             _pendingNewDexterity = _initialDexterity;
-            _initialMentalToughness = AttributesManager.Instance.MentalToughness;
-            _pendingNewMentalToughness = _initialMentalToughness;
             _initialStrength = AttributesManager.Instance.Strength;
             _pendingNewStrength = _initialStrength;
             _initialExobiotic = AttributesManager.Instance.Exobiotic;
@@ -387,7 +367,6 @@ namespace SharedUI.Interact
         {
             // Logic to commit attribute point changes
             if (_pendingNewDexterity == _initialDexterity &&
-                _pendingNewMentalToughness == _initialMentalToughness &&
                 _pendingNewAgility == _initialAgility &&
                 _pendingNewStrength == _initialStrength && _pendingNewExobiotic == _initialExobiotic)
 
@@ -409,7 +388,6 @@ namespace SharedUI.Interact
             // waitOverlay.Show("Applying Attribute Augments");
             AttributesManager.Instance.ApplyPendingAttributeChanges(
                 _pendingNewDexterity,
-                _pendingNewMentalToughness,
                 _pendingNewAgility,
                 _pendingNewStrength,
                 _pendingNewExobiotic);
@@ -426,7 +404,6 @@ namespace SharedUI.Interact
             var newAttrValues = new NewAttributeValues
             {
                 dexterity = _pendingNewDexterity,
-                mentalToughness = _pendingNewMentalToughness,
                 agility = _pendingNewAgility,
                 strength = _pendingNewStrength,
                 exobiotic = _pendingNewExobiotic

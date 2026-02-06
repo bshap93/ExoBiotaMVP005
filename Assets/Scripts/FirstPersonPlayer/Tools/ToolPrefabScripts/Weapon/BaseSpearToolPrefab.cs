@@ -1,4 +1,5 @@
-﻿using Feedbacks.Interface;
+﻿using System;
+using Feedbacks.Interface;
 using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Interactable;
 using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
@@ -8,6 +9,7 @@ using Helpers.Events;
 using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -22,8 +24,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         [SerializeField] Sprite defaultReticleForTool;
 
-        [SerializeField]
-        protected float lastAttackTime = -999f;
+        [SerializeField] protected float lastAttackTime = -999f;
 
         float StaminaCostPerNormalAttack
         {
@@ -37,12 +38,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
                 var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
 
-                
+
                 return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-                
             }
         }
-        
+
         float StaminaCostPerHeavyAttack
         {
             get
@@ -55,12 +55,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
                 var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
 
-                
+
                 return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-                
             }
         }
-        
+
         public override void Initialize(PlayerEquipment owner)
         {
             mainCamera = Camera.main;
@@ -88,8 +87,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                         AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
 
                     return;
-                } 
-                
+                }
+
                 PerformToolAction();
 
                 ChargeToolEvent.Trigger(ChargeToolEventType.Release);
@@ -148,14 +147,14 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         {
             if (!mainCamera) mainCamera = Camera.main;
             if (!mainCamera) return;
-            
+
             if (!Physics.Raycast(
                     mainCamera.transform.position, mainCamera.transform.forward,
                     out var hit, reach, hitMask, QueryTriggerInteraction.Ignore))
                 return;
-            
+
             var go = hit.collider.gameObject;
-            
+
             // do damage to valid targets
             if (go.TryGetComponent<IBreakable>(out var breakable))
             {
@@ -163,7 +162,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 breakable.ApplyHit(spearPower, hit.point, hit.normal, hitType);
 
                 if (go.CompareTag("MiscRigidOrganism")) hitRigidOrganismFeedbacks?.PlayFeedbacks();
-
             }
             else if (go.TryGetComponent<MyOreNode>(out var oreNode))
             {
@@ -171,7 +169,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
                 SpawnFxForIneffectualHit(hit.point, hit.normal);
                 hitRockFeedbacks?.PlayFeedbacks();
-            } 
+            }
             else if (go.TryGetComponent<IFleshyObject>(out var fleshyObject))
             {
                 hitFleshyFeedbacks?.PlayFeedbacks();
@@ -232,17 +230,18 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 SpawnFxForIneffectualHit(hit.point, hit.normal);
                 hitRockFeedbacks?.PlayFeedbacks();
             }
+
             Debug.Log($"[BaseSpearToolPrefab] Hit object: {go.name}, tag: {go.tag}");
-            
-            
         }
         public override void PerformToolAction()
         {
             normalAttackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
             if (Time.time < lastAttackTime + normalAttackCooldown) return;
             lastAttackTime = Time.time;
-            
-            PlayerStatsEvent.Trigger(PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease, StaminaCostPerNormalAttack);
+
+            PlayerStatsEvent.Trigger(
+                PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
+                StaminaCostPerNormalAttack);
 
             if (useMultipleSwings && AnimController.currentToolAnimationSet != null)
             {
@@ -261,11 +260,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         }
         public override void PerformPartiallyChargedToolAction()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         public override void PerformHeavyChargedToolAction()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

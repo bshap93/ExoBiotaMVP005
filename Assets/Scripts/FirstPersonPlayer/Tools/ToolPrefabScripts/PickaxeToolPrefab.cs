@@ -10,6 +10,7 @@ using Helpers.Events;
 using Helpers.Events.Status;
 using LevelConstruct.Highlighting;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 

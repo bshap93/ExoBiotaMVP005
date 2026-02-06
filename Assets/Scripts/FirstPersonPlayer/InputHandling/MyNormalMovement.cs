@@ -10,6 +10,7 @@ using Lightbug.CharacterControllerPro.Core;
 using Lightbug.CharacterControllerPro.Demo;
 using Lightbug.Utilities;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using ThirdParty.Character_Controller_Pro.Implementation.Scripts.Character.States;

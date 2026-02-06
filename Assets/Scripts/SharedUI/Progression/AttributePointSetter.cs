@@ -1,6 +1,6 @@
 using System;
 using Helpers.Events.Progression;
-using Manager;
+using Manager.ProgressionMangers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;

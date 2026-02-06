@@ -11,6 +11,7 @@ using Helpers.Events.Status;
 using Helpers.Interfaces;
 using Manager.DialogueScene;
 using Manager.FirstPerson;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using OWPData.ScriptableObjects;

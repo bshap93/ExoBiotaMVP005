@@ -3,7 +3,7 @@ using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Tools.Interface;
 using Helpers.AnimancerHelper;
 using Helpers.Events.ManagerEvents;
-using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Random = UnityEngine.Random;

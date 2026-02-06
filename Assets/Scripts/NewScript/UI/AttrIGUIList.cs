@@ -1,6 +1,6 @@
 using Helpers.Events;
 using Helpers.Events.Gated;
-using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -48,7 +48,6 @@ namespace NewScript.UI
             strengthText.text = attrMgr.Strength.ToString();
             agilityText.text = attrMgr.Agility.ToString();
             dexterityText.text = attrMgr.Dexterity.ToString();
-            mentalToughnessText.text = attrMgr.MentalToughness.ToString();
             exobioticText.text = attrMgr.Exobiotic.ToString();
         }
     }

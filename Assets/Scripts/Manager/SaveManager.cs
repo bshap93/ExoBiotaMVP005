@@ -7,6 +7,7 @@ using Inventory;
 using Manager.DialogueScene;
 using Manager.FirstPerson;
 using Manager.Global;
+using Manager.ProgressionMangers;
 using Manager.SceneManagers;
 using Manager.SceneManagers.Pickable;
 using Manager.Settings;

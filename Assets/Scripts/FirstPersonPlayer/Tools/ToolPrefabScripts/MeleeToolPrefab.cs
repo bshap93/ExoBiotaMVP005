@@ -7,7 +7,7 @@ using Helpers.AnimancerHelper;
 using Helpers.Events.Combat;
 using Helpers.Events.ManagerEvents;
 using Helpers.ScriptableObjects.Animation;
-using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -101,7 +101,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         }
         public void Equip()
         {
-            
         }
 
         public virtual bool CanInteractWithObject(GameObject colliderGameObject)
@@ -123,10 +122,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         {
             throw new NotImplementedException();
         }
-        public SecondaryActionType GetSecondaryActionType()
-        {
-            return SecondaryActionType.BlockWithMeleeWeapon;
-        }
 
         public abstract MMFeedbacks GetEquipFeedbacks();
         public abstract MMFeedbacks GetUnequipFeedbacks();
@@ -146,6 +141,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             ChargeToolEvent.Trigger(
                 ChargeToolEventType.Update,
                 ChargeTimeElapsed / timeToFullCharge);
+        }
+        public SecondaryActionType GetSecondaryActionType()
+        {
+            return SecondaryActionType.BlockWithMeleeWeapon;
         }
 
         /// <summary>

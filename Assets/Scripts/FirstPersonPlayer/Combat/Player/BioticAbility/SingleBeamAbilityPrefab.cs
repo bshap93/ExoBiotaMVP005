@@ -5,6 +5,7 @@ using FirstPersonPlayer.Tools.Interface;
 using Helpers.Events;
 using Helpers.Events.Status;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 

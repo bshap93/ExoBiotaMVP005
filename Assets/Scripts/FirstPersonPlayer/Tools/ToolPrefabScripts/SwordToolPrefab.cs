@@ -3,6 +3,7 @@ using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Tools.Interface;
 using Helpers.Events;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Utilities.Interface;

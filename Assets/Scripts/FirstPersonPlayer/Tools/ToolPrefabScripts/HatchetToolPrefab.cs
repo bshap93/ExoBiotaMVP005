@@ -8,6 +8,7 @@ using Helpers.Events;
 using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager;
+using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;

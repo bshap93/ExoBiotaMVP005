@@ -10,7 +10,7 @@ using Helpers.Events.Combat;
 using Helpers.Events.NPCs;
 using Helpers.Events.Status;
 using HighlightPlus;
-using Manager;
+using Manager.ProgressionMangers;
 using Manager.StateManager;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;

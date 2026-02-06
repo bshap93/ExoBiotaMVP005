@@ -10,7 +10,7 @@ using SharedUI.Progression;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Manager
+namespace Manager.ProgressionMangers
 {
     public class AttributesManager : MonoBehaviour, ICoreGameService, MMEventListener<OuterCoreXPEvent>,
         MMEventListener<GatedLevelingEvent>
@@ -52,9 +52,7 @@ namespace Manager
 
         // stat for assimilation of exobiota
         int _exobiotic;
-        // has intelligence and charisma's traditional 
-        // functions been merged into a single stat...for now
-        int _mentalToughness;
+
 
         string _savePath;
         // just strength as normal
@@ -99,15 +97,7 @@ namespace Manager
             }
         }
 
-        public int MentalToughness
-        {
-            get => _mentalToughness;
-            set
-            {
-                _mentalToughness = value;
-                MarkDirty();
-            }
-        }
+
 
 
         public int Strength
@@ -159,7 +149,6 @@ namespace Manager
             ES3.Save("Strength", _strength, path);
             ES3.Save("Agility", _agility, path);
             ES3.Save("Dexterity", _dexterity, path);
-            ES3.Save("MentalToughness", _mentalToughness, path);
             ES3.Save("Exobiotic", _exobiotic, path);
             ES3.Save("CurrentUnusedXP", _currentUnusedXP, path);
 
@@ -173,7 +162,6 @@ namespace Manager
                 _strength = overrideStrength;
                 _agility = overrideAgility;
                 _dexterity = overrideDexterity;
-                _mentalToughness = overrideMentalToughness;
                 _exobiotic = overrideExobiotic;
 
                 _currentUnusedXP = 0;
@@ -196,8 +184,7 @@ namespace Manager
             if (ES3.KeyExists("Dexterity", path))
                 _dexterity = ES3.Load<int>("Dexterity", path);
 
-            if (ES3.KeyExists("MentalToughness", path))
-                _mentalToughness = ES3.Load<int>("MentalToughness", path);
+
 
             if (ES3.KeyExists("Exobiotic", path))
                 _exobiotic = ES3.Load<int>("Exobiotic", path);
@@ -210,7 +197,6 @@ namespace Manager
             _strength = 1;
             _agility = 1;
             _dexterity = 1;
-            _mentalToughness = 1;
             _exobiotic = 1;
 
             _currentUnusedXP = 0;
@@ -256,9 +242,6 @@ namespace Manager
                 if (newAttributeValues.dexterity > _dexterity)
                     AttributeLevelUpEvent.Trigger(AttributeType.Dexterity, newAttributeValues.dexterity);
 
-                if (newAttributeValues.mentalToughness > _mentalToughness)
-                    AttributeLevelUpEvent.Trigger(AttributeType.MentalToughness, newAttributeValues.mentalToughness);
-
                 if (newAttributeValues.exobiotic > _exobiotic)
                     AttributeLevelUpEvent.Trigger(AttributeType.Exobiotic, newAttributeValues.exobiotic);
 
@@ -266,7 +249,6 @@ namespace Manager
                 Strength = newAttributeValues.strength;
                 Agility = newAttributeValues.agility;
                 Dexterity = newAttributeValues.dexterity;
-                MentalToughness = newAttributeValues.mentalToughness;
                 _exobiotic = newAttributeValues.exobiotic;
 
                 MarkDirty();
@@ -343,11 +325,10 @@ namespace Manager
                     return 0;
             }
         }
-        public void ApplyPendingAttributeChanges(int pendingNewDexterity, int pendingNewMentalToughness,
+        public void ApplyPendingAttributeChanges(int pendingNewDexterity,
             int pendingNewAgility, int pendingNewStrength, int pendingNewExobiotic)
         {
             _dexterity = pendingNewDexterity;
-            _mentalToughness = pendingNewMentalToughness;
             _agility = pendingNewAgility;
             _strength = pendingNewStrength;
             _exobiotic = pendingNewExobiotic;
@@ -373,7 +354,7 @@ namespace Manager
                 case GatedInteractionType.NotGated:
                     return 1.0f - Dexterity * 0.05f;
                 case GatedInteractionType.Rest:
-                    return 1.0f - MentalToughness * 0.05f;
+                    return 1.0f;
                 default:
                     return 1.0f;
             }
@@ -381,7 +362,7 @@ namespace Manager
         public float GetStatusEffectSeverityMultiplier(string effectID)
         {
             // higher mental toughness reduces severity of status effects
-            return 1.0f - MentalToughness * 0.05f;
+            return 1.0f;
         }
         public float GetStaminaPerAgilityIncrease()
         {

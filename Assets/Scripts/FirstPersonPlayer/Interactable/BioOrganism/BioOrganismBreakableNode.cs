@@ -12,6 +12,7 @@ using Helpers.ScriptableObjects.Gated;
 using HighlightPlus;
 using Inventory;
 using Manager;
+using Manager.ProgressionMangers;
 using Manager.SceneManagers;
 using Manager.UI;
 using MoreMountains.Feedbacks;

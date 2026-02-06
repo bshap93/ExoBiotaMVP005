@@ -5,6 +5,7 @@ using Helpers.Events.Status;
 using Helpers.Interfaces;
 using Helpers.ScriptableObjects;
 using Manager.FirstPerson;
+using Manager.ProgressionMangers;
 using Manager.Status.Scriptable;
 using MoreMountains.Tools;
 using SharedUI.Alert;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Manager.ProgressionMangers;
+using UnityEngine;
 using Yarn.Unity;
 
 namespace Manager.DialogueScene.DialogueCommands
@@ -29,11 +30,11 @@ namespace Manager.DialogueScene.DialogueCommands
             return AttributesManager.Instance.Strength;
         }
 
-        [YarnFunction("get_mental_toughness")]
-        public static int GetMentalToughness()
-        {
-            return AttributesManager.Instance.MentalToughness;
-        }
+        // [YarnFunction("get_mental_toughness")]
+        // public static int GetMentalToughness()
+        // {
+        //     return AttributesManager.Instance.MentalToughness;
+        // }
 
         [YarnFunction("get_biotic_level")]
         public static int GetBioticLevel()
