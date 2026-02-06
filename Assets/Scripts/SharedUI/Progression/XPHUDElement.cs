@@ -12,8 +12,7 @@ namespace SharedUI.Progression
         MMEventListener<ProgressionUpdateListenerNotifier>, MMEventListener<LevelingEvent>
     {
         [Header("Main Canvas Group")] [SerializeField]
-        CanvasGroup notificationCanvasGroup;
-        [SerializeField] CanvasGroup debugCanvasGroup;
+        CanvasGroup debugCanvasGroup;
         [SerializeField] bool debugMode = true;
 
         [Header("References")] [SerializeField]
@@ -21,6 +20,9 @@ namespace SharedUI.Progression
 
         [SerializeField] XPNotify xpNotifyComponent;
         [SerializeField] LevelNotify levelNotifyComponent;
+
+        [SerializeField] CanvasGroup xpNotifyCanvasGroup;
+        [SerializeField] CanvasGroup levelNotifyCanvasGroup;
 
         [Header("Notification")] [SerializeField]
         GameObject xpNotify;
@@ -37,7 +39,8 @@ namespace SharedUI.Progression
 
         void Start()
         {
-            notificationCanvasGroup.alpha = 0;
+            xpNotifyCanvasGroup.alpha = 0;
+            levelNotifyCanvasGroup.alpha = 0;
             debugChipsCanvasGroup.alpha = debugMode ? 1 : 0;
 
             if (levelingManager != null)
@@ -47,9 +50,6 @@ namespace SharedUI.Progression
                 unusedUpgradesText.text = levelingManager.UnspentStatUpgrades.ToString();
                 unusedAttributePointsText.text = levelingManager.UnspentAttributePoints.ToString();
             }
-
-            xpNotify.SetActive(false);
-            levelNotify.SetActive(false);
         }
 
         void OnEnable()
@@ -73,7 +73,11 @@ namespace SharedUI.Progression
         }
         public void OnMMEvent(XPEvent eventType)
         {
-            if (eventType.EventType == XPEventType.AwardXPToPlayer) ShowXPNotification(eventType.Amount);
+            if (eventType.EventType == XPEventType.AwardXPToPlayer)
+            {
+                ShowXPNotification(eventType.Amount);
+                Debug.Log(eventType.Amount + " XP awarded to player");
+            }
         }
 
         void ShowXPNotification(int amount)
@@ -88,28 +92,24 @@ namespace SharedUI.Progression
 
         IEnumerator ShowLevelUpNotificationCoroutine(int newLevel)
         {
-            levelNotify.SetActive(true);
             levelNotifyComponent.SetLevelText(newLevel);
             // fades in tween
-            notificationCanvasGroup.DOFade(1f, fadeInDuration);
+            levelNotifyCanvasGroup.DOFade(1f, fadeInDuration);
             // notificationCanvasGroup.alpha = 1;
             yield return new WaitForSeconds(2f);
             // fades out
-            notificationCanvasGroup.DOFade(0f, fadeOutDuration);
-            levelNotify.SetActive(false);
+            levelNotifyCanvasGroup.DOFade(0f, fadeOutDuration);
         }
 
         IEnumerator ShowXPNotificationCoroutine(int amount)
         {
-            xpNotify.SetActive(true);
             xpNotifyComponent.SetXPText(amount);
             // fades in tween
-            notificationCanvasGroup.DOFade(1f, fadeInDuration);
+            xpNotifyCanvasGroup.DOFade(1f, fadeInDuration);
             // notificationCanvasGroup.alpha = 1;
             yield return new WaitForSeconds(2f);
             // fades out
-            notificationCanvasGroup.DOFade(0f, fadeOutDuration);
-            xpNotify.SetActive(false);
+            xpNotifyCanvasGroup.DOFade(0f, fadeOutDuration);
         }
     }
 }

@@ -10,8 +10,8 @@ using UnityEngine.Serialization;
 
 namespace Manager.ProgressionMangers
 {
-    public class LevelingManager : MonoBehaviour, ICoreGameService, MMEventListener<XPEvent>,
-        MMEventListener<BioticCoreXPConversionEvent>
+    public class LevelingManager : MonoBehaviour, ICoreGameService,
+        MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>
     {
         [SerializeField] AttributesManager attributesManager;
 
@@ -96,13 +96,13 @@ namespace Manager.ProgressionMangers
 
         void OnEnable()
         {
-            this.MMEventStartListening<XPEvent>();
             this.MMEventStartListening<BioticCoreXPConversionEvent>();
+            this.MMEventStartListening<EnemyXPRewardEvent>();
         }
         void OnDisable()
         {
-            this.MMEventStopListening<XPEvent>();
             this.MMEventStopListening<BioticCoreXPConversionEvent>();
+            this.MMEventStopListening<EnemyXPRewardEvent>();
         }
 
         public void Save()
@@ -181,17 +181,22 @@ namespace Manager.ProgressionMangers
             if (conversionEventType.EventType == BioticCoreXPEventType.ConvertCoreToXP)
                 ConvertCoreToXP(conversionEventType.CoreGrade);
         }
-        public void OnMMEvent(XPEvent eventType)
+
+        public void OnMMEvent(EnemyXPRewardEvent eventType)
         {
-            if (eventType.EventType == XPEventType.AwardXPToPlayer)
-                AwardXPToPlayer(eventType.Amount);
+            throw new NotImplementedException();
         }
+        // public void OnMMEvent(XPEvent eventType)
+        // {
+        //     if (eventType.EventType == XPEventType.AwardXPToPlayer)
+        //         AwardXPToPlayer(eventType.Amount);
+        // }
 
         /// <summary>
         ///     Adds to total XP, and triggers level up if earned.
         /// </summary>
         /// <param name="xpToAward"></param>
-        public void AwardXPToPlayer(int xpToAward)
+        void AwardXPToPlayer(int xpToAward)
         {
             CurrentTotalXP += xpToAward;
 
@@ -201,6 +206,8 @@ namespace Manager.ProgressionMangers
                 var newLevel = CurrentLevel + 1;
                 LevelUpPlayer(newLevel);
             }
+
+            XPEvent.Trigger(XPEventType.AwardXPToPlayer, xpToAward);
 
             ProgressionUpdateListenerNotifier.Trigger(
                 CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
@@ -218,6 +225,8 @@ namespace Manager.ProgressionMangers
             CurrentLevel = newLevel;
             AwardStatUpgradeToPlayer(newLevel);
             AwardAttributePointsToPlayer(newLevel);
+
+            LevelingEvent.Trigger(LevelingEventType.LevelUp, newLevel);
         }
 
         /// <summary>
@@ -300,7 +309,6 @@ namespace Manager.ProgressionMangers
 
 
             AwardXPToPlayer(amount);
-            Debug.Log("XP Awarded: " + amount);
 
             MarkDirty();
         }
