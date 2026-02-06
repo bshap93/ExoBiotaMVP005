@@ -17,14 +17,41 @@ namespace Manager.ProgressionMangers
         HealthAmountByUpgrade[] healthAmountByUpgrade;
         [SerializeField] StaminaAmountByUpgrade[] staminaAmountByUpgrade;
         [SerializeField] ContaminationAmountByUpgrade[] contaminationAmountByUpgrade;
+        [SerializeField] bool autoSave;
+
+        [SerializeField] int attributePointsStartWith = 7;
+        bool _dirty;
 
         string _savePath;
 
-        public int CurrentLevel { get; }
-        public int CurrentTotalXP { get; }
-        public int HealthUpgradeLevel { get; }
-        public int StaminaUpgradeLevel { get; }
-        public int ContaminationUpgradeLevel { get; }
+        int _unspentAttribuePoints;
+        int _unspentStatUpgrades;
+
+        public int UnspentAttributePoints
+        {
+            get => _unspentAttribuePoints;
+            set
+            {
+                _unspentAttribuePoints = value;
+                MarkDirty();
+            }
+        }
+
+        public int UnspentStatUpgrades
+        {
+            get => _unspentStatUpgrades;
+            set
+            {
+                _unspentStatUpgrades = value;
+                MarkDirty();
+            }
+        }
+
+        public int CurrentLevel { get; set; }
+        public int CurrentTotalXP { get; set; }
+        public int HealthUpgradeLevel { get; set; }
+        public int StaminaUpgradeLevel { get; set; }
+        public int ContaminationUpgradeLevel { get; set; }
 
 
         public int TotalXpNeededForNextLevel
@@ -56,35 +83,73 @@ namespace Manager.ProgressionMangers
 
         public void Save()
         {
-            throw new NotImplementedException();
+            var path = GetSaveFilePath();
+
+            ES3.Save("CurrentLevel", CurrentLevel, path);
+            ES3.Save("CurrentTotalXP", CurrentTotalXP, path);
+            ES3.Save("HealthUpgradeLevel", HealthUpgradeLevel, path);
+            ES3.Save("StaminaUpgradeLevel", StaminaUpgradeLevel, path);
+            ES3.Save("ContaminationUpgradeLevel", ContaminationUpgradeLevel, path);
+            ES3.Save("UnspentAttributePoints", UnspentAttributePoints, path);
+            ES3.Save("UnspentStatUpgrades", UnspentStatUpgrades, path);
+            _dirty = false;
         }
         public void Load()
         {
-            throw new NotImplementedException();
+            var path = GetSaveFilePath();
+
+            if (ES3.KeyExists("CurrentLevel", path))
+                CurrentLevel = ES3.Load<int>("CurrentLevel", path);
+
+            if (ES3.KeyExists("CurrentTotalXP", path))
+                CurrentTotalXP = ES3.Load<int>("CurrentTotalXP", path);
+
+            if (ES3.KeyExists("HealthUpgradeLevel", path))
+                HealthUpgradeLevel = ES3.Load<int>("HealthUpgradeLevel", path);
+
+            if (ES3.KeyExists("StaminaUpgradeLevel", path))
+                StaminaUpgradeLevel = ES3.Load<int>("StaminaUpgradeLevel", path);
+
+
+            if (ES3.KeyExists("ContaminationUpgradeLevel", path))
+                ContaminationUpgradeLevel = ES3.Load<int>("ContaminationUpgradeLevel", path);
+
+            if (ES3.KeyExists("UnspentAttributePoints", path))
+                UnspentAttributePoints = ES3.Load<int>("UnspentAttributePoints", path);
+
+            if (ES3.KeyExists("UnspentStatUpgrades", path))
+                UnspentStatUpgrades = ES3.Load<int>("UnspentStatUpgrades", path);
         }
         public void Reset()
         {
-            throw new NotImplementedException();
+            CurrentLevel = 1;
+            CurrentTotalXP = 0;
+            HealthUpgradeLevel = 1;
+            StaminaUpgradeLevel = 1;
+            ContaminationUpgradeLevel = 1;
+            UnspentAttributePoints = attributePointsStartWith;
+            UnspentStatUpgrades = 0;
+            MarkDirty();
         }
         public void ConditionalSave()
         {
-            throw new NotImplementedException();
+            if (autoSave && _dirty) Save();
         }
         public void MarkDirty()
         {
-            throw new NotImplementedException();
+            _dirty = true;
         }
         public string GetSaveFilePath()
         {
-            throw new NotImplementedException();
+            return SaveManager.Instance.GetGlobalSaveFilePath(GlobalManagerType.LevelingSave);
         }
         public void CommitCheckpointSave()
         {
-            throw new NotImplementedException();
+            if (_dirty) Save();
         }
         public bool HasSavedData()
         {
-            throw new NotImplementedException();
+            return ES3.FileExists(_savePath ?? GetSaveFilePath());
         }
 
         public LevelStats GetLevelStats(int level)

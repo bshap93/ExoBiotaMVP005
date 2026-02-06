@@ -68,7 +68,8 @@ namespace Manager
         CreatureStateSave,
         HotbarSave,
         BioticAbilitiesSave,
-        ToolsStateSave
+        ToolsStateSave,
+        LevelingSave
     }
 
     public enum LocalManagerType
@@ -195,6 +196,7 @@ namespace Manager
             AttributesManager.Instance.Load();
             CreatureStateManager.Instance.Load();
             ToolsStateManager.Instance.Load();
+            LevelingManager.Instance.Load();
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Load();
@@ -244,6 +246,7 @@ namespace Manager
             AttributesManager.Instance.Save();
             CreatureStateManager.Instance.Save();
             ToolsStateManager.Instance.Save();
+            LevelingManager.Instance.Save();
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Save();
@@ -286,6 +289,7 @@ namespace Manager
             AttributesManager.Instance.Reset();
             CreatureStateManager.Instance.Reset();
             ToolsStateManager.Instance.Reset();
+            LevelingManager.Instance.Reset();
 
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
@@ -381,6 +385,8 @@ namespace Manager
                     return "BioticAbilitiesSave.es3";
                 case GlobalManagerType.ToolsStateSave:
                     return "ToolsStateSave.es3";
+                case GlobalManagerType.LevelingSave:
+                    return "LevelingSave.es3";
                 default:
 
                     Debug.LogError($"Unknown manager type: {globalManagerType}");
