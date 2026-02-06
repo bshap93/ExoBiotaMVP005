@@ -3,7 +3,6 @@ using Helpers.Events;
 using Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using SharedUI.Interact;
 using SharedUI.Inventory;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ namespace FirstPersonPlayer.UI.InventoryListView
 
         [SerializeField] bool condensedView;
 
-        [SerializeField] GatedLevelingUIController gatedLevelingUIController;
+        // [SerializeField] GatedLevelingUIController gatedLevelingUIController;
 
 
         void Start()

@@ -1,11 +1,14 @@
 ﻿using System;
+using FirstPersonPlayer.Tools.ItemObjectTypes;
+using Helpers.Events.Progression;
 using Helpers.Interfaces;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Manager.ProgressionMangers
 {
-    public class LevelingManager : MonoBehaviour, ICoreGameService
+    public class LevelingManager : MonoBehaviour, ICoreGameService, MMEventListener<XPEvent>
     {
         [SerializeField] AttributesManager attributesManager;
 
@@ -81,6 +84,15 @@ namespace Manager.ProgressionMangers
             _savePath = GetSaveFilePath();
         }
 
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
         public void Save()
         {
             var path = GetSaveFilePath();
@@ -151,6 +163,44 @@ namespace Manager.ProgressionMangers
         {
             return ES3.FileExists(_savePath ?? GetSaveFilePath());
         }
+        public void OnMMEvent(XPEvent eventType)
+        {
+            if (eventType.EventType == XPEventType.AwardXPToPlayer)
+            {
+            }
+        }
+
+        /// <summary>
+        ///     Adds to total XP, and triggers level up if earned.
+        /// </summary>
+        /// <param name="xpToAward"></param>
+        public void AwardXPToPlayer(int xpToAward)
+        {
+            CurrentTotalXP += xpToAward;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="newLevel"></param>
+        public void LevelUpPlayer(int newLevel)
+        {
+        }
+
+        /// <summary>
+        ///     For now, awards one upgrade per level.
+        /// </summary>
+        /// <param name="level"></param>
+        public void AwardStatUpgradeToPlayer(int level)
+        {
+        }
+
+        /// <summary>
+        ///     If the level reached grants attribute points, adds them.
+        /// </summary>
+        /// <param name="level"></param>
+        public void AwardAttributePointsToPlayer(int level)
+        {
+        }
 
         public LevelStats GetLevelStats(int level)
         {
@@ -162,6 +212,25 @@ namespace Manager.ProgressionMangers
                     return stats;
 
             throw new Exception($"Level {level} not found in levelStats array.");
+        }
+
+        public int GetXPGainedForCoreGrade(OuterCoreItemObject.CoreObjectValueGrade eventTypeCoreGrade)
+        {
+            switch (eventTypeCoreGrade)
+            {
+                case OuterCoreItemObject.CoreObjectValueGrade.StandardGrade:
+                    return 10;
+                case OuterCoreItemObject.CoreObjectValueGrade.Radiant:
+                    return 20;
+                case OuterCoreItemObject.CoreObjectValueGrade.Stellar:
+                    return 30;
+                case OuterCoreItemObject.CoreObjectValueGrade.Unreasonable:
+                    return 50;
+                case OuterCoreItemObject.CoreObjectValueGrade.MiscExotic:
+                    return 0;
+                default:
+                    return 0;
+            }
         }
 
         [Serializable]

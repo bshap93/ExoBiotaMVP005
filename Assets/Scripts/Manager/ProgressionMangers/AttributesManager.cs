@@ -42,8 +42,6 @@ namespace Manager.ProgressionMangers
         // functions been merged into a single stat...for now
         int _agility;
 
-        int _currentUnusedXP;
-
 
         // has perception and dexterity's traditional (and possibly thief)
         // functions been merged into a single stat...for now
@@ -57,15 +55,7 @@ namespace Manager.ProgressionMangers
         string _savePath;
         // just strength as normal
         int _strength;
-        public int CurrentUnusedXP
-        {
-            get => _currentUnusedXP;
-            set
-            {
-                _currentUnusedXP = value;
-                MarkDirty();
-            }
-        }
+
 
         public int Agility
         {
@@ -96,8 +86,6 @@ namespace Manager.ProgressionMangers
                 MarkDirty();
             }
         }
-
-
 
 
         public int Strength
@@ -150,7 +138,6 @@ namespace Manager.ProgressionMangers
             ES3.Save("Agility", _agility, path);
             ES3.Save("Dexterity", _dexterity, path);
             ES3.Save("Exobiotic", _exobiotic, path);
-            ES3.Save("CurrentUnusedXP", _currentUnusedXP, path);
 
 
             _dirty = false;
@@ -164,7 +151,6 @@ namespace Manager.ProgressionMangers
                 _dexterity = overrideDexterity;
                 _exobiotic = overrideExobiotic;
 
-                _currentUnusedXP = 0;
 
                 MarkDirty();
 
@@ -185,12 +171,8 @@ namespace Manager.ProgressionMangers
                 _dexterity = ES3.Load<int>("Dexterity", path);
 
 
-
             if (ES3.KeyExists("Exobiotic", path))
                 _exobiotic = ES3.Load<int>("Exobiotic", path);
-
-            if (ES3.KeyExists("CurrentUnusedXP", path))
-                CurrentUnusedXP = ES3.Load<int>("CurrentUnusedXP", path);
         }
         public void Reset()
         {
@@ -198,8 +180,6 @@ namespace Manager.ProgressionMangers
             _agility = 1;
             _dexterity = 1;
             _exobiotic = 1;
-
-            _currentUnusedXP = 0;
 
             MarkDirty();
 
@@ -296,35 +276,13 @@ namespace Manager.ProgressionMangers
                     break;
             }
 
-            _currentUnusedXP += amount;
 
-            XPEvent.Trigger(XPEventType.SetUnusedXP, _currentUnusedXP);
+            XPEvent.Trigger(XPEventType.AwardXPToPlayer, amount);
 
             MarkDirty();
         }
 
-        // public int AmtXPNeededForNextAttributePoint(AttributeType attributeType)
-        // {
-        //     
-        // }
-        public int GetXPGainedForCoreGrade(OuterCoreItemObject.CoreObjectValueGrade eventTypeCoreGrade)
-        {
-            switch (eventTypeCoreGrade)
-            {
-                case OuterCoreItemObject.CoreObjectValueGrade.StandardGrade:
-                    return 10;
-                case OuterCoreItemObject.CoreObjectValueGrade.Radiant:
-                    return 20;
-                case OuterCoreItemObject.CoreObjectValueGrade.Stellar:
-                    return 30;
-                case OuterCoreItemObject.CoreObjectValueGrade.Unreasonable:
-                    return 50;
-                case OuterCoreItemObject.CoreObjectValueGrade.MiscExotic:
-                    return 0;
-                default:
-                    return 0;
-            }
-        }
+
         public void ApplyPendingAttributeChanges(int pendingNewDexterity,
             int pendingNewAgility, int pendingNewStrength, int pendingNewExobiotic)
         {
@@ -335,12 +293,7 @@ namespace Manager.ProgressionMangers
 
             MarkDirty();
         }
-        public void ApplyPendingUnusedXP(int pendingNewUnusedXP)
-        {
-            _currentUnusedXP = pendingNewUnusedXP;
 
-            MarkDirty();
-        }
         public float GetEffectiveTimeCostMultiplier(GatedInteractionType interactionType)
         {
             switch (interactionType)

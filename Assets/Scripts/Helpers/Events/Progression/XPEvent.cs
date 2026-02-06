@@ -4,7 +4,7 @@ namespace Helpers.Events.Progression
 {
     public enum XPEventType
     {
-        SetUnusedXP
+        AwardXPToPlayer
     }
 
     public struct XPEvent
