@@ -36,6 +36,9 @@ namespace SharedUI.Progression
             notificationCanvasGroup.alpha = 0;
             debugChipsCanvasGroup.alpha = debugMode ? 1 : 0;
 
+            if (levelingManager != null)
+                totalXPText.text = levelingManager.CurrentTotalXP.ToString();
+
             xpNotify.SetActive(false);
             levelNotify.SetActive(false);
         }

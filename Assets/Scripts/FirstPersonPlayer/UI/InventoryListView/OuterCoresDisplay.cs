@@ -1,15 +1,18 @@
 ﻿using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.Events;
+using Helpers.Events.Progression;
 using Inventory;
+using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using SharedUI.Inventory;
+using TMPro;
 using UnityEngine;
 
 namespace FirstPersonPlayer.UI.InventoryListView
 {
     public class OuterCoresDisplay : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-        MMEventListener<LoadedManagerEvent>
+        MMEventListener<LoadedManagerEvent>, MMEventListener<XPEvent>, MMEventListener<LevelingEvent>
     {
         [SerializeField] GradeCoresUILVRow standardCoreRow;
         [SerializeField] GradeCoresUILVRow radiantCoreRow;
@@ -20,6 +23,10 @@ namespace FirstPersonPlayer.UI.InventoryListView
 
         // [SerializeField] GatedLevelingUIController gatedLevelingUIController;
 
+        [Header("Progression")] [SerializeField]
+        LevelingManager levelingManager;
+        [SerializeField] TMP_Text xpAmtText;
+        [SerializeField] TMP_Text levelIntText;
 
         void Start()
         {
@@ -30,12 +37,20 @@ namespace FirstPersonPlayer.UI.InventoryListView
         {
             this.MMEventStartListening<MMInventoryEvent>();
             this.MMEventStartListening<LoadedManagerEvent>();
+            this.MMEventStartListening<XPEvent>();
+            this.MMEventStartListening<LevelingEvent>();
         }
 
         void OnDisable()
         {
             this.MMEventStopListening<MMInventoryEvent>();
             this.MMEventStopListening<LoadedManagerEvent>();
+            this.MMEventStopListening<XPEvent>();
+            this.MMEventStopListening<LevelingEvent>();
+        }
+        public void OnMMEvent(LevelingEvent eventType)
+        {
+            levelIntText.text = levelingManager.CurrentLevel.ToString();
         }
         public void OnMMEvent(LoadedManagerEvent eventType)
         {
@@ -47,6 +62,10 @@ namespace FirstPersonPlayer.UI.InventoryListView
             if (eventType.TargetInventoryName != GlobalInventoryManager.OuterCoresInventoryName) return;
             if (eventType.InventoryEventType == MMInventoryEventType.ContentChanged)
                 Refresh();
+        }
+        public void OnMMEvent(XPEvent eventType)
+        {
+            xpAmtText.text = levelingManager.CurrentTotalXP + "/" + levelingManager.TotalXpNeededForNextLevel;
         }
 
         void Initialize()
