@@ -11,8 +11,9 @@ namespace Helpers.Events.Progression
     {
         static XPEvent _e;
         public int Amount;
+        public bool CausedLevelUp;
         public XPEventType EventType;
-        public static void Trigger(XPEventType type, int amount)
+        public static void Trigger(XPEventType type, int amount, bool causedLevelUp)
         {
             _e.Amount = amount;
             _e.EventType = type;

@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 16be6fb9c7fe49c469ad7d3e44a6dcc5, type: 2}
-  profileSync: 0
+  profileSync: 1
   camerasLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1561,7 +1561,6 @@ MonoBehaviour:
   onScanned:
     m_PersistentCalls:
       m_Calls: []
-  targetDuration: 3
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5796294873663944846
 MonoBehaviour:
@@ -2670,7 +2669,7 @@ MonoBehaviour:
   gatedInteractionType: 2
   innerCoreYield: 1
   innerCoreObjectPicker: {fileID: 4888187701277431673, guid: 742e4ea19e1e6c64ea1db1b9259d6b24, type: 3}
-  innerCoreInventoryItem: {fileID: 11400000, guid: 7b62c1e94bb3d1d44964e846226e28d4, type: 2}
+  innerCoreInventoryItem: {fileID: 0}
   outerCoreItemObject: {fileID: 11400000, guid: 39d228236c7e17c40badfd44bcfdf6aa, type: 2}
   timeToDissolve: 2
 --- !u!114 &6955988566311841442

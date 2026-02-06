@@ -200,14 +200,18 @@ namespace Manager.ProgressionMangers
         {
             CurrentTotalXP += xpToAward;
 
+            var causedLevelUp = false;
+
             // Check for level up
             while (CurrentLevel < levelCap && CurrentTotalXP >= TotalXpNeededForNextLevel)
             {
                 var newLevel = CurrentLevel + 1;
                 LevelUpPlayer(newLevel);
+
+                causedLevelUp = true;
             }
 
-            XPEvent.Trigger(XPEventType.AwardXPToPlayer, xpToAward);
+            XPEvent.Trigger(XPEventType.AwardXPToPlayer, xpToAward, causedLevelUp);
 
             ProgressionUpdateListenerNotifier.Trigger(
                 CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,

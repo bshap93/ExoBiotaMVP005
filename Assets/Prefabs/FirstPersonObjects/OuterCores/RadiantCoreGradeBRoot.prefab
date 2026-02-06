@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab61beb303f4cc2af9de8675f8c712c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: d22c1c39-bdb5-4a4e-8250-1595d50b8bde
+  uniqueID: 
   actionId: 43
   actionText: For Options, or F to Pickup
   quantity: 1
@@ -589,12 +589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0986de822ecb4835bfb249feaeb7996f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetID: 9a11fbcf-100a-4ad6-9fe7-cceba3638101
+  targetID: 
   seeThroughDuration: 5
   onScanned:
     m_PersistentCalls:
       m_Calls: []
-  targetDuration: 3
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &7876096316737028779
 SphereCollider:

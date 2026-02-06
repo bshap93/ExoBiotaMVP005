@@ -51,7 +51,7 @@ namespace Overview.NPC
         {
             return new[]
             {
-                "ScientistHypolita", "CheckpointSoldier", "NavigationServer"
+                "ScientistHypolita", "CheckpointSoldier", "NavigationServer", "MetaTerminalServer"
             };
         }
 

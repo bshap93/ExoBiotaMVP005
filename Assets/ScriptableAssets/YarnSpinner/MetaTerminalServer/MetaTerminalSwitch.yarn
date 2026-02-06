@@ -1,0 +1,34 @@
+title: MetaTerminalSwitch
+---
+Meta Terminal: Stand by for terminal data...
+===
+
+title: StartingFacilityTerminal
+---
+Meta Terminal: No interlinked locations at this time.
+===
+
+title: DebugLocationTerminal
+---
+Meta Terminal: You're using the debug terminal.
+<<jump TerminalGeneralDirectory>>
+===
+
+title: TerminalGeneralDirectory
+---
+Meta Terminal: What would you like to do?
+-> Save My Game
+    <<jump SaveMyGameAtTerminal>>
+-> Transport to another Terminal
+    <<jump FastTravelBetweenTerminals>>
+===
+
+title: SaveMyGameAtTerminal
+---
+Meta Terminal: Choose a slot to save your game.
+===
+
+title: FastTravelBetweenTerminals
+---
+Meta Terminal: Which other terminal would you like to travel to?
+===
