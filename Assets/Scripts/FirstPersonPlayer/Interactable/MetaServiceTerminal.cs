@@ -78,7 +78,7 @@ namespace FirstPersonPlayer.Interactable
         }
         public float GetInteractionDistance()
         {
-            return 4f;
+            return 5f;
         }
         public string UniqueID => uniqueID;
         public void SetUniqueID()

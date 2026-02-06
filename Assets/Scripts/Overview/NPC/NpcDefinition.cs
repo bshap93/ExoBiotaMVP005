@@ -70,6 +70,8 @@ namespace Overview.NPC
 
         public float gestureTransitionDuration = 0.2f;
         public float idleTransitionDuration = 0.2f;
+        [Header("Additional Optional Info")] public Sprite characterIcon;
+        public string npcDescription;
 
         static string[] GetNpcIdOptions()
         {
