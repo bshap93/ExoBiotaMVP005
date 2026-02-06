@@ -12,7 +12,7 @@ using UnityEngine;
 namespace FirstPersonPlayer.UI.InventoryListView
 {
     public class OuterCoresDisplay : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-        MMEventListener<LoadedManagerEvent>, MMEventListener<XPEvent>, MMEventListener<LevelingEvent>
+        MMEventListener<LoadedManagerEvent>, MMEventListener<ProgressionUpdateListenerNotifier>
     {
         [SerializeField] GradeCoresUILVRow standardCoreRow;
         [SerializeField] GradeCoresUILVRow radiantCoreRow;
@@ -37,20 +37,16 @@ namespace FirstPersonPlayer.UI.InventoryListView
         {
             this.MMEventStartListening<MMInventoryEvent>();
             this.MMEventStartListening<LoadedManagerEvent>();
-            this.MMEventStartListening<XPEvent>();
-            this.MMEventStartListening<LevelingEvent>();
+
+            this.MMEventStartListening<ProgressionUpdateListenerNotifier>();
         }
 
         void OnDisable()
         {
             this.MMEventStopListening<MMInventoryEvent>();
             this.MMEventStopListening<LoadedManagerEvent>();
-            this.MMEventStopListening<XPEvent>();
-            this.MMEventStopListening<LevelingEvent>();
-        }
-        public void OnMMEvent(LevelingEvent eventType)
-        {
-            levelIntText.text = levelingManager.CurrentLevel.ToString();
+
+            this.MMEventStopListening<ProgressionUpdateListenerNotifier>();
         }
         public void OnMMEvent(LoadedManagerEvent eventType)
         {
@@ -61,19 +57,23 @@ namespace FirstPersonPlayer.UI.InventoryListView
         {
             if (eventType.TargetInventoryName != GlobalInventoryManager.OuterCoresInventoryName) return;
             if (eventType.InventoryEventType == MMInventoryEventType.ContentChanged)
-                Refresh();
+                RefreshCoreCounts();
         }
-        public void OnMMEvent(XPEvent eventType)
+        public void OnMMEvent(ProgressionUpdateListenerNotifier eventType)
         {
-            xpAmtText.text = levelingManager.CurrentTotalXP + "/" + levelingManager.TotalXpNeededForNextLevel;
+            xpAmtText.text = eventType.CurrentTotalXP + "/" + levelingManager.TotalXpNeededForNextLevel;
+            levelIntText.text = eventType.CurrentLevel.ToString();
         }
+
 
         void Initialize()
         {
-            Refresh();
+            RefreshCoreCounts();
+            xpAmtText.text = levelingManager.CurrentTotalXP + "/" + levelingManager.TotalXpNeededForNextLevel;
+            levelIntText.text = levelingManager.CurrentLevel.ToString();
         }
 
-        public void Refresh()
+        public void RefreshCoreCounts()
         {
             var globalInventoryManager = GlobalInventoryManager.Instance;
             var numStandard = globalInventoryManager.GetNumberOfOuterCoresInInventory(

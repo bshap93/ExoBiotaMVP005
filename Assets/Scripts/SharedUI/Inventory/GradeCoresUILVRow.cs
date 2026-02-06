@@ -4,7 +4,6 @@ using Michsky.MUIP;
 using MoreMountains.Feedbacks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace SharedUI.Inventory
@@ -15,11 +14,8 @@ namespace SharedUI.Inventory
         [SerializeField] TMP_Text coreNameText;
         [SerializeField] TMP_Text coreQuantityText;
 
-        [FormerlySerializedAs("onIncreaseQuantityF")]
-        [FormerlySerializedAs("onChangeQuantityFeedbacks")]
-        [SerializeField]
-        MMFeedbacks onIncreaseQuantityFeedbacks;
-        [SerializeField] MMFeedbacks onDecreaseQuantityFeedbacks;
+        [SerializeField] MMFeedbacks convertToXPFeedback;
+
         public ButtonManager convertToXPButton;
         [SerializeField] OuterCoreItemObject.CoreObjectValueGrade _coreGrade;
 
@@ -29,9 +25,6 @@ namespace SharedUI.Inventory
 
         public void Initialize(OuterCoreItemObject.CoreObjectValueGrade grade, int quantity)
         {
-            if (quantity > _currentQuantity) onIncreaseQuantityFeedbacks?.PlayFeedbacks();
-            else if (quantity < _currentQuantity) onDecreaseQuantityFeedbacks?.PlayFeedbacks();
-
             _currentQuantity = quantity;
             coreQuantityText.text = _currentQuantity.ToString();
 
@@ -44,7 +37,8 @@ namespace SharedUI.Inventory
 
         void ConvertToXP()
         {
-            OuterCoreXPEvent.Trigger(InnerCoreXPEventType.ConvertCoreToXP, _coreGrade);
+            convertToXPFeedback?.PlayFeedbacks();
+            BioticCoreXPConversionEvent.Trigger(BioticCoreXPEventType.ConvertCoreToXP, _coreGrade);
         }
     }
 }

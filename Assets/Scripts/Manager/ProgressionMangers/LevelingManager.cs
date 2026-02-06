@@ -1,14 +1,17 @@
 ﻿using System;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
+using Helpers.Events;
 using Helpers.Events.Progression;
 using Helpers.Interfaces;
+using Helpers.StaticHelpers;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Manager.ProgressionMangers
 {
-    public class LevelingManager : MonoBehaviour, ICoreGameService, MMEventListener<XPEvent>
+    public class LevelingManager : MonoBehaviour, ICoreGameService, MMEventListener<XPEvent>,
+        MMEventListener<BioticCoreXPConversionEvent>
     {
         [SerializeField] AttributesManager attributesManager;
 
@@ -82,15 +85,24 @@ namespace Manager.ProgressionMangers
         void Start()
         {
             _savePath = GetSaveFilePath();
+            if (!HasSavedData())
+            {
+                Reset();
+                return;
+            }
+
+            Load();
         }
 
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<XPEvent>();
+            this.MMEventStartListening<BioticCoreXPConversionEvent>();
         }
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<XPEvent>();
+            this.MMEventStopListening<BioticCoreXPConversionEvent>();
         }
 
         public void Save()
@@ -163,11 +175,16 @@ namespace Manager.ProgressionMangers
         {
             return ES3.FileExists(_savePath ?? GetSaveFilePath());
         }
+
+        public void OnMMEvent(BioticCoreXPConversionEvent conversionEventType)
+        {
+            if (conversionEventType.EventType == BioticCoreXPEventType.ConvertCoreToXP)
+                ConvertCoreToXP(conversionEventType.CoreGrade);
+        }
         public void OnMMEvent(XPEvent eventType)
         {
             if (eventType.EventType == XPEventType.AwardXPToPlayer)
-            {
-            }
+                AwardXPToPlayer(eventType.Amount);
         }
 
         /// <summary>
@@ -177,32 +194,53 @@ namespace Manager.ProgressionMangers
         public void AwardXPToPlayer(int xpToAward)
         {
             CurrentTotalXP += xpToAward;
+
+            // Check for level up
+            while (CurrentLevel < levelCap && CurrentTotalXP >= TotalXpNeededForNextLevel)
+            {
+                var newLevel = CurrentLevel + 1;
+                LevelUpPlayer(newLevel);
+            }
+
+            ProgressionUpdateListenerNotifier.Trigger(
+                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                UnspentAttributePoints);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="newLevel"></param>
-        public void LevelUpPlayer(int newLevel)
+        void LevelUpPlayer(int newLevel)
         {
+            if (newLevel != CurrentLevel + 1)
+                throw new ArgumentException("New level must be exactly one greater than current level.");
+
+            CurrentLevel = newLevel;
+            AwardStatUpgradeToPlayer(newLevel);
+            AwardAttributePointsToPlayer(newLevel);
         }
 
         /// <summary>
         ///     For now, awards one upgrade per level.
         /// </summary>
         /// <param name="level"></param>
-        public void AwardStatUpgradeToPlayer(int level)
+        void AwardStatUpgradeToPlayer(int level)
         {
+            UnspentStatUpgrades += 1;
         }
 
         /// <summary>
         ///     If the level reached grants attribute points, adds them.
         /// </summary>
         /// <param name="level"></param>
-        public void AwardAttributePointsToPlayer(int level)
+        void AwardAttributePointsToPlayer(int level)
         {
+            var stats = GetLevelStats(level);
+            if (stats.attributePointsGranted > 0)
+                UnspentAttributePoints += stats.attributePointsGranted;
         }
 
-        public LevelStats GetLevelStats(int level)
+        LevelStats GetLevelStats(int level)
         {
             if (level < 1 || level > levelCap)
                 throw new ArgumentException("Level must be greater than or equal to 1.", nameof(level));
@@ -231,6 +269,40 @@ namespace Manager.ProgressionMangers
                 default:
                     return 0;
             }
+        }
+
+        public void ConvertCoreToXP(
+            OuterCoreItemObject.CoreObjectValueGrade coreGrade)
+        {
+            // remove one core from inventory
+            InventoryHelperCommands.RemoveOuterCore(coreGrade);
+
+            // add the XP
+            var amount = 0;
+            switch (coreGrade)
+            {
+                case OuterCoreItemObject.CoreObjectValueGrade.StandardGrade:
+                    amount = 10;
+                    break;
+                case OuterCoreItemObject.CoreObjectValueGrade.Radiant:
+                    amount = 20;
+                    break;
+                case OuterCoreItemObject.CoreObjectValueGrade.Stellar:
+                    amount = 30;
+                    break;
+                case OuterCoreItemObject.CoreObjectValueGrade.Unreasonable:
+                    amount = 50;
+                    break;
+                case OuterCoreItemObject.CoreObjectValueGrade.MiscExotic:
+                    amount = 0;
+                    break;
+            }
+
+
+            AwardXPToPlayer(amount);
+            Debug.Log("XP Awarded: " + amount);
+
+            MarkDirty();
         }
 
         [Serializable]

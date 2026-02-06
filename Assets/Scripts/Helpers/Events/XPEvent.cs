@@ -3,17 +3,17 @@ using MoreMountains.Tools;
 
 namespace Helpers.Events
 {
-    public enum InnerCoreXPEventType
+    public enum BioticCoreXPEventType
     {
         ConvertCoreToXP
     }
 
-    public struct OuterCoreXPEvent
+    public struct BioticCoreXPConversionEvent
     {
-        static OuterCoreXPEvent _e;
+        static BioticCoreXPConversionEvent _e;
         public OuterCoreItemObject.CoreObjectValueGrade CoreGrade;
-        public InnerCoreXPEventType EventType;
-        public static void Trigger(InnerCoreXPEventType eventType,
+        public BioticCoreXPEventType EventType;
+        public static void Trigger(BioticCoreXPEventType eventType,
             OuterCoreItemObject.CoreObjectValueGrade coreGrade)
         {
             _e.EventType = eventType;

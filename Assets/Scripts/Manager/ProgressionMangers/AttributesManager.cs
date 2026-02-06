@@ -1,9 +1,6 @@
-﻿using FirstPersonPlayer.Tools.ItemObjectTypes;
-using Helpers.Events;
+﻿using Helpers.Events;
 using Helpers.Events.Gated;
-using Helpers.Events.Progression;
 using Helpers.Interfaces;
-using Helpers.StaticHelpers;
 using MoreMountains.Tools;
 using OWPData.ScriptableObjects;
 using SharedUI.Progression;
@@ -12,16 +9,19 @@ using UnityEngine;
 
 namespace Manager.ProgressionMangers
 {
-    public class AttributesManager : MonoBehaviour, ICoreGameService, MMEventListener<OuterCoreXPEvent>,
+    public class AttributesManager : MonoBehaviour, ICoreGameService,
         MMEventListener<GatedLevelingEvent>
     {
         const float baseCost = 20f; // cost for first level
         const float growth = 1.4f; // how fast it scales
         public bool autoSave;
 
-        [SerializeField] PlayerStatsSheet playerStatsSheet;
+        [Header("References")] [SerializeField]
+        PlayerStatsSheet playerStatsSheet;
+        [SerializeField] LevelingManager levelingManager;
 
-        public bool overrideAttributesOnLoad;
+
+        [Header("Overrides")] public bool overrideAttributesOnLoad;
         [ShowIf("overrideAttributesOnLoad")] [SerializeField]
         int overrideStrength = 2;
         [ShowIf("overrideAttributesOnLoad")] [SerializeField]
@@ -122,14 +122,12 @@ namespace Manager.ProgressionMangers
         }
         void OnEnable()
         {
-            this.MMEventStartListening<OuterCoreXPEvent>();
-            this.MMEventStartListening<GatedLevelingEvent>();
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening<OuterCoreXPEvent>();
-            this.MMEventStopListening<GatedLevelingEvent>();
+            this.MMEventStopListening();
         }
         public void Save()
         {
@@ -206,6 +204,7 @@ namespace Manager.ProgressionMangers
         {
             return ES3.FileExists(_savePath ?? GetSaveFilePath());
         }
+
         public void OnMMEvent(GatedLevelingEvent eventType)
         {
             if (eventType.EventType == GatedInteractionEventType.CompleteInteraction)
@@ -234,11 +233,6 @@ namespace Manager.ProgressionMangers
                 MarkDirty();
             }
         }
-        public void OnMMEvent(OuterCoreXPEvent eventType)
-        {
-            if (eventType.EventType == InnerCoreXPEventType.ConvertCoreToXP)
-                ConvertCoreToXP(eventType.CoreGrade);
-        }
 
 
         public int GetXpRequiredForLevel(int level)
@@ -247,39 +241,6 @@ namespace Manager.ProgressionMangers
                 return Mathf.RoundToInt(baseCost);
 
             return Mathf.RoundToInt(baseCost * Mathf.Pow(growth, level - 2));
-        }
-
-        void ConvertCoreToXP(
-            OuterCoreItemObject.CoreObjectValueGrade coreGrade)
-        {
-            // remove one core from inventory
-            InventoryHelperCommands.RemoveOuterCore(coreGrade);
-
-            // add the XP
-            var amount = 0;
-            switch (coreGrade)
-            {
-                case OuterCoreItemObject.CoreObjectValueGrade.StandardGrade:
-                    amount = 10;
-                    break;
-                case OuterCoreItemObject.CoreObjectValueGrade.Radiant:
-                    amount = 20;
-                    break;
-                case OuterCoreItemObject.CoreObjectValueGrade.Stellar:
-                    amount = 30;
-                    break;
-                case OuterCoreItemObject.CoreObjectValueGrade.Unreasonable:
-                    amount = 50;
-                    break;
-                case OuterCoreItemObject.CoreObjectValueGrade.MiscExotic:
-                    amount = 0;
-                    break;
-            }
-
-
-            XPEvent.Trigger(XPEventType.AwardXPToPlayer, amount);
-
-            MarkDirty();
         }
 
 
