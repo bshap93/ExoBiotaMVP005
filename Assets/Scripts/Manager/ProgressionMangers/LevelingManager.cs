@@ -2,6 +2,7 @@
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.Events;
 using Helpers.Events.Progression;
+using Helpers.Events.Status;
 using Helpers.Interfaces;
 using Helpers.StaticHelpers;
 using MoreMountains.Tools;
@@ -11,9 +12,12 @@ using UnityEngine.Serialization;
 namespace Manager.ProgressionMangers
 {
     public class LevelingManager : MonoBehaviour, ICoreGameService,
-        MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>
+        MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>,
+        MMEventListener<SpendStatUpgradeEvent>
     {
-        [SerializeField] AttributesManager attributesManager;
+        [Header("References")] [SerializeField]
+        AttributesManager attributesManager;
+        [SerializeField] PlayerMutableStatsManager playerMutableStatsManager;
 
         [Header("Leveling Stats")] [SerializeField]
         LevelStats[] levelStats;
@@ -98,11 +102,13 @@ namespace Manager.ProgressionMangers
         {
             this.MMEventStartListening<BioticCoreXPConversionEvent>();
             this.MMEventStartListening<EnemyXPRewardEvent>();
+            this.MMEventStartListening<SpendStatUpgradeEvent>();
         }
         void OnDisable()
         {
             this.MMEventStopListening<BioticCoreXPConversionEvent>();
             this.MMEventStopListening<EnemyXPRewardEvent>();
+            this.MMEventStopListening<SpendStatUpgradeEvent>();
         }
 
         public void Save()
@@ -186,12 +192,54 @@ namespace Manager.ProgressionMangers
         {
             throw new NotImplementedException();
         }
-        // public void OnMMEvent(XPEvent eventType)
-        // {
-        //     if (eventType.EventType == XPEventType.AwardXPToPlayer)
-        //         AwardXPToPlayer(eventType.Amount);
-        // }
 
+        public void OnMMEvent(SpendStatUpgradeEvent eventType)
+        {
+            if (UnspentStatUpgrades <= 0)
+            {
+                Debug.LogWarning("No unspent stat upgrades available.");
+                AlertEvent.Trigger(
+                    AlertReason.InvalidAction, "No unspent stat upgrades available.", "Stat Upgrade Unavailable");
+
+                return;
+            }
+
+            switch (eventType.StatType)
+            {
+                case StatType.HealthMax:
+                    var upgradeLevel = HealthUpgradeLevel + 1;
+                    var newHealthAmount = GetHealthAmountForUpgradeLevel(upgradeLevel);
+                    var diff = newHealthAmount - playerMutableStatsManager.CurrentMaxHealth;
+                    Debug.Log("Received request to upgrade HealthMax");
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        diff);
+
+                    break;
+                case StatType.ContaminationMax:
+                    var contaminationUpgradeLevel = ContaminationUpgradeLevel + 1;
+                    var newContaminationAmount = GetConatminationAmountForUpgradeLevel(contaminationUpgradeLevel);
+                    var contaminationDiff = newContaminationAmount - playerMutableStatsManager.CurrentMaxContamination;
+                    Debug.Log("Received request to upgrade ContaminationMax");
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentMaxContamination,
+                        PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        contaminationDiff);
+
+                    break;
+                case StatType.StaminaMax:
+                    var staminaUpgradeLevel = StaminaUpgradeLevel + 1;
+                    var newStaminaAmount = GetStaminaAmountForUpgradeLevel(staminaUpgradeLevel);
+                    var staminaDiff = newStaminaAmount - playerMutableStatsManager.CurrentMaxStamina;
+
+                    Debug.Log("Received request to upgrade StaminaMax");
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentMaxStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        staminaDiff);
+
+                    break;
+            }
+        }
         /// <summary>
         ///     Adds to total XP, and triggers level up if earned.
         /// </summary>
@@ -315,6 +363,33 @@ namespace Manager.ProgressionMangers
             AwardXPToPlayer(amount);
 
             MarkDirty();
+        }
+
+        public float GetHealthAmountForUpgradeLevel(int upgradeLevel)
+        {
+            foreach (var entry in healthAmountByUpgrade)
+                if (entry.upgradeLevel == upgradeLevel)
+                    return entry.healthAmount;
+
+            throw new Exception($"Upgrade level {upgradeLevel} not found in healthAmountByUpgrade array.");
+        }
+
+        public float GetStaminaAmountForUpgradeLevel(int upgradeLevel)
+        {
+            foreach (var entry in staminaAmountByUpgrade)
+                if (entry.upgradeLevel == upgradeLevel)
+                    return entry.staminaAmount;
+
+            throw new Exception($"Upgrade level {upgradeLevel} not found in staminaAmountByUpgrade array.");
+        }
+
+        public float GetConatminationAmountForUpgradeLevel(int upgradeLevel)
+        {
+            foreach (var entry in contaminationAmountByUpgrade)
+                if (entry.upgradeLevel == upgradeLevel)
+                    return entry.contaminationAmount;
+
+            throw new Exception($"Upgrade level {upgradeLevel} not found in contaminationAmountByUpgrade array.");
         }
 
         [Serializable]

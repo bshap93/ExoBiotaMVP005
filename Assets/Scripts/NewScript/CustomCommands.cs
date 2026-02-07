@@ -1,6 +1,7 @@
-using Events;
+using System;
 using Helpers.Events;
 using Helpers.Events.ManagerEvents;
+using Helpers.Events.Progression;
 using Inventory;
 using MoreMountains.InventoryEngine;
 using Objectives;
@@ -43,36 +44,38 @@ namespace NewScript
                 "switch_idle_animation",
                 SwitchIdleLoopingAnimation
             );
-            
+
             // ----------- Objectives commands ----------
-            
+
             dialogueRunner.AddCommandHandler<string>(
                 "add_objective",
                 AddObjective
             );
-            
+
             dialogueRunner.AddCommandHandler<string>(
                 "activate_objective",
                 ActivateObjective
             );
-            
+
             dialogueRunner.AddCommandHandler<string>(
                 "make_objective_inactive",
                 MakeObjectiveInactive
             );
-            
+
             dialogueRunner.AddCommandHandler<string>(
                 "complete_objective",
                 CompleteObjective
             );
-            
+
             dialogueRunner.AddCommandHandler<string>(
                 "mark_poi_as_having_new_content",
                 MarkPOIAsHavingNewContent
             );
-            
-            
-            
+
+            dialogueRunner.AddCommandHandler<int>(
+                "trigger_stat_upgrade",
+                TriggerStatUpgrade
+            );
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -104,6 +107,21 @@ namespace NewScript
             MMInventoryEvent.Trigger(
                 MMInventoryEventType.Pick, null,
                 item.TargetInventoryName, item, amount, 0, inv.playerId);
+        }
+
+
+        // Progression Commands
+        public void TriggerStatUpgrade(int typeId)
+        {
+            if (typeId < 0 || typeId >= Enum.GetValues(typeof(StatType)).Length)
+            {
+                Debug.LogWarning($"Invalid StatType id: {typeId}");
+                return;
+            }
+
+            var statType = (StatType)typeId;
+
+            SpendStatUpgradeEvent.Trigger(statType);
         }
 
         // Dialogue Gestures
@@ -140,8 +158,8 @@ namespace NewScript
 
             helper.SwitchIdleLoopingAnimation(key);
         }
-        
-                // ----------- Objectives commands ----------
+
+        // ----------- Objectives commands ----------
 
         public void AddObjective(string objectiveId)
         {
