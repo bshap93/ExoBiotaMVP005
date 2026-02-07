@@ -209,11 +209,19 @@ namespace Manager.ProgressionMangers
                 case StatType.HealthMax:
                     var upgradeLevel = HealthUpgradeLevel + 1;
                     var newHealthAmount = GetHealthAmountForUpgradeLevel(upgradeLevel);
-                    // var diff = newHealthAmount - playerMutableStatsManager.CurrentMaxHealth;
+                    var diff = newHealthAmount - playerMutableStatsManager.CurrentMaxHealth;
                     Debug.Log("Received request to upgrade HealthMax");
                     PlayerStatsEvent.Trigger(
                         PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase,
                         newHealthAmount);
+
+                    // Restore current health
+                    var currentHealth = playerMutableStatsManager.CurrentHealth;
+                    var newCurrentHealth = currentHealth + diff;
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentHealth, PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        newCurrentHealth);
+
 
                     HealthUpgradeLevel = upgradeLevel;
                     AlertEvent.Trigger(
@@ -224,12 +232,20 @@ namespace Manager.ProgressionMangers
                 case StatType.ContaminationMax:
                     var contaminationUpgradeLevel = ContaminationUpgradeLevel + 1;
                     var newContaminationAmount = GetConatminationAmountForUpgradeLevel(contaminationUpgradeLevel);
-                    // var contaminationDiff = newContaminationAmount - playerMutableStatsManager.CurrentMaxContamination;
+                    var contaminationDiff = newContaminationAmount - playerMutableStatsManager.CurrentMaxContamination;
                     Debug.Log("Received request to upgrade ContaminationMax");
                     PlayerStatsEvent.Trigger(
                         PlayerStatsEvent.PlayerStat.CurrentMaxContamination,
                         PlayerStatsEvent.PlayerStatChangeType.Increase,
                         newContaminationAmount);
+
+                    // Restore current contamination
+                    var currentContamination = playerMutableStatsManager.CurrentContamination;
+                    var newCurrentContamination = currentContamination + contaminationDiff;
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentContamination,
+                        PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        newCurrentContamination);
 
                     ContaminationUpgradeLevel = contaminationUpgradeLevel;
                     AlertEvent.Trigger(
@@ -239,12 +255,19 @@ namespace Manager.ProgressionMangers
                 case StatType.StaminaMax:
                     var staminaUpgradeLevel = StaminaUpgradeLevel + 1;
                     var newStaminaAmount = GetStaminaAmountForUpgradeLevel(staminaUpgradeLevel);
-                    // var staminaDiff = newStaminaAmount - playerMutableStatsManager.CurrentMaxStamina;
+                    var staminaDiff = newStaminaAmount - playerMutableStatsManager.CurrentMaxStamina;
 
                     Debug.Log("Received request to upgrade StaminaMax");
                     PlayerStatsEvent.Trigger(
                         PlayerStatsEvent.PlayerStat.CurrentMaxStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
                         newStaminaAmount);
+
+                    // Restore current stamina 
+                    var currentStamina = playerMutableStatsManager.CurrentStamina;
+                    var newCurrentStamina = currentStamina + staminaDiff;
+                    PlayerStatsEvent.Trigger(
+                        PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        newCurrentStamina);
 
                     StaminaUpgradeLevel = staminaUpgradeLevel;
                     AlertEvent.Trigger(
