@@ -117,8 +117,8 @@ namespace FirstPersonPlayer.UI.Stats
             if (stats == null) return;
 
             // Snap to current (no smoothing) so we start from correct baseline
-            if (healthBar != null) healthBar.SetBar(stats.CurrentHealth, 0f, stats.BaseMaxHealth);
-            if (staminaBar != null) staminaBar.SetBar(stats.CurrentStamina, 0f, stats.BaseMaxStamina);
+            if (healthBar != null) healthBar.SetBar(stats.CurrentHealth, 0f, stats.CurrentMaxHealth);
+            if (staminaBar != null) staminaBar.SetBar(stats.CurrentStamina, 0f, stats.CurrentMaxStamina);
 
 
             // Guard against division by zero

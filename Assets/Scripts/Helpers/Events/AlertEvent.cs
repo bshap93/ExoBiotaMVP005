@@ -61,7 +61,8 @@ namespace Helpers.Events
         InRangeOfOverworldNPCDirect,
         CurrencyGained,
         NotEnoughAmmo,
-        NotEnoughContamination
+        NotEnoughContamination,
+        StatUpgradePurchased
     }
 
     [Serializable]

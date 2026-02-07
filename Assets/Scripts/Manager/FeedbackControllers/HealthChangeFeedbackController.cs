@@ -26,11 +26,11 @@ namespace Manager.FeedbackControllers
                 switch (eventType.Cause)
                 {
                     case PlayerStatsEvent.StatChangeCause.FallDamage:
-                        fallSpecificFeedback?.PlayFeedbacks(eventType.SourcePosition, eventType.Percent);
+                        fallSpecificFeedback?.PlayFeedbacks(eventType.SourcePosition);
                         break;
 
                     case PlayerStatsEvent.StatChangeCause.DecontaminationChamber:
-                        defaultDamageFeedback?.PlayFeedbacks(eventType.SourcePosition, eventType.Percent);
+                        defaultDamageFeedback?.PlayFeedbacks(eventType.SourcePosition);
                         break;
                     default:
                         return;

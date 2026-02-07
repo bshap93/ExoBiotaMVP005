@@ -2,10 +2,10 @@
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.Events;
 using Helpers.Interfaces;
+using Helpers.YarnSpinner;
 using Manager.Global;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
-using NewScript;
 using UnityEngine;
 using UnityEngine.Serialization;
 using DialogueGameCommands = Manager.DialogueScene.DialogueCommands.DialogueGameCommands;

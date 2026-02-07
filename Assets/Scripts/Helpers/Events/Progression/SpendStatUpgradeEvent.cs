@@ -5,8 +5,9 @@ namespace Helpers.Events.Progression
     public enum StatType
     {
         HealthMax,
-        ContaminationMax,
-        StaminaMax
+        // ContaminationMax,
+        StaminaMax,
+        ContaminationMax
     }
 
     public struct SpendStatUpgradeEvent

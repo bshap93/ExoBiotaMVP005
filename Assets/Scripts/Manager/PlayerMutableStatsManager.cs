@@ -497,7 +497,7 @@ namespace Manager
                     {
                         CurrentMaxHealth += e.Amount;
                         CurrentMaxHealth += e.Percent * BaseMaxHealth;
-                        CurrentMaxHealth = Mathf.Clamp(CurrentMaxHealth, 0, BaseMaxHealth);
+                        // CurrentMaxHealth = Mathf.Clamp(CurrentMaxHealth, 0, BaseMaxHealth);
                         PlayerStatsSyncEvent.Trigger();
                     }
 
@@ -515,7 +515,7 @@ namespace Manager
                     {
                         CurrentStamina += e.Amount;
                         CurrentStamina += e.Percent * BaseMaxStamina;
-                        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, BaseMaxStamina);
+                        // CurrentStamina = Mathf.Clamp(CurrentStamina, 0, BaseMaxStamina);
                         restoreStaminaFeedbacks?.PlayFeedbacks();
                         PlayerStatsSyncEvent.Trigger();
                     }
@@ -537,7 +537,7 @@ namespace Manager
                     {
                         CurrentMaxStamina += e.Amount;
                         CurrentMaxStamina += e.Percent * BaseMaxStamina;
-                        CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
+                        // CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
                         PlayerStatsSyncEvent.Trigger();
                     }
 

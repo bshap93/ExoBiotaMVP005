@@ -9,7 +9,7 @@ using Overview.NPC;
 using UnityEngine;
 using Yarn.Unity;
 
-namespace NewScript
+namespace Helpers.YarnSpinner
 {
     public class CustomCommands : MonoBehaviour
     {

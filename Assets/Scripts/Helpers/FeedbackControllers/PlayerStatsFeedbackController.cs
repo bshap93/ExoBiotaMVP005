@@ -10,8 +10,11 @@ namespace Helpers.FeedbackControllers
 {
     public class PlayerStatsFeedbackController : MonoBehaviour, MMEventListener<PlayerStatsEvent>
     {
-        [SerializeField] MMFeedbacks jabbarCrecheHealthDecreaseFeedbacks;
+        [Header("Feedbacks")] [SerializeField] MMFeedbacks jabbarCrecheHealthDecreaseFeedbacks;
         [SerializeField] MMFeedbacks maxHealthDecreaseFeedbacks;
+        [SerializeField] MMFeedbacks increasedCurrentMaxHealthFeedbacks;
+        [SerializeField] MMFeedbacks increasedCurrentMaxStaminaFeedbacks;
+        [SerializeField] MMFeedbacks increasedCurrentMaxContaminationFeedbacks;
 
         [Header("Low Health Warning")] [SerializeField]
         MMFeedbacks lowHealthFeedback;
@@ -118,6 +121,8 @@ namespace Helpers.FeedbackControllers
 
         void HandleHealthIncreaseFeedback(PlayerStatsEvent eventType)
         {
+            if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentMaxHealth)
+                increasedCurrentMaxHealthFeedbacks?.PlayFeedbacks();
         }
 
         void HandleStaminaFeedback(PlayerStatsEvent eventType)
@@ -146,6 +151,8 @@ namespace Helpers.FeedbackControllers
 
         void HandleStaminaIncreaseFeedback(PlayerStatsEvent eventType)
         {
+            if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentMaxStamina)
+                increasedCurrentMaxStaminaFeedbacks?.PlayFeedbacks();
         }
 
         void HandleContaminationFeedback(PlayerStatsEvent eventType)
@@ -164,6 +171,8 @@ namespace Helpers.FeedbackControllers
 
         void HandleContaminationIncreaseFeedback(PlayerStatsEvent eventType)
         {
+            if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentMaxContamination)
+                increasedCurrentMaxContaminationFeedbacks?.PlayFeedbacks();
         }
 
         void HandleContaminationDecreaseFeedback(PlayerStatsEvent eventType)

@@ -1,6 +1,74 @@
+
+title: DebugLocationTerminal
+---
+Meta Terminal: You're using the debug terminal.
+<<jump MetaTerminalSwitch>>
+===
+
 title: MetaTerminalSwitch
 ---
 Meta Terminal: Stand by for terminal data...
+<<if get_stat_upgrade_points_unused() > 0>>
+    Meta Terminal: Would you like to upgrade your vitals?
+    -> Yes
+        Meta Terminal: OK!
+        <<jump UpgradeStatsWhenPossible>>
+    -> Not yet
+        <<jump TerminalGeneralDirectory>>
+<<endif>>
+===
+
+title: UpgradeStatsWhenPossible
+---
+Meta Terminal: Which vital would you like to upgrade?
+<<declare $currentLv = 0>>
+<<declare $newLv = 0>>
+-> Health
+    <<set $currentLv = get_current_health_upgrade_level()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Making health upgrade now.
+            <<trigger_stat_upgrade 0>>
+            <<wait 2>>
+            <<set $newLv = get_current_health_upgrade_level()>>
+            <<if $newLv > $currentLv>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Stamina
+    <<set $currentLv = get_current_stamina_upgrade_level()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing stamina upgrade now.
+            <<trigger_stat_upgrade 1>>
+            <<wait 2>>
+            <<set $newLv = get_current_stamina_upgrade_level()>>
+            <<if $newLv > $currentLv>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Contamination
+    <<set $currentLv = get_current_contamination_upgrade_level()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Making contamination upgrade now.
+            <<trigger_stat_upgrade 2>>
+            <<wait 2>>
+            <<set $newLv = get_current_contamination_upgrade_level()>>
+            <<if $newLv > $currentLv>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> I want more information on each option.
+    Meta Terminal: Certainly. Which vital can I offer information on?
+-> I'll upgrade later.
+    <<jump TerminalGeneralDirectory>>
 ===
 
 title: StartingFacilityTerminal
@@ -8,11 +76,6 @@ title: StartingFacilityTerminal
 Meta Terminal: No interlinked locations at this time.
 ===
 
-title: DebugLocationTerminal
----
-Meta Terminal: You're using the debug terminal.
-<<jump TerminalGeneralDirectory>>
-===
 
 title: TerminalGeneralDirectory
 ---
@@ -21,6 +84,7 @@ Meta Terminal: What would you like to do?
     <<jump SaveMyGameAtTerminal>>
 -> Transport to another Terminal
     <<jump FastTravelBetweenTerminals>>
+-> Quit
 ===
 
 title: SaveMyGameAtTerminal
