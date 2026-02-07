@@ -79,7 +79,7 @@ namespace Manager
         [FormerlySerializedAs("StatBasedDialogueNodes")]
         public List<StatBasedDialogueNode> statBasedDialogueNodes = new();
 
-        bool _contaminationMaxed;
+        // bool _contaminationMaxed;
         Coroutine _decreaseContaminationRoutine;
 
 
@@ -422,7 +422,7 @@ namespace Manager
                     {
                         CurrentHealth += e.Amount;
                         CurrentHealth += e.Percent * BaseMaxHealth;
-                        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, BaseMaxHealth);
+                        // CurrentHealth = Mathf.Clamp(CurrentHealth, 0, BaseMaxHealth);
 
                         restoreHealthFeedbacks?.PlayFeedbacks();
 
@@ -430,6 +430,16 @@ namespace Manager
                     }
 
                     break;
+                case PlayerStatsEvent.PlayerStat.CurrentMaxContamination:
+                    if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Increase)
+                    {
+                        CurrentMaxContamination += e.Amount;
+                        CurrentMaxContamination += e.Percent * BaseMaxContamination;
+                        PlayerStatsSyncEvent.Trigger();
+                    }
+
+                    break;
+
                 case PlayerStatsEvent.PlayerStat.CurrentContamination:
                     if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
                     {
@@ -437,13 +447,13 @@ namespace Manager
                         CurrentContamination -= e.Percent * CurrentMaxContamination;
                         CurrentContamination = Mathf.Clamp(CurrentContamination, 0, CurrentMaxContamination);
 
-                        if (_contaminationMaxed)
-                        {
-                            _contaminationMaxed = false;
-                            StatsStatusEvent.Trigger(
-                                false, StatsStatusEvent.StatsStatus.IsMax,
-                                StatsStatusEvent.StatsStatusType.Contamination);
-                        }
+                        // if (_contaminationMaxed)
+                        // {
+                        //     _contaminationMaxed = false;
+                        //     StatsStatusEvent.Trigger(
+                        //         false, StatsStatusEvent.StatsStatus.IsMax,
+                        //         StatsStatusEvent.StatsStatusType.Contamination);
+                        // }
                         // Player has reduced contamination below max, reset flag
                         // StopDrainingHealth();
                         // if (CurrentContamination < CurrentMaxContamination)
@@ -461,20 +471,20 @@ namespace Manager
                         }
 
 
-                        if (CurrentContamination >= CurrentMaxContamination && !_contaminationMaxed)
-                        {
-                            playerStatsBars?.AlertPlayerToStatRisk(
-                                true, PlayerStatsEvent.PlayerStat.CurrentContamination, maxContaminationDialogueNode,
-                                maxContaminationDialogueNode);
-
-                            StatsStatusEvent.Trigger(
-                                true, StatsStatusEvent.StatsStatus.IsMax,
-                                StatsStatusEvent.StatsStatusType.Contamination);
-
-                            _contaminationMaxed = true;
-
-                            // StartDrainingHealth();
-                        }
+                        // if (CurrentContamination >= CurrentMaxContamination && !_contaminationMaxed)
+                        // {
+                        //     playerStatsBars?.AlertPlayerToStatRisk(
+                        //         true, PlayerStatsEvent.PlayerStat.CurrentContamination, maxContaminationDialogueNode,
+                        //         maxContaminationDialogueNode);
+                        //
+                        //     StatsStatusEvent.Trigger(
+                        //         true, StatsStatusEvent.StatsStatus.IsMax,
+                        //         StatsStatusEvent.StatsStatusType.Contamination);
+                        //
+                        //     _contaminationMaxed = true;
+                        //
+                        //     // StartDrainingHealth();
+                        // }
                     }
 
                     // NotifyCUChanges();
@@ -705,11 +715,11 @@ namespace Manager
             return CurrentHealth / BaseMaxHealth;
         }
 
-        public bool IsContaminationMaxed()
-        {
-            _contaminationMaxed = CurrentContamination >= CurrentMaxContamination;
-            return _contaminationMaxed;
-        }
+        // public bool IsContaminationMaxed()
+        // {
+        //     _contaminationMaxed = CurrentContamination >= CurrentMaxContamination;
+        //     return _contaminationMaxed;
+        // }
         float ProcessAttackDamage(EnemyAttack eventTypeAttack)
         {
             var damage = eventTypeAttack.rawDamage; // - (playerToughness * 0.5f);

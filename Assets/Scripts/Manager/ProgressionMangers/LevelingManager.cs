@@ -224,6 +224,11 @@ namespace Manager.ProgressionMangers
 
 
                     HealthUpgradeLevel = upgradeLevel;
+                    _unspentStatUpgrades -= 1;
+                    ProgressionUpdateListenerNotifier.Trigger(
+                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                        UnspentAttributePoints);
+
                     AlertEvent.Trigger(
                         AlertReason.StatUpgradePurchased, "Health Max upgraded!", "Health Upgrade");
 
@@ -248,6 +253,11 @@ namespace Manager.ProgressionMangers
                         newCurrentContamination);
 
                     ContaminationUpgradeLevel = contaminationUpgradeLevel;
+                    _unspentStatUpgrades -= 1;
+                    ProgressionUpdateListenerNotifier.Trigger(
+                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                        UnspentAttributePoints);
+
                     AlertEvent.Trigger(
                         AlertReason.StatUpgradePurchased, "Contamination Max upgraded!", "Contamination Upgrade");
 
@@ -270,6 +280,11 @@ namespace Manager.ProgressionMangers
                         newCurrentStamina);
 
                     StaminaUpgradeLevel = staminaUpgradeLevel;
+                    _unspentStatUpgrades -= 1;
+                    ProgressionUpdateListenerNotifier.Trigger(
+                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                        UnspentAttributePoints);
+
                     AlertEvent.Trigger(
                         AlertReason.StatUpgradePurchased, "Stamina Max upgraded!", "Stamina Upgrade");
 

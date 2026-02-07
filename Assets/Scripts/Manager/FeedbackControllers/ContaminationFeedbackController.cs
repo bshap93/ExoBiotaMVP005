@@ -54,11 +54,11 @@ namespace Manager.FeedbackControllers
                 if (amountCntmLastSecond < spikeThreshold) return; // not enough increase 
 
 
-                onSpike.PlayFeedbacks();
-                AlertEvent.Trigger(
-                    AlertReason.ContaminationWarning, "You are just got contaminated with " +
-                                                      "a large dose of intrusive biomass. Get to shelter.",
-                    "Contamination Alert");
+                // onSpike.PlayFeedbacks();
+                // AlertEvent.Trigger(
+                //     AlertReason.ContaminationWarning, "You are just got contaminated with " +
+                //                                       "a large dose of intrusive biomass. Get to shelter.",
+                //     "Contamination Alert");
 
                 amountCntmLastSecond = 0f;
                 timeSinceLastSpike = 0f; // reset cooldown

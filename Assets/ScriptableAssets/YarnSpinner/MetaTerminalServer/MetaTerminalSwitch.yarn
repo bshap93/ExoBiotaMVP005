@@ -2,20 +2,13 @@
 title: DebugLocationTerminal
 ---
 Meta Terminal: You're using the debug terminal.
-<<jump MetaTerminalSwitch>>
+<<jump TerminalGeneralDirectory>>
 ===
 
 title: MetaTerminalSwitch
 ---
 Meta Terminal: Stand by for terminal data...
-<<if get_stat_upgrade_points_unused() > 0>>
-    Meta Terminal: Would you like to upgrade your vitals?
-    -> Yes
-        Meta Terminal: OK!
-        <<jump UpgradeStatsWhenPossible>>
-    -> Not yet
-        <<jump TerminalGeneralDirectory>>
-<<endif>>
+
 ===
 
 title: UpgradeStatsWhenPossible
@@ -66,7 +59,10 @@ Meta Terminal: Which vital would you like to upgrade?
             <<endif>>
             <<jump TerminalGeneralDirectory>>
 -> I want more information on each option.
-    Meta Terminal: Certainly. Which vital can I offer information on?
+    Meta Terminal: Health is your vitality, and having it means you're alive.
+    Meta Terminal: Stamina is your capacity to fight and use manual tools.
+    Meta Terminal: Contamination is your capacity to use your new abilities as a human-alien hybrid. 
+    Meta Terminal: Increasing Contamination will make you able to use your abilities more times before needing replenhishment.
 -> I'll upgrade later.
     <<jump TerminalGeneralDirectory>>
 ===
@@ -79,6 +75,14 @@ Meta Terminal: No interlinked locations at this time.
 
 title: TerminalGeneralDirectory
 ---
+<<if get_stat_upgrade_points_unused() > 0>>
+    Meta Terminal: Would you like to upgrade your vitals?
+    -> Yes
+        Meta Terminal: OK!
+        <<jump UpgradeStatsWhenPossible>>
+    -> Not yet
+        <<jump TerminalGeneralDirectory>>
+<<endif>>
 Meta Terminal: What would you like to do?
 -> Save My Game
     <<jump SaveMyGameAtTerminal>>

@@ -189,7 +189,7 @@ namespace Manager.Status
                     newInfection = RollForNewInfection();
                     InfectionUIEvent.Trigger(
                         _minutesUntilNextInfection, _minutesPerInfection, newInfection);
-                    _wasContaminationMaxed = PlayerMutableStatsManager.Instance.IsContaminationMaxed();
+                    // _wasContaminationMaxed = PlayerMutableStatsManager.Instance.IsContaminationMaxed();
                 }
                 else
                 {

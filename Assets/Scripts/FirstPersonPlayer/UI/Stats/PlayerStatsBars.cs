@@ -53,8 +53,8 @@ namespace FirstPersonPlayer.UI.Stats
         {
             var stats = PlayerMutableStatsManager.Instance;
 
-            TryUpdateBar(ref _lastHealth, stats.CurrentHealth, 0f, stats.BaseMaxHealth, healthBar);
-            TryUpdateBar(ref _lastStamina, stats.CurrentStamina, 0f, stats.BaseMaxStamina, staminaBar);
+            TryUpdateBar(ref _lastHealth, stats.CurrentHealth, 0f, stats.CurrentMaxHealth, healthBar);
+            TryUpdateBar(ref _lastStamina, stats.CurrentStamina, 0f, stats.CurrentMaxStamina, staminaBar);
             TryUpdateBar(
                 ref _lastContamination, stats.CurrentContamination, 0f,
                 stats.CurrentMaxContamination, contaminationBar);
