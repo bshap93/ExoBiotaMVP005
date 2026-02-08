@@ -45,6 +45,7 @@ namespace Inventory
         public const string KeyTypeInventoryName = "KeyItemsInventory";
         public const string OuterCoresInventoryName = "OuterCoresInventory";
         public const string AmmoInventoryName = "AmmoInventory";
+        public const string AbilitiesBankInventoryName = "AbilitiesBankInventory";
 
 
         static string _savePath;
@@ -65,6 +66,7 @@ namespace Inventory
         [FormerlySerializedAs("innerCoresInventory")]
         public MoreMountains.InventoryEngine.Inventory outerCoresInventory;
         public MoreMountains.InventoryEngine.Inventory ammoInventory;
+        public MoreMountains.InventoryEngine.Inventory abilitiesBankInventory;
 
         [Header("Dirigible Inventory")] public MoreMountains.InventoryEngine.Inventory dirigibleInventory;
 
@@ -82,6 +84,7 @@ namespace Inventory
         [FormerlySerializedAs("innerCoresStartingItems")]
         public DefaultInventoryDefinition outerCoresStartingItems;
         public DefaultInventoryDefinition ammoStartingItems;
+        public DefaultInventoryDefinition abilitiesBankStartingItems;
 
         [FormerlySerializedAs("intitialPlayerFPMaxWeight")] [Header("Initial Weight Limits")] [SerializeField]
         float initialPlayerFPMaxWeight;
@@ -333,6 +336,7 @@ namespace Inventory
             PopulateInventory(outerCoresInventory, outerCoresStartingItems);
             PopulateInventory(bioticAbilityInventory, bioticAbilityStartingItems);
             PopulateInventory(ammoInventory, ammoStartingItems);
+            PopulateInventory(abilitiesBankInventory, abilitiesBankStartingItems);
         }
 
         static void PopulateInventory(MoreMountains.InventoryEngine.Inventory inv,
@@ -367,6 +371,7 @@ namespace Inventory
             SaveOne(outerCoresInventory);
             SaveOne(bioticAbilityInventory);
             SaveOne(ammoInventory);
+            SaveOne(abilitiesBankInventory);
         }
         void TryEmptyIntoInventory(MoreMountains.InventoryEngine.Inventory rEquipInventory,
             MoreMountains.InventoryEngine.Inventory playerInventory1)
@@ -394,6 +399,7 @@ namespace Inventory
             ResetOne(outerCoresInventory);
             ResetOne(bioticAbilityInventory);
             ResetOne(ammoInventory);
+            ResetOne(abilitiesBankInventory);
         }
 
         public void LoadGlobalInventories()
@@ -408,6 +414,7 @@ namespace Inventory
             LoadOne(outerCoresInventory);
             LoadOne(bioticAbilityInventory);
             LoadOne(ammoInventory);
+            LoadOne(abilitiesBankInventory);
         }
 
         static void SaveOne(MoreMountains.InventoryEngine.Inventory inv)

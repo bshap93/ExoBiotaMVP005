@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using FirstPersonPlayer.Interface;
+using HighlightPlus;
 using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -31,6 +32,10 @@ namespace FirstPersonPlayer.Interactable.Doors
         [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
         [SerializeField] MMFeedbacks closeFeedback;
 
+        [Header("Highlighting")] [SerializeField]
+        HighlightEffect proximityHighlightEffect;
+        [SerializeField] bool shouldDisableHighlightOnInteraction = true;
+
         [Header("Settings")] [SerializeField] float openCloseDuration = 1f;
 
         [SerializeField] float distanceToInteract = 3f;
@@ -50,6 +55,9 @@ namespace FirstPersonPlayer.Interactable.Doors
             if (interactionCollider != null && shouldDisableColliderOnInteraction)
                 foreach (var col in interactionCollider)
                     col.enabled = false;
+
+            if (proximityHighlightEffect != null && shouldDisableHighlightOnInteraction)
+                proximityHighlightEffect.enabled = false;
         }
         public void OnInteractionStart()
         {
