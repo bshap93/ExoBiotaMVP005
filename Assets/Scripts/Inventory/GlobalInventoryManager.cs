@@ -538,5 +538,16 @@ namespace Inventory
             // Check if the item is a ConsumableEffectItem
             return item is ConsumableEffectItem;
         }
+        public int GetTotalNumberOfCores()
+        {
+            var total = 0;
+            foreach (var item in outerCoresInventory.Content)
+            {
+                var outerCore = item as OuterCoreItemObject;
+                if (outerCore != null) total += item.Quantity;
+            }
+
+            return total;
+        }
     }
 }

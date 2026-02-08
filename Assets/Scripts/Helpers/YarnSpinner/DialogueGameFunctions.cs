@@ -29,6 +29,18 @@ namespace Helpers.YarnSpinner
 
         // Progression Getters
 
+        [YarnFunction("get_current_class_id")]
+        public static int GetUnsetClassStatus()
+        {
+            if (LevelingManager.Instance != null)
+            {
+                var playerClassId = LevelingManager.Instance.CurrentPlayerClass.id;
+                return playerClassId;
+            }
+
+            return 0;
+        }
+
         [YarnFunction("get_current_level")]
         public static int GetCurrentLevel()
         {

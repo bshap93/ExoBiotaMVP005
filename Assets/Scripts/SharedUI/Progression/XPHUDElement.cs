@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using DG.Tweening;
 using Helpers.Events.Progression;
+using Inventory;
 using Manager.ProgressionMangers;
+using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -9,7 +11,8 @@ using UnityEngine;
 namespace SharedUI.Progression
 {
     public class XphudElement : MonoBehaviour, MMEventListener<XPEvent>,
-        MMEventListener<ProgressionUpdateListenerNotifier>, MMEventListener<LevelingEvent>
+        MMEventListener<ProgressionUpdateListenerNotifier>, MMEventListener<LevelingEvent>,
+        MMEventListener<MMInventoryEvent>
     {
         [Header("Main Canvas Group")] [SerializeField]
         CanvasGroup debugCanvasGroup;
@@ -36,6 +39,7 @@ namespace SharedUI.Progression
         [SerializeField] TMP_Text currentLevelText;
         [SerializeField] TMP_Text unusedUpgradesText;
         [SerializeField] TMP_Text unusedAttributePointsText;
+        [SerializeField] TMP_Text coresNumberText;
 
         void Start()
         {
@@ -49,6 +53,7 @@ namespace SharedUI.Progression
                 currentLevelText.text = levelingManager.CurrentLevel.ToString();
                 unusedUpgradesText.text = levelingManager.UnspentStatUpgrades.ToString();
                 unusedAttributePointsText.text = levelingManager.UnspentAttributePoints.ToString();
+                coresNumberText.text = levelingManager.CurentNumberOfCores().ToString();
             }
         }
 
@@ -57,11 +62,26 @@ namespace SharedUI.Progression
             this.MMEventStartListening<XPEvent>();
             this.MMEventStartListening<ProgressionUpdateListenerNotifier>();
             this.MMEventStartListening<LevelingEvent>();
+            this.MMEventStartListening<MMInventoryEvent>();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening<XPEvent>();
+            this.MMEventStopListening<ProgressionUpdateListenerNotifier>();
+            this.MMEventStopListening<LevelingEvent>();
+            this.MMEventStopListening<MMInventoryEvent>();
         }
 
         public void OnMMEvent(LevelingEvent eventType)
         {
             if (eventType.EventType == LevelingEventType.LevelUp) ShowLevelUpNotification(eventType.NewLevel);
+        }
+        public void OnMMEvent(MMInventoryEvent eventType)
+        {
+            if (eventType.TargetInventoryName != GlobalInventoryManager.OuterCoresInventoryName) return;
+            if (eventType.InventoryEventType == MMInventoryEventType.ContentChanged)
+                coresNumberText.text = levelingManager.CurentNumberOfCores().ToString();
         }
         public void OnMMEvent(ProgressionUpdateListenerNotifier eventType)
         {

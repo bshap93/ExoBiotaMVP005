@@ -5,12 +5,28 @@ using Helpers.Events.Progression;
 using Helpers.Events.Status;
 using Helpers.Interfaces;
 using Helpers.StaticHelpers;
+using Inventory;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Manager.ProgressionMangers
 {
+    [Serializable]
+    public class PlayerStartingClass
+    {
+        public int id;
+        [FormerlySerializedAs("ClassName")] public string className;
+        [FormerlySerializedAs("StartingStrength")]
+        public int startingStrength;
+        [FormerlySerializedAs("StartingAgility")]
+        public int startingAgility;
+        [FormerlySerializedAs("StartingDexterity")]
+        public int startingDexterity;
+        [FormerlySerializedAs("StartingBioticLevel")]
+        public int startingBioticLevel;
+    }
+
     public class LevelingManager : MonoBehaviour, ICoreGameService,
         MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>,
         MMEventListener<SpendStatUpgradeEvent>
@@ -18,6 +34,7 @@ namespace Manager.ProgressionMangers
         [Header("References")] [SerializeField]
         AttributesManager attributesManager;
         [SerializeField] PlayerMutableStatsManager playerMutableStatsManager;
+        [SerializeField] GlobalInventoryManager globalInventoryManager;
 
         [Header("Leveling Stats")] [SerializeField]
         LevelStats[] levelStats;
@@ -30,12 +47,18 @@ namespace Manager.ProgressionMangers
         [SerializeField] bool autoSave;
 
         [SerializeField] int attributePointsStartWith = 7;
+
+        [SerializeField] PlayerStartingClass[] availablePresetClasses;
+
+        int _currentPlayerClassId;
         bool _dirty;
 
         string _savePath;
 
         int _unspentAttribuePoints;
         int _unspentStatUpgrades;
+
+        public PlayerStartingClass CurrentPlayerClass => availablePresetClasses[_currentPlayerClassId];
 
         public int UnspentAttributePoints
         {
@@ -122,6 +145,7 @@ namespace Manager.ProgressionMangers
             ES3.Save("ContaminationUpgradeLevel", ContaminationUpgradeLevel, path);
             ES3.Save("UnspentAttributePoints", UnspentAttributePoints, path);
             ES3.Save("UnspentStatUpgrades", UnspentStatUpgrades, path);
+            ES3.Save("CurrentPlayerClassId", _currentPlayerClassId, path);
             _dirty = false;
         }
         public void Load()
@@ -149,6 +173,9 @@ namespace Manager.ProgressionMangers
 
             if (ES3.KeyExists("UnspentStatUpgrades", path))
                 UnspentStatUpgrades = ES3.Load<int>("UnspentStatUpgrades", path);
+
+            if (ES3.KeyExists("CurrentPlayerClassId", path))
+                _currentPlayerClassId = ES3.Load<int>("CurrentPlayerClassId", path);
         }
         public void Reset()
         {
@@ -159,6 +186,7 @@ namespace Manager.ProgressionMangers
             ContaminationUpgradeLevel = 1;
             UnspentAttributePoints = attributePointsStartWith;
             UnspentStatUpgrades = 0;
+            _currentPlayerClassId = 0;
             MarkDirty();
         }
         public void ConditionalSave()
@@ -441,6 +469,11 @@ namespace Manager.ProgressionMangers
                     return entry.contaminationAmount;
 
             throw new Exception($"Upgrade level {upgradeLevel} not found in contaminationAmountByUpgrade array.");
+        }
+
+        public object CurentNumberOfCores()
+        {
+            return globalInventoryManager.GetTotalNumberOfCores();
         }
 
         [Serializable]

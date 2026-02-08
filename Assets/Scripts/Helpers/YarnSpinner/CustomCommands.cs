@@ -76,6 +76,11 @@ namespace Helpers.YarnSpinner
                 "trigger_stat_upgrade",
                 TriggerStatUpgrade
             );
+
+            dialogueRunner.AddCommandHandler<int>(
+                "trigger_player_sets_class",
+                TriggerPlayerSetsClass
+            );
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -122,6 +127,11 @@ namespace Helpers.YarnSpinner
             var statType = (StatType)typeId;
 
             SpendStatUpgradeEvent.Trigger(statType);
+        }
+
+        public void TriggerPlayerSetsClass(int classId)
+        {
+            PlayerSetsClassEvent.Trigger(classId);
         }
 
         // Dialogue Gestures

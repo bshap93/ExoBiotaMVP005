@@ -1,5 +1,4 @@
 using Helpers.Events.Status;
-using Manager;
 using Manager.Status;
 using MoreMountains.Tools;
 using SharedUI.HUD.InGameTime;
@@ -27,11 +26,11 @@ namespace SharedUI.HUD.Infection
 
         void Start()
         {
-            if (PlayerMutableStatsManager.Instance.IsContaminationMaxed())
-                Show();
-            else
-                Hide();
-
+            // if (PlayerMutableStatsManager.Instance.IsContaminationMaxed())
+            //     Show();
+            // else
+            //     Hide();
+            //
             if (InfectionManager.Instance.OngoingInfections.Count > 0)
                 UpdateTopVisibility(true);
             else
