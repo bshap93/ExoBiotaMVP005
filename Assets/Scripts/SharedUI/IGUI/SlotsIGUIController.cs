@@ -29,6 +29,8 @@ namespace SharedUI.IGUI
 
         [SerializeField] IGUIEquipItemSlot leftHandItemSlot;
 
+        [SerializeField] IGUIEquipItemSlot equippedAbilityWrapperSlot;
+
         [FormerlySerializedAs("dirigibleLeftItemSlot")] [Header("Item Slots Dirigible")] [SerializeField]
         IGUIEquipItemSlot dirigibleMainScannerSlot;
 
@@ -78,6 +80,7 @@ namespace SharedUI.IGUI
             Wire(backItemSlot);
             Wire(leftHandItemSlot);
             Wire(dirigibleMainScannerSlot);
+            Wire(equippedAbilityWrapperSlot);
         }
 
         void Wire(IGUIEquipItemSlot slot)
@@ -147,6 +150,12 @@ namespace SharedUI.IGUI
                 return;
             }
 
+            if (equippedAbilityWrapperSlot.inventory == null)
+            {
+                Debug.LogWarning("SlotsIGUIController: Equipped ability wrapper inventory reference is not set.");
+                return;
+            }
+
             // HANDS
             var hand = handsItemSlot.inventory.Content.Length > 0 ? handsItemSlot.inventory.Content[0] : null;
             var hasHand = hand != null && !InventoryItem.IsNull(hand);
@@ -172,6 +181,23 @@ namespace SharedUI.IGUI
             leftHandItemSlot.itemImage.color = hasLeft ? defaultColor : new Color(1, 1, 1, 0);
             if (leftHandItemSlot.unequipButton != null) leftHandItemSlot.unequipButton.Interactable(hasLeft);
             // leftHandItemSlot.unequipButton.gameObject.SetActive(hasLeft);
+
+            // EQUIPPED ABILITY WRAPPER
+            var equippedAbilityWrapper = equippedAbilityWrapperSlot.inventory.Content.Length > 0
+                ? equippedAbilityWrapperSlot.inventory.Content[0]
+                : null;
+
+            var hasEquippedAbilityWrapper =
+                equippedAbilityWrapper != null && !InventoryItem.IsNull(equippedAbilityWrapper);
+
+            equippedAbilityWrapperSlot.itemImage.sprite =
+                hasEquippedAbilityWrapper ? equippedAbilityWrapper.GetDisplayIcon() : null;
+
+            equippedAbilityWrapperSlot.itemImage.color =
+                hasEquippedAbilityWrapper ? defaultColor : new Color(1, 1, 1, 0);
+
+            if (equippedAbilityWrapperSlot.unequipButton != null)
+                equippedAbilityWrapperSlot.unequipButton.Interactable(hasEquippedAbilityWrapper);
 
             // DIRIGIBLE MAIN SCANNER
             var dirigibleMainScanner = dirigibleMainScannerSlot.inventory.Content.Length > 0
@@ -203,6 +229,7 @@ namespace SharedUI.IGUI
             TryRemoveByRef(global.backEquipmentInventory, item);
             TryRemoveByRef(global.dirigibleInventory, item);
             TryRemoveByRef(global.dirigibleScannerSlot, item);
+            TryRemoveByRef(global.abilitiesBankInventory, item);
         }
 
 

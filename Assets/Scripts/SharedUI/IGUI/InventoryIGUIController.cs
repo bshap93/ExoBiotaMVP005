@@ -23,7 +23,9 @@ namespace SharedUI.IGUI
         MoreMountains.InventoryEngine.Inventory playerInventory;
         [FormerlySerializedAs("_dirigibleInventory")] [SerializeField]
         MoreMountains.InventoryEngine.Inventory dirigibleInventory;
-        [FormerlySerializedAs("_weightProgressBar")] [SerializeField]
+        [FormerlySerializedAs("_weightProgressBar")] [SerializeField] 
+        MoreMountains.InventoryEngine.Inventory bioticAbilitiesController;
+        [SerializeField]
         ProgressBar weightProgressBar;
 
         int _currentInventoryType;

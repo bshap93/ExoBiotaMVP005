@@ -10,7 +10,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 {
     public class CessileRangedSpittingCreature : CreatureController, IDamageable
     {
-        public bool destroyAfterDeath = true;
 
         // Each of the 8 trunk points 0.2m up (in negative X direction) from the Root
         [SerializeField] GameObject[] trunkPoints;
@@ -81,30 +80,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         }
 
 
-        // public override void PlayHitAnimation(AnimationClip value)
-        // {
-        //     // HitState = animancerComponent.Play(value, 0.05f);
-        //     //
-        //     // HitState.Events(this).OnEnd = () => { };
-        // }
 
-        // public override void OnDeath()
-        // {
-        //     ResetStunState();
-        //     CreatureStateEvent.Trigger(
-        //         CreatureStateEventType.SetNewCreatureState, uniqueID,
-        //         CreatureStateManager.CreatureState.ShouldBeDestroyed);
-        //
-        //     EnemyDamageEvent.Trigger(
-        //         0f, currentHealth, MaxHealth,
-        //         DamageEventType.Death, creatureType.creatureName, DamageType.None);
-        //
-        //     deathFeedbacks?.PlayFeedbacks();
-        //
-        //
-        //     if (destroyAfterDeath)
-        //         Destroy(gameObject, 2f);
-        // }
 
         public IEnumerator StartAttack(int attackIndex)
         {
