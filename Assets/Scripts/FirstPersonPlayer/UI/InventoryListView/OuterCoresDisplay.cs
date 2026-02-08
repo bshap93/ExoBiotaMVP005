@@ -41,6 +41,7 @@ namespace FirstPersonPlayer.UI.InventoryListView
             this.MMEventStartListening<LoadedManagerEvent>();
 
             this.MMEventStartListening<ProgressionUpdateListenerNotifier>();
+            this.MMEventStartListening<UpdateInventoryWindowEvent>();
         }
 
         void OnDisable()
@@ -49,6 +50,7 @@ namespace FirstPersonPlayer.UI.InventoryListView
             this.MMEventStopListening<LoadedManagerEvent>();
 
             this.MMEventStopListening<ProgressionUpdateListenerNotifier>();
+            this.MMEventStopListening<UpdateInventoryWindowEvent>();
         }
         public void OnMMEvent(LoadedManagerEvent eventType)
         {
@@ -65,6 +67,12 @@ namespace FirstPersonPlayer.UI.InventoryListView
         {
             xpAmtText.text = eventType.CurrentTotalXP + "/" + levelingManager.TotalXpNeededForNextLevel;
             levelIntText.text = eventType.CurrentLevel.ToString();
+        }
+        public void OnMMEvent(UpdateInventoryWindowEvent eventType)
+        {
+            RefreshCoreCounts();
+
+            // Refresh any other 
         }
 
 
@@ -138,13 +146,6 @@ namespace FirstPersonPlayer.UI.InventoryListView
                     else unreasonableCoreRow.convertToXPButton.gameObject.SetActive(true);
                 }
             }
-        }
-        public void OnMMEvent(UpdateInventoryWindowEvent eventType)
-        {
-            RefreshCoreCounts();
-            
-            // Refresh any other 
-            
         }
     }
 }
