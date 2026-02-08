@@ -201,8 +201,8 @@ namespace Manager
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Load();
 
-            if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
-                InfectionManager.Instance.Load();
+            // if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
+            //     InfectionManager.Instance.Load();
 
             HotbarManager.Instance.Load();
 
@@ -251,8 +251,8 @@ namespace Manager
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Save();
 
-            if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
-                InfectionManager.Instance.Save();
+            // if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
+            //     InfectionManager.Instance.Save();
 
             HotbarManager.Instance.Save();
 
@@ -295,8 +295,8 @@ namespace Manager
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Reset();
 
-            if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
-                InfectionManager.Instance.Reset();
+            // if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.InfectionManagerSave))
+            //     InfectionManager.Instance.Reset();
 
             HotbarManager.Instance.Reset();
 

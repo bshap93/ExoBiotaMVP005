@@ -29,7 +29,7 @@ namespace Manager.ProgressionMangers
 
     public class LevelingManager : MonoBehaviour, ICoreGameService,
         MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>,
-        MMEventListener<SpendStatUpgradeEvent>
+        MMEventListener<SpendStatUpgradeEvent>, MMEventListener<PlayerSetsClassEvent>
     {
         [Header("References")] [SerializeField]
         AttributesManager attributesManager;
@@ -48,7 +48,7 @@ namespace Manager.ProgressionMangers
 
         [SerializeField] int attributePointsStartWith = 7;
 
-        [SerializeField] PlayerStartingClass[] availablePresetClasses;
+        [SerializeField] public PlayerStartingClass[] availablePresetClasses;
 
         int _currentPlayerClassId;
         bool _dirty;
@@ -126,12 +126,14 @@ namespace Manager.ProgressionMangers
             this.MMEventStartListening<BioticCoreXPConversionEvent>();
             this.MMEventStartListening<EnemyXPRewardEvent>();
             this.MMEventStartListening<SpendStatUpgradeEvent>();
+            this.MMEventStartListening<PlayerSetsClassEvent>();
         }
         void OnDisable()
         {
             this.MMEventStopListening<BioticCoreXPConversionEvent>();
             this.MMEventStopListening<EnemyXPRewardEvent>();
             this.MMEventStopListening<SpendStatUpgradeEvent>();
+            this.MMEventStopListening<PlayerSetsClassEvent>();
         }
 
         public void Save()
@@ -219,6 +221,23 @@ namespace Manager.ProgressionMangers
         public void OnMMEvent(EnemyXPRewardEvent eventType)
         {
             throw new NotImplementedException();
+        }
+
+        public void OnMMEvent(PlayerSetsClassEvent eventType)
+        {
+            if (eventType.ClassId < 1 || eventType.ClassId >= availablePresetClasses.Length)
+            {
+                Debug.LogWarning($"Invalid class id: {eventType.ClassId}");
+                return;
+            }
+
+            _currentPlayerClassId = eventType.ClassId;
+
+            var startingClass = availablePresetClasses[eventType.ClassId];
+
+            NotifyAttributesNewlySetEvent.Trigger(
+                startingClass.startingStrength, startingClass.startingAgility, startingClass.startingDexterity,
+                startingClass.startingBioticLevel);
         }
 
         public void OnMMEvent(SpendStatUpgradeEvent eventType)

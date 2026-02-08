@@ -90,7 +90,7 @@ title: ExplainAttributes
 -> Explain Dexterity
     Meta Terminal: You're more accurate with tools and ranged weapons. You are able to fix machines and mod weapons the higher your Dexterity.
     Meta Terminal: Additionally, you must have this high to use some must have this high to use some ranged weapon.
-    <<jump ChooseAttributeClass>>
+    <<jump ExplainAttributes>>
 -> Explain Agility
     Meta Terminal: Your movement speed is faster and you jump higher. You strike with melee weapons or tools faster.
     Meta Terminal: You don't lose stamina as quickly when sprinting, fighting, or using tools. 
@@ -100,12 +100,99 @@ title: ExplainAttributes
     Meta Terminal: Your exobiotic abilities are stronger, use less contamination, and with fewer ill effects.
     Meta Terminal: You must have this at certain level to use certain Biotic abilities. 
     Meta Terminal: You must have this at a certain level to communicate with some species of Xenobiological organisms.
-    <<jump ChooseAttributeClass>>    
+    <<jump ExplainAttributes>>    
 ===
 
 title: ChooseAttributeClass
 ---
-Meta Terminal: Choose a class...
+<<declare $currentClassId = 1>>
+<<declare $newClassId = 0>>
+Meta Terminal: Choose on of the following presets:
+-> Strongman (5 Strength, 1 Agility, 1 Dexterity, 1 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 1>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Master of None (2 Strength, 2 Agility, 2 Dexterity, 2 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 2>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Runner (1 Strength, 5 Agility, 1 Dexterity, 1 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 3>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Gunner (1 Strength, 2 Agility, 4 Dexterity, 1 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 4>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Bio-Weapon (1 Strength, 1 Agility, 1 Dexterity, 5 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 5>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> Soldier (3 Strength, 2 Agility, 3 Dexterity, 0 Biotic Power)
+    <<set $currentClassId = get_current_class_id()>>
+    Meta Terminal: Are you sure?
+        -> Yes
+            Meta Terminal: Commencing class setting now.
+            <<trigger_player_sets_class 6>>
+            <<wait 2>>
+            <<set $newClassId = get_current_class_id()>>
+            <<if $newClassId != $currentClassId>>
+                Meta Terminal: Success
+            <<else>> 
+                Meta Terminal: Failure
+            <<endif>>
+            <<jump TerminalGeneralDirectory>>
+-> I'll decide later.
 ===
 
 title: TerminalGeneralDirectory

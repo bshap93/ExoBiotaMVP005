@@ -1,5 +1,6 @@
 ﻿using Helpers.Events;
 using Helpers.Events.Gated;
+using Helpers.Events.Progression;
 using Helpers.Interfaces;
 using MoreMountains.Tools;
 using OWPData.ScriptableObjects;
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace Manager.ProgressionMangers
 {
     public class AttributesManager : MonoBehaviour, ICoreGameService,
-        MMEventListener<GatedLevelingEvent>
+        MMEventListener<GatedLevelingEvent>, MMEventListener<NotifyAttributesNewlySetEvent>
     {
         const float baseCost = 20f; // cost for first level
         const float growth = 1.4f; // how fast it scales
@@ -122,12 +123,14 @@ namespace Manager.ProgressionMangers
         }
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<GatedLevelingEvent>();
+            this.MMEventStartListening<NotifyAttributesNewlySetEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<GatedLevelingEvent>();
+            this.MMEventStopListening<NotifyAttributesNewlySetEvent>();
         }
         public void Save()
         {
@@ -232,6 +235,15 @@ namespace Manager.ProgressionMangers
 
                 MarkDirty();
             }
+        }
+        public void OnMMEvent(NotifyAttributesNewlySetEvent eventType)
+        {
+            Strength = eventType.Strength;
+            Agility = eventType.Agility;
+            Dexterity = eventType.Dexterity;
+            Exobiotic = eventType.BioticLevel;
+
+            MarkDirty();
         }
 
 

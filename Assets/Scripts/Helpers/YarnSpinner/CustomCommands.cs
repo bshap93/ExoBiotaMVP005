@@ -3,6 +3,7 @@ using Helpers.Events;
 using Helpers.Events.ManagerEvents;
 using Helpers.Events.Progression;
 using Inventory;
+using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
 using Objectives;
 using Overview.NPC;
@@ -131,6 +132,12 @@ namespace Helpers.YarnSpinner
 
         public void TriggerPlayerSetsClass(int classId)
         {
+            if (classId < 1 || classId >= LevelingManager.Instance.availablePresetClasses.Length)
+            {
+                Debug.LogWarning($"Invalid class id: {classId}");
+                return;
+            }
+
             PlayerSetsClassEvent.Trigger(classId);
         }
 
