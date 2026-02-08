@@ -63,7 +63,10 @@ namespace Helpers.Events
         NotEnoughAmmo,
         NotEnoughContamination,
         StatUpgradePurchased,
-        ClassSelected
+        ClassSelected,
+        NewAttributePoints,
+        NewStatUpgrade,
+        AttributePointSpent
     }
 
     [Serializable]

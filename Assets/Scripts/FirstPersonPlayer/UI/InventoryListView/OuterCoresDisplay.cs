@@ -1,6 +1,7 @@
 ﻿using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.Events;
 using Helpers.Events.Progression;
+using Helpers.Events.UpdateUI;
 using Inventory;
 using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
@@ -12,7 +13,8 @@ using UnityEngine;
 namespace FirstPersonPlayer.UI.InventoryListView
 {
     public class OuterCoresDisplay : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-        MMEventListener<LoadedManagerEvent>, MMEventListener<ProgressionUpdateListenerNotifier>
+        MMEventListener<LoadedManagerEvent>, MMEventListener<ProgressionUpdateListenerNotifier>,
+        MMEventListener<UpdateInventoryWindowEvent>
     {
         [SerializeField] GradeCoresUILVRow standardCoreRow;
         [SerializeField] GradeCoresUILVRow radiantCoreRow;
@@ -136,6 +138,13 @@ namespace FirstPersonPlayer.UI.InventoryListView
                     else unreasonableCoreRow.convertToXPButton.gameObject.SetActive(true);
                 }
             }
+        }
+        public void OnMMEvent(UpdateInventoryWindowEvent eventType)
+        {
+            RefreshCoreCounts();
+            
+            // Refresh any other 
+            
         }
     }
 }

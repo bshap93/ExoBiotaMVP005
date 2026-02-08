@@ -80,7 +80,7 @@ Meta Terminal: You'll set your 4 main attributes: Strength, Dexterity, Agility, 
 
 title: ExplainAttributes
 ---
-<<if get_current_class_id() > 0>>
+<<if get_current_class_id() == 0>>
     -> I'll choose a class now.
         <<jump ChooseAttributeClass>>
 <<else>>
@@ -125,9 +125,57 @@ Meta Terminal: Choose on of the following attributes to level:
 <<declare $newBiotic = 0>>
 <<set $currentBiotic = get_biotic_level()>>
 -> Strength from {$currentStrength} to {$currentStrength + 1}
--> Agility from {$currentStrength} to {$currentStrength + 1}
--> Dexterity from {$currentStrength} to {$currentStrength + 1}
--> Exobiotic Power from {$currentStrength} to {$currentStrength + 1}
+    Meta Terminal: Are you sure?
+    -> Yes
+        Meta Terminal: Incrementing your strength points now.
+        <<trigger_player_increment_attribute 0>>
+        <<wait 2>>
+        <<set $newStrength = get_strength()>>
+        <<if $newStrength == $currentStrength + 1>>
+            Meta Terminal: Success
+        <<else>>
+            Meta Terminal: Failure
+        <<endif>>
+    -> No
+-> Agility from {$currentAgility} to {$currentAgility + 1}
+    Meta Terminal: Are you sure?
+    -> Yes
+        Meta Terminal: Incrementing your agility points now.
+        <<trigger_player_increment_attribute 1>>
+        <<wait 2>>
+        <<set $newAgility = get_agility()>>
+        <<if $newAgility == $currentAgility + 1>>
+            Meta Terminal: Success
+        <<else>>
+            Meta Terminal: Failure
+        <<endif>>
+    -> No
+-> Dexterity from {$currentDexterity} to {$currentDexterity + 1}
+    Meta Terminal: Are you sure?
+    -> Yes
+        Meta Terminal: Incrementing your dexterity points now.
+        <<trigger_player_increment_attribute 2>>
+        <<wait 2>>
+        <<set $newDexterity = get_dexterity()>>
+        <<if $newDexterity == $currentDexterity + 1>>
+            Meta Terminal: Success
+        <<else>>
+            Meta Terminal: Failure
+        <<endif>>
+    -> No
+-> Exobiotic Power from {$currentBiotic} to {$currentBiotic + 1}
+    Meta Terminal: Are you sure?
+    -> Yes
+        Meta Terminal: Incrementing your biotic power points now.
+        <<trigger_player_increment_attribute 3>>
+        <<wait 2>>
+        <<set $newBiotic = get_biotic_level()>>
+        <<if $newBiotic == $currentBiotic + 1>>
+            Meta Terminal: Success
+        <<else>>
+            Meta Terminal: Failure
+        <<endif>>
+    -> No
 -> I'll decide later.
 ===
 
@@ -151,6 +199,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> Master of None (2 Strength, 2 Agility, 2 Dexterity, 2 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
     Meta Terminal: Are you sure?
@@ -165,6 +214,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> Runner (1 Strength, 5 Agility, 1 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
     Meta Terminal: Are you sure?
@@ -179,6 +229,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> Gunner (1 Strength, 2 Agility, 4 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
     Meta Terminal: Are you sure?
@@ -193,6 +244,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> Bio-Weapon (1 Strength, 1 Agility, 1 Dexterity, 5 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
     Meta Terminal: Are you sure?
@@ -207,6 +259,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> Soldier (3 Strength, 2 Agility, 3 Dexterity, 0 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
     Meta Terminal: Are you sure?
@@ -221,6 +274,7 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
             <<endif>>
             <<jump TerminalGeneralDirectory>>
+        -> No
 -> I'll decide later.
 ===
 
@@ -232,6 +286,13 @@ title: TerminalGeneralDirectory
         Meta Terminal: Excellent.
         <<jump IntroduceAttributeClass>>
     -> Not now
+<<endif>>
+<<if get_attribute_points_unused() > 0>> 
+    Meta Terminal: Choose which attribute to increment.
+    -> Yes
+        Meta Terminal: Excellent.
+        <<jump ExplainAttributes>>
+    -> Not yet
 <<endif>>
 <<if get_stat_upgrade_points_unused() > 0>>
     Meta Terminal: Would you like to upgrade your vitals?

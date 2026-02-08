@@ -7,6 +7,7 @@ using Helpers.Interfaces;
 using Helpers.StaticHelpers;
 using Inventory;
 using MoreMountains.Tools;
+using SharedUI.Progression;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,7 +30,8 @@ namespace Manager.ProgressionMangers
 
     public class LevelingManager : MonoBehaviour, ICoreGameService,
         MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>,
-        MMEventListener<SpendStatUpgradeEvent>, MMEventListener<PlayerSetsClassEvent>
+        MMEventListener<SpendStatUpgradeEvent>, MMEventListener<PlayerSetsClassEvent>,
+        MMEventListener<IncrementAttributeEvent>
     {
         [Header("References")] [SerializeField]
         AttributesManager attributesManager;
@@ -127,6 +129,7 @@ namespace Manager.ProgressionMangers
             this.MMEventStartListening<EnemyXPRewardEvent>();
             this.MMEventStartListening<SpendStatUpgradeEvent>();
             this.MMEventStartListening<PlayerSetsClassEvent>();
+            this.MMEventStartListening<IncrementAttributeEvent>();
         }
         void OnDisable()
         {
@@ -134,6 +137,7 @@ namespace Manager.ProgressionMangers
             this.MMEventStopListening<EnemyXPRewardEvent>();
             this.MMEventStopListening<SpendStatUpgradeEvent>();
             this.MMEventStopListening<PlayerSetsClassEvent>();
+            this.MMEventStopListening<IncrementAttributeEvent>();
         }
 
         public void Save()
@@ -221,6 +225,38 @@ namespace Manager.ProgressionMangers
         public void OnMMEvent(EnemyXPRewardEvent eventType)
         {
             throw new NotImplementedException();
+        }
+
+        public void OnMMEvent(IncrementAttributeEvent eventType)
+        {
+            switch (eventType.AttributeType)
+            {
+                case AttributeType.Strength:
+                    attributesManager.Strength += 1;
+                    break;
+                case AttributeType.Agility:
+                    attributesManager.Agility += 1;
+                    break;
+                case AttributeType.Dexterity:
+                    attributesManager.Dexterity += 1;
+                    break;
+                case AttributeType.Exobiotic:
+                    attributesManager.Exobiotic += 1;
+                    break;
+            }
+
+            UnspentAttributePoints -= 1;
+
+            NotifyAttributesNewlySetEvent.Trigger(
+                attributesManager.Strength, attributesManager.Agility, attributesManager.Dexterity,
+                attributesManager.Exobiotic);
+
+            ProgressionUpdateListenerNotifier.Trigger(
+                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                UnspentAttributePoints);
+
+            AlertEvent.Trigger(
+                AlertReason.AttributePointSpent, $"{eventType.AttributeType} increased by 1!", "Attribute Increased");
         }
 
         public void OnMMEvent(PlayerSetsClassEvent eventType)
@@ -390,6 +426,14 @@ namespace Manager.ProgressionMangers
         void AwardStatUpgradeToPlayer(int level)
         {
             UnspentStatUpgrades += 1;
+
+            ProgressionUpdateListenerNotifier.Trigger(
+                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                UnspentAttributePoints);
+
+            AlertEvent.Trigger(
+                AlertReason.NewStatUpgrade, "Leveled up and unlocked vitals upgrade! Get to a Terminal to apply.",
+                "Vitals Upgrade Gained");
         }
 
         /// <summary>
@@ -400,7 +444,18 @@ namespace Manager.ProgressionMangers
         {
             var stats = GetLevelStats(level);
             if (stats.attributePointsGranted > 0)
+            {
                 UnspentAttributePoints += stats.attributePointsGranted;
+
+                ProgressionUpdateListenerNotifier.Trigger(
+                    CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                    UnspentAttributePoints);
+
+                AlertEvent.Trigger(
+                    AlertReason.NewAttributePoints,
+                    $"{stats.attributePointsGranted} new attribute points! Get to a Terminal to apply.",
+                    "Attribute Points Gained");
+            }
         }
 
         LevelStats GetLevelStats(int level)
