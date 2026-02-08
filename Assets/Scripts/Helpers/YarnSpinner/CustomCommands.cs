@@ -7,6 +7,7 @@ using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
 using Objectives;
 using Overview.NPC;
+using SharedUI.Progression;
 using UnityEngine;
 using Yarn.Unity;
 
@@ -82,6 +83,10 @@ namespace Helpers.YarnSpinner
                 "trigger_player_sets_class",
                 TriggerPlayerSetsClass
             );
+            
+            dialogueRunner.AddCommandHandler<int>(
+                "trigger_player_increment_attribute",
+                TriggerPlayerIncrementAttribute);
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -117,7 +122,7 @@ namespace Helpers.YarnSpinner
 
 
         // Progression Commands
-        public void TriggerStatUpgrade(int typeId)
+        void TriggerStatUpgrade(int typeId)
         {
             if (typeId < 0 || typeId >= Enum.GetValues(typeof(StatType)).Length)
             {
@@ -130,7 +135,7 @@ namespace Helpers.YarnSpinner
             SpendStatUpgradeEvent.Trigger(statType);
         }
 
-        public void TriggerPlayerSetsClass(int classId)
+        void TriggerPlayerSetsClass(int classId)
         {
             if (classId < 1 || classId >= LevelingManager.Instance.availablePresetClasses.Length)
             {
@@ -139,6 +144,19 @@ namespace Helpers.YarnSpinner
             }
 
             PlayerSetsClassEvent.Trigger(classId);
+        }
+
+        void TriggerPlayerIncrementAttribute(int attributeId)
+        {
+            if (attributeId < 0 || attributeId > 3) 
+            {
+                Debug.LogWarning($"Invalid AttributeType id: {attributeId}");
+                return;
+            }
+
+            var attributeType = (AttributeType)attributeId;
+
+            IncrementAttributeEvent.Trigger(attributeType);
         }
 
         // Dialogue Gestures

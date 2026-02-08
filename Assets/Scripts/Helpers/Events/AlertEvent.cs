@@ -62,7 +62,8 @@ namespace Helpers.Events
         CurrencyGained,
         NotEnoughAmmo,
         NotEnoughContamination,
-        StatUpgradePurchased
+        StatUpgradePurchased,
+        ClassSelected
     }
 
     [Serializable]

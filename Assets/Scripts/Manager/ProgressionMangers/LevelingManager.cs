@@ -46,7 +46,7 @@ namespace Manager.ProgressionMangers
         [SerializeField] ContaminationAmountByUpgrade[] contaminationAmountByUpgrade;
         [SerializeField] bool autoSave;
 
-        [SerializeField] int attributePointsStartWith = 7;
+        [SerializeField] int attributePointsStartWith;
 
         [SerializeField] public PlayerStartingClass[] availablePresetClasses;
 
@@ -232,6 +232,10 @@ namespace Manager.ProgressionMangers
             }
 
             _currentPlayerClassId = eventType.ClassId;
+
+            AlertEvent.Trigger(
+                AlertReason.ClassSelected, $"Class set to {availablePresetClasses[eventType.ClassId].className}.",
+                "Class Selected");
 
             var startingClass = availablePresetClasses[eventType.ClassId];
 

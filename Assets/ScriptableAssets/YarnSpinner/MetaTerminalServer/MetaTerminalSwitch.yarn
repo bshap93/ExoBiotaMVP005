@@ -80,8 +80,13 @@ Meta Terminal: You'll set your 4 main attributes: Strength, Dexterity, Agility, 
 
 title: ExplainAttributes
 ---
--> I'll choose a class now.
-    <<jump ChooseAttributeClass>>
+<<if get_current_class_id() > 0>>
+    -> I'll choose a class now.
+        <<jump ChooseAttributeClass>>
+<<else>>
+    -> I'll choose an attribute now.
+        <<jump ChooseAttributeToIncrement>>
+<<endif>>
 -> Explain Strength
     Meta Terminal: You hit harder with heavy tools and melee weapons. You carry more weight in your inventory. 
     Meta Terminal: Some areas are blocked by breakable doors or walls, requiring certain strength level to break. 
@@ -100,8 +105,32 @@ title: ExplainAttributes
     Meta Terminal: Your exobiotic abilities are stronger, use less contamination, and with fewer ill effects.
     Meta Terminal: You must have this at certain level to use certain Biotic abilities. 
     Meta Terminal: You must have this at a certain level to communicate with some species of Xenobiological organisms.
-    <<jump ExplainAttributes>>    
+    <<jump ExplainAttributes>>
+
 ===
+
+title: ChooseAttributeToIncrement
+---
+Meta Terminal: Choose on of the following attributes to level:
+<<declare $currentStrength = 0>>
+<<declare $newStrength = 0>>
+<<set $currentStrength = get_strength()>>
+<<declare $currentAgility = 0>>
+<<declare $newAgility = 0>>
+<<set $currentAgility = get_agility()>>
+<<declare $currentDexterity = 0>>
+<<declare $newDexterity = 0>>
+<<set $currentDexterity = get_dexterity()>>
+<<declare $currentBiotic = 0>>
+<<declare $newBiotic = 0>>
+<<set $currentBiotic = get_biotic_level()>>
+-> Strength from {$currentStrength} to {$currentStrength + 1}
+-> Agility from {$currentStrength} to {$currentStrength + 1}
+-> Dexterity from {$currentStrength} to {$currentStrength + 1}
+-> Exobiotic Power from {$currentStrength} to {$currentStrength + 1}
+-> I'll decide later.
+===
+
 
 title: ChooseAttributeClass
 ---

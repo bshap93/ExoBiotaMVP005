@@ -11,10 +11,9 @@ namespace SharedUI.Progression
     [Serializable]
     public enum AttributeType
     {
-        Dexterity,
-        MentalToughness,
-        Agility,
         Strength,
+        Agility,
+        Dexterity,
         Exobiotic
     }
 
