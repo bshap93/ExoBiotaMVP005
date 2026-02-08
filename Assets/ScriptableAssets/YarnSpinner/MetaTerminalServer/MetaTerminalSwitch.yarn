@@ -72,13 +72,55 @@ title: StartingFacilityTerminal
 Meta Terminal: No interlinked locations at this time.
 ===
 
+title: IntroduceAttributeClass
+---
+Meta Terminal: You'll set your 4 main attributes: Strength, Dexterity, Agility, and Biotic Strength.
+<<jump ExplainAttributes>>
+===
+
+title: ExplainAttributes
+---
+-> I'll choose a class now.
+    <<jump ChooseAttributeClass>>
+-> Explain Strength
+    Meta Terminal: You hit harder with heavy tools and melee weapons. You carry more weight in your inventory. 
+    Meta Terminal: Some areas are blocked by breakable doors or walls, requiring certain strength level to break. 
+    Meta Terminal: Additionally, you must have specified Strength to use some melee weapons.
+    <<jump ExplainAttributes>>
+-> Explain Dexterity
+    Meta Terminal: You're more accurate with tools and ranged weapons. You are able to fix machines and mod weapons the higher your Dexterity.
+    Meta Terminal: Additionally, you must have this high to use some must have this high to use some ranged weapon.
+    <<jump ChooseAttributeClass>>
+-> Explain Agility
+    Meta Terminal: Your movement speed is faster and you jump higher. You strike with melee weapons or tools faster.
+    Meta Terminal: You don't lose stamina as quickly when sprinting, fighting, or using tools. 
+    Meta Terminal: Certain mobility tools and equippable items require this to be used.
+    <<jump ExplainAttributes>>
+-> Explain Biotic Strength
+    Meta Terminal: Your exobiotic abilities are stronger, use less contamination, and with fewer ill effects.
+    Meta Terminal: You must have this at certain level to use certain Biotic abilities. 
+    Meta Terminal: You must have this at a certain level to communicate with some species of Xenobiological organisms.
+    <<jump ChooseAttributeClass>>    
+===
+
+title: ChooseAttributeClass
+---
+Meta Terminal: Choose a class...
+===
 
 title: TerminalGeneralDirectory
 ---
+<<if get_current_class_id() == 0>>
+    Meta Terminal: Choose the attribute profile you want.
+    -> Yes
+        Meta Terminal: Excellent.
+        <<jump IntroduceAttributeClass>>
+    -> Not now
+<<endif>>
 <<if get_stat_upgrade_points_unused() > 0>>
     Meta Terminal: Would you like to upgrade your vitals?
     -> Yes
-        Meta Terminal: OK!
+        Meta Terminal: Excellent.
         <<jump UpgradeStatsWhenPossible>>
     -> Not yet
 <<endif>>
