@@ -80,7 +80,9 @@ namespace Overview.NPC
 
         static string[] GetLocationIdOptions()
         {
-            return DockManager.GetLocationIdOptions();
+            // return DockManager.GetLocationIdOptions();
+            // return DialogueManager.GetAllLocationIdOptions();
+            return new string[] { "Location1", "Location2", "Location3" };
         }
 
         public AnimationClip GetGesture(string key)

@@ -18,15 +18,15 @@ public class OverviewCameraTarget : MonoBehaviour, MMEventListener<DockingEvent>
 
     public void OnMMEvent(DockingEvent eventType)
     {
-        if (eventType.EventType == DockingEventType.DockAtLocation)
-            if (DockManager.Instance != null)
-            {
-                var dirigibleDockInteractable = DockManager.Instance.currentDockInteractable;
-                if (dirigibleDockInteractable != null)
-                {
-                    transform.position = dirigibleDockInteractable.overviewCameraTarget.position;
-                    transform.rotation = dirigibleDockInteractable.overviewCameraTarget.rotation;
-                }
-            }
+        // if (eventType.EventType == DockingEventType.DockAtLocation)
+        //     if (DockManager.Instance != null)
+        //     {
+        //         var dirigibleDockInteractable = DockManager.Instance.currentDockInteractable;
+        //         if (dirigibleDockInteractable != null)
+        //         {
+        //             transform.position = dirigibleDockInteractable.overviewCameraTarget.position;
+        //             transform.rotation = dirigibleDockInteractable.overviewCameraTarget.rotation;
+        //         }
+        //     }
     }
 }

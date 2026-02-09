@@ -68,6 +68,12 @@ namespace SharedUI.Billboard
             if (eventType.EventType == ItemInfoUIEventType.ShowNewItemType)
             {
                 var item = GlobalInventoryManager.Instance.inventoryDatabaseVariable.GetItemAsset(eventType.ItemId);
+                if (item != null)
+                    Open(item);
+                else
+                    AlertEvent.Trigger(
+                        AlertReason.InvalidAction, $"Item with ID {eventType.ItemId} not found in database",
+                        "Cannot Show Item Info");
             }
         }
         public void OnMMEvent(MyUIEvent eventType)

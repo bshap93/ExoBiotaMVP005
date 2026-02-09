@@ -396,7 +396,8 @@ namespace LevelConstruct.Interactable.ItemInteractables
 
                 gameObject.SetActive(false);
                 // Trigger item picked event
-                PickableEvent.Trigger(PickableEventType.Picked, _itemPicker.UniqueID, transform);
+                PickableEvent.Trigger(
+                    PickableEventType.Picked, _itemPicker.UniqueID, transform, outerCoreItemObject.ItemID);
                 // dissolver.Materialize();
             }
 

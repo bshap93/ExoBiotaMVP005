@@ -30,7 +30,8 @@ namespace Overview.OverviewMode.ScriptableObjectDefinitions
 
         static string[] GetDockIdOptions()
         {
-            return DockManager.GetDockIdOptions();
+            // return DockManager.GetDockIdOptions();
+            return new string[] { "Location1", "Location2", "Location3" };
         }
     }
 }

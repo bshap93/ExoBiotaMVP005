@@ -604,7 +604,7 @@ namespace LevelConstruct.Interactable.ItemInteractables.ItemPicker
             // _pickableManager.AddPickedItemTypeIf(inventoryItem.ItemID);
 
             // Trigger item picked event
-            PickableEvent.Trigger(PickableEventType.Picked, uniqueID, transform);
+            PickableEvent.Trigger(PickableEventType.Picked, uniqueID, transform, inventoryItem.ItemID);
             inventoryItem.Pick("Player1");
             MMInventoryEvent.Trigger(
                 MMInventoryEventType.Pick, null, inventoryItem.TargetInventoryName,
@@ -702,7 +702,7 @@ namespace LevelConstruct.Interactable.ItemInteractables.ItemPicker
             _pickableManager.AddPickedItem(uniqueID, true, activeSceneName);
 
             // Trigger item picked event
-            PickableEvent.Trigger(PickableEventType.Picked, uniqueID, transform);
+            PickableEvent.Trigger(PickableEventType.Picked, uniqueID, transform, inventoryItem.ItemID);
             inventoryItem.Pick("Player1");
             MMInventoryEvent.Trigger(
                 MMInventoryEventType.Pick, null, inventoryItem.TargetInventoryName,

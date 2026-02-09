@@ -17,7 +17,6 @@ namespace Overview.UI
     public class RootOverviewController : MonoBehaviour, ICanvasGroupController, MMEventListener<ObjectiveEvent>
     {
         [FormerlySerializedAs("_dirigibleDockInteractable")]
-        public DirigibleDockInteractable dirigibleDockInteractable;
         readonly List<GameObject> hotspotObjects = new();
 
 
@@ -83,36 +82,36 @@ namespace Overview.UI
 
         public bool EmphasizeLocationsRelevantToActiveObjectives()
         {
-            if (dirigibleDockInteractable == null || dirigibleDockInteractable.dockLocationHotspotLookupEntries == null)
-            {
-                Debug.LogWarning("DirigibleDockInteractable or its dockLocationHotspotLookupEntries is not set.");
-                return false;
-            }
+            // if (dirigibleDockInteractable == null || dirigibleDockInteractable.dockLocationHotspotLookupEntries == null)
+            // {
+            //     Debug.LogWarning("DirigibleDockInteractable or its dockLocationHotspotLookupEntries is not set.");
+            //     return false;
+            // }
 
-            foreach (var dockLocation in dirigibleDockInteractable.dockLocationHotspotLookupEntries)
-            {
-                var activeObjectives = ObjectivesManager.Instance.GetActiveObjectives();
-                var associatedObjectives = dockLocation.LocationDefinition.GetAssociatedObjectivesSet();
-
-                HashSet<string> intersectingObjectives = new(activeObjectives);
-                if (intersectingObjectives == null) throw new ArgumentNullException(nameof(intersectingObjectives));
-
-                intersectingObjectives.IntersectWith(associatedObjectives);
-
-                var locationButtons =
-                    dockLocation.hotspotRectTransform.GetComponentInChildren<OverviewModeLocationButtons>();
-
-
-                if (locationButtons == null)
-                    // Debug.LogError(
-                    //     "OverviewModeLocationButtons component is missing on the instantiated hotspot object.");
-                    continue;
-
-                if (intersectingObjectives.Count > 0)
-                    locationButtons.SetEmphasized(true);
-                else
-                    locationButtons.SetEmphasized(false);
-            }
+            // foreach (var dockLocation in dirigibleDockInteractable.dockLocationHotspotLookupEntries)
+            // {
+            //     var activeObjectives = ObjectivesManager.Instance.GetActiveObjectives();
+            //     var associatedObjectives = dockLocation.LocationDefinition.GetAssociatedObjectivesSet();
+            //
+            //     HashSet<string> intersectingObjectives = new(activeObjectives);
+            //     if (intersectingObjectives == null) throw new ArgumentNullException(nameof(intersectingObjectives));
+            //
+            //     intersectingObjectives.IntersectWith(associatedObjectives);
+            //
+            //     var locationButtons =
+            //         dockLocation.hotspotRectTransform.GetComponentInChildren<OverviewModeLocationButtons>();
+            //
+            //
+            //     if (locationButtons == null)
+            //         // Debug.LogError(
+            //         //     "OverviewModeLocationButtons component is missing on the instantiated hotspot object.");
+            //         continue;
+            //
+            //     if (intersectingObjectives.Count > 0)
+            //         locationButtons.SetEmphasized(true);
+            //     else
+            //         locationButtons.SetEmphasized(false);
+            // }
 
             return true;
         }
@@ -135,43 +134,43 @@ namespace Overview.UI
 
             hotspotObjects.Clear();
 
-            foreach (var dockLocation in dirigibleDockInteractable.dockLocationHotspotLookupEntries)
-            {
-                var hotspotObject = Instantiate(
-                    dockLocation.LocationDefinition.prefab,
-                    dockLocation.hotspotRectTransform);
-
-                hotspotObjects.Add(hotspotObject);
-                var interactable = hotspotObject.GetComponent<IInteractable>();
-                var locationButtons = hotspotObject.GetComponent<OverviewModeLocationButtons>();
-                if (locationButtons == null)
-                {
-                    Debug.LogError(
-                        "OverviewModeLocationButtons component is missing on the instantiated hotspot object.");
-
-                    continue;
-                }
-
-
-                var spawnPointId = dockLocation.LocationDefinition.spawnPointId;
-                if (string.IsNullOrEmpty(spawnPointId)) continue;
-
-                var sceneName = dockLocation.LocationDefinition.spawnPointSceneName;
-                if (string.IsNullOrEmpty(sceneName))
-                {
-                    Debug.LogError($"Scene name is not set for dock location: {dockLocation.LocationDefinition.name}");
-                    continue;
-                }
-
-                KeyItemObject keyItemObject;
-                if (dockLocation.LocationDefinition.isUnlockingKeyItem)
-                    keyItemObject = dockLocation.LocationDefinition.keyItemToUnlock;
-                else keyItemObject = null;
-
-                if (interactable is MineOverviewModeLocation mineLocation)
-                    mineLocation.Initialize(
-                        spawnPointId, sceneName, dockLocation.LocationDefinition.GetMineName(), keyItemObject);
-            }
+            // foreach (var dockLocation in dirigibleDockInteractable.dockLocationHotspotLookupEntries)
+            // // {
+            // //     // var hotspotObject = Instantiate(
+            // //     //     dockLocation.LocationDefinition.prefab,
+            // //     //     dockLocation.hotspotRectTransform);
+            // //
+            // //     // hotspotObjects.Add(hotspotObject);
+            // //     // var interactable = hotspotObject.GetComponent<IInteractable>();
+            // //     // var locationButtons = hotspotObject.GetComponent<OverviewModeLocationButtons>();
+            // //     // if (locationButtons == null)
+            // //     // {
+            // //     //     Debug.LogError(
+            // //     //         "OverviewModeLocationButtons component is missing on the instantiated hotspot object.");
+            // //     //
+            // //     //     continue;
+            // //     // }
+            // //
+            // //
+            // //     var spawnPointId = dockLocation.LocationDefinition.spawnPointId;
+            // //     if (string.IsNullOrEmpty(spawnPointId)) continue;
+            // //
+            // //     var sceneName = dockLocation.LocationDefinition.spawnPointSceneName;
+            // //     if (string.IsNullOrEmpty(sceneName))
+            // //     {
+            // //         Debug.LogError($"Scene name is not set for dock location: {dockLocation.LocationDefinition.name}");
+            // //         continue;
+            // //     }
+            // //
+            // //     KeyItemObject keyItemObject;
+            // //     if (dockLocation.LocationDefinition.isUnlockingKeyItem)
+            // //         keyItemObject = dockLocation.LocationDefinition.keyItemToUnlock;
+            // //     else keyItemObject = null;
+            // //
+            // //     // if (interactable is MineOverviewModeLocation mineLocation)
+            // //     //     mineLocation.Initialize(
+            // //     //         spawnPointId, sceneName, dockLocation.LocationDefinition.GetMineName(), keyItemObject);
+            // // }
 
             EmphasizeLocationsRelevantToActiveObjectives();
         }

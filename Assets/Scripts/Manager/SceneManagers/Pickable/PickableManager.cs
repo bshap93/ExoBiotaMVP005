@@ -64,7 +64,7 @@ namespace Manager.SceneManagers.Pickable
                 var sceneName = e.ItemTransform ? e.ItemTransform.gameObject.scene.name : string.Empty;
 
                 var newlyAdded = _pickedItems.Add(id);
-                if (_pickedItemTypes.Contains(e.SOItemID))
+                if (!_pickedItemTypes.Contains(e.SOItemID))
                 {
                     MyUIEvent.Trigger(UIType.ItemInfoPopup, UIActionType.Open);
                     ItemInfoUIEvent.Trigger(ItemInfoUIEventType.ShowNewItemType, e.SOItemID);

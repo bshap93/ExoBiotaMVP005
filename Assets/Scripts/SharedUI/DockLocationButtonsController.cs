@@ -128,12 +128,12 @@ namespace SharedUI
         {
             var locationId = eventType.LocationId;
 
-            var locationDefiniton = DockManager.Instance.locationTable.GetLocationDefinition(locationId);
-            if (locationDefiniton == null) return;
+            // var locationDefiniton = DockManager.Instance.locationTable.GetLocationDefinition(locationId);
+            // if (locationDefiniton == null) return;
 
-            if (eventType.LocationActionType == LocationActionType.RetreatFrom)
-                if (dockId == locationDefiniton.dockId)
-                    Show();
+            // if (eventType.LocationActionType == LocationActionType.RetreatFrom)
+            //     if (dockId == locationDefiniton.dockId)
+            //         Show();
         }
 
         void EnsureInit()
@@ -165,9 +165,9 @@ namespace SharedUI
             _canvasGroup.blocksRaycasts = false;
         }
 
-        static string[] GetDockIdOptions()
-        {
-            return DockManager.GetDockIdOptions();
-        }
+        // static string[] GetDockIdOptions()
+        // {
+        //     return DockManager.GetDockIdOptions();
+        // }
     }
 }

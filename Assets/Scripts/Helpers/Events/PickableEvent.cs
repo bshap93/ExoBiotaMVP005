@@ -22,7 +22,7 @@ namespace Gameplay.Events
         public string SOItemID;
 
         public static void Trigger(PickableEventType eventType, string uniqueId, Transform transform,
-            string soItemID = null)
+            string soItemID)
         {
             _e.EventType = eventType;
             _e.UniqueId = uniqueId;

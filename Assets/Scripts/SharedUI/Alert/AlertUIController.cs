@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Helpers.Events;
-using Helpers.Events.Status;
 using Manager.Global;
 using Manager.Status.Scriptable;
 using Michsky.MUIP;
@@ -13,7 +12,7 @@ using UnityEngine.Serialization;
 
 namespace SharedUI.Alert
 {
-    public class AlertUIController : MonoBehaviour, MMEventListener<AlertEvent>, MMEventListener<InfectionUIEvent>
+    public class AlertUIController : MonoBehaviour, MMEventListener<AlertEvent>
     {
         [SerializeField] MMFeedbacks normalAlertFeedbacks;
         [FormerlySerializedAs("_modalWindowManager")] [SerializeField]
@@ -53,14 +52,12 @@ namespace SharedUI.Alert
 
         void OnEnable()
         {
-            this.MMEventStartListening<AlertEvent>();
-            this.MMEventStartListening<InfectionUIEvent>();
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening<AlertEvent>();
-            this.MMEventStopListening<InfectionUIEvent>();
+            this.MMEventStopListening();
         }
 
         public void OnMMEvent(AlertEvent eventType)
@@ -95,44 +92,6 @@ namespace SharedUI.Alert
                 InGameTimeActionEvent.Trigger(InGameTimeActionEvent.ActionType.Pause);
                 ShowPauseAndGiveInfoPanel(eventType.AlertReason);
             }
-        }
-
-        public void OnMMEvent(InfectionUIEvent eventType)
-        {
-            var alertReason = AlertReason.InfectionContracted;
-            if (eventType.OngoingInfection == null)
-                return;
-
-            if (!eventType.Enable)
-                alertReason = AlertReason.Decontamination;
-            else
-                switch (eventType.OngoingInfection.infectionSiteID)
-                {
-                    case "Skin01":
-                        alertReason = AlertReason.InfectionContracted_Skin01;
-                        break;
-                    case "Lungs01":
-                        alertReason = AlertReason.InfectionContracted_Lung01;
-                        break;
-                    case "Heart01":
-                        alertReason = AlertReason.InfectionContracted_Heart01;
-                        break;
-                    case "Brain01":
-                        alertReason = AlertReason.InfectionContracted_Brain01;
-                        break;
-                    case "Eyes01":
-                        alertReason = AlertReason.InfectionContracted_Eyes01;
-                        break;
-                }
-
-            normalAlertFeedbacks?.PlayFeedbacks();
-
-            // ✅ FIX: Mark panel as open and update cooldown BEFORE triggering pause
-            _pauseAndGiveInfoPanelIsOpen = true;
-            _lastAlertTimes[alertReason] = Time.realtimeSinceStartup;
-
-            InGameTimeActionEvent.Trigger(InGameTimeActionEvent.ActionType.Pause);
-            ShowPauseAndGiveInfoPanel(alertReason);
         }
 
         public PauseAndGiveInfoDetails GetPauseAndGiveInfoDetails(AlertReason reason)

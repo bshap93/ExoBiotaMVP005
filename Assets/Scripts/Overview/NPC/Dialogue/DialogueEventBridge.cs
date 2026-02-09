@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Overview.NPC.Dialogue
 {
-    public class DialogueEventBridge : MonoBehaviour, MMEventListener<OverviewLocationEvent>,
+    public class DialogueEventBridge : MonoBehaviour, 
         MMEventListener<FirstPersonDialogueEvent>
     {
         [SerializeField] NpcDatabase npcDatabase;
@@ -17,13 +17,11 @@ namespace Overview.NPC.Dialogue
 
         public void OnEnable()
         {
-            this.MMEventStartListening<OverviewLocationEvent>();
             this.MMEventStartListening<FirstPersonDialogueEvent>();
         }
 
         public void OnDisable()
         {
-            this.MMEventStopListening<OverviewLocationEvent>();
             this.MMEventStopListening<FirstPersonDialogueEvent>();
         }
 
@@ -43,43 +41,43 @@ namespace Overview.NPC.Dialogue
                 dialogueManager.OpenNPCDialogue(def);
         }
 
-        public void OnMMEvent(OverviewLocationEvent e)
-        {
-            if (e.LocationActionType != LocationActionType.Approach) return;
-
-            var locationDefinition = DockManager.Instance.GetLocationDefinition(e.LocationId);
-
-            if (locationDefinition == null)
-            {
-                Debug.LogWarning($"No location definition for {e.LocationId}");
-                return;
-            }
-
-            if (e.LocationType == LocationType.Dirigible)
-
-                if (locationDefinition.npcInResidenceId == "None")
-                {
-                    Debug.LogWarning($"No npc in residence at {e.LocationId}");
-                    StartCoroutine(WaitAndThenRetreat(e));
-                    return;
-                }
-
-            var startNode = e.StartNodeOverride;
-
-
-            // LocationId IS the NPC id now
-            if (!npcDatabase.TryGet(locationDefinition.npcInResidenceId, out var def))
-            {
-                Debug.LogWarning($"No NPC with id {locationDefinition.npcInResidenceId}");
-                return;
-            }
-
-
-            dialogueManager.OpenNPCDialogue(
-                def, null, true,
-                string.IsNullOrEmpty(startNode) ? null : startNode);
-        }
-
+        // public void OnMMEvent(OverviewLocationEvent e)
+        // {
+        //     if (e.LocationActionType != LocationActionType.Approach) return;
+        //
+        //     var locationDefinition = DockManager.Instance.GetLocationDefinition(e.LocationId);
+        //
+        //     if (locationDefinition == null)
+        //     {
+        //         Debug.LogWarning($"No location definition for {e.LocationId}");
+        //         return;
+        //     }
+        //
+        //     if (e.LocationType == LocationType.Dirigible)
+        //
+        //         if (locationDefinition.npcInResidenceId == "None")
+        //         {
+        //             Debug.LogWarning($"No npc in residence at {e.LocationId}");
+        //             StartCoroutine(WaitAndThenRetreat(e));
+        //             return;
+        //         }
+        //
+        //     var startNode = e.StartNodeOverride;
+        //
+        //
+        //     // LocationId IS the NPC id now
+        //     if (!npcDatabase.TryGet(locationDefinition.npcInResidenceId, out var def))
+        //     {
+        //         Debug.LogWarning($"No NPC with id {locationDefinition.npcInResidenceId}");
+        //         return;
+        //     }
+        //
+        //
+        //     dialogueManager.OpenNPCDialogue(
+        //         def, null, true,
+        //         string.IsNullOrEmpty(startNode) ? null : startNode);
+        // }
+        //
 
         IEnumerator WaitAndThenRetreat(OverviewLocationEvent e)
         {

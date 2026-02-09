@@ -8,7 +8,6 @@ using Helpers.Events.UI;
 using Interfaces;
 using LevelConstruct.Interactable.ItemInteractables;
 using Manager.Global;
-using Manager.SceneManagers.Dock;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Objectives;
@@ -224,7 +223,7 @@ namespace Manager.DialogueScene
             }
             else
             {
-                TriggerRetreatFromLocationEvent();
+                // TriggerRetreatFromLocationEvent();
 
                 varProbeYSES3.TryGet();
 
@@ -233,32 +232,32 @@ namespace Manager.DialogueScene
             }
         }
 
-        void TriggerRetreatFromLocationEvent()
-        {
-            if (DockManager.Instance == null)
-            {
-                Debug.LogWarning("DockManager instance is not initialized.");
-                return;
-            }
-
-            var locationType = DockManager.Instance.currentLocationType;
-            var locationId = DockManager.Instance.currentLocationId;
-            if (DockManager.Instance.currentDockInteractable == null)
-            {
-                Debug.LogWarning("Current dock interactable is null.");
-                return;
-            }
-
-            var cameraTrasform = DockManager.Instance.currentDockInteractable.overviewCameraTarget;
-
-
-            OverviewLocationEvent.Trigger(
-                locationType,
-                LocationActionType.RetreatFrom,
-                locationId,
-                cameraTrasform
-            );
-        }
+        // void TriggerRetreatFromLocationEvent()
+        // {
+        //     if (DockManager.Instance == null)
+        //     {
+        //         Debug.LogWarning("DockManager instance is not initialized.");
+        //         return;
+        //     }
+        //
+        //     var locationType = DockManager.Instance.currentLocationType;
+        //     var locationId = DockManager.Instance.currentLocationId;
+        //     if (DockManager.Instance.currentDockInteractable == null)
+        //     {
+        //         Debug.LogWarning("Current dock interactable is null.");
+        //         return;
+        //     }
+        //
+        //     var cameraTrasform = DockManager.Instance.currentDockInteractable.overviewCameraTarget;
+        //
+        //
+        //     OverviewLocationEvent.Trigger(
+        //         locationType,
+        //         LocationActionType.RetreatFrom,
+        //         locationId,
+        //         cameraTrasform
+        //     );
+        // }
 
         // public static string[] GetAllNpcIdOptions()
         // {
@@ -320,6 +319,5 @@ namespace Manager.DialogueScene
             return AllRewiredActions.GetAllRewiredActions();
         }
 #endif
-
     }
 }

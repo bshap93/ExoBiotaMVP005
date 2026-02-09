@@ -304,20 +304,21 @@ namespace FirstPersonPlayer.Interactable
                     {
                         // Trigger your event here
                         Debug.Log($"[PlayerPropPickup] {rb.name} has come to rest.");
-                        if (rb.GetComponent<ItemPicker>() != null && !dontPersistPlacedOrDroppedItems)
+                        var itemPicker = rb.GetComponent<ItemPicker>();
+                        if (itemPicker != null && !dontPersistPlacedOrDroppedItems)
                         {
                             if (_itemStatus == ItemStatus.Moved)
                             {
                                 PickableEvent.Trigger(
-                                    PickableEventType.MovedItemCameToRest, rb.GetComponent<ItemPicker>().uniqueID,
-                                    rb.transform);
+                                    PickableEventType.MovedItemCameToRest, itemPicker.uniqueID,
+                                    rb.transform, itemPicker.inventoryItem.ItemID);
                             }
                             else if (_itemStatus == ItemStatus.Placed)
                             {
-                                if (rb.GetComponent<ItemPicker>().inventoryItem == null) yield break;
-                                var invID = rb.GetComponent<ItemPicker>().inventoryItem.ItemID;
+                                if (itemPicker.inventoryItem == null) yield break;
+                                var invID = itemPicker.inventoryItem.ItemID;
                                 PickableEvent.Trigger(
-                                    PickableEventType.PlacedItemCameToRest, rb.GetComponent<ItemPicker>().uniqueID,
+                                    PickableEventType.PlacedItemCameToRest, itemPicker.uniqueID,
                                     rb.transform, invID);
                             }
                         }

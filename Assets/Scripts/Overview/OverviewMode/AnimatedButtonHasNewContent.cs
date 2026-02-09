@@ -32,8 +32,10 @@ namespace Overview.OverviewMode
 
         static string[] GetDockIdOptions()
         {
-            return DockManager.GetDockIdOptions();
+            // return DockManager.GetDockIdOptions();
+            return new string[] { "Location1", "Location2", "Location3" };
         }
+        
 
         static string[] GetNPCIdOptions()
         {
@@ -42,7 +44,8 @@ namespace Overview.OverviewMode
 
         static string[] GetLocationIdOptions()
         {
-            return DockManager.GetLocationIdOptions();
+            // return DockManager.GetLocationIdOptions();
+            return new string[] { "Location1", "Location2", "Location3" };
         }
     }
 }

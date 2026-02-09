@@ -112,14 +112,14 @@ namespace Overview.OverviewMode
                 }
 
                 // Next best: the current dock's overview anchor
-                var dock = DockManager.Instance?.currentDockInteractable;
-                if (dock?.overviewCameraTarget != null)
-                {
-                    cameraTarget.transform.SetPositionAndRotation(
-                        dock.overviewCameraTarget.position, dock.overviewCameraTarget.rotation);
-                    return;
-                }
-
+                // var dock = DockManager.Instance?.currentDockInteractable;
+                // if (dock?.overviewCameraTarget != null)
+                // {
+                //     cameraTarget.transform.SetPositionAndRotation(
+                //         dock.overviewCameraTarget.position, dock.overviewCameraTarget.rotation);
+                //     return;
+                // }
+                //
                 // Final fallback: original snapshot from OnEnable
                 cameraTarget.transform.position = _originalCameraPosition;
                 cameraTarget.transform.rotation = Quaternion.Euler(_originalCameraRotation);
