@@ -222,9 +222,11 @@ namespace Manager.ProgressionMangers
                 ConvertCoreToXP(conversionEventType.CoreGrade);
         }
 
+
         public void OnMMEvent(EnemyXPRewardEvent eventType)
         {
-            throw new NotImplementedException();
+            var xpToAward = eventType.XPReward;
+            AwardXPToPlayer(xpToAward);
         }
 
         public void OnMMEvent(IncrementAttributeEvent eventType)

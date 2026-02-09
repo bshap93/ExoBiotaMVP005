@@ -32755,7 +32755,7 @@ MonoBehaviour:
   meleeHitFeedbacksHeavy: {fileID: 5633118161157908741}
   rangedHitFeedbacksHeavy: {fileID: 5633118161157908741}
   secondsBeforeSettingShouldBeDestroyed: 5
-  currentHealth: 15
+  currentHealth: 25
   attackCount: 1
   attackInstances:
   - attackName: 

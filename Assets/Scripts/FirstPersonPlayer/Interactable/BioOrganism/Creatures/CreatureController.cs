@@ -8,6 +8,7 @@ using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using Helpers.Events;
 using Helpers.Events.Combat;
 using Helpers.Events.NPCs;
+using Helpers.Events.Progression;
 using Helpers.Events.Status;
 using HighlightPlus;
 using Manager.ProgressionMangers;
@@ -162,6 +163,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             EnemyDamageEvent.Trigger(
                 0f, currentHealth, MaxHealth,
                 DamageEventType.Death, creatureType.creatureName, DamageType.None);
+
+            if (creatureType.givesExperienceReward) EnemyXPRewardEvent.Trigger(creatureType.experienceRewardAmount);
 
             deathFeedbacks?.PlayFeedbacks();
             // if (deathParticlesPrefab != null)

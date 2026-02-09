@@ -6,8 +6,11 @@ namespace Helpers.Events.Progression
     {
         static EnemyXPRewardEvent _e;
 
-        public void Trigger(int xpReward)
+        public int XPReward;
+
+        public static void Trigger(int xpReward)
         {
+            _e.XPReward = xpReward;
             MMEventManager.TriggerEvent(_e);
         }
     }

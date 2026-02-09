@@ -210,8 +210,8 @@ MonoBehaviour:
   detectableType: 0
   rightHandEquippableTool: {fileID: 11400000, guid: 65b3c94fbf4855643ae0eaf2d87b603d, type: 2}
   useMultipleSwings: 1
-  swing01HitDelay: 0.325
-  swing02HitDelay: 0.2
+  swing01HitDelay: 0.55
+  swing02HitDelay: 0.4
   swing03HitDelay: 0.4
   swingSpeedMultiplier: 1.5
   defaultHitDelay: 0.4
@@ -398,6 +398,14 @@ PrefabInstance:
       propertyPath: managedReferences[1616504639524700662].PoolParentTransform
       value: 
       objectReference: {fileID: 3257898083727519851}
+    - target: {fileID: 3462648635853232194, guid: 35d8bb39d7b61ea4cac21ebea30c15ed, type: 3}
+      propertyPath: managedReferences[1616504783501787305].MaxVolume
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462648635853232194, guid: 35d8bb39d7b61ea4cac21ebea30c15ed, type: 3}
+      propertyPath: managedReferences[1616504783501787305].MinVolume
+      value: 0.51
+      objectReference: {fileID: 0}
     - target: {fileID: 6495824632278282515, guid: 35d8bb39d7b61ea4cac21ebea30c15ed, type: 3}
       propertyPath: managedReferences[1616504639524700662].ParentTransform
       value: 

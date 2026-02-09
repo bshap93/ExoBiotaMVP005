@@ -1,4 +1,5 @@
 ﻿using MoreMountains.Tools;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -32,6 +33,9 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         public string shortDescription;
         public Sprite creatureIcon;
         public float weaknessToKnockback = 1f;
+
+        public bool givesExperienceReward = true;
+        [ShowIf("givesExperienceReward")] public int experienceRewardAmount = 10;
 
         [Header("Drop Loot Settings")] [SerializeField]
         public MMLootTableGameObjectSO lootDefinition;
