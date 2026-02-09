@@ -20,6 +20,7 @@ namespace FirstPersonPlayer.Interactable.Doors
         [ShowIf("overrideLockState")] [SerializeField]
         bool startLocked = true;
         bool _isLocked;
+        [SerializeField] Light doorLight;
 
         void Start()
         {

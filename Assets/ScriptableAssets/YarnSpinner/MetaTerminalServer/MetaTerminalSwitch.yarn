@@ -5,6 +5,13 @@ Meta Terminal: You're using the debug terminal.
 <<jump TerminalGeneralDirectory>>
 ===
 
+title: StartingFacilityTerminal
+---
+Meta Terminal: You're using the Womb facility self-service terminal array.
+<<jump TerminalGeneralDirectory>>
+===
+
+
 title: MetaTerminalSwitch
 ---
 Meta Terminal: Stand by for terminal data...
@@ -67,10 +74,6 @@ Meta Terminal: Which vital would you like to upgrade?
     <<jump TerminalGeneralDirectory>>
 ===
 
-title: StartingFacilityTerminal
----
-Meta Terminal: No interlinked locations at this time.
-===
 
 title: IntroduceAttributeClass
 ---
