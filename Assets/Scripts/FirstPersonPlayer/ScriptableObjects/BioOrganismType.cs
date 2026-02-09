@@ -17,7 +17,7 @@ namespace FirstPersonPlayer.ScriptableObjects
         public string shortDescription;
         public string fullDescription;
 
-        public IdentificationMode identificationMode = IdentificationMode.NeedsBiologicalAnalysisOnce;
+        public IdentificationMode identificationMode = IdentificationMode.RecognizableOnSight;
 
 
         // Optional: a redacted name/icon for unknowns
