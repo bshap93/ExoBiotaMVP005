@@ -1,10 +1,7 @@
-using Helpers.Events;
 using Inventory;
-using Manager.Global;
 using Michsky.MUIP;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Structs;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,7 +10,7 @@ namespace SharedUI.IGUI
     public class InventoryIGUIController : MonoBehaviour, MMEventListener<MMInventoryEvent>
     {
         public const int FPPlayerInventoryTypeIndex = 0;
-        public const int DirigibleInventoryTypeIndex = 1;
+        public const int BioticAbilitiesTypeIndex = 1;
         [SerializeField] CustomDropdown inventoryTypeDropdown;
         [SerializeField] Transform listTransform;
         [SerializeField] GameObject inventoryListItemPrefab;
@@ -21,12 +18,13 @@ namespace SharedUI.IGUI
 
         [FormerlySerializedAs("_playerInventory")] [SerializeField]
         MoreMountains.InventoryEngine.Inventory playerInventory;
-        [FormerlySerializedAs("_dirigibleInventory")] [SerializeField]
-        MoreMountains.InventoryEngine.Inventory dirigibleInventory;
-        [FormerlySerializedAs("_weightProgressBar")] [SerializeField] 
-        MoreMountains.InventoryEngine.Inventory bioticAbilitiesController;
+        // [FormerlySerializedAs("_dirigibleInventory")] [SerializeField]
+        // MoreMountains.InventoryEngine.Inventory dirigibleInventory;
+        [FormerlySerializedAs("bioticAbilitiesController")]
+        [FormerlySerializedAs("_weightProgressBar")]
         [SerializeField]
-        ProgressBar weightProgressBar;
+        MoreMountains.InventoryEngine.Inventory bioticAbilitiesInventory;
+        [SerializeField] ProgressBar weightProgressBar;
 
         int _currentInventoryType;
 
@@ -58,8 +56,10 @@ namespace SharedUI.IGUI
             MoreMountains.InventoryEngine.Inventory inventory0 = null;
             if (playerInventory != null && playerInventory.name == inventoryName)
                 inventory0 = playerInventory;
-            else if (dirigibleInventory != null && dirigibleInventory.name == inventoryName)
-                inventory0 = dirigibleInventory;
+            // else if (dirigibleInventory != null && dirigibleInventory.name == inventoryName)
+            //     inventory0 = dirigibleInventory;
+            else if (bioticAbilitiesInventory != null && bioticAbilitiesInventory.name == inventoryName)
+                inventory0 = bioticAbilitiesInventory;
 
             if (inventory0 == null) return;
 
@@ -67,8 +67,10 @@ namespace SharedUI.IGUI
 
             if (inventory0.name == playerInventory.name)
                 inventoryWithWeightType = GlobalInventoryManager.InventoryWithWeightLimit.PlayerMainInventory;
-            else if (inventory0.name == dirigibleInventory.name)
-                inventoryWithWeightType = GlobalInventoryManager.InventoryWithWeightLimit.DirigibleInventory;
+            // else if (inventory0.name == dirigibleInventory.name)
+            //     inventoryWithWeightType = GlobalInventoryManager.InventoryWithWeightLimit.DirigibleInventory;
+            else if (inventory0.name == bioticAbilitiesInventory.name)
+                inventoryWithWeightType = GlobalInventoryManager.InventoryWithWeightLimit.BioticAbilityInventory;
             else
                 return;
 
@@ -88,27 +90,19 @@ namespace SharedUI.IGUI
 
         void OnInventoryTypeChanged(int arg0)
         {
-            // 0 is FPPlayer, 1 is Dirigible
-            var currentMode = GameStateManager.Instance.CurrentMode;
-            if (currentMode == GameMode.FirstPerson && arg0 == 1)
-            {
-                // Can't switch to Dirigible inventory in FP mode
-                SetInventoryTypeDropdown(FPPlayerInventoryTypeIndex);
-                AlertEvent.Trigger(
-                    AlertReason.TooFarFromDirigible,
-                    "You cannot access the Dirigible slots while not in Dirigible.",
-                    "Not In Dirigible");
-
-                return;
-            }
-
             switch (arg0)
             {
                 case FPPlayerInventoryTypeIndex:
                     Refresh(playerInventory, GlobalInventoryManager.InventoryWithWeightLimit.PlayerMainInventory);
                     break;
-                case DirigibleInventoryTypeIndex:
-                    Refresh(dirigibleInventory, GlobalInventoryManager.InventoryWithWeightLimit.DirigibleInventory);
+                // case DirigibleInventoryTypeIndex:
+                //     Refresh(dirigibleInventory, GlobalInventoryManager.InventoryWithWeightLimit.DirigibleInventory);
+                //     break;
+                case BioticAbilitiesTypeIndex:
+                    Refresh(
+                        bioticAbilitiesInventory,
+                        GlobalInventoryManager.InventoryWithWeightLimit.BioticAbilityInventory);
+
                     break;
                 default:
                     Debug.LogError("Invalid inventory type selected.");

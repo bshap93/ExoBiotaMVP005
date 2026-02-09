@@ -32,6 +32,8 @@ namespace LevelConstruct.Highlighting
         HighlightTrigger _highlightTrigger;
         bool _isHighlighted;
         bool _isTargetVisible;
+
+        Color _primaryStateHighlightColor;
         Coroutine seeThroughCoroutine;
 
         public HighlightEffect HighlightEffect { get; private set; }
@@ -43,6 +45,7 @@ namespace LevelConstruct.Highlighting
             _highlightTrigger = GetComponent<HighlightTrigger>();
             _isHighlighted = HighlightEffect.highlighted;
             _isTargetVisible = HighlightEffect.targetFX;
+            _primaryStateHighlightColor = HighlightEffect.outlineColor;
         }
 
 
@@ -287,6 +290,14 @@ namespace LevelConstruct.Highlighting
             HighlightEffect.targetFXVisibility = state ? Visibility.AlwaysOnTop : Visibility.OnlyWhenOccluded;
             _isTargetVisible = state;
             HighlightEffect.Refresh();
+        }
+        public void SetPrimaryStateHighlightColor()
+        {
+            if (HighlightEffect != null)
+            {
+                HighlightEffect.outlineColor = _primaryStateHighlightColor;
+                HighlightEffect.Refresh();
+            }
         }
     }
 }

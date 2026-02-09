@@ -31,7 +31,8 @@ namespace Inventory
         public enum InventoryWithWeightLimit
         {
             PlayerMainInventory,
-            DirigibleInventory
+            DirigibleInventory,
+            BioticAbilityInventory
         }
 
 

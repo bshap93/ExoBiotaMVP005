@@ -189,26 +189,26 @@ namespace SharedUI.IGUI
                 _inventoryIGUIController.SetInventoryTypeDropdown(InventoryIGUIController.FPPlayerInventoryTypeIndex);
                 _slotsIGUIController.ShowPlayerSlots();
             }
-            else if (GameStateManager.Instance.CurrentMode == GameMode.Overview)
-            {
-                centerInventory =
-                    MoreMountains.InventoryEngine.Inventory.FindInventory(
-                        dirigibleInvName,
-                        "Player1");
-
-                _inventoryIGUIController.SetInventoryTypeDropdown(InventoryIGUIController.DirigibleInventoryTypeIndex);
-                _slotsIGUIController.ShowDirigibleSlots();
-            }
-            else if (GameStateManager.Instance.CurrentMode == GameMode.DirigibleFlight)
-            {
-                centerInventory =
-                    MoreMountains.InventoryEngine.Inventory.FindInventory(
-                        dirigibleInvName,
-                        "Player1");
-
-                _inventoryIGUIController.SetInventoryTypeDropdown(InventoryIGUIController.DirigibleInventoryTypeIndex);
-                _slotsIGUIController.ShowDirigibleSlots();
-            }
+            // else if (GameStateManager.Instance.CurrentMode == GameMode.Overview)
+            // {
+            //     centerInventory =
+            //         MoreMountains.InventoryEngine.Inventory.FindInventory(
+            //             dirigibleInvName,
+            //             "Player1");
+            //
+            //     _inventoryIGUIController.SetInventoryTypeDropdown(InventoryIGUIController.DirigibleInventoryTypeIndex);
+            //     _slotsIGUIController.ShowDirigibleSlots();
+            // }
+            // else if (GameStateManager.Instance.CurrentMode == GameMode.DirigibleFlight)
+            // {
+            //     centerInventory =
+            //         MoreMountains.InventoryEngine.Inventory.FindInventory(
+            //             dirigibleInvName,
+            //             "Player1");
+            //
+            //     _inventoryIGUIController.SetInventoryTypeDropdown(InventoryIGUIController.DirigibleInventoryTypeIndex);
+            //     _slotsIGUIController.ShowDirigibleSlots();
+            // }
 
             _slotsIGUIController?.Refresh();
             _inventoryIGUIController?.Refresh(
