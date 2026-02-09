@@ -96,6 +96,10 @@ namespace Helpers.YarnSpinner
             dialogueRunner.AddCommandHandler(
                 "save_game",
                 SaveGame);
+            
+            dialogueRunner.AddCommandHandler<int>(
+                "fast_travel_to_terminal",
+                FastTravelToTerminal);
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -108,6 +112,12 @@ namespace Helpers.YarnSpinner
         {
             SaveDataEvent.Trigger();
             AlertEvent.Trigger(AlertReason.SavingGame, "All data saved successfully!", "Saved Game");
+        }
+
+        void FastTravelToTerminal(int terminalId)
+        {
+            Debug.Log("Fast traveling to terminal with ID: " + terminalId);
+            
         }
 
         // Inventory Commands

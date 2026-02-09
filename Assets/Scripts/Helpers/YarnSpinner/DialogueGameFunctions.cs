@@ -9,22 +9,9 @@ namespace Helpers.YarnSpinner
         [Tooltip("If not assigned, will try DialogueManager.Instance.dialogueRunner")]
         public DialogueRunner dialogueRunner;
 
-        public void Awake()
-        {
-            // dialogueRunner.AddFunction("get_current_level", GetCurrentLevel);
-            // dialogueRunner.AddFunction("get_stat_upgrade_points_unused", GetStatUpgradePointsUnused);
-            // dialogueRunner.AddFunction("get_attribute_points_unused", GetAttributePointsUnused);
-            //
-            // dialogueRunner.AddFunction("get_current_health_upgrade_level", GetCurrentHealthUpgradeLevel);
-            // dialogueRunner.AddFunction("get_current_stamina_upgrade_level", GetCurrentStaminaUpgradeLevel);
-            // dialogueRunner.AddFunction("get_current_contamination_upgrade_level", GetCurrentContaminationUpgradeLevel);
-            //
-            //
-            // dialogueRunner.AddFunction("get_dexterity", GetDexterity);
-            // dialogueRunner.AddFunction("get_agility", GetAgility);
-            // dialogueRunner.AddFunction("get_strength", GetStrength);
-            // dialogueRunner.AddFunction("get_biotic_level", GetBioticLevel);
-        }
+
+        // Scene/ Travel
+        
 
 
         // Progression Getters
