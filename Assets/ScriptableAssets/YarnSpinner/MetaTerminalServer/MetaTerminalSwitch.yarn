@@ -203,7 +203,6 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
                 <<jump TerminalGeneralDirectory>>
             <<endif>>
-
         -> No
 -> Master of None (2 Strength, 2 Agility, 2 Dexterity, 2 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -220,7 +219,6 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
                 <<jump TerminalGeneralDirectory>>
             <<endif>>
-
         -> No
 -> Runner (1 Strength, 5 Agility, 1 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -237,7 +235,6 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
                 <<jump TerminalGeneralDirectory>>
             <<endif>>
-
         -> No
 -> Gunner (1 Strength, 2 Agility, 4 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -254,7 +251,6 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
                 <<jump TerminalGeneralDirectory>>
             <<endif>>
-
         -> No
 -> Bio-Weapon (1 Strength, 1 Agility, 1 Dexterity, 5 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -287,8 +283,9 @@ Meta Terminal: Choose on of the following presets:
                 Meta Terminal: Failure
                 <<jump TerminalGeneralDirectory>>
             <<endif>>
-            
         -> No
+-> I'll take another look at what the attributes do.
+    <<jump ExplainAttributes>>
 -> I'll decide later.
 ===
 
@@ -332,7 +329,10 @@ Meta Terminal: What would you like to do?
 
 title: SaveMyGameAtTerminal
 ---
-Meta Terminal: Choose a slot to save your game.
+Meta Terminal: Saving Game...
+<<wait  2>>
+<<save_game>>
+Meta Terminal: Game Saved!
 ===
 
 title: FastTravelBetweenTerminals

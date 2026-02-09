@@ -69,11 +69,16 @@ namespace SharedUI.Billboard
             {
                 var item = GlobalInventoryManager.Instance.inventoryDatabaseVariable.GetItemAsset(eventType.ItemId);
                 if (item != null)
+                {
+                    closeButton.onClick.AddListener(PickedPreviewClose);
                     Open(item);
+                }
                 else
+                {
                     AlertEvent.Trigger(
                         AlertReason.InvalidAction, $"Item with ID {eventType.ItemId} not found in database",
                         "Cannot Show Item Info");
+                }
             }
         }
         public void OnMMEvent(MyUIEvent eventType)
@@ -81,6 +86,11 @@ namespace SharedUI.Billboard
             if (eventType.uiActionType == UIActionType.Close)
                 if (eventType.uiType == UIType.Any || eventType.uiType == UIType.InGameUI)
                     Close();
+        }
+        public void PickedPreviewClose()
+        {
+            MyUIEvent.Trigger(UIType.Any, UIActionType.Close);
+            closeButton.onClick.RemoveListener(PickedPreviewClose);
         }
 
         void SetCurrentItem(MyBaseItem item)

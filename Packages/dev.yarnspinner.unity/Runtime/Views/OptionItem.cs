@@ -2,12 +2,15 @@
 Yarn Spinner is licensed to you under the terms found in the file LICENSE.md.
 */
 
+using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Yarn.Unity.Attributes;
-
 #if USE_TMP
 using TMPro;
+
 #else
     using TextMeshProUGUI = Yarn.Unity.TMPShim;
 #endif
@@ -16,38 +19,35 @@ using TMPro;
 
 namespace Yarn.Unity
 {
-    [System.Serializable]
+    [Serializable]
     internal struct InternalAppearance
     {
         [SerializeField] internal Sprite sprite;
         [SerializeField] internal Color colour;
     }
 
-    public sealed class OptionItem : UnityEngine.UI.Selectable, ISubmitHandler, IPointerClickHandler, IPointerEnterHandler
+    public sealed class OptionItem : Selectable, ISubmitHandler, IPointerClickHandler, IPointerEnterHandler
     {
-        [MustNotBeNull, SerializeField] TextMeshProUGUI? text;
-        [SerializeField] UnityEngine.UI.Image? selectionImage;
+        [MustNotBeNull] [SerializeField] TextMeshProUGUI? text;
+        [SerializeField] Image? selectionImage;
 
-        [Group("Appearance"), SerializeField] InternalAppearance normal;
-        [Group("Appearance"), SerializeField] InternalAppearance selected;
-        [Group("Appearance"), SerializeField] InternalAppearance disabled;
+        [Group("Appearance")] [SerializeField] InternalAppearance normal;
+        [Group("Appearance")] [SerializeField] InternalAppearance selected;
+        [Group("Appearance")] [SerializeField] InternalAppearance disabled;
 
-        [Group("Appearance"), SerializeField] bool disabledStrikeThrough = true;
+        [Group("Appearance")] [SerializeField] bool disabledStrikeThrough = true;
+
+        DialogueOption? _option;
+        public CancellationToken completionToken;
+
+        bool hasSubmittedOptionSelection;
 
         public YarnTaskCompletionSource<DialogueOption?>? OnOptionSelected;
-        public System.Threading.CancellationToken completionToken;
-
-        private bool hasSubmittedOptionSelection = false;
-
-        private DialogueOption? _option;
         public DialogueOption Option
         {
             get
             {
-                if (_option == null)
-                {
-                    throw new System.NullReferenceException("Option has not been set on the option item");
-                }
+                if (_option == null) throw new NullReferenceException("Option has not been set on the option item");
                 return _option;
             }
 
@@ -59,11 +59,9 @@ namespace Yarn.Unity
 
                 // When we're given an Option, use its text and update our
                 // interactibility.
-                string line = value.Line.TextWithoutCharacterName.Text;
+                var line = value.Line.TextWithoutCharacterName.Text;
                 if (disabledStrikeThrough && !value.IsAvailable)
-                {
                     line = $"<s>{value.Line.TextWithoutCharacterName.Text}</s>";
-                }
 
                 if (text == null)
                 {
@@ -79,11 +77,31 @@ namespace Yarn.Unity
             }
         }
 
-        private void ApplyStyle(InternalAppearance style)
+        public new bool IsHighlighted => EventSystem.current.currentSelectedGameObject == gameObject;
+
+        public void OnPointerClick(PointerEventData eventData)
         {
-            Color newColour = style.colour;
-            Sprite newSprite = style.sprite;
-            if (!Option.IsAvailable)
+            InvokeOptionSelected();
+        }
+
+        // If we mouse-over, we're telling the UI system that this element is
+        // the currently 'selected' (i.e. focused) element. 
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            Select();
+        }
+
+        // If we receive a submit or click event, invoke our "we just selected this option" handler.
+        public void OnSubmit(BaseEventData eventData)
+        {
+            InvokeOptionSelected();
+        }
+
+        void ApplyStyle(InternalAppearance style)
+        {
+            var newColour = style.colour;
+            var newSprite = style.sprite;
+            if (_option != null && !Option.IsAvailable)
             {
                 newColour = disabled.colour;
                 newSprite = disabled.sprite;
@@ -126,49 +144,20 @@ namespace Yarn.Unity
             ApplyStyle(normal);
         }
 
-        new public bool IsHighlighted
-        {
-            get
-            {
-                return EventSystem.current.currentSelectedGameObject == this.gameObject;
-            }
-        }
-
-        // If we receive a submit or click event, invoke our "we just selected this option" handler.
-        public void OnSubmit(BaseEventData eventData)
-        {
-            InvokeOptionSelected();
-        }
-
         public void InvokeOptionSelected()
         {
             // turns out that Selectable subclasses aren't intrinsically interactive/non-interactive
             // based on their canvasgroup, you still need to check at the moment of interaction
-            if (!IsInteractable())
-            {
-                return;
-            }
+            if (!IsInteractable()) return;
 
             // We only want to invoke this once, because it's an error to
             // submit an option when the Dialogue Runner isn't expecting it. To
             // prevent this, we'll only invoke this if the flag hasn't been cleared already.
-            if (hasSubmittedOptionSelection == false && !completionToken.IsCancellationRequested)
+            if (!hasSubmittedOptionSelection && !completionToken.IsCancellationRequested)
             {
                 hasSubmittedOptionSelection = true;
-                OnOptionSelected?.TrySetResult(this.Option);
+                OnOptionSelected?.TrySetResult(Option);
             }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            InvokeOptionSelected();
-        }
-
-        // If we mouse-over, we're telling the UI system that this element is
-        // the currently 'selected' (i.e. focused) element. 
-        public override void OnPointerEnter(PointerEventData eventData)
-        {
-            base.Select();
         }
     }
 }

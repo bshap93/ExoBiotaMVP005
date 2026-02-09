@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Helpers.Events;
 using Manager;
+using Manager.SceneManagers.Pickable;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace CustomAssets.AssetExtensions.InventoryEngine.PickupDisplayer
     public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<BioSampleEvent>,
         MMEventListener<ItemTransactionEvent>
     {
+        [Header("References")] [SerializeField]
+        PickableManager pickableManager;
         [Tooltip("the prefab to use to display achievements")]
         public PickupDisplayItem PickupDisplayPrefab;
 
@@ -111,6 +114,8 @@ namespace CustomAssets.AssetExtensions.InventoryEngine.PickupDisplayer
             // Do not display if the item is going to trash
             if (item.TargetInventoryName == trashInventoryName) return;
 
+            if (pickableManager != null &&
+                !pickableManager.IsItemTypePicked(item.ItemID)) return;
 
             var quantity = inventoryEvent.Quantity;
             if (_displays.TryGetValue(item.ItemID, out var display))

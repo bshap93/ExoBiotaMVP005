@@ -52,6 +52,87 @@ namespace Manager.SceneManagers.Pickable
             if (eventType.ManagerType == ManagerType.All) OnSceneLoaded();
         }
 
+        public bool IsItemTypePicked(string itemTypeId)
+        {
+            return _pickedItemTypes.Contains(itemTypeId);
+        }
+
+
+        // Back-compat for existing callers (e.g., ItemPicker)
+        public void AddPickedItem(string uniqueId, bool picked, string sceneName = null)
+        {
+            if (string.IsNullOrEmpty(uniqueId)) return;
+
+            if (!picked)
+            {
+                // Optional: support "unpick" if you ever need it
+                if (_pickedItems.Remove(uniqueId) && !string.IsNullOrEmpty(sceneName)
+                                                  && _pickedByScene.TryGetValue(sceneName, out var set))
+                    set.Remove(uniqueId);
+
+                MarkDirty();
+                ConditionalSave();
+                return;
+            }
+
+            // Add globally
+            if (_pickedItems.Add(uniqueId))
+            {
+                MarkDirty();
+                ConditionalSave();
+            }
+
+            // Record scene index if provided
+            if (!string.IsNullOrEmpty(sceneName))
+            {
+                if (!_pickedByScene.TryGetValue(sceneName, out var set))
+                {
+                    set = new HashSet<string>();
+                    _pickedByScene[sceneName] = set;
+                }
+
+                set.Add(uniqueId);
+            }
+        }
+
+        public void AddPickedItemTypeIf(string inventoryItemItemID)
+        {
+            _pickedItemTypes.Add(inventoryItemItemID);
+        }
+
+        // Store transform data instead of Transform references (which don't serialize well)
+        [Serializable]
+        public class MovedItemData
+        {
+            public Vector3 position;
+            public Quaternion rotation;
+            public string sceneName;
+
+            public MovedItemData(Vector3 pos, Quaternion rot, string scene)
+            {
+                position = pos;
+                rotation = rot;
+                sceneName = scene;
+            }
+        }
+
+        [Serializable]
+        public class PlacedItemData
+        {
+            public string itemId;
+            public Vector3 position;
+            public Quaternion rotation;
+            public string sceneName;
+
+            public PlacedItemData(Vector3 pos, Quaternion rot, string scene, string itemId)
+            {
+                position = pos;
+                rotation = rot;
+                sceneName = scene;
+                this.itemId = itemId;
+            }
+        }
+
         #region Events
 
         public void OnMMEvent(PickableEvent e)
@@ -70,7 +151,7 @@ namespace Manager.SceneManagers.Pickable
                     ItemInfoUIEvent.Trigger(ItemInfoUIEventType.ShowNewItemType, e.SOItemID);
                 }
 
-                _pickedItemTypes.Add(e.SOItemID);
+                StartCoroutine(WaitThenAddSOItemID(e.SOItemID));
 
                 // Always ensure scene index is populated
                 if (!string.IsNullOrEmpty(sceneName))
@@ -151,83 +232,14 @@ namespace Manager.SceneManagers.Pickable
             }
         }
 
+        IEnumerator WaitThenAddSOItemID(string itemID)
+        {
+            yield return null; // wait a frame to ensure any related events (like showing the popup) have processed
+
+            _pickedItemTypes.Add(itemID);
+        }
+
         #endregion
-
-
-        // Back-compat for existing callers (e.g., ItemPicker)
-        public void AddPickedItem(string uniqueId, bool picked, string sceneName = null)
-        {
-            if (string.IsNullOrEmpty(uniqueId)) return;
-
-            if (!picked)
-            {
-                // Optional: support "unpick" if you ever need it
-                if (_pickedItems.Remove(uniqueId) && !string.IsNullOrEmpty(sceneName)
-                                                  && _pickedByScene.TryGetValue(sceneName, out var set))
-                    set.Remove(uniqueId);
-
-                MarkDirty();
-                ConditionalSave();
-                return;
-            }
-
-            // Add globally
-            if (_pickedItems.Add(uniqueId))
-            {
-                MarkDirty();
-                ConditionalSave();
-            }
-
-            // Record scene index if provided
-            if (!string.IsNullOrEmpty(sceneName))
-            {
-                if (!_pickedByScene.TryGetValue(sceneName, out var set))
-                {
-                    set = new HashSet<string>();
-                    _pickedByScene[sceneName] = set;
-                }
-
-                set.Add(uniqueId);
-            }
-        }
-
-        public void AddPickedItemTypeIf(string inventoryItemItemID)
-        {
-            _pickedItemTypes.Add(inventoryItemItemID);
-        }
-
-        // Store transform data instead of Transform references (which don't serialize well)
-        [Serializable]
-        public class MovedItemData
-        {
-            public Vector3 position;
-            public Quaternion rotation;
-            public string sceneName;
-
-            public MovedItemData(Vector3 pos, Quaternion rot, string scene)
-            {
-                position = pos;
-                rotation = rot;
-                sceneName = scene;
-            }
-        }
-
-        [Serializable]
-        public class PlacedItemData
-        {
-            public string itemId;
-            public Vector3 position;
-            public Quaternion rotation;
-            public string sceneName;
-
-            public PlacedItemData(Vector3 pos, Quaternion rot, string scene, string itemId)
-            {
-                position = pos;
-                rotation = rot;
-                sceneName = scene;
-                this.itemId = itemId;
-            }
-        }
 
         #region Scene Restoration
 

@@ -92,12 +92,22 @@ namespace Helpers.YarnSpinner
             dialogueRunner.AddCommandHandler<string>(
                 "unlock_door",
                 UnlockDoor);
+
+            dialogueRunner.AddCommandHandler(
+                "save_game",
+                SaveGame);
         }
 
         // The method that gets called when '<<camera_look>>' is run.
         void CameraLookAtTarget()
         {
             Debug.LogWarning("Looking at target: ");
+        }
+
+        void SaveGame()
+        {
+            SaveDataEvent.Trigger();
+            AlertEvent.Trigger(AlertReason.SavingGame, "All data saved successfully!", "Saved Game");
         }
 
         // Inventory Commands

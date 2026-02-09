@@ -181,7 +181,9 @@ namespace Manager
 
             PickableManager.Instance.Load();
             DestructableManager.Instance.Load();
-            ExaminationManager.Instance.Load();
+            if (ExaminationManager.Instance != null)
+                ExaminationManager.Instance.Load();
+
             PlayerDeathManager.Instance.Load();
             CoreGamePOIManager.Instance.Load();
             BioSamplesManager.Instance.Load();
@@ -231,7 +233,9 @@ namespace Manager
 
             PickableManager.Instance.Save();
             DestructableManager.Instance.Save();
-            ExaminationManager.Instance.Save();
+            if (ExaminationManager.Instance != null)
+                ExaminationManager.Instance.Save();
+
             PlayerDeathManager.Instance.Save();
             CoreGamePOIManager.Instance.Save();
             BioSamplesManager.Instance.Save();
@@ -274,7 +278,9 @@ namespace Manager
 
             PickableManager.Instance.Reset();
             DestructableManager.Instance.Reset();
-            ExaminationManager.Instance.Reset();
+            if (ExaminationManager.Instance != null)
+                ExaminationManager.Instance.Reset();
+
             PlayerDeathManager.Instance.Reset();
             CoreGamePOIManager.Instance.Reset();
             BioSamplesManager.Instance.Reset();
