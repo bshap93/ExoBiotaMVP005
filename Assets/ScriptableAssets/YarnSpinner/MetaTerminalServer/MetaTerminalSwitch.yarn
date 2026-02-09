@@ -198,10 +198,12 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
+
         -> No
 -> Master of None (2 Strength, 2 Agility, 2 Dexterity, 2 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -213,10 +215,12 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
+
         -> No
 -> Runner (1 Strength, 5 Agility, 1 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -228,10 +232,12 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
+
         -> No
 -> Gunner (1 Strength, 2 Agility, 4 Dexterity, 1 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -243,10 +249,12 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
+
         -> No
 -> Bio-Weapon (1 Strength, 1 Agility, 1 Dexterity, 5 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -258,10 +266,11 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
         -> No
 -> Soldier (3 Strength, 2 Agility, 3 Dexterity, 0 Biotic Power)
     <<set $currentClassId = get_current_class_id()>>
@@ -273,12 +282,21 @@ Meta Terminal: Choose on of the following presets:
             <<set $newClassId = get_current_class_id()>>
             <<if $newClassId != $currentClassId>>
                 Meta Terminal: Success
+                <<jump ClassSelectionComplete>>
             <<else>> 
                 Meta Terminal: Failure
+                <<jump TerminalGeneralDirectory>>
             <<endif>>
-            <<jump TerminalGeneralDirectory>>
+            
         -> No
 -> I'll decide later.
+===
+
+title: ClassSelectionComplete
+---
+Meta Terminal: Successful Profile Imprint. Unlocking womb facility entrance door.
+<<unlock_door WombFacilityEntranceDoor>>
+<<jump TerminalGeneralDirectory>>
 ===
 
 title: TerminalGeneralDirectory

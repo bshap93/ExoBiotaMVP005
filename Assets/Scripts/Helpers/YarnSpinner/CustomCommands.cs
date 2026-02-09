@@ -1,5 +1,6 @@
 using System;
 using Helpers.Events;
+using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
 using Helpers.Events.Progression;
 using Inventory;
@@ -83,10 +84,14 @@ namespace Helpers.YarnSpinner
                 "trigger_player_sets_class",
                 TriggerPlayerSetsClass
             );
-            
+
             dialogueRunner.AddCommandHandler<int>(
                 "trigger_player_increment_attribute",
                 TriggerPlayerIncrementAttribute);
+
+            dialogueRunner.AddCommandHandler<string>(
+                "unlock_door",
+                UnlockDoor);
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -148,7 +153,7 @@ namespace Helpers.YarnSpinner
 
         void TriggerPlayerIncrementAttribute(int attributeId)
         {
-            if (attributeId < 0 || attributeId > 3) 
+            if (attributeId < 0 || attributeId > 3)
             {
                 Debug.LogWarning($"Invalid AttributeType id: {attributeId}");
                 return;
@@ -157,6 +162,13 @@ namespace Helpers.YarnSpinner
             var attributeType = (AttributeType)attributeId;
 
             IncrementAttributeEvent.Trigger(attributeType);
+        }
+
+        // Change Environment Commands
+
+        void UnlockDoor(string uniqueId)
+        {
+            DoorEvent.Trigger(uniqueId, DoorEventType.Unlock);
         }
 
         // Dialogue Gestures
