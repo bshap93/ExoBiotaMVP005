@@ -25,7 +25,8 @@ namespace Helpers.Events
         RestTimeSetAmount,
         InfoLogTablet,
         LevelingUI,
-        LevelingUIInfected
+        LevelingUIInfected,
+        ItemInfoPopup
     }
 
     public enum UIActionType

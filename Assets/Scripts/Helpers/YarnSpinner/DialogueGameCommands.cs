@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Events;
 using Helpers.Events;
-using Helpers.Events.ManagerEvents;
 using Helpers.StaticHelpers;
 using Manager.SceneManagers;
-using Objectives;
 using Overview.NPC;
 using SharedUI;
 using Sirenix.OdinInspector;
@@ -118,11 +116,11 @@ namespace Manager.DialogueScene.DialogueCommands
             DoorManager.Instance.RevokeKey(keyId);
         }
 
-        [YarnCommand("unlock_door")]
-        public void YarnUnlockDoor(string doorId)
-        {
-            DoorManager.Instance.PermanentlyUnlock(doorId);
-        }
+        // [YarnCommand("unlock_door")]
+        // public void YarnUnlockDoor(string doorId)
+        // {
+        //     DoorManager.Instance.PermanentlyUnlock(doorId);
+        // }
 
         // [YarnCommand("set_highlighted")]
         // public void SetHighlighted(string keyword)

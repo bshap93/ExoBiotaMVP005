@@ -97,7 +97,8 @@ namespace Inventory
 
         [Header("Equippable Types")] public EquippableTypesDatatable equippableTypesTable;
 
-        public InventoryDatabase InventoryDatabaseVariable;
+        [FormerlySerializedAs("InventoryDatabaseVariable")]
+        public InventoryDatabase inventoryDatabaseVariable;
         float _currentDirigibleWeight;
         float _currentPlayerFPWeight;
         bool _dirty; // <— NEW
@@ -457,14 +458,14 @@ namespace Inventory
 
         public InventoryItem CreateItem(string itemId, int amount = 1)
         {
-            if (InventoryDatabaseVariable == null)
+            if (inventoryDatabaseVariable == null)
             {
                 Debug.LogError("InventoryDatabase not assigned in GlobalInventoryManager!");
                 return null;
             }
 
             // Always return a single-unit instance; let AddItem decide how many to add.
-            return InventoryDatabaseVariable.CreateItem(itemId);
+            return inventoryDatabaseVariable.CreateItem(itemId);
         }
         public float GetMaxWeightOfPlayerCarry()
         {
@@ -518,13 +519,13 @@ namespace Inventory
         {
             if (string.IsNullOrEmpty(itemID)) return false;
 
-            if (InventoryDatabaseVariable == null)
+            if (inventoryDatabaseVariable == null)
             {
                 Debug.LogWarning("[GlobalInventoryManager] InventoryDatabaseVariable is null!");
                 return false;
             }
 
-            var item = InventoryDatabaseVariable.CreateItem(itemID);
+            var item = inventoryDatabaseVariable.CreateItem(itemID);
             if (item == null) return false;
 
             // Check if the item is a BaseTool
@@ -534,13 +535,13 @@ namespace Inventory
         {
             if (string.IsNullOrEmpty(itemID)) return false;
 
-            if (InventoryDatabaseVariable == null)
+            if (inventoryDatabaseVariable == null)
             {
                 Debug.LogWarning("[GlobalInventoryManager] InventoryDatabaseVariable is null!");
                 return false;
             }
 
-            var item = InventoryDatabaseVariable.CreateItem(itemID);
+            var item = inventoryDatabaseVariable.CreateItem(itemID);
             if (item == null) return false;
 
             // Check if the item is a ConsumableEffectItem

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SharedUI
+namespace SharedUI.Billboard
 {
     public class BillboardUI : MonoBehaviour, MMEventListener<BillboardEvent>, MMEventListener<MainTutorialBitEvent>
     {

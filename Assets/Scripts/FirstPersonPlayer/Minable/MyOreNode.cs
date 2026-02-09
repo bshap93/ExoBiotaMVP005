@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dirigible.Input;
 using Domains.Gameplay.Mining.Scripts;
-using FirstPersonPlayer.Interactable;
 using FirstPersonPlayer.Interface;
 using FirstPersonPlayer.Tools.Interface;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
@@ -23,8 +22,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using OWPData.DataClasses;
-using Plugins.HighlightPlus.Runtime.Scripts;
-using SharedUI;
+using SharedUI.Billboard;
 using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -44,7 +42,7 @@ namespace FirstPersonPlayer.Minable
     [RequireComponent(typeof(Rigidbody))]
     [DisallowMultipleComponent]
     public class MyOreNode : MonoBehaviour, IMinable, IBillboardable, IExaminable, IRequiresUniqueID, IInteractable,
-        IHoverable, 
+        IHoverable,
         MMEventListener<GatedBreakableInteractionEvent>
     {
         const string DefaultActionText = "Mine Ore";
@@ -82,8 +80,7 @@ namespace FirstPersonPlayer.Minable
         public string actionText;
 
         [SerializeField] HighlightEffectController highlightEffectController;
-        HighlightEffect _highlight;
-        
+
 #if UNITY_EDITOR
         [ValueDropdown(nameof(GetAllRewiredActions))]
 #endif
@@ -135,6 +132,7 @@ namespace FirstPersonPlayer.Minable
 
         BillboardUI _activeBillboard;
         SceneObjectData _data;
+        HighlightEffect _highlight;
 
         Bounds _intactBounds;
 
@@ -161,7 +159,7 @@ namespace FirstPersonPlayer.Minable
             if (!(_rigidbody == null)) _rigidbody.isKinematic = true;
             StartCoroutine(InitializeAfterDestructableManager());
             oreHitFeedback?.Initialization();
-            
+
             _highlight = highlightEffectController != null ? highlightEffectController.HighlightEffect : null;
         }
 
@@ -211,15 +209,6 @@ namespace FirstPersonPlayer.Minable
         public string GetActionText()
         {
             return "Mine Ore";
-        }
-
-        public void StartExamining()
-        {
-            Debug.Log("[ExaminationManager] Starting Examining...");
-        }
-
-        public void StopExamining()
-        {
         }
 
         public void OnFinishExamining()
@@ -455,6 +444,15 @@ namespace FirstPersonPlayer.Minable
                 OnInteractionEnd(eventType.SubjectUniqueID);
         }
 
+        public void StartExamining()
+        {
+            Debug.Log("[ExaminationManager] Starting Examining...");
+        }
+
+        public void StopExamining()
+        {
+        }
+
         bool IsPlayerAlreadyEquippedWithBestTool(GatedBreakableInteractionDetails details, List<string> toolsFound)
         {
             if (toolsFound == null)
@@ -660,8 +658,6 @@ namespace FirstPersonPlayer.Minable
         }
 
 
-
-
         public void PlayHitFx(Vector3 hitPoint, Vector3 hitNormal)
         {
             Debug.Log("[MyOreNode] PlayHitFx.");
@@ -672,14 +668,12 @@ namespace FirstPersonPlayer.Minable
                 var fx = Instantiate(oreHitParticles, hitPoint, Quaternion.LookRotation(hitNormal));
                 Destroy(fx, 2f);
             }
-            
+
             if (_highlight != null)
             {
                 _highlight.HitFX(); // plays the configured hit effect
                 Debug.Log("[MyOreNode] Played highlight hit FX.");
             }
-
-            
         }
         IEnumerator InitializeAfterDestructableManager()
         {

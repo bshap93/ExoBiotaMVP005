@@ -601,6 +601,7 @@ namespace LevelConstruct.Interactable.ItemInteractables.ItemPicker
 
             var activeSceneName = SceneManager.GetActiveScene().name;
             _pickableManager.AddPickedItem(uniqueID, true, activeSceneName);
+            // _pickableManager.AddPickedItemTypeIf(inventoryItem.ItemID);
 
             // Trigger item picked event
             PickableEvent.Trigger(PickableEventType.Picked, uniqueID, transform);

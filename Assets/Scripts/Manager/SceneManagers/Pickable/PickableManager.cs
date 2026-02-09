@@ -5,6 +5,7 @@ using FirstPersonPlayer;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Gameplay.Events;
 using Helpers.Events;
+using Helpers.Events.Inventory;
 using Helpers.Interfaces;
 using LevelConstruct.Interactable.ItemInteractables.ItemPicker;
 using MoreMountains.Tools;
@@ -35,6 +36,8 @@ namespace Manager.SceneManagers.Pickable
         // Global membership check: O(1) "was this ID ever picked?"
         readonly HashSet<string> _pickedItems = new();
 
+        readonly HashSet<string> _pickedItemTypes = new();
+
         readonly Dictionary<string, PlacedItemData> _placedPickables = new(StringComparer.Ordinal);
 
         bool _dirty;
@@ -61,6 +64,13 @@ namespace Manager.SceneManagers.Pickable
                 var sceneName = e.ItemTransform ? e.ItemTransform.gameObject.scene.name : string.Empty;
 
                 var newlyAdded = _pickedItems.Add(id);
+                if (_pickedItemTypes.Contains(e.SOItemID))
+                {
+                    MyUIEvent.Trigger(UIType.ItemInfoPopup, UIActionType.Open);
+                    ItemInfoUIEvent.Trigger(ItemInfoUIEventType.ShowNewItemType, e.SOItemID);
+                }
+
+                _pickedItemTypes.Add(e.SOItemID);
 
                 // Always ensure scene index is populated
                 if (!string.IsNullOrEmpty(sceneName))
@@ -179,6 +189,11 @@ namespace Manager.SceneManagers.Pickable
 
                 set.Add(uniqueId);
             }
+        }
+
+        public void AddPickedItemTypeIf(string inventoryItemItemID)
+        {
+            _pickedItemTypes.Add(inventoryItemItemID);
         }
 
         // Store transform data instead of Transform references (which don't serialize well)

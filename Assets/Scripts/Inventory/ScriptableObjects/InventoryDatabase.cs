@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FirstPersonPlayer.Tools.ItemObjectTypes;
 using MoreMountains.InventoryEngine;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -65,13 +66,13 @@ namespace Inventory.ScriptableObjects
         /// <summary>
         ///     Returns the original asset (don't modify this at runtime).
         /// </summary>
-        public InventoryItem GetItemAsset(string itemId)
+        public MyBaseItem GetItemAsset(string itemId)
         {
             if (_lookup == null || _lookup.Count != items.Count)
                 BuildLookup();
 
             _lookup.TryGetValue(itemId, out var original);
-            return original;
+            return original as MyBaseItem;
         }
     }
 }
