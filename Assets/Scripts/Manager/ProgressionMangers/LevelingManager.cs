@@ -44,8 +44,9 @@ namespace Manager.ProgressionMangers
 
         [Header("Mutable Max Stats by Upgrade")] [SerializeField]
         HealthAmountByUpgrade[] healthAmountByUpgrade;
-        [SerializeField] StaminaAmountByUpgrade[] staminaAmountByUpgrade;
+        // [SerializeField] StaminaAmountByUpgrade[] staminaAmountByUpgrade;
         [SerializeField] ContaminationAmountByUpgrade[] contaminationAmountByUpgrade;
+        [SerializeField] BaseStaminaRestoreRateByUpgrade[] baseStaminaRestoreRateByUpgrade;
         [SerializeField] bool autoSave;
 
         [SerializeField] int attributePointsStartWith;
@@ -351,22 +352,23 @@ namespace Manager.ProgressionMangers
                         AlertReason.StatUpgradePurchased, "Contamination Max upgraded!", "Contamination Upgrade");
 
                     break;
-                case StatType.StaminaMax:
+                case StatType.BaseStaminaRestoreRate:
                     var staminaUpgradeLevel = StaminaUpgradeLevel + 1;
-                    var newStaminaAmount = GetStaminaAmountForUpgradeLevel(staminaUpgradeLevel);
-                    var staminaDiff = newStaminaAmount - playerMutableStatsManager.CurrentMaxStamina;
+                    var newStaminaBaseRestoreRate = GetBaseStaminaRestoreRateForUpgrade(staminaUpgradeLevel);
+                    // var staminaDiff = newStaminaBaseRestoreRate - playerMutableStatsManager.BaseStaminaRestoreRate;
 
                     Debug.Log("Received request to upgrade StaminaMax");
                     PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentMaxStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newStaminaAmount);
+                        PlayerStatsEvent.PlayerStat.CurrentStaminaRestoreRate,
+                        PlayerStatsEvent.PlayerStatChangeType.Increase,
+                        newStaminaBaseRestoreRate);
 
                     // Restore current stamina 
-                    var currentStamina = playerMutableStatsManager.CurrentStamina;
-                    var newCurrentStamina = currentStamina + staminaDiff;
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newCurrentStamina);
+                    // var currentStamina = playerMutableStatsManager.CurrentStamina;
+                    // var newCurrentStamina = currentStamina + staminaDiff;
+                    // PlayerStatsEvent.Trigger(
+                    //     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
+                    //     newCurrentStamina);
 
                     StaminaUpgradeLevel = staminaUpgradeLevel;
                     _unspentStatUpgrades -= 1;
@@ -379,6 +381,15 @@ namespace Manager.ProgressionMangers
 
                     break;
             }
+        }
+
+        public float GetBaseStaminaRestoreRateForUpgrade(int upgradeLevel)
+        {
+            foreach (var entry in baseStaminaRestoreRateByUpgrade)
+                if (entry.upgradeLevel == upgradeLevel)
+                    return entry.restoreRate;
+
+            throw new Exception($"Upgrade level {upgradeLevel} not found in baseStaminaRestoreRateByUpgrade array.");
         }
         /// <summary>
         ///     Adds to total XP, and triggers level up if earned.
@@ -533,15 +544,6 @@ namespace Manager.ProgressionMangers
             throw new Exception($"Upgrade level {upgradeLevel} not found in healthAmountByUpgrade array.");
         }
 
-        public float GetStaminaAmountForUpgradeLevel(int upgradeLevel)
-        {
-            foreach (var entry in staminaAmountByUpgrade)
-                if (entry.upgradeLevel == upgradeLevel)
-                    return entry.staminaAmount;
-
-            throw new Exception($"Upgrade level {upgradeLevel} not found in staminaAmountByUpgrade array.");
-        }
-
         public float GetConatminationAmountForUpgradeLevel(int upgradeLevel)
         {
             foreach (var entry in contaminationAmountByUpgrade)
@@ -554,6 +556,22 @@ namespace Manager.ProgressionMangers
         public object CurentNumberOfCores()
         {
             return globalInventoryManager.GetTotalNumberOfCores();
+        }
+
+        // public float GetStaminaAmountForUpgradeLevel(int upgradeLevel)
+        // {
+        //     foreach (var entry in staminaAmountByUpgrade)
+        //         if (entry.upgradeLevel == upgradeLevel)
+        //             return entry.staminaAmount;
+        //
+        //     throw new Exception($"Upgrade level {upgradeLevel} not found in staminaAmountByUpgrade array.");
+        // }
+
+        [Serializable]
+        public struct BaseStaminaRestoreRateByUpgrade
+        {
+            public int upgradeLevel;
+            public float restoreRate;
         }
 
         [Serializable]
@@ -572,13 +590,13 @@ namespace Manager.ProgressionMangers
             [FormerlySerializedAs("UpgradeLevel")] public int upgradeLevel;
             [FormerlySerializedAs("HealthAmount")] public float healthAmount;
         }
-
-        [Serializable]
-        public class StaminaAmountByUpgrade
-        {
-            public int upgradeLevel;
-            public float staminaAmount;
-        }
+        //
+        // [Serializable]
+        // public class StaminaAmountByUpgrade
+        // {
+        //     public int upgradeLevel;
+        //     public float staminaAmount;
+        // }
 
         [Serializable]
         public class ContaminationAmountByUpgrade

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace OWPData.ScriptableObjects
 {
@@ -19,14 +20,16 @@ namespace OWPData.ScriptableObjects
         [Header("Contamination Specific")] public float contaminationPointsPerCU;
 
         [Header("Current Max Stats")] public float currentMaxHealth;
-        public float currentMaxStamina;
+        // public float currentMaxStamina;
         public float currentMaxVision;
         public float currentMaxContamination;
 
-        public float sprintStaminaDrainPerSecond;
-        public float baseStaminaRestorePerSecond;
+        // public float sprintStaminaDrainPerSecond;
+        [FormerlySerializedAs("baseStaminaRestorePerSecond")]
+        public float initialBaseStaminaRestoreRate;
         public float staminaReductionReducePerPoint;
         public float baseContaminationDecreasePerSecond;
+
 
         public bool isPlayerExoBiote;
     }

@@ -115,7 +115,7 @@ namespace SharedUI.Interact
             {
                 // Calculate amount of stamina recoverable
                 var currentStamina = statManager.CurrentStamina;
-                var currentMaxStamina = statManager.CurrentMaxStamina;
+                var currentMaxStamina = statManager.BaseMaxStamina;
                 var staminaRecoverable = Mathf.Min(theoreticalStaminaRecovered, currentMaxStamina - currentStamina);
 
                 return staminaRecoverable;
@@ -135,7 +135,7 @@ namespace SharedUI.Interact
             }
 
             var currentStamina = statManager.CurrentStamina;
-            var currentMaxStamina = statManager.CurrentMaxStamina;
+            var currentMaxStamina = statManager.BaseMaxStamina;
 
             if (currentStamina >= currentMaxStamina)
             {

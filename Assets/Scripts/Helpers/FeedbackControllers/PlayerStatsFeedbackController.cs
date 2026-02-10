@@ -46,7 +46,7 @@ namespace Helpers.FeedbackControllers
                 case PlayerStatsEvent.PlayerStat.CurrentMaxHealth:
                     HandleCurrentMaxHealthFeedback(eventType);
                     break;
-                case PlayerStatsEvent.PlayerStat.CurrentMaxStamina:
+                case PlayerStatsEvent.PlayerStat.CurrentStaminaRestoreRate:
                     HandleCurrentMaxStaminaFeedback(eventType);
                     break;
                 case PlayerStatsEvent.PlayerStat.CurrentMaxContamination:
@@ -151,7 +151,7 @@ namespace Helpers.FeedbackControllers
 
         void HandleStaminaIncreaseFeedback(PlayerStatsEvent eventType)
         {
-            if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentMaxStamina)
+            if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentStaminaRestoreRate)
                 increasedCurrentMaxStaminaFeedbacks?.PlayFeedbacks();
         }
 

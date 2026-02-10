@@ -25,7 +25,7 @@ namespace Manager
 {
     public class PlayerMutableStatsManager : MonoBehaviour, ICoreGameService, MMEventListener<PlayerStatsEvent>,
         MMEventListener<StaminaAffectorEvent>, MMEventListener<MyUIEvent>, MMEventListener<InGameTimeActionEvent>,
-        MMEventListener<NPCAttackEvent>
+        MMEventListener<NPCAttackEvent>, MMEventListener<LoadedManagerEvent>
     {
         const string KeyBaseMaxHealth = "PlayerBaseMaxHealth";
         const string KeyBaseMaxStamina = "PlayerBaseMaxStamina";
@@ -48,6 +48,7 @@ namespace Manager
 
         [Header("References")] [SerializeField]
         bool autoSave; // checkpoint-only by default
+        [SerializeField] LevelingManager levelingManager;
         [FormerlySerializedAs("PlayerStrength")]
         public int playerStrength = 1;
         public string maxContaminationDialogueNode = "ContaminationMaxedOutExplainer";
@@ -91,8 +92,14 @@ namespace Manager
         // int _lastCU = -1;
 
         string _savePath;
+        float _weaponModifiedStaminaRestoreRate;
 
-        bool _sprinting;
+        // public StaminaRestoreRateMultiplierByAttribute[] RestoreRateMultipliersByAttribute;
+        public StaminaRestoreRateMultiplierByTool[] RestoreRateMultipliersByTool;
+
+        public float BaseStaminaRestoreRate { get; private set; }
+
+        // bool _sprinting;
 
         public bool IsPlayerExoBiote { get; private set; }
         public float BaseMaxContamination { get; private set; }
@@ -107,8 +114,9 @@ namespace Manager
         public float CurrentVision { get; private set; }
         public float CurrentMaxContamination { get; private set; }
         public float CurrentMaxHealth { get; private set; }
-        public float CurrentMaxStamina { get; private set; }
+        // public float CurrentMaxStamina { get; private set; }
         public float CurrentMaxVision { get; private set; }
+
 
         public float CurrentStamina { get; private set; }
 
@@ -117,9 +125,6 @@ namespace Manager
         // public int CurrentCU => Mathf.FloorToInt(CurrentContamination / ContaminationPointsPerCU);
         // public float CurrentCUFraction => CurrentContamination % ContaminationPointsPerCU / ContaminationPointsPerCU;
         // public float SprintStaminaDrainPerSecond => defaultPlayerStatsSheet.sprintStaminaDrainPerSecond;
-        public float SprintStaminaDrainPerSecond =>
-            defaultPlayerStatsSheet.sprintStaminaDrainPerSecond -
-            (attributesManager.Agility - 1) * defaultPlayerStatsSheet.staminaReductionReducePerPoint;
 
 
         void Awake()
@@ -144,11 +149,11 @@ namespace Manager
 
         void Update()
         {
-            if (CurrentStamina < CurrentMaxStamina && !_sprinting)
+            if (CurrentStamina < BaseMaxContamination)
             {
                 if (_restoreStaminaRoutine == null)
                     _restoreStaminaRoutine = StartCoroutine(
-                        RestoreStaminaOverTime(defaultPlayerStatsSheet.baseStaminaRestorePerSecond)
+                        RestoreStaminaOverTime(defaultPlayerStatsSheet.initialBaseStaminaRestoreRate)
                     );
             }
             else
@@ -184,6 +189,7 @@ namespace Manager
             this.MMEventStartListening<MyUIEvent>();
             this.MMEventStartListening<InGameTimeActionEvent>();
             this.MMEventStartListening<NPCAttackEvent>();
+            this.MMEventStartListening<LoadedManagerEvent>();
         }
 
         void OnDisable()
@@ -193,6 +199,7 @@ namespace Manager
             this.MMEventStopListening<MyUIEvent>();
             this.MMEventStopListening<InGameTimeActionEvent>();
             this.MMEventStopListening<NPCAttackEvent>();
+            this.MMEventStopListening<LoadedManagerEvent>();
         }
 
 
@@ -237,7 +244,7 @@ namespace Manager
             ES3.Save(KeyContaminationPointsPerCU, ContaminationPointsPerCU, savePath);
 
             ES3.Save(KeyCurrentMaxHealth, CurrentMaxHealth, savePath);
-            ES3.Save(KeyCurrentMaxStamina, CurrentMaxStamina, savePath);
+            // ES3.Save(KeyCurrentMaxStamina, CurrentMaxStamina, savePath);
             ES3.Save(KeyCurrentMaxContamination, CurrentMaxContamination, savePath);
             ES3.Save(KeyCurrentMaxVision, CurrentMaxVision, savePath);
 
@@ -266,7 +273,7 @@ namespace Manager
             ContaminationPointsPerCU = defaultPlayerStatsSheet.contaminationPointsPerCU;
 
             CurrentMaxHealth = defaultPlayerStatsSheet.currentMaxHealth;
-            CurrentMaxStamina = defaultPlayerStatsSheet.currentMaxStamina;
+            // CurrentMaxStamina = defaultPlayerStatsSheet.currentMaxStamina;
             CurrentMaxContamination = defaultPlayerStatsSheet.currentMaxContamination;
             CurrentMaxVision = defaultPlayerStatsSheet.currentMaxVision;
             IsPlayerExoBiote = defaultPlayerStatsSheet.isPlayerExoBiote;
@@ -342,10 +349,10 @@ namespace Manager
             else
                 CurrentMaxHealth = defaultPlayerStatsSheet.currentMaxHealth;
 
-            if (ES3.KeyExists(KeyCurrentMaxStamina, savePath))
-                CurrentMaxStamina = ES3.Load<float>(KeyCurrentMaxStamina, savePath);
-            else
-                CurrentMaxStamina = defaultPlayerStatsSheet.currentMaxStamina;
+            // if (ES3.KeyExists(KeyCurrentMaxStamina, savePath))
+            //     CurrentMaxStamina = ES3.Load<float>(KeyCurrentMaxStamina, savePath);
+            // else
+            //     CurrentMaxStamina = defaultPlayerStatsSheet.currentMaxStamina;
 
             if (ES3.KeyExists(KeyCurrentMaxContamination, savePath))
                 CurrentMaxContamination = ES3.Load<float>(KeyCurrentMaxContamination, savePath);
@@ -379,6 +386,22 @@ namespace Manager
                     _inGameTimePaused = false;
                     break;
             }
+        }
+
+        public void OnMMEvent(LoadedManagerEvent eventType)
+        {
+            // var agility = attributesManager.Agility;
+            if (levelingManager == null)
+            {
+                Debug.LogError(
+                    "[PlayerMutableStatsManager] No reference to LevelingManager, cannot initialize stamina restore rate!");
+
+                return;
+            }
+
+            var staminaUpgradeLevel = levelingManager.StaminaUpgradeLevel;
+            if (levelingManager != null)
+                BaseStaminaRestoreRate = levelingManager.GetBaseStaminaRestoreRateForUpgrade(staminaUpgradeLevel);
         }
         public void OnMMEvent(MyUIEvent eventType)
         {
@@ -532,26 +555,26 @@ namespace Manager
 
                     break;
 
-                case PlayerStatsEvent.PlayerStat.CurrentMaxStamina:
-                    if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
-                    {
-                        CurrentMaxStamina -= e.Amount;
-                        CurrentMaxStamina -= e.Percent * BaseMaxStamina;
-                        if (CurrentStamina > CurrentMaxStamina)
-                            CurrentStamina = CurrentMaxStamina;
-
-                        CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
-                        PlayerStatsSyncEvent.Trigger();
-                    }
-                    else if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Increase)
-                    {
-                        CurrentMaxStamina += e.Amount;
-                        CurrentMaxStamina += e.Percent * BaseMaxStamina;
-                        // CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
-                        PlayerStatsSyncEvent.Trigger();
-                    }
-
-                    break;
+                // case PlayerStatsEvent.PlayerStat.CurrentMaxStamina:
+                //     if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
+                //     {
+                //         CurrentMaxStamina -= e.Amount;
+                //         CurrentMaxStamina -= e.Percent * BaseMaxStamina;
+                //         if (CurrentStamina > CurrentMaxStamina)
+                //             CurrentStamina = CurrentMaxStamina;
+                //
+                //         CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
+                //         PlayerStatsSyncEvent.Trigger();
+                //     }
+                //     else if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Increase)
+                //     {
+                //         CurrentMaxStamina += e.Amount;
+                //         CurrentMaxStamina += e.Percent * BaseMaxStamina;
+                //         // CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
+                //         PlayerStatsSyncEvent.Trigger();
+                //     }
+                //
+                //     break;
                 case PlayerStatsEvent.PlayerStat.CurrentVision:
                     if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
                     {
@@ -572,19 +595,29 @@ namespace Manager
         }
         public void OnMMEvent(StaminaAffectorEvent eventType)
         {
-            if (eventType.EventType == StaminaAffectorEventType.StaminaDrainActivityStarted)
-            {
-                // Start draining stamina
-                _sprinting = true;
-                StartCoroutine(DrainStaminaOverTime(eventType.ValuePerSecond));
-            }
-            else if (eventType.EventType == StaminaAffectorEventType.StaminaDrainActivityStopped)
-            {
-                _sprinting = false;
-                // Stop draining stamina
-                StopCoroutine(DrainStaminaOverTime(eventType.ValuePerSecond));
-            }
+            // if (eventType.EventType == StaminaAffectorEventType.StaminaDrainActivityStarted)
+            // {
+            //     // Start draining stamina
+            //     // _sprinting = true;
+            //     StartCoroutine(DrainStaminaOverTime(eventType.ValuePerSecond));
+            // }
+            // else if (eventType.EventType == StaminaAffectorEventType.StaminaDrainActivityStopped)
+            // {
+            //     // _sprinting = false;
+            //     // Stop draining stamina
+            //     StopCoroutine(DrainStaminaOverTime(eventType.ValuePerSecond));
+            // }
         }
+
+        // public float GetBaseStatminaRestoreRateForCharacterWithAgility(int attributeValue)
+        // {
+        //     var multiplier = 1f;
+        //     foreach (var entry in )
+        //         if (entry.Agility == attributeValue)
+        //             multiplier = entry.RestoreRateMultiplier;
+        //
+        //     return defaultPlayerStatsSheet.initialBaseStaminaRestoreRate * multiplier;
+        // }
         void DieIfDead()
         {
             if (CurrentHealth <= 0)
@@ -614,28 +647,28 @@ namespace Manager
             return statBasedDialogueNodes.Find(node => node.statType == statType);
         }
 
-        IEnumerator DrainStaminaOverTime(float drainRate)
-        {
-            while (_sprinting)
-            {
-                if (!_inGameTimePaused)
-                {
-                    CurrentStamina -= drainRate * Time.deltaTime;
-                    CurrentStamina = Mathf.Clamp(CurrentStamina, 0, BaseMaxStamina);
-                    PlayerStatsSyncEvent.Trigger();
-                }
-
-                yield return null;
-            }
-        }
+        // IEnumerator DrainStaminaOverTime(float drainRate)
+        // {
+        //     while (_sprinting)
+        //     {
+        //         if (!_inGameTimePaused)
+        //         {
+        //             CurrentStamina -= drainRate * Time.deltaTime;
+        //             CurrentStamina = Mathf.Clamp(CurrentStamina, 0, BaseMaxStamina);
+        //             PlayerStatsSyncEvent.Trigger();
+        //         }
+        //
+        //         yield return null;
+        //     }
+        // }
 
         IEnumerator RestoreStaminaOverTime(float restoreRate)
         {
             yield return new WaitForSeconds(0.3f);
 
-            while (CurrentStamina < CurrentMaxStamina)
+            while (CurrentStamina < BaseMaxStamina)
             {
-                if (!_inGameTimePaused && !_sprinting)
+                if (!_inGameTimePaused)
                 {
                     CurrentStamina += restoreRate * Time.deltaTime;
                     CurrentStamina = Mathf.Clamp(CurrentStamina, 0, BaseMaxStamina);
@@ -763,31 +796,17 @@ namespace Manager
             return damage;
         }
 
-        public void ApplyPendingFloatStatChanges(float pendingNewMaxHealth, float pendingNewMaxStamina,
-            float pendingNewContaminationResistance)
+        public struct StaminaRestoreRateMultiplierByTool
         {
-            var previoutMaxHealth = CurrentMaxHealth;
-            var previousMaxStamina = CurrentMaxStamina;
-            var previousMaxContamination = CurrentMaxContamination;
-            CurrentMaxHealth = pendingNewMaxHealth;
-            CurrentMaxStamina = pendingNewMaxStamina;
-            CurrentMaxContamination = pendingNewContaminationResistance;
-
-            if (CurrentMaxHealth > previoutMaxHealth)
-                CurrentHealth = CurrentMaxHealth;
-
-            if (CurrentMaxStamina > previousMaxStamina)
-                CurrentStamina = CurrentMaxStamina;
-
-            if (CurrentMaxContamination > previousMaxContamination)
-                CurrentContamination = CurrentMaxContamination;
-
-
-            playerStatsBars?.UpdateAllBars();
-            MarkDirty();
-            ConditionalSave();
-            PlayerStatsSyncEvent.Trigger();
+            public string ToolID;
+            public float RestoreRateMultiplier;
         }
+
+        // public struct StaminaRestoreRateMultiplierByAttribute
+        // {
+        //     public int Agility;
+        //     public float RestoreRateMultiplier;
+        // }
 
         [Serializable]
         public class StatBasedDialogueNode

@@ -6,7 +6,7 @@ namespace Helpers.Events.Progression
     {
         HealthMax,
         // ContaminationMax,
-        StaminaMax,
+        BaseStaminaRestoreRate,
         ContaminationMax
     }
 

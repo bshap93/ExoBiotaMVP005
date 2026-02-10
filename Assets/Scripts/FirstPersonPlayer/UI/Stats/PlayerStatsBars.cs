@@ -54,7 +54,7 @@ namespace FirstPersonPlayer.UI.Stats
             var stats = PlayerMutableStatsManager.Instance;
 
             TryUpdateBar(ref _lastHealth, stats.CurrentHealth, 0f, stats.CurrentMaxHealth, healthBar);
-            TryUpdateBar(ref _lastStamina, stats.CurrentStamina, 0f, stats.CurrentMaxStamina, staminaBar);
+            TryUpdateBar(ref _lastStamina, stats.CurrentStamina, 0f, stats.BaseMaxStamina, staminaBar);
             TryUpdateBar(
                 ref _lastContamination, stats.CurrentContamination, 0f,
                 stats.CurrentMaxContamination, contaminationBar);
@@ -66,7 +66,7 @@ namespace FirstPersonPlayer.UI.Stats
 
             if (staminaText != null)
                 staminaText.text =
-                    $"{Mathf.RoundToInt(stats.CurrentStamina)} / {Mathf.RoundToInt(stats.CurrentMaxStamina)}";
+                    $"{Mathf.RoundToInt(stats.CurrentStamina)} / {Mathf.RoundToInt(stats.BaseMaxStamina)}";
 
             if (contaminationText != null)
                 contaminationText.text =
@@ -85,7 +85,7 @@ namespace FirstPersonPlayer.UI.Stats
 
             if (lostStaminaCapacityFill != null)
             {
-                var lostStaminaCapacity = Mathf.Max(0, stats.BaseMaxStamina - stats.CurrentMaxStamina);
+                var lostStaminaCapacity = Mathf.Max(0, stats.BaseMaxStamina - stats.BaseMaxStamina);
                 var lostCapacityFraction = lostStaminaCapacity / stats.BaseMaxStamina;
                 var targetWidth = lostCapacityFraction * 118f; // 118 is your max width
 
@@ -118,7 +118,7 @@ namespace FirstPersonPlayer.UI.Stats
 
             // Snap to current (no smoothing) so we start from correct baseline
             if (healthBar != null) healthBar.SetBar(stats.CurrentHealth, 0f, stats.CurrentMaxHealth);
-            if (staminaBar != null) staminaBar.SetBar(stats.CurrentStamina, 0f, stats.CurrentMaxStamina);
+            if (staminaBar != null) staminaBar.SetBar(stats.CurrentStamina, 0f, stats.BaseMaxStamina);
 
 
             // Guard against division by zero
@@ -144,7 +144,7 @@ namespace FirstPersonPlayer.UI.Stats
 
             if (lostStaminaCapacityFill != null)
             {
-                var lostCapacity = Mathf.Max(0, stats.BaseMaxStamina - stats.CurrentMaxStamina);
+                var lostCapacity = Mathf.Max(0, stats.BaseMaxStamina - stats.BaseMaxStamina);
                 var lostCapacityFraction = lostCapacity / stats.BaseMaxStamina;
                 var targetWidth = lostCapacityFraction * 118f;
 

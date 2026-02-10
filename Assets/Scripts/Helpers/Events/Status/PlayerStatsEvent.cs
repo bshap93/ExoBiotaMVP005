@@ -21,7 +21,8 @@ namespace Helpers.Events.Status
             BaseMaxContamination,
             // Current max with buffs/debuffs applied
             CurrentMaxHealth,
-            CurrentMaxStamina,
+            CurrentStaminaRestoreRate,
+            // CurrentMaxStamina,
             CurrentMaxVision,
             CurrentMaxContamination
         }

@@ -511,7 +511,7 @@ namespace Manager.Status
                     return "BA CONT MAX";
                 case PlayerStatsEvent.PlayerStat.CurrentMaxHealth:
                     return "CUR HLT MAX";
-                case PlayerStatsEvent.PlayerStat.CurrentMaxStamina:
+                case PlayerStatsEvent.PlayerStat.CurrentStaminaRestoreRate:
                     return "CUR STM MAX";
                 case PlayerStatsEvent.PlayerStat.CurrentMaxVision:
                     return "CUR VIS MAX";
