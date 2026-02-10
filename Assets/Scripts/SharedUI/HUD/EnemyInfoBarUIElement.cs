@@ -20,7 +20,7 @@ namespace SharedUI.HUD
         [Header("Update")] [Tooltip("Minimum absolute change before we push a UI update")] [SerializeField]
         float epsilon = 0.001f;
         [SerializeField] float fadeInOnDamageDuration = 0.1f;
-        [SerializeField] float fadeInOnStunDamageDuration = 0.1f;
+        // [SerializeField] float fadeInOnStunDamageDuration = 0.1f;
         [SerializeField] float fadeOutOnTimeoutDuration = 0.3f;
         [SerializeField] float visibleDurationAfterDamageDealt = 5f;
         [SerializeField] GameObject barVisual;

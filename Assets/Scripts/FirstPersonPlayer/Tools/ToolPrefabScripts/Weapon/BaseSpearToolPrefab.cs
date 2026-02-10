@@ -1,24 +1,24 @@
-﻿using System;
-using Feedbacks.Interface;
+﻿using Feedbacks.Interface;
 using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Interactable;
 using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using FirstPersonPlayer.Minable;
 using FirstPersonPlayer.Tools.Interface;
-using Helpers.Events;
-using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager;
 using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 {
     public class BaseSpearToolPrefab : MeleeToolPrefab, IRuntimeTool
     {
         public string[] allowedTags;
-        public float normalAttackCooldown = 0.6f;
+        [FormerlySerializedAs("normalAttackCooldown")]
+        public float attackCooldown = 0.6f;
+        // public float heavyAttackAdditionalCooldown = 0.2f;
 
         public int spearPower = 1;
 
@@ -26,40 +26,31 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         [SerializeField] protected float lastAttackTime = -999f;
 
-        float StaminaCostPerNormalAttack
-        {
-            get
-            {
-                var attrMgr = AttributesManager.Instance;
-                if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
+        [SerializeField] [Range(0.1f, 5f)] protected float toolStaminaRestoreRateMultiplier;
+        [SerializeField] float staminaHeavyAttackThreshold = 19.9f;
 
-                var agility = attrMgr.Agility;
-                var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-
-                var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
-
-
-                return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-            }
-        }
-
-        float StaminaCostPerHeavyAttack
-        {
-            get
-            {
-                var attrMgr = AttributesManager.Instance;
-                if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
-
-                var agility = attrMgr.Agility;
-                var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-
-                var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
-
-
-                return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-            }
-        }
-
+        float StaminaCostPerNormalAttack => 20f;
+        // var attrMgr = AttributesManager.Instance;
+        // if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
+        //
+        // var agility = attrMgr.Agility;
+        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
+        //
+        // var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
+        //
+        //
+        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+        float StaminaCostPerHeavyAttack => 20f;
+        // var attrMgr = AttributesManager.Instance;
+        // if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
+        //
+        // var agility = attrMgr.Agility;
+        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
+        //
+        // var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
+        //
+        //
+        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
         public override void Initialize(PlayerEquipment owner)
         {
             mainCamera = Camera.main;
@@ -69,60 +60,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         {
             if (attributesManager == null) attributesManager = AttributesManager.Instance;
 
-            if (ChargeTimeElapsed > 0f && !ToolIsHeldInChargePosition)
-            {
+
+            if (PlayerMutableStatsManager.Instance.CurrentStamina <= staminaHeavyAttackThreshold)
                 PerformToolAction();
-
-                ChargeTimeElapsed = 0f;
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-                return;
-            }
-
-            if (!ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalAttack)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-                    return;
-                }
-
-                PerformToolAction();
-
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
-            else if (ChargeTimeElapsed >= timeToFullCharge && ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalAttack)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-
-                    return;
-                }
-
+            else if (PlayerMutableStatsManager.Instance.CurrentStamina > staminaHeavyAttackThreshold)
                 PerformHeavyChargedToolAction();
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
-            else if (ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalAttack)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-
-                    return;
-                }
-
-                PerformPartiallyChargedToolAction();
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
         }
         public override Sprite GetReticleForTool(GameObject colliderGameObject)
         {
@@ -235,8 +177,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         }
         public override void PerformToolAction()
         {
-            normalAttackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time < lastAttackTime + normalAttackCooldown) return;
+            attackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+            if (Time.time < lastAttackTime + attackCooldown) return;
             lastAttackTime = Time.time;
 
             PlayerStatsEvent.Trigger(
@@ -246,25 +188,25 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             if (useMultipleSwings && AnimController.currentToolAnimationSet != null)
             {
                 PlaySwingSequence();
-                ToolIsHeldInChargePosition = false;
             }
             else
             {
                 AnimController.PlayToolUseOneShot(speedMultiplier: swingSpeedMultiplier);
-                ToolIsHeldInChargePosition = false;
                 StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
             }
+        }
 
-            ChargeTimeElapsed = 0f;
-            ToolIsHeldInChargePosition = false;
-        }
-        public override void PerformPartiallyChargedToolAction()
-        {
-            throw new NotImplementedException();
-        }
         public override void PerformHeavyChargedToolAction()
         {
-            throw new NotImplementedException();
+            attackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+            if (Time.time < lastAttackTime + attackCooldown) return;
+            lastAttackTime = Time.time;
+
+            PlayerStatsEvent.Trigger(
+                PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
+                StaminaCostPerHeavyAttack);
+
+            // Heavy attack logic goes here.
         }
     }
 }

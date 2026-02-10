@@ -81,15 +81,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         protected AnimancerArmController AnimController;
 
-        protected float ChargeTimeElapsed;
 
         protected int CurrentSwingIndex; // Track which swing we're on
         protected RaycastHit LastHit;
-
-        // protected float LastTimeOfEffect = -999f;
-
-        protected bool ToolIsHeldInChargePosition;
-
 
         public abstract void Initialize(PlayerEquipment owner);
 
@@ -136,11 +130,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             // Only start animation on initial press
             if (justPressed) StartChargePullbackAnimation();
 
-            ChargeTimeElapsed += Time.deltaTime;
-
-            ChargeToolEvent.Trigger(
-                ChargeToolEventType.Update,
-                ChargeTimeElapsed / timeToFullCharge);
+            // ChargeTimeElapsed += Time.deltaTime;
+            //
+            // ChargeToolEvent.Trigger(
+            //     ChargeToolEventType.Update,
+            //     ChargeTimeElapsed / timeToFullCharge);
         }
         public SecondaryActionType GetSecondaryActionType()
         {
@@ -315,8 +309,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             state.Events(this).OnEnd = () =>
             {
-                ToolIsHeldInChargePosition = true;
-                ChargeToolEvent.Trigger(ChargeToolEventType.Start, ChargeTimeElapsed / timeToFullCharge);
+                // ToolIsHeldInChargePosition = true;
+                // ChargeToolEvent.Trigger(ChargeToolEventType.Start, ChargeTimeElapsed / timeToFullCharge);
                 // layer.Weight = 0f;
                 // AnimController.ClearActionState();
                 // AnimController.ReturnToLocomotion();
@@ -339,8 +333,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             state.Events(this).OnEnd = () =>
             {
-                ToolIsHeldInChargePosition = false;
-                ChargeTimeElapsed = 0f;
+                // ToolIsHeldInChargePosition = false;
+                // ChargeTimeElapsed = 0f;
                 ChargeToolEvent.Trigger(ChargeToolEventType.Cancel);
                 layer.Weight = 0f;
                 AnimController.ClearActionState();
@@ -384,7 +378,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public abstract void PerformToolAction();
 
-        public abstract void PerformPartiallyChargedToolAction();
 
         public abstract void PerformHeavyChargedToolAction();
     }

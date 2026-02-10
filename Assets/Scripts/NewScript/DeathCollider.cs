@@ -2,13 +2,16 @@ using Helpers.Events;
 using Manager.FirstPerson;
 using UnityEngine;
 
-public class DeathCollider : MonoBehaviour
+namespace NewScript
 {
-    [SerializeField] DeathInformation deathInformation;
-    [SerializeField] bool arrestCameraOnDeath = true;
-
-    void OnTriggerEnter(Collider other)
+    public class DeathCollider : MonoBehaviour
     {
-        PlayerDeathEvent.Trigger(deathInformation);
+        [SerializeField] DeathInformation deathInformation;
+        [SerializeField] bool arrestCameraOnDeath = true;
+
+        void OnTriggerEnter(Collider other)
+        {
+            PlayerDeathEvent.Trigger(deathInformation);
+        }
     }
 }

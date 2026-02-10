@@ -734,7 +734,7 @@ MonoBehaviour:
   gatedInteractionType: 2
   innerCoreYield: 1
   innerCoreObjectPicker: {fileID: 4888187701277431673, guid: b0b3ba8d659f31940b67316654e73ffc, type: 3}
-  innerCoreInventoryItem: {fileID: 11400000, guid: 028fd55b1cfa85c4996e0b61e46274e6, type: 2}
+  innerCoreInventoryItem: {fileID: 0}
   outerCoreItemObject: {fileID: 11400000, guid: 817dfaf9ff9b6d940a337c8553599122, type: 2}
   timeToDissolve: 4
 --- !u!114 &7283006361686757368

@@ -54,9 +54,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         [Header("Recoil Settings")] [SerializeField]
         float recoilBackComponent = 0.001f;
-        [SerializeField] float recoilBackDuration = 0.15f;
-        [SerializeField] int recoilBackVibrato = 8;
-        [SerializeField] float recoilBackElasticity = 0.4f;
+        // [SerializeField] float recoilBackDuration = 0.15f;
+        // [SerializeField] int recoilBackVibrato = 8;
+        // [SerializeField] float recoilBackElasticity = 0.4f;
 
 
         [Header("Feedbacks")] [SerializeField] MMFeedbacks shootFeedbacks;

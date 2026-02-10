@@ -42,9 +42,7 @@ namespace Manager.ProgressionMangers
         LevelStats[] levelStats;
         [SerializeField] int levelCap = 20;
 
-        [Header("Mutable Max Stats by Upgrade")] [SerializeField]
-        HealthAmountByPlayerLevel[] healthAmountByUpgrade;
-        [SerializeField] StaminaMultiplierAmtByAgility[] staminaMultiplierByAgility;
+
         [FormerlySerializedAs("contaminationAmountByUpgrade")] [SerializeField]
         ContaminationAmountByExobiotic[] contaminationAmountPerExoBioticLevel;
         [FormerlySerializedAs("baseStaminaRestoreRateByUpgrade")] [SerializeField]
@@ -75,21 +73,9 @@ namespace Manager.ProgressionMangers
             }
         }
 
-        // public int UnspentStatUpgrades
-        // {
-        //     get => _unspentStatUpgrades;
-        //     set
-        //     {
-        //         _unspentStatUpgrades = value;
-        //         MarkDirty();
-        //     }
-        // }
 
         public int CurrentLevel { get; set; }
         public int CurrentTotalXP { get; set; }
-        // public int HealthUpgradeLevel { get; set; }
-        // public int StaminaUpgradeLevel { get; set; }
-        // public int ContaminationUpgradeLevel { get; set; }
 
 
         public int TotalXpNeededForNextLevel
@@ -290,7 +276,8 @@ namespace Manager.ProgressionMangers
                 if (entry.agility == upgradeLevel)
                     return entry.restoreRate;
 
-            throw new Exception($"Upgrade level {upgradeLevel} not found in baseStaminaRestoreRateByUpgrade array.");
+            throw new Exception(
+                "Agility level " + upgradeLevel + " not found in baseStaminaRestoreRateByAgility array.");
         }
         /// <summary>
         ///     Adds to total XP, and triggers level up if earned.
@@ -338,14 +325,16 @@ namespace Manager.ProgressionMangers
         {
             var stats = GetLevelStats(newLevel);
             var diff = GetHealthAmountForUpgradeLevel(CurrentLevel) - playerMutableStatsManager.CurrentMaxHealth;
-            if (stats.attributePointsGranted > 0)
-            {
-                PlayerStatsEvent.Trigger(
-                    PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase, diff);
 
-                AlertEvent.Trigger(
-                    AlertReason.HealtMaxIncrease, "Health Max increased!", "Health Max Upgrade");
-            }
+            PlayerStatsEvent.Trigger(
+                PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase, diff);
+
+            // Also increase current health by that diff
+            PlayerStatsEvent.Trigger(
+                PlayerStatsEvent.PlayerStat.CurrentHealth, PlayerStatsEvent.PlayerStatChangeType.Increase, diff);
+
+            AlertEvent.Trigger(
+                AlertReason.HealtMaxIncrease, "Health Max increased!", "Health Max Upgrade");
         }
 
         /// <summary>
@@ -453,20 +442,21 @@ namespace Manager.ProgressionMangers
 
         public float GetHealthAmountForUpgradeLevel(int playerLevel)
         {
-            foreach (var entry in healthAmountByUpgrade)
-                if (entry.playerLevel == playerLevel)
+            foreach (var entry in levelStats)
+                if (entry.level == playerLevel)
                     return entry.healthAmount;
 
             throw new Exception($"Upgrade level {playerLevel} not found in healthAmountByUpgrade array.");
         }
 
-        public float GetConatminationAmountForUpgradeLevel(int upgradeLevel)
+        public float GetConatminationAmountForBioticLevel(int exobioticAttributeLevel)
         {
             foreach (var entry in contaminationAmountPerExoBioticLevel)
-                if (entry.exoBioticLevel == upgradeLevel)
+                if (entry.exoBioticLevel == exobioticAttributeLevel)
                     return entry.contaminationAmount;
 
-            throw new Exception($"Upgrade level {upgradeLevel} not found in contaminationAmountByUpgrade array.");
+            throw new Exception(
+                $"Upgrade level {exobioticAttributeLevel} not found in contaminationAmountByUpgrade array.");
         }
 
         public object CurentNumberOfCores()
@@ -498,6 +488,7 @@ namespace Manager.ProgressionMangers
             public int totalXPRequired;
             [FormerlySerializedAs("AttributePointsGranted")]
             public int attributePointsGranted;
+            public int healthAmount;
         }
 
         [Serializable]
@@ -507,12 +498,13 @@ namespace Manager.ProgressionMangers
             [FormerlySerializedAs("HealthAmount")] public float healthAmount;
         }
 
-        [Serializable]
-        public class StaminaMultiplierAmtByAgility
-        {
-            [FormerlySerializedAs("upgradeLevel")] public int agility;
-            public float staminaAmount;
-        }
+        // [Serializable]
+        // public class StaminaMultiplierAmtByAgility
+        // {
+        //     [FormerlySerializedAs("upgradeLevel")] public int agility;
+        //     [FormerlySerializedAs("staminaAmount")]
+        //     public float baseStaminaRestorationSpeedMultiplier;
+        // }
 
         [Serializable]
         public class ContaminationAmountByExobiotic

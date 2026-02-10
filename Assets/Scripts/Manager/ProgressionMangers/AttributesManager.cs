@@ -29,8 +29,8 @@ namespace Manager.ProgressionMangers
         int overrideAgility = 2;
         [ShowIf("overrideAttributesOnLoad")] [SerializeField]
         int overrideDexterity = 2;
-        [ShowIf("overrideAttributesOnLoad")] [SerializeField]
-        int overrideMentalToughness = 2;
+        // [ShowIf("overrideAttributesOnLoad")] [SerializeField]
+        // int overrideMentalToughness = 2;
         [ShowIf("overrideAttributesOnLoad")] [SerializeField]
         int overrideExobiotic = 2;
 

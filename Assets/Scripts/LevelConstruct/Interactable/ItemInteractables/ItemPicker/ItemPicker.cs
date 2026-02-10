@@ -13,6 +13,7 @@ using Helpers.Events.Inventory;
 using Inventory;
 using LevelConstruct.Highlighting;
 using Manager;
+using Manager.ProgressionMangers;
 using Manager.SceneManagers.Pickable;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
@@ -454,7 +455,7 @@ namespace LevelConstruct.Interactable.ItemInteractables.ItemPicker
                 return false;
             }
 
-            var weightPlayerCanPickup = PlayerMutableStatsManager.Instance.playerStrength *
+            var weightPlayerCanPickup = AttributesManager.Instance.Strength *
                                         PickableManager.Instance.weightAblePerStrength;
 
 

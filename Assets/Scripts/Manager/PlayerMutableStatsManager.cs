@@ -49,10 +49,7 @@ namespace Manager
         [Header("References")] [SerializeField]
         bool autoSave; // checkpoint-only by default
         [SerializeField] LevelingManager levelingManager;
-        [FormerlySerializedAs("PlayerStrength")]
-        public int playerStrength = 1;
-        public string maxContaminationDialogueNode = "ContaminationMaxedOutExplainer";
-        public string maxContaminationNPCId = "FabricatorClancy";
+
 
         [SerializeField] PlayerStatsSheet defaultPlayerStatsSheet;
         [SerializeField] PlayerStatsBars playerStatsBars;

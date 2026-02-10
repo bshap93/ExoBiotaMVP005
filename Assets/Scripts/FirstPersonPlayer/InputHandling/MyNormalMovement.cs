@@ -40,7 +40,6 @@ namespace FirstPersonPlayer.InputHandling
         PlayerMutableStatsManager playerMutableStatsManager;
         [SerializeField] AttributesManager attributesManager;
 
-        [SerializeField] MMFeedbacks cannotRunFeedbacks;
 
         [FormerlySerializedAs("animancerRightArmController")]
         public AnimancerArmController animancerArmController;
@@ -403,14 +402,10 @@ namespace FirstPersonPlayer.InputHandling
                     else
                     {
                         if (playerMutableStatsManager.CurrentStamina > 0)
-                        {
                             wantToRun = CharacterActions.run.value;
-                        }
                         else
-                        {
                             wantToRun = false;
-                            cannotRunFeedbacks?.PlayFeedbacks();
-                        }
+                        // cannotRunFeedbacks?.PlayFeedbacks();
                     }
 
                     if (wantToCrouch || !planarMovementParameters.canRun)
