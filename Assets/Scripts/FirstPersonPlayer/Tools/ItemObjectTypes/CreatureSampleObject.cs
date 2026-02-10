@@ -33,15 +33,15 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
             return base.Pick(playerID);
         }
 
-        public override bool Use(string playerID)
-        {
-            base.Use(playerID);
-            if (hasAssociatedBioticAbility)
-                MMInventoryEvent.Trigger(
-                    MMInventoryEventType.Pick, null, associatedBioticAbility.TargetInventoryName,
-                    associatedBioticAbility, 1, 0, playerID);
-
-            return true;
-        }
+        // public override bool Use(string playerID)
+        // {
+        //     base.Use(playerID);
+        //     if (hasAssociatedBioticAbility)
+        //         MMInventoryEvent.Trigger(
+        //             MMInventoryEventType.Pick, null, associatedBioticAbility.TargetInventoryName,
+        //             associatedBioticAbility, 1, 0, playerID);
+        //
+        //     return true;
+        // }
     }
 }

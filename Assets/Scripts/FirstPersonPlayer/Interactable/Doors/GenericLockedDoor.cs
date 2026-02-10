@@ -1,5 +1,7 @@
-﻿using Helpers.Events.Machine;
+﻿using Helpers.Events;
+using Helpers.Events.Machine;
 using LevelConstruct.Highlighting;
+using Manager.SceneManagers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Sirenix.OdinInspector;
@@ -7,7 +9,7 @@ using UnityEngine;
 
 namespace FirstPersonPlayer.Interactable.Doors
 {
-    public class GenericLockedDoor : GenericDoor, MMEventListener<DoorEvent>
+    public class GenericLockedDoor : GenericDoor, MMEventListener<DoorEvent>, MMEventListener<LoadedManagerEvent>
     {
         [Header("Feedbacks")] [SerializeField] MMFeedbacks lockedDoorWasTriedFeedbacks;
         [SerializeField] MMFeedbacks unlockedDoorFeedbacks;
@@ -27,22 +29,29 @@ namespace FirstPersonPlayer.Interactable.Doors
         Color lockedLightColor;
         [ShowIf("hasDoorLight")] [SerializeField]
         Color unlockedLightColor;
+
+        DoorManager _doorManager;
         bool _isLocked;
+
+        DoorManager.DoorLockState _lockState;
 
         void Start()
         {
             if (overrideLockState) _isLocked = startLocked;
+
             if (_isLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
         }
 
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<DoorEvent>();
+            this.MMEventStartListening<LoadedManagerEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<DoorEvent>();
+            this.MMEventStopListening<LoadedManagerEvent>();
         }
         public void OnMMEvent(DoorEvent eventType)
         {
@@ -64,6 +73,22 @@ namespace FirstPersonPlayer.Interactable.Doors
                 case DoorEventType.Close:
                     CloseDoor();
                     break;
+            }
+        }
+        public void OnMMEvent(LoadedManagerEvent eventType)
+        {
+            if (eventType.ManagerType != ManagerType.All)
+                return;
+
+            _doorManager = DoorManager.Instance;
+            if (_doorManager == null) return;
+
+            if (_doorManager.DoorHasLockedState(uniqueID))
+            {
+                var lockState = _doorManager.GetDoorLockState(uniqueID);
+                _isLocked = lockState == DoorManager.DoorLockState.Locked;
+                if (_isLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+                else associatedHighlightEffectController.SetPrimaryStateHighlightColor();
             }
         }
 

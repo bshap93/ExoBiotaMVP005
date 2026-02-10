@@ -27,6 +27,7 @@ namespace FirstPersonPlayer.Interactable.Doors
         [ShowIf("usePositionChange")] [SerializeField]
         Vector3 closedPosition;
 
+
         [SerializeField] bool startOpen;
 
         [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
