@@ -39,35 +39,23 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         protected float lastSwingTime = -999f;
         public float heavySwingDownFactor = 1.2f;
 
-        float StaminaCostPerNormalConnectingSwing
-        {
-            get
-            {
-                var attrMgr = AttributesManager.Instance;
-                if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
-
-                var agility = attrMgr.Agility;
-                var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-                var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
-
-                return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-            }
-        }
-
-        float StaminaCostPerHeavyConnectingSwing
-        {
-            get
-            {
-                var attrMgr = AttributesManager.Instance;
-                if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
-                var agility = attrMgr.Agility;
-                var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-                var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
-
-                return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
-            }
-        }
-
+        float StaminaCostPerNormalConnectingSwing => 20f;
+        // var attrMgr = AttributesManager.Instance;
+        // if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
+        //
+        // var agility = attrMgr.Agility;
+        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
+        // var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
+        //
+        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+        float StaminaCostPerHeavyConnectingSwing => 20f;
+        // var attrMgr = AttributesManager.Instance;
+        // if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
+        // var agility = attrMgr.Agility;
+        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
+        // var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
+        //
+        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
         public override void Use()
         {
             if (attributesManager == null) attributesManager = AttributesManager.Instance;
