@@ -15,6 +15,7 @@ namespace FirstPersonPlayer.Interactable.Doors
         [SerializeField] MMFeedbacks denyEntryFeedbacks;
         [SerializeField] SpawnInfoEditor spawnInfo;
         [SerializeField] ObjectiveObject objectiveIfActiveToComplete;
+        [SerializeField] bool inaccessible = true;
 
         public override void Interact()
         {
@@ -48,7 +49,9 @@ namespace FirstPersonPlayer.Interactable.Doors
 
         public override string GetName()
         {
-            return "Go to Dock";
+            if (inaccessible) return "Inaccessible";
+
+            return "To " + spawnInfo.SceneName;
         }
 
         public override Sprite GetIcon()

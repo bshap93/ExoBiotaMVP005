@@ -1,3 +1,4 @@
+using System;
 using Inventory;
 using Michsky.MUIP;
 using MoreMountains.InventoryEngine;
@@ -14,6 +15,7 @@ namespace SharedUI.IGUI
         [SerializeField] CustomDropdown inventoryTypeDropdown;
         [SerializeField] Transform listTransform;
         [SerializeField] GameObject inventoryListItemPrefab;
+        [SerializeField] InventoryItemViewOptions inventoryItemViewOptions;
 
 
         [FormerlySerializedAs("_playerInventory")] [SerializeField]
@@ -152,8 +154,14 @@ namespace SharedUI.IGUI
 
                 var go = Instantiate(inventoryListItemPrefab, listTransform);
                 var element = go.GetComponent<InventoryItemIGUIListElement>();
-                element.Initialize(inventory, i); // <-- pass source + index
+                element.Initialize(inventory, i, inventoryItemViewOptions); // <-- pass source + index
             }
+        }
+
+        [Serializable]
+        public class InventoryItemViewOptions
+        {
+            public bool disablePlaceButton;
         }
     }
 }

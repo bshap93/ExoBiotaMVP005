@@ -8,7 +8,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
-using DialogueGameCommands = Manager.DialogueScene.DialogueCommands.DialogueGameCommands;
+using DialogueGameCommands = Helpers.YarnSpinner.DialogueGameCommands;
 
 namespace Manager
 {

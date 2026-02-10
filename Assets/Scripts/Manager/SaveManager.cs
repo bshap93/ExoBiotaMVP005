@@ -201,6 +201,8 @@ namespace Manager
             ToolsStateManager.Instance.Load();
             LevelingManager.Instance.Load();
 
+            TerminalManager.Instance.Load();
+
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Load();
 
@@ -252,6 +254,7 @@ namespace Manager
             CreatureStateManager.Instance.Save();
             ToolsStateManager.Instance.Save();
             LevelingManager.Instance.Save();
+            TerminalManager.Instance.Save();
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Save();
@@ -297,6 +300,7 @@ namespace Manager
             CreatureStateManager.Instance.Reset();
             ToolsStateManager.Instance.Reset();
             LevelingManager.Instance.Reset();
+            TerminalManager.Instance.Reset();
 
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
@@ -394,6 +398,8 @@ namespace Manager
                     return "ToolsStateSave.es3";
                 case GlobalManagerType.LevelingSave:
                     return "LevelingSave.es3";
+                case GlobalManagerType.TerminalsSave:
+                    return "TerminalsSave.es3";
                 default:
 
                     Debug.LogError($"Unknown manager type: {globalManagerType}");

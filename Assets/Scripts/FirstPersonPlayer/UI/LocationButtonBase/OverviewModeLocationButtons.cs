@@ -15,7 +15,6 @@ namespace FirstPersonPlayer.UI.LocationButtonBase
 {
     public abstract class OverviewModeLocationButtons : MonoBehaviour, IInteractable
     {
-        [SerializeField] DoorAccessRequirement access; // optional
 #if UNITY_EDITOR
         [ValueDropdown(nameof(GetAllRewiredActions))]
 #endif
@@ -39,7 +38,6 @@ namespace FirstPersonPlayer.UI.LocationButtonBase
         {
             _enclosingCanvasGroup = GetComponentInParent<CanvasGroup>();
             if (_enclosingCanvasGroup == null) Debug.LogError("CanvasGroup component is missing on the GameObject.");
-            if (access == null) access = GetComponent<DoorAccessRequirement>();
         }
 
 

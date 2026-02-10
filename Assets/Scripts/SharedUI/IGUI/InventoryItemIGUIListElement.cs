@@ -29,6 +29,7 @@ namespace SharedUI.IGUI
             Other
         }
 
+
         [SerializeField] Image itemImage;
         [SerializeField] TMP_Text itemNameText;
         [SerializeField] ButtonManager infoButton;
@@ -51,6 +52,8 @@ namespace SharedUI.IGUI
         [Header("Hotbar Button Text")] [SerializeField]
         string addToHotbarText = "Add to Hotbar";
         [SerializeField] string removeFromHotbarText = "Remove from Hotbar";
+
+        InventoryIGUIController.InventoryItemViewOptions _inventoryItemViewOptions;
         bool _isInHotbar;
 
         MyBaseItem _item;
@@ -60,11 +63,15 @@ namespace SharedUI.IGUI
         MoreMountains.InventoryEngine.Inventory _sourceInventory;
 
 
-        public void Initialize(MoreMountains.InventoryEngine.Inventory source, int index)
+        public void Initialize(MoreMountains.InventoryEngine.Inventory source, int index,
+            InventoryIGUIController.InventoryItemViewOptions options)
         {
             _sourceInventory = source;
             _sourceIndex = index;
             _item = source.Content[index] as MyBaseItem;
+
+            _inventoryItemViewOptions = options;
+
 
             if (_item == null)
             {
@@ -88,6 +95,7 @@ namespace SharedUI.IGUI
             infoButton.onClick.AddListener(ShowItemInfo);
 
             equipButton.onClick.RemoveAllListeners();
+
             placeButton.onClick.RemoveAllListeners();
 
 
@@ -237,6 +245,12 @@ namespace SharedUI.IGUI
 
         void SetPlaceButtonActiveIf()
         {
+            if (_inventoryItemViewOptions is { disablePlaceButton: true })
+            {
+                placeButton.gameObject.SetActive(false);
+                return;
+            }
+
             if (GameStateManager.Instance.CurrentMode == GameMode.FirstPerson &&
                 _item != null &&
                 !_item.isQuestItem)

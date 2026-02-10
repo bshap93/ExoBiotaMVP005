@@ -16,7 +16,7 @@ namespace Manager.ProgressionMangers
         bool _dirty;
 
         string _savePath;
-        HashSet<string> _visitedMetaTerminals;
+        readonly HashSet<string> _visitedMetaTerminals = new();
 
         public static TerminalManager Instance { get; private set; }
         void Awake()

@@ -8,7 +8,6 @@ namespace Overview.Locations
     public class SpawnLocationButton : MonoBehaviour
     {
         [SerializeField] MineOverviewModeLocation locationBtn;
-        [SerializeField] DoorAccessRequirement access;
 
         // // Called at runtime with the location definition for THIS instance
         // public void Setup(DockOvLocationDefinition def)

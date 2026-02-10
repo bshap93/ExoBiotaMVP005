@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Events;
 using Helpers.Events;
 using Helpers.StaticHelpers;
-using Manager.SceneManagers;
+using Manager.DialogueScene;
 using Overview.NPC;
 using SharedUI;
 using Sirenix.OdinInspector;
@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Yarn.Unity;
 
-namespace Manager.DialogueScene.DialogueCommands
+namespace Helpers.YarnSpinner
 {
     public class DialogueGameCommands : MonoBehaviour
     {
@@ -97,12 +97,7 @@ namespace Manager.DialogueScene.DialogueCommands
             if (amount == -1) BioSampleEvent.Trigger("All", BioSampleEventType.GiveToNPC, null, 0f);
         }
 
-        [YarnCommand("give_player_keyaccess")]
-        public void GivePlayerKeyAccess(string keyId)
-        {
-            if (DoorManager.Instance != null)
-                DoorManager.Instance.GrantKey(keyId);
-        }
+
 
         [YarnCommand("test_command")]
         public void TestCommand()
@@ -110,29 +105,7 @@ namespace Manager.DialogueScene.DialogueCommands
             Debug.Log("Test command executed.");
         }
 
-        [YarnCommand("revoke_key")]
-        public void YarnRevokeKey(string keyId)
-        {
-            DoorManager.Instance.RevokeKey(keyId);
-        }
 
-        // [YarnCommand("unlock_door")]
-        // public void YarnUnlockDoor(string doorId)
-        // {
-        //     DoorManager.Instance.PermanentlyUnlock(doorId);
-        // }
-
-        // [YarnCommand("set_highlighted")]
-        // public void SetHighlighted(string keyword)
-        // {
-        //     switch (keyword)
-        //     {
-        //         case "RhizomicCores":
-        //             // PickableHighightable.Instance.SetHighlightState(HighlightableType.RhizomicCores, true);
-        //             HighlightEvent.Trigger(HighlightableType.RhizomicCores, true);
-        //             break;
-        //     }
-        // }
 
         // ----------- Currency commands ----------
 
