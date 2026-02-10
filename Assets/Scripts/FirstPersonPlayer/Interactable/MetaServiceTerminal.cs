@@ -1,5 +1,6 @@
 using System;
 using FirstPersonPlayer.Interface;
+using FirstPersonPlayer.ScriptableObjects;
 using Helpers.Events;
 using Helpers.Events.Dialog;
 using Lightbug.Utilities;
@@ -20,6 +21,8 @@ namespace FirstPersonPlayer.Interactable
         [SerializeField] string defaultStartNode = "NavigationServerSwitch";
 
         [SerializeField] string nodeToUse;
+
+        [SerializeField] MetaTerminalInfoSO metaTerminalInfoSO;
 
         [ValueDropdown("GetNpcIdOptions")] public
             string npcId;

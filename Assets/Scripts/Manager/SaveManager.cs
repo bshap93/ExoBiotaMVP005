@@ -69,7 +69,8 @@ namespace Manager
         HotbarSave,
         BioticAbilitiesSave,
         ToolsStateSave,
-        LevelingSave
+        LevelingSave,
+        TerminalsSave
     }
 
     public enum LocalManagerType
