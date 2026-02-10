@@ -340,3 +340,9 @@ title: FastTravelBetweenTerminals
 Meta Terminal: Your credential lace show no other authorized terminals.
 Meta Terminal: Look for terminals like this one, and register for transit priveleges.
 ===
+
+title: C2FacilityTerminal
+---
+Meta Terminal: Welcome to Water Monitoring Utility C2 facility.
+<<jump TerminalGeneralDirectory>>
+===
