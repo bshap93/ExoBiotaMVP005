@@ -1,7 +1,11 @@
-﻿namespace FirstPersonPlayer.Tools.ItemObjectTypes
+﻿using UnityEngine;
+
+namespace FirstPersonPlayer.Tools.ItemObjectTypes
 {
-    public class BioticAbilityMasterHypoObject
+    [CreateAssetMenu(
+        fileName = "BioticAbilityMasterHypo", menuName = "Scriptable Objects/Items/BioticAbilityMasterHypo", order = 0)]
+    public class BioticAbilityMasterHypoObject : BaseTool
     {
-        
+        [SerializeField] BioticAbilityToolWrapper bioticAbilityToolWrapper;
     }
 }
