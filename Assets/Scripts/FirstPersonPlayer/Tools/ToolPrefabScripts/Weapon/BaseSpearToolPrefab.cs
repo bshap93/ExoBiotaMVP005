@@ -198,8 +198,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
 
         public override void PerformHeavyChargedToolAction()
         {
-            attackCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time < lastAttackTime + attackCooldown) return;
+            var adjustedCooldown =
+                attackCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+
+            if (Time.time < lastAttackTime + adjustedCooldown) return;
             lastAttackTime = Time.time;
 
             PlayerStatsEvent.Trigger(
@@ -207,6 +209,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 StaminaCostPerHeavyAttack);
 
             // Heavy attack logic goes here.
+
+            PlayHeavySwingSequence();
         }
     }
 }

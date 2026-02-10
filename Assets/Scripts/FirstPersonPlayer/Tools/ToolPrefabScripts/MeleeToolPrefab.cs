@@ -287,6 +287,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             // Play swing on Layer 1
             var state = layer.Play(clip, AnimController.defaultTransitionDuration);
+            state.NormalizedTime = 0f; // Start from the beginning
             state.Speed = swingSpeedMultiplier;
             layer.Weight = 1f;
 

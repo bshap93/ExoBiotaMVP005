@@ -62,64 +62,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             if (PlayerMutableStatsManager.Instance.CurrentStamina <= 19.9f)
                 PerformToolAction();
             else if (PlayerMutableStatsManager.Instance.CurrentStamina > 19.9f) PerformHeavyChargedToolAction();
-
-            // // If button released while pullback animation is still playing
-            // if (ChargeTimeElapsed > 0f && !ToolIsHeldInChargePosition)
-            // {
-            //     PerformToolAction();
-            //
-            //     // ChargeTimeElapsed = 0f;
-            //     // ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            //     return;
-            // }
-            //
-            // if (!ToolIsHeldInChargePosition)
-            // {
-            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
-            //     {
-            //         // Not enough stamina
-            //         AlertEvent.Trigger(
-            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-            //
-            //         return;
-            //     }
-            //
-            //     PerformToolAction();
-            //
-            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            // }
-            // else if (ChargeTimeElapsed >= timeToFullCharge && ToolIsHeldInChargePosition)
-            // {
-            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerHeavyConnectingSwing)
-            //     {
-            //         // Not enough stamina
-            //         AlertEvent.Trigger(
-            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-            //
-            //
-            //         return;
-            //     }
-            //
-            //     PerformHeavyChargedToolAction();
-            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            // }
-            // else if (ToolIsHeldInChargePosition)
-            // {
-            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
-            //     {
-            //         // Not enough stamina
-            //         AlertEvent.Trigger(
-            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-            //
-            //
-            //         return;
-            //     }
-            //
-            //     PerformPartiallyChargedToolAction();
-            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            // }
-
-            // PerformToolAction();
         }
 
 
@@ -302,8 +244,12 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public override void PerformToolAction()
         {
-            swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time < lastSwingTime + swingCooldown) return;
+            var adjustedCooldown =
+                swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+
+            if (Time.time < lastSwingTime + adjustedCooldown) return;
+            // swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+            // if (Time.time < lastSwingTime + swingCooldown) return;
             lastSwingTime = Time.time;
 
 
@@ -328,14 +274,16 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public override void PerformHeavyChargedToolAction()
         {
-            swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time < lastSwingTime + swingCooldown) return;
+            var adjustedCooldown =
+                swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+
+            if (Time.time < lastSwingTime + adjustedCooldown) return;
             lastSwingTime = Time.time;
 
 
-            PlayerStatsEvent.Trigger(
-                PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
-                StaminaCostPerNormalConnectingSwing);
+            // PlayerStatsEvent.Trigger(
+            //     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
+            //     StaminaCostPerNormalConnectingSwing);
 
 
             PlayerStatsEvent.Trigger(

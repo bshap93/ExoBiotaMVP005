@@ -99,7 +99,7 @@ namespace SharedUI.Progression
         public void OnMMEvent(StaminaRestoreRateEvent eventType)
         {
             // For debug: show current stamina restore rate in the debug panel
-            if (debugMode) staminaRestoreRateText.text = $"{eventType.CurrentStaminaRestoreRate:F2}";
+            if (debugMode) staminaRestoreRateText.text = $"{eventType.CurrentStaminaRestoreRate}";
         }
         public void OnMMEvent(XPEvent eventType)
         {

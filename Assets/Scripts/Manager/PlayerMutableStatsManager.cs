@@ -50,7 +50,6 @@ namespace Manager
         bool autoSave; // checkpoint-only by default
         [SerializeField] LevelingManager levelingManager;
 
-
         [SerializeField] PlayerStatsSheet defaultPlayerStatsSheet;
         [SerializeField] PlayerStatsBars playerStatsBars;
         [SerializeField] AttributesManager attributesManager;
@@ -76,6 +75,8 @@ namespace Manager
 
         [FormerlySerializedAs("StatBasedDialogueNodes")]
         public List<StatBasedDialogueNode> statBasedDialogueNodes = new();
+
+        readonly float _preArrivalFeedbackInterval = 1.2f;
 
         // bool _contaminationMaxed;
         Coroutine _decreaseContaminationRoutine;
@@ -163,6 +164,10 @@ namespace Manager
                     _restoreStaminaRoutine = StartCoroutine(
                         RestoreStaminaOverTime(CurrentStaminaRestoreRate)
                     );
+                }
+                else if (CurrentStamina > BaseMaxStamina - _preArrivalFeedbackInterval)
+                {
+                    CombatFeedbacksEvent.Trigger(CombatFeedbackType.StaminaIsFullAgain);
                 }
             }
             else

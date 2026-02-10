@@ -59,9 +59,9 @@ MonoBehaviour:
   swing01HitDelay: 0.65
   swing02HitDelay: 0.65
   swing03HitDelay: 0.4
+  swingHeavyHitDelay: 0.325
   swingSpeedMultiplier: 1.5
   defaultHitDelay: 0.4
-  swingDownHitDelay: 0.3
   useOnRelease: 0
   ineffectualDebrisEffectPrefab: {fileID: 761645417365632772, guid: d930383bf4b2ce64d95f23bedbd942db, type: 3}
   reticleForHittable: {fileID: 21300000, guid: f791a2de461d0044a878f19c41435797, type: 3}
@@ -78,10 +78,12 @@ MonoBehaviour:
     m_Bits: 2147483647
   timeToFullCharge: 1.5
   allowedTags: []
-  normalAttackCooldown: 0.6
+  attackCooldown: 0.6
   spearPower: 1
   defaultReticleForTool: {fileID: 21300000, guid: 85b809804a98b954dbc107053cc51dfb, type: 3}
   lastAttackTime: -999
+  toolStaminaRestoreRateMultiplier: 1.1
+  staminaHeavyAttackThreshold: 19.9
 --- !u!114 &4028636442988270811
 MonoBehaviour:
   m_ObjectHideFlags: 0
