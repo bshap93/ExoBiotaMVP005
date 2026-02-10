@@ -30,7 +30,7 @@ namespace Manager.ProgressionMangers
 
     public class LevelingManager : MonoBehaviour, ICoreGameService,
         MMEventListener<BioticCoreXPConversionEvent>, MMEventListener<EnemyXPRewardEvent>,
-        MMEventListener<SpendStatUpgradeEvent>, MMEventListener<PlayerSetsClassEvent>,
+        MMEventListener<PlayerSetsClassEvent>,
         MMEventListener<IncrementAttributeEvent>
     {
         [Header("References")] [SerializeField]
@@ -43,10 +43,12 @@ namespace Manager.ProgressionMangers
         [SerializeField] int levelCap = 20;
 
         [Header("Mutable Max Stats by Upgrade")] [SerializeField]
-        HealthAmountByUpgrade[] healthAmountByUpgrade;
-        // [SerializeField] StaminaAmountByUpgrade[] staminaAmountByUpgrade;
-        [SerializeField] ContaminationAmountByUpgrade[] contaminationAmountByUpgrade;
-        [SerializeField] BaseStaminaRestoreRateByUpgrade[] baseStaminaRestoreRateByUpgrade;
+        HealthAmountByPlayerLevel[] healthAmountByUpgrade;
+        [SerializeField] StaminaMultiplierAmtByAgility[] staminaMultiplierByAgility;
+        [FormerlySerializedAs("contaminationAmountByUpgrade")] [SerializeField]
+        ContaminationAmountByExobiotic[] contaminationAmountPerExoBioticLevel;
+        [FormerlySerializedAs("baseStaminaRestoreRateByUpgrade")] [SerializeField]
+        BaseStaminaRestoreRateByAgility[] baseStaminaRestoreRateByAgility;
         [SerializeField] bool autoSave;
 
         [SerializeField] int attributePointsStartWith;
@@ -73,21 +75,21 @@ namespace Manager.ProgressionMangers
             }
         }
 
-        public int UnspentStatUpgrades
-        {
-            get => _unspentStatUpgrades;
-            set
-            {
-                _unspentStatUpgrades = value;
-                MarkDirty();
-            }
-        }
+        // public int UnspentStatUpgrades
+        // {
+        //     get => _unspentStatUpgrades;
+        //     set
+        //     {
+        //         _unspentStatUpgrades = value;
+        //         MarkDirty();
+        //     }
+        // }
 
         public int CurrentLevel { get; set; }
         public int CurrentTotalXP { get; set; }
-        public int HealthUpgradeLevel { get; set; }
-        public int StaminaUpgradeLevel { get; set; }
-        public int ContaminationUpgradeLevel { get; set; }
+        // public int HealthUpgradeLevel { get; set; }
+        // public int StaminaUpgradeLevel { get; set; }
+        // public int ContaminationUpgradeLevel { get; set; }
 
 
         public int TotalXpNeededForNextLevel
@@ -128,7 +130,6 @@ namespace Manager.ProgressionMangers
         {
             this.MMEventStartListening<BioticCoreXPConversionEvent>();
             this.MMEventStartListening<EnemyXPRewardEvent>();
-            this.MMEventStartListening<SpendStatUpgradeEvent>();
             this.MMEventStartListening<PlayerSetsClassEvent>();
             this.MMEventStartListening<IncrementAttributeEvent>();
         }
@@ -136,7 +137,6 @@ namespace Manager.ProgressionMangers
         {
             this.MMEventStopListening<BioticCoreXPConversionEvent>();
             this.MMEventStopListening<EnemyXPRewardEvent>();
-            this.MMEventStopListening<SpendStatUpgradeEvent>();
             this.MMEventStopListening<PlayerSetsClassEvent>();
             this.MMEventStopListening<IncrementAttributeEvent>();
         }
@@ -147,11 +147,11 @@ namespace Manager.ProgressionMangers
 
             ES3.Save("CurrentLevel", CurrentLevel, path);
             ES3.Save("CurrentTotalXP", CurrentTotalXP, path);
-            ES3.Save("HealthUpgradeLevel", HealthUpgradeLevel, path);
-            ES3.Save("StaminaUpgradeLevel", StaminaUpgradeLevel, path);
-            ES3.Save("ContaminationUpgradeLevel", ContaminationUpgradeLevel, path);
+            // ES3.Save("HealthUpgradeLevel", HealthUpgradeLevel, path);
+            // ES3.Save("StaminaUpgradeLevel", StaminaUpgradeLevel, path);
+            // ES3.Save("ContaminationUpgradeLevel", ContaminationUpgradeLevel, path);
             ES3.Save("UnspentAttributePoints", UnspentAttributePoints, path);
-            ES3.Save("UnspentStatUpgrades", UnspentStatUpgrades, path);
+            // ES3.Save("UnspentStatUpgrades", UnspentStatUpgrades, path);
             ES3.Save("CurrentPlayerClassId", _currentPlayerClassId, path);
             _dirty = false;
         }
@@ -165,21 +165,21 @@ namespace Manager.ProgressionMangers
             if (ES3.KeyExists("CurrentTotalXP", path))
                 CurrentTotalXP = ES3.Load<int>("CurrentTotalXP", path);
 
-            if (ES3.KeyExists("HealthUpgradeLevel", path))
-                HealthUpgradeLevel = ES3.Load<int>("HealthUpgradeLevel", path);
-
-            if (ES3.KeyExists("StaminaUpgradeLevel", path))
-                StaminaUpgradeLevel = ES3.Load<int>("StaminaUpgradeLevel", path);
-
-
-            if (ES3.KeyExists("ContaminationUpgradeLevel", path))
-                ContaminationUpgradeLevel = ES3.Load<int>("ContaminationUpgradeLevel", path);
+            // if (ES3.KeyExists("HealthUpgradeLevel", path))
+            //     HealthUpgradeLevel = ES3.Load<int>("HealthUpgradeLevel", path);
+            //
+            // if (ES3.KeyExists("StaminaUpgradeLevel", path))
+            //     StaminaUpgradeLevel = ES3.Load<int>("StaminaUpgradeLevel", path);
+            //
+            //
+            // if (ES3.KeyExists("ContaminationUpgradeLevel", path))
+            //     ContaminationUpgradeLevel = ES3.Load<int>("ContaminationUpgradeLevel", path);
 
             if (ES3.KeyExists("UnspentAttributePoints", path))
                 UnspentAttributePoints = ES3.Load<int>("UnspentAttributePoints", path);
 
-            if (ES3.KeyExists("UnspentStatUpgrades", path))
-                UnspentStatUpgrades = ES3.Load<int>("UnspentStatUpgrades", path);
+            // if (ES3.KeyExists("UnspentStatUpgrades", path))
+            //     UnspentStatUpgrades = ES3.Load<int>("UnspentStatUpgrades", path);
 
             if (ES3.KeyExists("CurrentPlayerClassId", path))
                 _currentPlayerClassId = ES3.Load<int>("CurrentPlayerClassId", path);
@@ -188,11 +188,11 @@ namespace Manager.ProgressionMangers
         {
             CurrentLevel = 1;
             CurrentTotalXP = 0;
-            HealthUpgradeLevel = 1;
-            StaminaUpgradeLevel = 1;
-            ContaminationUpgradeLevel = 1;
+            // HealthUpgradeLevel = 1;
+            // StaminaUpgradeLevel = 1;
+            // ContaminationUpgradeLevel = 1;
             UnspentAttributePoints = attributePointsStartWith;
-            UnspentStatUpgrades = 0;
+            // UnspentStatUpgrades = 0;
             _currentPlayerClassId = 0;
             MarkDirty();
         }
@@ -255,7 +255,7 @@ namespace Manager.ProgressionMangers
                 attributesManager.Exobiotic);
 
             ProgressionUpdateListenerNotifier.Trigger(
-                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                CurrentTotalXP, CurrentLevel, // UnspentStatUpgrades,
                 UnspentAttributePoints);
 
             AlertEvent.Trigger(
@@ -283,110 +283,11 @@ namespace Manager.ProgressionMangers
                 startingClass.startingBioticLevel);
         }
 
-        public void OnMMEvent(SpendStatUpgradeEvent eventType)
+
+        public float GetBaseStaminaRestoreRateForAgility(int upgradeLevel)
         {
-            if (UnspentStatUpgrades <= 0)
-            {
-                Debug.LogWarning("No unspent stat upgrades available.");
-                AlertEvent.Trigger(
-                    AlertReason.InvalidAction, "No unspent stat upgrades available.", "Stat Upgrade Unavailable");
-
-                return;
-            }
-
-            switch (eventType.StatType)
-            {
-                case StatType.HealthMax:
-                    var upgradeLevel = HealthUpgradeLevel + 1;
-                    var newHealthAmount = GetHealthAmountForUpgradeLevel(upgradeLevel);
-                    var diff = newHealthAmount - playerMutableStatsManager.CurrentMaxHealth;
-                    Debug.Log("Received request to upgrade HealthMax");
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newHealthAmount);
-
-                    // Restore current health
-                    var currentHealth = playerMutableStatsManager.CurrentHealth;
-                    var newCurrentHealth = currentHealth + diff;
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentHealth, PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newCurrentHealth);
-
-
-                    HealthUpgradeLevel = upgradeLevel;
-                    _unspentStatUpgrades -= 1;
-                    ProgressionUpdateListenerNotifier.Trigger(
-                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
-                        UnspentAttributePoints);
-
-                    AlertEvent.Trigger(
-                        AlertReason.StatUpgradePurchased, "Health Max upgraded!", "Health Upgrade");
-
-
-                    break;
-                case StatType.ContaminationMax:
-                    var contaminationUpgradeLevel = ContaminationUpgradeLevel + 1;
-                    var newContaminationAmount = GetConatminationAmountForUpgradeLevel(contaminationUpgradeLevel);
-                    var contaminationDiff = newContaminationAmount - playerMutableStatsManager.CurrentMaxContamination;
-                    Debug.Log("Received request to upgrade ContaminationMax");
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentMaxContamination,
-                        PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newContaminationAmount);
-
-                    // Restore current contamination
-                    var currentContamination = playerMutableStatsManager.CurrentContamination;
-                    var newCurrentContamination = currentContamination + contaminationDiff;
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentContamination,
-                        PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newCurrentContamination);
-
-                    ContaminationUpgradeLevel = contaminationUpgradeLevel;
-                    _unspentStatUpgrades -= 1;
-                    ProgressionUpdateListenerNotifier.Trigger(
-                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
-                        UnspentAttributePoints);
-
-                    AlertEvent.Trigger(
-                        AlertReason.StatUpgradePurchased, "Contamination Max upgraded!", "Contamination Upgrade");
-
-                    break;
-                case StatType.BaseStaminaRestoreRate:
-                    var staminaUpgradeLevel = StaminaUpgradeLevel + 1;
-                    var newStaminaBaseRestoreRate = GetBaseStaminaRestoreRateForUpgrade(staminaUpgradeLevel);
-                    // var staminaDiff = newStaminaBaseRestoreRate - playerMutableStatsManager.BaseStaminaRestoreRate;
-
-                    Debug.Log("Received request to upgrade StaminaMax");
-                    PlayerStatsEvent.Trigger(
-                        PlayerStatsEvent.PlayerStat.CurrentStaminaRestoreRate,
-                        PlayerStatsEvent.PlayerStatChangeType.Increase,
-                        newStaminaBaseRestoreRate);
-
-                    // Restore current stamina 
-                    // var currentStamina = playerMutableStatsManager.CurrentStamina;
-                    // var newCurrentStamina = currentStamina + staminaDiff;
-                    // PlayerStatsEvent.Trigger(
-                    //     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
-                    //     newCurrentStamina);
-
-                    StaminaUpgradeLevel = staminaUpgradeLevel;
-                    _unspentStatUpgrades -= 1;
-                    ProgressionUpdateListenerNotifier.Trigger(
-                        CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
-                        UnspentAttributePoints);
-
-                    AlertEvent.Trigger(
-                        AlertReason.StatUpgradePurchased, "Stamina Max upgraded!", "Stamina Upgrade");
-
-                    break;
-            }
-        }
-
-        public float GetBaseStaminaRestoreRateForUpgrade(int upgradeLevel)
-        {
-            foreach (var entry in baseStaminaRestoreRateByUpgrade)
-                if (entry.upgradeLevel == upgradeLevel)
+            foreach (var entry in baseStaminaRestoreRateByAgility)
+                if (entry.agility == upgradeLevel)
                     return entry.restoreRate;
 
             throw new Exception($"Upgrade level {upgradeLevel} not found in baseStaminaRestoreRateByUpgrade array.");
@@ -413,7 +314,7 @@ namespace Manager.ProgressionMangers
             XPEvent.Trigger(XPEventType.AwardXPToPlayer, xpToAward, causedLevelUp);
 
             ProgressionUpdateListenerNotifier.Trigger(
-                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                CurrentTotalXP, CurrentLevel, // UnspentStatUpgrades,
                 UnspentAttributePoints);
         }
 
@@ -426,28 +327,43 @@ namespace Manager.ProgressionMangers
                 throw new ArgumentException("New level must be exactly one greater than current level.");
 
             CurrentLevel = newLevel;
-            AwardStatUpgradeToPlayer(newLevel);
+            // AwardStatUpgradeToPlayer(newLevel);
+            AwardHPIncreaseUpgradeToPlayer(newLevel);
             AwardAttributePointsToPlayer(newLevel);
 
             LevelingEvent.Trigger(LevelingEventType.LevelUp, newLevel);
+        }
+
+        void AwardHPIncreaseUpgradeToPlayer(int newLevel)
+        {
+            var stats = GetLevelStats(newLevel);
+            var diff = GetHealthAmountForUpgradeLevel(CurrentLevel) - playerMutableStatsManager.CurrentMaxHealth;
+            if (stats.attributePointsGranted > 0)
+            {
+                PlayerStatsEvent.Trigger(
+                    PlayerStatsEvent.PlayerStat.CurrentMaxHealth, PlayerStatsEvent.PlayerStatChangeType.Increase, diff);
+
+                AlertEvent.Trigger(
+                    AlertReason.HealtMaxIncrease, "Health Max increased!", "Health Max Upgrade");
+            }
         }
 
         /// <summary>
         ///     For now, awards one upgrade per level.
         /// </summary>
         /// <param name="level"></param>
-        void AwardStatUpgradeToPlayer(int level)
-        {
-            UnspentStatUpgrades += 1;
-
-            ProgressionUpdateListenerNotifier.Trigger(
-                CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
-                UnspentAttributePoints);
-
-            AlertEvent.Trigger(
-                AlertReason.NewStatUpgrade, "Leveled up and unlocked vitals upgrade! Get to a Terminal to apply.",
-                "Vitals Upgrade Gained");
-        }
+        // void AwardStatUpgradeToPlayer(int level)
+        // {
+        //     UnspentStatUpgrades += 1;
+        //
+        //     ProgressionUpdateListenerNotifier.Trigger(
+        //         CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+        //         UnspentAttributePoints);
+        //
+        //     AlertEvent.Trigger(
+        //         AlertReason.NewStatUpgrade, "Leveled up and unlocked vitals upgrade! Get to a Terminal to apply.",
+        //         "Vitals Upgrade Gained");
+        // }
 
         /// <summary>
         ///     If the level reached grants attribute points, adds them.
@@ -461,7 +377,7 @@ namespace Manager.ProgressionMangers
                 UnspentAttributePoints += stats.attributePointsGranted;
 
                 ProgressionUpdateListenerNotifier.Trigger(
-                    CurrentTotalXP, CurrentLevel, UnspentStatUpgrades,
+                    CurrentTotalXP, CurrentLevel,
                     UnspentAttributePoints);
 
                 AlertEvent.Trigger(
@@ -535,19 +451,19 @@ namespace Manager.ProgressionMangers
             MarkDirty();
         }
 
-        public float GetHealthAmountForUpgradeLevel(int upgradeLevel)
+        public float GetHealthAmountForUpgradeLevel(int playerLevel)
         {
             foreach (var entry in healthAmountByUpgrade)
-                if (entry.upgradeLevel == upgradeLevel)
+                if (entry.playerLevel == playerLevel)
                     return entry.healthAmount;
 
-            throw new Exception($"Upgrade level {upgradeLevel} not found in healthAmountByUpgrade array.");
+            throw new Exception($"Upgrade level {playerLevel} not found in healthAmountByUpgrade array.");
         }
 
         public float GetConatminationAmountForUpgradeLevel(int upgradeLevel)
         {
-            foreach (var entry in contaminationAmountByUpgrade)
-                if (entry.upgradeLevel == upgradeLevel)
+            foreach (var entry in contaminationAmountPerExoBioticLevel)
+                if (entry.exoBioticLevel == upgradeLevel)
                     return entry.contaminationAmount;
 
             throw new Exception($"Upgrade level {upgradeLevel} not found in contaminationAmountByUpgrade array.");
@@ -568,9 +484,9 @@ namespace Manager.ProgressionMangers
         // }
 
         [Serializable]
-        public struct BaseStaminaRestoreRateByUpgrade
+        public struct BaseStaminaRestoreRateByAgility
         {
-            public int upgradeLevel;
+            [FormerlySerializedAs("upgradeLevel")] public int agility;
             public float restoreRate;
         }
 
@@ -585,23 +501,23 @@ namespace Manager.ProgressionMangers
         }
 
         [Serializable]
-        public class HealthAmountByUpgrade
+        public class HealthAmountByPlayerLevel
         {
-            [FormerlySerializedAs("UpgradeLevel")] public int upgradeLevel;
+            [FormerlySerializedAs("UpgradeLevel")] public int playerLevel;
             [FormerlySerializedAs("HealthAmount")] public float healthAmount;
         }
-        //
-        // [Serializable]
-        // public class StaminaAmountByUpgrade
-        // {
-        //     public int upgradeLevel;
-        //     public float staminaAmount;
-        // }
 
         [Serializable]
-        public class ContaminationAmountByUpgrade
+        public class StaminaMultiplierAmtByAgility
         {
-            public int upgradeLevel;
+            [FormerlySerializedAs("upgradeLevel")] public int agility;
+            public float staminaAmount;
+        }
+
+        [Serializable]
+        public class ContaminationAmountByExobiotic
+        {
+            [FormerlySerializedAs("upgradeLevel")] public int exoBioticLevel;
             public float contaminationAmount;
         }
     }

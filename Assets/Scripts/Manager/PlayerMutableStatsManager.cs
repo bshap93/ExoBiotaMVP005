@@ -399,9 +399,9 @@ namespace Manager
                 return;
             }
 
-            var staminaUpgradeLevel = levelingManager.StaminaUpgradeLevel;
+            var agility = attributesManager.Agility;
             if (levelingManager != null)
-                BaseStaminaRestoreRate = levelingManager.GetBaseStaminaRestoreRateForUpgrade(staminaUpgradeLevel);
+                BaseStaminaRestoreRate = levelingManager.GetBaseStaminaRestoreRateForAgility(agility);
         }
         public void OnMMEvent(MyUIEvent eventType)
         {

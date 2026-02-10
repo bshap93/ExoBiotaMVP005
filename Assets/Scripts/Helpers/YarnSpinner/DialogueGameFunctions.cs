@@ -11,7 +11,6 @@ namespace Helpers.YarnSpinner
 
 
         // Scene/ Travel
-        
 
 
         // Progression Getters
@@ -37,14 +36,14 @@ namespace Helpers.YarnSpinner
             return 0;
         }
 
-        [YarnFunction("get_stat_upgrade_points_unused")]
-        public static int GetStatUpgradePointsUnused()
-        {
-            if (LevelingManager.Instance != null) return LevelingManager.Instance.UnspentStatUpgrades;
-
-            Debug.LogError("LevelingManager instance is null. Returning 0 for unspent stat upgrades.");
-            return 0;
-        }
+        // [YarnFunction("get_stat_upgrade_points_unused")]
+        // public static int GetStatUpgradePointsUnused()
+        // {
+        //     if (LevelingManager.Instance != null) return LevelingManager.Instance.UnspentStatUpgrades;
+        //
+        //     Debug.LogError("LevelingManager instance is null. Returning 0 for unspent stat upgrades.");
+        //     return 0;
+        // }
 
         [YarnFunction("get_attribute_points_unused")]
         public static int GetAttributePointsUnused()
@@ -54,29 +53,29 @@ namespace Helpers.YarnSpinner
             return 0;
         }
 
-        [YarnFunction("get_current_health_upgrade_level")]
-        public static int GetCurrentHealthUpgradeLevel()
-        {
-            if (LevelingManager.Instance != null) return LevelingManager.Instance.HealthUpgradeLevel;
-            Debug.LogError("LevelingManager instance is null. Returning 0 for current health upgrade level.");
-            return 0;
-        }
+        // [YarnFunction("get_current_health_upgrade_level")]
+        // public static int GetCurrentHealthUpgradeLevel()
+        // {
+        //     if (LevelingManager.Instance != null) return LevelingManager.Instance.HealthUpgradeLevel;
+        //     Debug.LogError("LevelingManager instance is null. Returning 0 for current health upgrade level.");
+        //     return 0;
+        // }
 
-        [YarnFunction("get_current_stamina_upgrade_level")]
-        public static int GetCurrentStaminaUpgradeLevel()
-        {
-            if (LevelingManager.Instance != null) return LevelingManager.Instance.StaminaUpgradeLevel;
-            Debug.LogError("LevelingManager instance is null. Returning 0 for current stamina upgrade level.");
-            return 0;
-        }
+        // [YarnFunction("get_current_stamina_upgrade_level")]
+        // public static int GetCurrentStaminaUpgradeLevel()
+        // {
+        //     if (LevelingManager.Instance != null) return LevelingManager.Instance.StaminaUpgradeLevel;
+        //     Debug.LogError("LevelingManager instance is null. Returning 0 for current stamina upgrade level.");
+        //     return 0;
+        // }
 
-        [YarnFunction("get_current_contamination_upgrade_level")]
-        public static int GetCurrentContaminationUpgradeLevel()
-        {
-            if (LevelingManager.Instance != null) return LevelingManager.Instance.ContaminationUpgradeLevel;
-            Debug.LogError("LevelingManager instance is null. Returning 0 for current contamination upgrade level.");
-            return 0;
-        }
+        // [YarnFunction("get_current_contamination_upgrade_level")]
+        // public static int GetCurrentContaminationUpgradeLevel()
+        // {
+        //     if (LevelingManager.Instance != null) return LevelingManager.Instance.ContaminationUpgradeLevel;
+        //     Debug.LogError("LevelingManager instance is null. Returning 0 for current contamination upgrade level.");
+        //     return 0;
+        // }
 
 
         // Attribute Getters

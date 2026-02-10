@@ -66,7 +66,8 @@ namespace Helpers.Events
         ClassSelected,
         NewAttributePoints,
         NewStatUpgrade,
-        AttributePointSpent
+        AttributePointSpent,
+        HealtMaxIncrease
     }
 
     [Serializable]

@@ -37,7 +37,7 @@ namespace SharedUI.Progression
         [Header("Debug")] [SerializeField] CanvasGroup debugChipsCanvasGroup;
         [SerializeField] TMP_Text totalXPText;
         [SerializeField] TMP_Text currentLevelText;
-        [SerializeField] TMP_Text unusedUpgradesText;
+        // [SerializeField] TMP_Text unusedUpgradesText;
         [SerializeField] TMP_Text unusedAttributePointsText;
         [SerializeField] TMP_Text coresNumberText;
 
@@ -51,7 +51,7 @@ namespace SharedUI.Progression
             {
                 totalXPText.text = levelingManager.CurrentTotalXP.ToString();
                 currentLevelText.text = levelingManager.CurrentLevel.ToString();
-                unusedUpgradesText.text = levelingManager.UnspentStatUpgrades.ToString();
+                // unusedUpgradesText.text = levelingManager.UnspentStatUpgrades.ToString();
                 unusedAttributePointsText.text = levelingManager.UnspentAttributePoints.ToString();
                 coresNumberText.text = levelingManager.CurentNumberOfCores().ToString();
             }
@@ -88,7 +88,7 @@ namespace SharedUI.Progression
             // for debug
             totalXPText.text = eventType.CurrentTotalXP.ToString();
             currentLevelText.text = eventType.CurrentLevel.ToString();
-            unusedUpgradesText.text = eventType.CurrentUpgradesUnused.ToString();
+            // unusedUpgradesText.text = eventType.CurrentUpgradesUnused.ToString();
             unusedAttributePointsText.text = eventType.CurrentAttributePointsUnused.ToString();
         }
         public void OnMMEvent(XPEvent eventType)

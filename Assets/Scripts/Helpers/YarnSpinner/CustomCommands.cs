@@ -1,4 +1,3 @@
-using System;
 using Helpers.Events;
 using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
@@ -75,10 +74,10 @@ namespace Helpers.YarnSpinner
                 MarkPOIAsHavingNewContent
             );
 
-            dialogueRunner.AddCommandHandler<int>(
-                "trigger_stat_upgrade",
-                TriggerStatUpgrade
-            );
+            // dialogueRunner.AddCommandHandler<int>(
+            //     "trigger_stat_upgrade",
+            //     TriggerStatUpgrade
+            // );
 
             dialogueRunner.AddCommandHandler<int>(
                 "trigger_player_sets_class",
@@ -96,7 +95,7 @@ namespace Helpers.YarnSpinner
             dialogueRunner.AddCommandHandler(
                 "save_game",
                 SaveGame);
-            
+
             dialogueRunner.AddCommandHandler<int>(
                 "fast_travel_to_terminal",
                 FastTravelToTerminal);
@@ -117,7 +116,6 @@ namespace Helpers.YarnSpinner
         void FastTravelToTerminal(int terminalId)
         {
             Debug.Log("Fast traveling to terminal with ID: " + terminalId);
-            
         }
 
         // Inventory Commands
@@ -147,18 +145,18 @@ namespace Helpers.YarnSpinner
 
 
         // Progression Commands
-        void TriggerStatUpgrade(int typeId)
-        {
-            if (typeId < 0 || typeId >= Enum.GetValues(typeof(StatType)).Length)
-            {
-                Debug.LogWarning($"Invalid StatType id: {typeId}");
-                return;
-            }
-
-            var statType = (StatType)typeId;
-
-            SpendStatUpgradeEvent.Trigger(statType);
-        }
+        // void TriggerStatUpgrade(int typeId)
+        // {
+        //     if (typeId < 0 || typeId >= Enum.GetValues(typeof(StatType)).Length)
+        //     {
+        //         Debug.LogWarning($"Invalid StatType id: {typeId}");
+        //         return;
+        //     }
+        //
+        //     var statType = (StatType)typeId;
+        //
+        //     SpendStatUpgradeEvent.Trigger(statType);
+        // }
 
         void TriggerPlayerSetsClass(int classId)
         {
