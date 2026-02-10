@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using FirstPersonPlayer.ScriptableObjects;
 using Helpers.Events.Terminals;
@@ -90,11 +89,19 @@ namespace Manager.ProgressionMangers
         }
         public bool HasSavedData()
         {
-            throw new NotImplementedException();
+            return ES3.FileExists(_savePath ?? GetSaveFilePath());
         }
         public void OnMMEvent(MetaTerminalEvent eventType)
         {
-            throw new NotImplementedException();
+            if (eventType.EventType == MetaTerminalEventType.MetaTerminalRegistered)
+            {
+                _visitedMetaTerminals.Add(eventType.TerminalUniqueID);
+                MarkDirty();
+            }
+            else if (eventType.EventType == MetaTerminalEventType.RequestedFastTravelToOtherTerminal)
+            {
+                // Handle fast travel request if needed
+            }
         }
 
 
