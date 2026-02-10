@@ -30,8 +30,8 @@ namespace FirstPersonPlayer.Combat.Player.ScriptableObjects
         [Header("Basic Properties")] public string displayName;
         public PlayerAttackType attackType;
 
-        [ShowIf("attackType", PlayerAttackType.Ranged)]
-        public float baseRange;
+        // [ShowIf("attackType", PlayerAttackType.Ranged)]
+        // public float baseRange;
 
         [Header("Damage Properties")] public float baseBlowbackContaminationMultiplier = 1f;
         public float rawDamage;

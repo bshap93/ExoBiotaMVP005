@@ -41,12 +41,14 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         [Tooltip("Delay in seconds before hit is applied for Swing 03 animation (if used).")]
         public float swing03HitDelay = 0.22f;
 
+        public float swingHeavyHitDelay = 0.1f;
+
         [SerializeField] protected float swingSpeedMultiplier = 1f;
 
         [Tooltip("Fallback delay if using beginUseAnimation (legacy mode).")]
         public float defaultHitDelay = 0.2f;
 
-        public float swingDownHitDelay = 0.1f;
+        // public float swingDownHitDelay = 0.1f;
 
         public bool useOnRelease;
 
@@ -181,6 +183,35 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
                     Quaternion.LookRotation(-mainCamera.transform.forward));
 
                 Destroy(debris, 2f);
+            }
+        }
+
+        public virtual void PlayHeavySwingSequence()
+        {
+            var animSet = AnimController.currentToolAnimationSet;
+            var swingClip = animSet.heavySwingAnimation;
+            var swingSound = animSet.heavySwingAudioClip;
+
+            var hitDelay = swingHeavyHitDelay / swingSpeedMultiplier;
+
+            if (swingClip == null)
+            {
+                swingClip = animSet.heavySwingAnimation;
+                hitDelay = swingHeavyHitDelay;
+            }
+
+            if (swingSound != null) StartCoroutine(PlaySoundAfterDelay(swingSound, hitDelay / 2f));
+
+            if (swingClip != null)
+            {
+                PlaySwingAnimation(swingClip);
+
+                StartCoroutine(ApplyHeavyHitAfterDelay(hitDelay));
+            }
+            else
+            {
+                AnimController.PlayToolUseOneShot();
+                StartCoroutine(ApplyHeavyHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
             }
         }
 

@@ -359,10 +359,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             PlaySwingSequence();
         }
-        public override void PerformPartiallyChargedToolAction()
-        {
-            throw new NotImplementedException();
-        }
+        // public override void PerformPartiallyChargedToolAction()
+        // {
+        //     throw new NotImplementedException();
+        // }
         public override void PerformHeavyChargedToolAction()
         {
             throw new NotImplementedException();

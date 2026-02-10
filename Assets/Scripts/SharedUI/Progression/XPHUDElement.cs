@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Helpers.Events.Combat;
 using Helpers.Events.Progression;
 using Inventory;
+using Manager;
 using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
@@ -12,7 +14,7 @@ namespace SharedUI.Progression
 {
     public class XphudElement : MonoBehaviour, MMEventListener<XPEvent>,
         MMEventListener<ProgressionUpdateListenerNotifier>, MMEventListener<LevelingEvent>,
-        MMEventListener<MMInventoryEvent>
+        MMEventListener<MMInventoryEvent>, MMEventListener<StaminaRestoreRateEvent>
     {
         [Header("Main Canvas Group")] [SerializeField]
         CanvasGroup debugCanvasGroup;
@@ -20,6 +22,7 @@ namespace SharedUI.Progression
 
         [Header("References")] [SerializeField]
         LevelingManager levelingManager;
+        [SerializeField] PlayerMutableStatsManager playerMutableStatsManager;
 
         [SerializeField] XPNotify xpNotifyComponent;
         [SerializeField] LevelNotify levelNotifyComponent;
@@ -37,7 +40,7 @@ namespace SharedUI.Progression
         [Header("Debug")] [SerializeField] CanvasGroup debugChipsCanvasGroup;
         [SerializeField] TMP_Text totalXPText;
         [SerializeField] TMP_Text currentLevelText;
-        // [SerializeField] TMP_Text unusedUpgradesText;
+        [SerializeField] TMP_Text staminaRestoreRateText;
         [SerializeField] TMP_Text unusedAttributePointsText;
         [SerializeField] TMP_Text coresNumberText;
 
@@ -63,6 +66,7 @@ namespace SharedUI.Progression
             this.MMEventStartListening<ProgressionUpdateListenerNotifier>();
             this.MMEventStartListening<LevelingEvent>();
             this.MMEventStartListening<MMInventoryEvent>();
+            this.MMEventStartListening<StaminaRestoreRateEvent>();
         }
 
         void OnDisable()
@@ -71,6 +75,7 @@ namespace SharedUI.Progression
             this.MMEventStopListening<ProgressionUpdateListenerNotifier>();
             this.MMEventStopListening<LevelingEvent>();
             this.MMEventStopListening<MMInventoryEvent>();
+            this.MMEventStopListening<StaminaRestoreRateEvent>();
         }
 
         public void OnMMEvent(LevelingEvent eventType)
@@ -90,6 +95,11 @@ namespace SharedUI.Progression
             currentLevelText.text = eventType.CurrentLevel.ToString();
             // unusedUpgradesText.text = eventType.CurrentUpgradesUnused.ToString();
             unusedAttributePointsText.text = eventType.CurrentAttributePointsUnused.ToString();
+        }
+        public void OnMMEvent(StaminaRestoreRateEvent eventType)
+        {
+            // For debug: show current stamina restore rate in the debug panel
+            if (debugMode) staminaRestoreRateText.text = $"{eventType.CurrentStaminaRestoreRate:F2}";
         }
         public void OnMMEvent(XPEvent eventType)
         {

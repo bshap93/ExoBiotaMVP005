@@ -117,6 +117,8 @@ namespace Manager
 
         public float CurrentStamina { get; private set; }
 
+        public float CurrentStaminaRestoreRate { get; private set; }
+
 
         public static PlayerMutableStatsManager Instance { get; private set; }
         // public int CurrentCU => Mathf.FloorToInt(CurrentContamination / ContaminationPointsPerCU);
@@ -146,12 +148,22 @@ namespace Manager
 
         void Update()
         {
-            if (CurrentStamina < BaseMaxContamination)
+            if (CurrentStamina < BaseMaxStamina)
             {
                 if (_restoreStaminaRoutine == null)
+                {
+                    var agility = attributesManager.Agility;
+                    var toolMultiplier = PlayerEquipment.Instance.CurrentToolSo.staminaRestoreRateMultiplier;
+
+                    CurrentStaminaRestoreRate =
+                        levelingManager.GetBaseStaminaRestoreRateForAgility(agility) * toolMultiplier;
+
+                    StaminaRestoreRateEvent.Trigger(CurrentStaminaRestoreRate);
+
                     _restoreStaminaRoutine = StartCoroutine(
-                        RestoreStaminaOverTime(defaultPlayerStatsSheet.initialBaseStaminaRestoreRate)
+                        RestoreStaminaOverTime(CurrentStaminaRestoreRate)
                     );
+                }
             }
             else
             {

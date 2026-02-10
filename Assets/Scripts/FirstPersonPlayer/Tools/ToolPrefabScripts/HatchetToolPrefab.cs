@@ -4,7 +4,6 @@ using FirstPersonPlayer.Interactable;
 using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using FirstPersonPlayer.Minable;
 using FirstPersonPlayer.Tools.Interface;
-using Helpers.Events;
 using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager;
@@ -21,12 +20,12 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         [Tooltip("Tags this hatchet is allowed to affect (e.g., BioObstacle, Vegetation).")]
         public string[] allowedTags;
         // No cost if swing didn't make contact
+        [FormerlySerializedAs("normalSwingCooldown")]
         [FormerlySerializedAs("staminaCostPerConnectingSwing")]
-        [FormerlySerializedAs("swingCooldown")]
         [Tooltip("Number of seconds between swings.")]
-        public float normalSwingCooldown = 0.6f;
+        public float swingCooldown = 0.6f;
 
-        public float fromHeldUpChargedSwingCooldown = 0.3f;
+        // public float fromHeldUpChargedSwingCooldown = 0.3f;
 
 
         [Tooltip("Tool power sent to HatchetBreakable (compares to its hardness).")]
@@ -60,61 +59,65 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         {
             if (attributesManager == null) attributesManager = AttributesManager.Instance;
 
-            // If button released while pullback animation is still playing
-            if (ChargeTimeElapsed > 0f && !ToolIsHeldInChargePosition)
-            {
+            if (PlayerMutableStatsManager.Instance.CurrentStamina <= 19.9f)
                 PerformToolAction();
+            else if (PlayerMutableStatsManager.Instance.CurrentStamina > 19.9f) PerformHeavyChargedToolAction();
 
-                ChargeTimeElapsed = 0f;
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-                return;
-            }
-
-            if (!ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-                    return;
-                }
-
-                PerformToolAction();
-
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
-            else if (ChargeTimeElapsed >= timeToFullCharge && ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerHeavyConnectingSwing)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-
-                    return;
-                }
-
-                PerformHeavyChargedToolAction();
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
-            else if (ToolIsHeldInChargePosition)
-            {
-                if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
-                {
-                    // Not enough stamina
-                    AlertEvent.Trigger(
-                        AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
-
-
-                    return;
-                }
-
-                PerformPartiallyChargedToolAction();
-                ChargeToolEvent.Trigger(ChargeToolEventType.Release);
-            }
+            // // If button released while pullback animation is still playing
+            // if (ChargeTimeElapsed > 0f && !ToolIsHeldInChargePosition)
+            // {
+            //     PerformToolAction();
+            //
+            //     // ChargeTimeElapsed = 0f;
+            //     // ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            //     return;
+            // }
+            //
+            // if (!ToolIsHeldInChargePosition)
+            // {
+            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
+            //     {
+            //         // Not enough stamina
+            //         AlertEvent.Trigger(
+            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
+            //
+            //         return;
+            //     }
+            //
+            //     PerformToolAction();
+            //
+            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            // }
+            // else if (ChargeTimeElapsed >= timeToFullCharge && ToolIsHeldInChargePosition)
+            // {
+            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerHeavyConnectingSwing)
+            //     {
+            //         // Not enough stamina
+            //         AlertEvent.Trigger(
+            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
+            //
+            //
+            //         return;
+            //     }
+            //
+            //     PerformHeavyChargedToolAction();
+            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            // }
+            // else if (ToolIsHeldInChargePosition)
+            // {
+            //     if (PlayerMutableStatsManager.Instance.CurrentStamina < StaminaCostPerNormalConnectingSwing)
+            //     {
+            //         // Not enough stamina
+            //         AlertEvent.Trigger(
+            //             AlertReason.NotEnoughStamina, "Not enough stamina to use pickaxe.", "Insufficient Stamina");
+            //
+            //
+            //         return;
+            //     }
+            //
+            //     PerformPartiallyChargedToolAction();
+            //     ChargeToolEvent.Trigger(ChargeToolEventType.Release);
+            // }
 
             // PerformToolAction();
         }
@@ -190,8 +193,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             AnimController?.ClearActionState();
 
             // Reset charge state
-            ChargeTimeElapsed = 0f;
-            ToolIsHeldInChargePosition = false;
+            // ChargeTimeElapsed = 0f;
+            // ToolIsHeldInChargePosition = false;
 
             // Trigger release event
             ChargeToolEvent.Trigger(ChargeToolEventType.Release);
@@ -299,8 +302,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public override void PerformToolAction()
         {
-            normalSwingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
-            if (Time.time < lastSwingTime + normalSwingCooldown) return;
+            swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+            if (Time.time < lastSwingTime + swingCooldown) return;
             lastSwingTime = Time.time;
 
 
@@ -311,97 +314,37 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             if (useMultipleSwings && AnimController.currentToolAnimationSet != null)
             {
                 PlaySwingSequence();
-                ToolIsHeldInChargePosition = false;
+                // ToolIsHeldInChargePosition = false;
             }
             else
             {
                 // Fallback to legacy single animation mode
                 AnimController.PlayToolUseOneShot(speedMultiplier: swingSpeedMultiplier);
-                ToolIsHeldInChargePosition = false;
+                // ToolIsHeldInChargePosition = false;
                 StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
             }
-
-            ChargeTimeElapsed = 0f;
-            ToolIsHeldInChargePosition = false;
         }
-        public override void PerformPartiallyChargedToolAction()
-        {
-            var ratioNormalCooldownToCharged =
-                fromHeldUpChargedSwingCooldown / normalSwingCooldown;
 
-            // Cooldown is still reduced by agility but less because player is starting from held-up position
-            fromHeldUpChargedSwingCooldown -= ratioNormalCooldownToCharged * agilityCooldownSecondsReducePerPoint *
-                                              (attributesManager.Agility - 1);
+
+        public override void PerformHeavyChargedToolAction()
+        {
+            swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+            if (Time.time < lastSwingTime + swingCooldown) return;
+            lastSwingTime = Time.time;
+
 
             PlayerStatsEvent.Trigger(
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerNormalConnectingSwing);
 
 
-            PlayDownFromHeldUpSwingAnimation();
-            ChargeTimeElapsed = 0f;
-            ToolIsHeldInChargePosition = false;
-        }
-
-        public override void PerformHeavyChargedToolAction()
-        {
-            var ratioNormalCooldownToCharged =
-                fromHeldUpChargedSwingCooldown / normalSwingCooldown;
-
-            // Cooldown is still reduced by agility but less because player is starting from held-up position
-            fromHeldUpChargedSwingCooldown -= ratioNormalCooldownToCharged * agilityCooldownSecondsReducePerPoint *
-                                              (attributesManager.Agility - 1);
-
             PlayerStatsEvent.Trigger(
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerHeavyConnectingSwing);
 
-            PlayHeavyDownFromHeldUpSwingAnimation();
-            ChargeTimeElapsed = 0f;
-            ToolIsHeldInChargePosition = false;
-        }
+            // PlayHeavyDownFromHeldUpSwingAnimation();
 
-        public void PlayHeavyDownFromHeldUpSwingAnimation()
-        {
-            var animSet = AnimController.currentToolAnimationSet;
-            AnimationClip downFromHeldUpSwingClip = null;
-            AudioClip downFromHeldUpSwingAudioCLip = null;
-            var hitDelay = swingDownHitDelay * heavySwingDownFactor / swingSpeedMultiplier;
-
-            downFromHeldUpSwingClip = animSet.endUseAnimation;
-            downFromHeldUpSwingAudioCLip = animSet.endHeavyUseAudioClip;
-
-
-            if (downFromHeldUpSwingAudioCLip != null)
-                StartCoroutine(PlaySoundAfterDelay(downFromHeldUpSwingAudioCLip, hitDelay / 2f));
-
-            if (downFromHeldUpSwingClip != null)
-            {
-                PlaySwingAnimation(downFromHeldUpSwingClip);
-
-                StartCoroutine(ApplyHeavyHitAfterDelay(hitDelay));
-            }
-        }
-
-        public void PlayDownFromHeldUpSwingAnimation()
-        {
-            var animSet = AnimController.currentToolAnimationSet;
-            AnimationClip downFromHeldUpSwingClip = null;
-            AudioClip downFromHeldUpSwingAudioCLip = null;
-            var hitDelay = swingDownHitDelay / swingSpeedMultiplier;
-
-            downFromHeldUpSwingClip = animSet.endUseAnimation;
-            downFromHeldUpSwingAudioCLip = animSet.endUseAudioClip;
-
-            if (downFromHeldUpSwingAudioCLip != null)
-                StartCoroutine(PlaySoundAfterDelay(downFromHeldUpSwingAudioCLip, hitDelay / 2f));
-
-            if (downFromHeldUpSwingClip != null)
-            {
-                PlaySwingAnimation(downFromHeldUpSwingClip);
-
-                StartCoroutine(ApplyNormalHitAfterDelay(hitDelay));
-            }
+            PlayHeavySwingSequence();
         }
 
 

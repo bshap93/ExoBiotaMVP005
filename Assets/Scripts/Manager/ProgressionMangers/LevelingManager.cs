@@ -464,15 +464,6 @@ namespace Manager.ProgressionMangers
             return globalInventoryManager.GetTotalNumberOfCores();
         }
 
-        // public float GetStaminaAmountForUpgradeLevel(int upgradeLevel)
-        // {
-        //     foreach (var entry in staminaAmountByUpgrade)
-        //         if (entry.upgradeLevel == upgradeLevel)
-        //             return entry.staminaAmount;
-        //
-        //     throw new Exception($"Upgrade level {upgradeLevel} not found in staminaAmountByUpgrade array.");
-        // }
-
         [Serializable]
         public struct BaseStaminaRestoreRateByAgility
         {
@@ -498,13 +489,6 @@ namespace Manager.ProgressionMangers
             [FormerlySerializedAs("HealthAmount")] public float healthAmount;
         }
 
-        // [Serializable]
-        // public class StaminaMultiplierAmtByAgility
-        // {
-        //     [FormerlySerializedAs("upgradeLevel")] public int agility;
-        //     [FormerlySerializedAs("staminaAmount")]
-        //     public float baseStaminaRestorationSpeedMultiplier;
-        // }
 
         [Serializable]
         public class ContaminationAmountByExobiotic

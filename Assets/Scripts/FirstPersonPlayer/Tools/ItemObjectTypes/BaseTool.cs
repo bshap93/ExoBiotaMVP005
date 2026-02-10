@@ -31,5 +31,8 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
         public bool canBlock;
         [ShowIf("canBlock")] public float blockDamageMultiplierAgainstMelee = 1.0f;
         [ShowIf("canBlock")] public float blockDamageMultiplierAgainstRanged = 1.0f;
+
+        public bool usesStamina;
+        [ShowIf("usesStamina")] public float staminaRestoreRateMultiplier = 1.0f;
     }
 }
