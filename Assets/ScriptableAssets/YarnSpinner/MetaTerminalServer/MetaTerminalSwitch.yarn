@@ -18,63 +18,6 @@ Meta Terminal: Stand by for terminal data...
 
 ===
 
-// title: UpgradeStatsWhenPossible
-// ---
-// Meta Terminal: Which vital would you like to upgrade?
-// <<declare $currentLv = 0>>
-// <<declare $newLv = 0>>
-// -> Health
-//     <<set $currentLv = get_current_health_upgrade_level()>>
-//     Meta Terminal: Are you sure?
-//         -> Yes
-//             Meta Terminal: Making health upgrade now.
-//             <<trigger_stat_upgrade 0>>
-//             <<wait 2>>
-//             <<set $newLv = get_current_health_upgrade_level()>>
-//             <<if $newLv > $currentLv>>
-//                 Meta Terminal: Success
-//             <<else>> 
-//                 Meta Terminal: Failure
-//             <<endif>>
-//             <<jump TerminalGeneralDirectory>>
-// -> Stamina
-//     <<set $currentLv = get_current_stamina_upgrade_level()>>
-//     Meta Terminal: Are you sure?
-//         -> Yes
-//             Meta Terminal: Commencing stamina upgrade now.
-//             <<trigger_stat_upgrade 1>>
-//             <<wait 2>>
-//             <<set $newLv = get_current_stamina_upgrade_level()>>
-//             <<if $newLv > $currentLv>>
-//                 Meta Terminal: Success
-//             <<else>> 
-//                 Meta Terminal: Failure
-//             <<endif>>
-//             <<jump TerminalGeneralDirectory>>
-// -> Contamination
-//     <<set $currentLv = get_current_contamination_upgrade_level()>>
-//     Meta Terminal: Are you sure?
-//         -> Yes
-//             Meta Terminal: Making contamination upgrade now.
-//             <<trigger_stat_upgrade 2>>
-//             <<wait 2>>
-//             <<set $newLv = get_current_contamination_upgrade_level()>>
-//             <<if $newLv > $currentLv>>
-//                 Meta Terminal: Success
-//             <<else>> 
-//                 Meta Terminal: Failure
-//             <<endif>>
-//             <<jump TerminalGeneralDirectory>>
-// -> I want more information on each option.
-//     Meta Terminal: Health is your vitality, and having it means you're alive.
-//     Meta Terminal: Stamina is your capacity to fight and use manual tools.
-//     Meta Terminal: Contamination is your capacity to use your new abilities as a human-alien hybrid. 
-//     Meta Terminal: Increasing Contamination will make you able to use your abilities more times before needing replenhishment.
-// -> I'll upgrade later.
-//     <<jump TerminalGeneralDirectory>>
-// ===
-
-
 title: IntroduceAttributeClass
 ---
 Meta Terminal: You'll set your 4 main attributes: Strength, Dexterity, Agility, and Biotic Strength.
@@ -331,6 +274,7 @@ title: SaveMyGameAtTerminal
 ---
 Meta Terminal: Saving Game...
 <<wait  2>>
+<<set_spawn_point "AshpoolMine" "TerminalSpawn00">>
 <<save_game>>
 Meta Terminal: Game Saved!
 ===

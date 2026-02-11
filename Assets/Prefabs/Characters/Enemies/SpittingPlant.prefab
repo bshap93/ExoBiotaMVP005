@@ -12276,7 +12276,7 @@ MonoBehaviour:
   meleeHitFeedbacksHeavy: {fileID: 6829217372675274196}
   rangedHitFeedbacksHeavy: {fileID: 6829217372675274196}
   secondsBeforeSettingShouldBeDestroyed: 5
-  currentHealth: 30
+  currentHealth: 50
   attackCount: 1
   attackInstances: []
   currentStunDamage: 0
@@ -12286,7 +12286,6 @@ MonoBehaviour:
   destroyAfterDeath: 1
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
-  destroyAfterDeath: 1
   trunkPoints:
   - {fileID: 9174863069803674893}
   - {fileID: 4878080257969940040}

@@ -151,7 +151,8 @@ namespace Manager
         {
             if (CurrentStamina < BaseMaxStamina)
             {
-                if (_restoreStaminaRoutine == null)
+                if (_restoreStaminaRoutine == null && PlayerEquipment.Instance != null &&
+                    PlayerEquipment.Instance.CurrentToolSo != null)
                 {
                     var agility = attributesManager.Agility;
                     var toolMultiplier = PlayerEquipment.Instance.CurrentToolSo.staminaRestoreRateMultiplier;

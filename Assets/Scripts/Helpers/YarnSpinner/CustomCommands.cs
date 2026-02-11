@@ -3,11 +3,13 @@ using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
 using Helpers.Events.Progression;
 using Inventory;
+using Manager;
 using Manager.ProgressionMangers;
 using MoreMountains.InventoryEngine;
 using Objectives;
 using Overview.NPC;
 using SharedUI.Progression;
+using Structs;
 using UnityEngine;
 using Yarn.Unity;
 
@@ -96,6 +98,8 @@ namespace Helpers.YarnSpinner
                 "save_game",
                 SaveGame);
 
+            dialogueRunner.AddCommandHandler<string, string>("set_spawn_point", SetSpawnPoint);
+
             dialogueRunner.AddCommandHandler<int>(
                 "fast_travel_to_terminal",
                 FastTravelToTerminal);
@@ -105,6 +109,20 @@ namespace Helpers.YarnSpinner
         void CameraLookAtTarget()
         {
             Debug.LogWarning("Looking at target: ");
+        }
+
+        // Game State Save
+
+        void SetSpawnPoint(string sceneName, string spawnPointId)
+        {
+            var info = new SpawnInfo
+            {
+                SceneName = sceneName,
+                SpawnPointId = spawnPointId,
+                Mode = GameMode.FirstPerson
+            };
+
+            PlayerSpawnManager.Instance.Save(info); // writes checkpoint
         }
 
         void SaveGame()

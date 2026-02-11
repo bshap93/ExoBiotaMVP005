@@ -2,6 +2,7 @@ using System;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using LevelConstruct.Spawn;
 using Lightbug.Utilities;
 using Manager.DialogueScene;
 using MoreMountains.Feedbacks;
@@ -17,6 +18,8 @@ namespace FirstPersonPlayer.Interactable
             string npcId;
 
         [SerializeField] MMFeedbacks startDialogueFeedback;
+
+        [SerializeField] SpawnPoint spawnPoint;
 
         [SerializeField] string defaultStartNode = "NavigationServerSwitch";
 

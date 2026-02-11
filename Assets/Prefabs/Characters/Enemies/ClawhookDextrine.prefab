@@ -35630,7 +35630,7 @@ MonoBehaviour:
   meleeHitFeedbacksHeavy: {fileID: 9022412224681212674}
   rangedHitFeedbacksHeavy: {fileID: 9022412224681212674}
   secondsBeforeSettingShouldBeDestroyed: 5
-  currentHealth: 40
+  currentHealth: 80
   attackCount: 2
   attackInstances:
   - attackName: Single Jab

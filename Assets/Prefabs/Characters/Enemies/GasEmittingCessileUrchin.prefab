@@ -608,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2857262b17b24e32b364a1b404171a5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyAfterDeath: 1
   isDead: 0
   uniqueID: 
   blackboard: {fileID: 8518245851324216581}
@@ -624,10 +623,7 @@ MonoBehaviour:
   meleeHitFeedbacksHeavy: {fileID: 6021429761628311532}
   rangedHitFeedbacksHeavy: {fileID: 6021429761628311532}
   secondsBeforeSettingShouldBeDestroyed: 5
-  appearsOnlyOnce: 0
-  doesNotImmediatelyNeedToMove: 1
-  currentHealth: 20
-  isStunned: 0
+  currentHealth: 40
   attackCount: 1
   attackInstances:
   - attackName: 
@@ -639,6 +635,11 @@ MonoBehaviour:
     leadupTime: 0
   currentStunDamage: 0
   highlightEffect: {fileID: 1833328728171968791}
+  startAsActivated: 0
+  isStunned: 0
+  destroyAfterDeath: 1
+  doesNotImmediatelyNeedToMove: 1
+  appearsOnlyOnce: 0
   smoke: {fileID: 8534271401702930362}
   gasAreaCollider: {fileID: 7206840701314327925}
   undestroyedModelObject: {fileID: 5290469863234543236}
