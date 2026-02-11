@@ -1,8 +1,10 @@
 using System;
+using EditorScripts;
 using FirstPersonPlayer.Interface;
 using FirstPersonPlayer.ScriptableObjects;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using Helpers.Events.Spawn;
 using Lightbug.Utilities;
 using Manager.DialogueScene;
 using MoreMountains.Feedbacks;
@@ -26,6 +28,9 @@ namespace FirstPersonPlayer.Interactable
 
         [ValueDropdown("GetNpcIdOptions")] public
             string npcId;
+
+        [SerializeField] [InlineProperty] [HideLabel]
+        SpawnInfoEditor overrideSpawnInfo;
         public string GetName()
         {
             throw new NotImplementedException();
@@ -56,6 +61,10 @@ namespace FirstPersonPlayer.Interactable
                 FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcId, nodeToUse);
 
             startDialogueFeedback?.PlayFeedbacks();
+            
+            SpawnAssignmentEvent.Trigger(
+                SpawnAssignmentEventType.SetMostRecentSpawnPoint, overrideSpawnInfo.SceneName,
+                overrideSpawnInfo.SpawnPointId);
 
             MyUIEvent.Trigger(UIType.Any, UIActionType.Open);
         }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Events;
 using Helpers.Events;
@@ -98,13 +97,11 @@ namespace Helpers.YarnSpinner
         }
 
 
-
         [YarnCommand("test_command")]
         public void TestCommand()
         {
             Debug.Log("Test command executed.");
         }
-
 
 
         // ----------- Currency commands ----------
@@ -318,11 +315,11 @@ namespace Helpers.YarnSpinner
             InGameTimeActionEvent.Trigger(InGameTimeActionEvent.ActionType.Resume);
         }
 
-        [YarnCommand("wait")]
-        public IEnumerator Wait(float seconds)
-        {
-            yield return new WaitForSeconds(seconds);
-        }
+        // [YarnCommand("wait")]
+        // public IEnumerator Wait(float seconds)
+        // {
+        //     yield return new WaitForSeconds(seconds);
+        // }
         // [YarnCommand("shrug")]
         // public void Shrug(string npcId)
         // {

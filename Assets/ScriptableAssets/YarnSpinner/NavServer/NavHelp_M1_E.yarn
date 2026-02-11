@@ -1,3 +1,5 @@
+
+
 title: NavHelp_M1_E
 ---
 Navigation Server: What is your bearing?
@@ -7,8 +9,17 @@ Navigation Server: What is your bearing?
     <<jump NavHelp_M1_North>>
 -> South
     <<jump NavHelp_M1_South>>
-===
+-> Save my game here
 
+===
+title: SaveMyGameAtNavHolo
+---
+Meta Terminal: Saving Game...
+<<wait  2>>
+<<set_last_spawn_point>>
+<<save_game>>
+Meta Terminal: Game Saved!
+===
 
 title: NavHelp_M1_North
 ---

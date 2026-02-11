@@ -1,7 +1,9 @@
 using System;
+using EditorScripts;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using Helpers.Events.Spawn;
 using LevelConstruct.Spawn;
 using Lightbug.Utilities;
 using Manager.DialogueScene;
@@ -34,6 +36,9 @@ namespace FirstPersonPlayer.Interactable
         [SerializeField] bool showPlayerPosition;
         [SerializeField] bool showAdditionalOverlay;
 
+        [SerializeField] [InlineProperty] [HideLabel]
+        SpawnInfoEditor overrideSpawnInfo;
+
         [ShowIf("showAdditionalOverlay")] [SerializeField]
         Sprite additionalOverlaySprite;
         public void Interact()
@@ -46,6 +51,10 @@ namespace FirstPersonPlayer.Interactable
                 FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcId, nodeToUse);
 
             startDialogueFeedback?.PlayFeedbacks();
+
+            SpawnAssignmentEvent.Trigger(
+                SpawnAssignmentEventType.SetMostRecentSpawnPoint, overrideSpawnInfo.SceneName,
+                overrideSpawnInfo.SpawnPointId);
 
             MyUIEvent.Trigger(UIType.Any, UIActionType.Open);
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Helpers.Events;
+using Helpers.Events.Spawn;
 using Helpers.Interfaces;
 using MoreMountains.Tools;
 using Structs;
@@ -10,7 +11,7 @@ using Utilities.Static;
 namespace Manager
 {
     public class PlayerSpawnManager : MonoBehaviour, ICoreGameService, MMEventListener<SpawnEvent>,
-        MMEventListener<CheckpointEvent>
+        MMEventListener<CheckpointEvent>, MMEventListener<SpawnAssignmentEvent>
     {
         const string SpawnKey = "SpawnInfo";
         const string SpawnDictKey = "SpawnDict";
@@ -20,12 +21,14 @@ namespace Manager
         [SerializeField] bool autoSaveAtCheckpoints = true;
 
         [FormerlySerializedAs("DefaultStartSpawn")] [SerializeField]
-        string defaultStartSpawn = "EnterValleySpawn";
-        [SerializeField] string defaultStartScene = "Overworld";
-
+        string defaultStartSpawn = "StartSpawn";
+        [SerializeField] string defaultStartScene = "AshpoolMine";
 
         bool _dirty;
+
         string _savePath;
+
+        public SpawnInfo LastAssignedSpawn { get; private set; }
 
         public static SpawnInfo LastLoadedSpawn { get; private set; }
 
@@ -63,12 +66,14 @@ namespace Manager
         {
             this.MMEventStartListening<CheckpointEvent>();
             this.MMEventStartListening<SpawnEvent>();
+            this.MMEventStartListening<SpawnAssignmentEvent>();
         }
 
         void OnDisable()
         {
             this.MMEventStopListening<CheckpointEvent>();
             this.MMEventStopListening<SpawnEvent>();
+            this.MMEventStopListening<SpawnAssignmentEvent>();
         }
 
         public void MarkDirty()
@@ -129,6 +134,16 @@ namespace Manager
         {
             if (autoSaveAtCheckpoints) Save(eventType.SpawnInfo);
         }
+        public void OnMMEvent(SpawnAssignmentEvent eventType)
+        {
+            if (eventType.SpawnAssignmentEventType == SpawnAssignmentEventType.SetMostRecentSpawnPoint)
+                LastAssignedSpawn = new SpawnInfo
+                {
+                    SceneName = eventType.SceneName,
+                    SpawnPointId = eventType.SpawnPointID,
+                    Mode = GameMode.FirstPerson
+                };
+        }
 
         public async void OnMMEvent(SpawnEvent eventType)
         {
@@ -150,8 +165,8 @@ namespace Manager
         {
             var defaultSpawn = new SpawnInfo
             {
-                SceneName = "Overworld",
-                Mode = GameMode.Overview,
+                SceneName = defaultStartScene,
+                Mode = GameMode.FirstPerson,
                 SpawnPointId = defaultStartSpawn
             };
 

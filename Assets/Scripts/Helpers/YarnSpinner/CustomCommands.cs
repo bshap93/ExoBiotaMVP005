@@ -1,3 +1,4 @@
+using System.Collections;
 using Helpers.Events;
 using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
@@ -100,6 +101,8 @@ namespace Helpers.YarnSpinner
 
             dialogueRunner.AddCommandHandler<string, string>("set_spawn_point", SetSpawnPoint);
 
+            dialogueRunner.AddCommandHandler("set_last_spawn_point", () => StartCoroutine(SetLastSpawnPoint()));
+
             dialogueRunner.AddCommandHandler<int>(
                 "fast_travel_to_terminal",
                 FastTravelToTerminal);
@@ -123,6 +126,15 @@ namespace Helpers.YarnSpinner
             };
 
             PlayerSpawnManager.Instance.Save(info); // writes checkpoint
+        }
+
+        IEnumerator SetLastSpawnPoint()
+        {
+            var info = PlayerSpawnManager.Instance.LastAssignedSpawn;
+
+            PlayerSpawnManager.Instance.Save(info); // writes checkpoint
+
+            yield return null;
         }
 
         void SaveGame()

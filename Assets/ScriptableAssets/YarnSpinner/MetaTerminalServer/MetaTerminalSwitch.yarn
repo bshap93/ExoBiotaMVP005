@@ -274,7 +274,7 @@ title: SaveMyGameAtTerminal
 ---
 Meta Terminal: Saving Game...
 <<wait  2>>
-<<set_spawn_point "AshpoolMine" "TerminalSpawn00">>
+<<set_last_spawn_point>>
 <<save_game>>
 Meta Terminal: Game Saved!
 ===

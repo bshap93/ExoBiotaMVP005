@@ -88,9 +88,9 @@ public class BootLoader : MonoBehaviour
             else
                 info = new SpawnInfo
                 {
-                    SceneName = "Overworld",
-                    Mode = GameMode.Overview,
-                    SpawnPointId = "ScienceDockSpawn"
+                    SceneName = "AshpoolMine",
+                    Mode = GameMode.FirstPerson,
+                    SpawnPointId = "StartSpawn"
                 };
         }
 
