@@ -1,0 +1,22 @@
+title: NavHelp_SF01
+---
+Navigation Server: Welcome, new unidentified life-form.
+Navigation Server: This terminal and those like it in the region are at your service.
+-> Can I get directions?
+===
+
+title: NavHelp_SF01_Directions
+---
+Navigation Server: You are currently at the border of the buffer zone and human controlled territory.
+-> South
+    Navigation Server: To the south is human controlled territory.
+-> North
+    Navigation Server: North of current position, including it: exclusion zone, as of ceasefire. Last update
+    Navigation Server: to this unit: 2.2 earth weeks prior. 
+===
+
+
+title: NavHelp_SF01_Liability
+---
+Navigation Server: Proprietor of this unit not liable for actions taken based on outdated information.
+===

@@ -2,14 +2,13 @@
 using Events;
 using Helpers.Events.Dialog;
 using Manager.DialogueScene;
-using Manager.SceneManagers.Dock;
 using MoreMountains.Tools;
 using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Overview.NPC.Dialogue
 {
-    public class DialogueEventBridge : MonoBehaviour, 
+    public class DialogueEventBridge : MonoBehaviour,
         MMEventListener<FirstPersonDialogueEvent>
     {
         [SerializeField] NpcDatabase npcDatabase;
@@ -17,28 +16,38 @@ namespace Overview.NPC.Dialogue
 
         public void OnEnable()
         {
-            this.MMEventStartListening<FirstPersonDialogueEvent>();
+            this.MMEventStartListening();
         }
 
         public void OnDisable()
         {
-            this.MMEventStopListening<FirstPersonDialogueEvent>();
+            this.MMEventStopListening();
         }
 
         public void OnMMEvent(FirstPersonDialogueEvent e)
         {
             if (e.Type != FirstPersonDialogueEventType.StartDialogue) return;
 
-            if (!npcDatabase.TryGet(e.NPCId, out var def))
+            NpcDefinition foundNpcDefinition = null;
+            foreach (var npc in npcDatabase.npcDefinitions)
+                if (e.NPCId == npc.npcId)
+                {
+                    foundNpcDefinition = npc;
+                    break;
+                }
+
+            if (foundNpcDefinition == null)
+                // if (!npcDatabase.TryGet(e.NPCId, out var def))
             {
                 Debug.LogWarning($"No NPC with id {e.NPCId}");
                 return;
             }
 
             if (!e.StartNodeOverride.IsNullOrWhitespace())
-                dialogueManager.OpenNPCDialogue(def, startNodeOverride: e.StartNodeOverride, autoClose: true);
+                dialogueManager.OpenNPCDialogue(
+                    foundNpcDefinition, startNodeOverride: e.StartNodeOverride, autoClose: true);
             else
-                dialogueManager.OpenNPCDialogue(def);
+                dialogueManager.OpenNPCDialogue(foundNpcDefinition);
         }
 
         // public void OnMMEvent(OverviewLocationEvent e)
