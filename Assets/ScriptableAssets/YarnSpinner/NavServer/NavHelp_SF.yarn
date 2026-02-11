@@ -2,7 +2,19 @@ title: NavHelp_SF01
 ---
 Navigation Server: Welcome, new unidentified life-form.
 Navigation Server: This terminal and those like it in the region are at your service.
+<<jump NavHelp_SF01_QA>>
+===
+title: NavHelp_SF01_QA
+---
+-> Can I see a map?
+    <<jump NavHelp_SF01_Map>>
 -> Can I get directions?
+    <<jump NavHelp_SF01_Directions>>
+-> What can you tell me about this facility?
+    <<jump NavHelp_SF01_Facility>>
+-> Disclaimer
+    <<jump NavHelp_SF01_Liability>>
+-> [Leave]
 ===
 
 title: NavHelp_SF01_Directions
@@ -10,13 +22,31 @@ title: NavHelp_SF01_Directions
 Navigation Server: You are currently at the border of the buffer zone and human controlled territory.
 -> South
     Navigation Server: To the south is human controlled territory.
+    <<jump NavHelp_SF01_QA>>
 -> North
     Navigation Server: North of current position, including it: exclusion zone, as of ceasefire. Last update
-    Navigation Server: to this unit: 2.2 earth weeks prior. 
+    Navigation Server: to this unit: 2.2 earth years prior. 
+    <<jump NavHelp_SF01_QA>>
+-> [Leave]
 ===
 
 
 title: NavHelp_SF01_Liability
 ---
-Navigation Server: Proprietor of this unit not liable for actions taken based on outdated information.
+Navigation Server: Science Directorate military not liable for actions taken based on any intel this unit dispenses.
+<<jump NavHelp_SF01_QA>>
+===
+
+title: NavHelp_SF01_Map
+---
+Navigation Server: Apologies, unidentified life-form. Admin purged map data. Would contact admin,
+Navigation Server: but this unit has been disconnected from Science Directorate networks. Last contact 2.2 earth years.
+<<jump NavHelp_SF01_QA>>
+===
+
+title: NavHelp_SF01_Facility
+---
+Navigation Server: Former Science Directorate military cryonics installation. Current occupants: Unknown.
+Navigation Server: Recommendation: seek the main facility MetaTerminal. This unit is limited to navigation purposes.
+<<jump NavHelp_SF01_QA>>
 ===

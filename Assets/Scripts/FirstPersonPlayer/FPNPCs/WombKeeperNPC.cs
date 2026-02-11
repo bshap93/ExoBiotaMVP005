@@ -51,7 +51,8 @@ namespace FirstPersonPlayer.FPNPCs
         }
         public void Interact()
         {
-            FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcDefinition.npcId, nodeToUse);
+            FirstPersonDialogueEvent.Trigger(
+                FirstPersonDialogueEventType.StartDialogue, npcDefinition.npcId, nodeToUse);
 
             startDialogueFeedback?.PlayFeedbacks();
 
@@ -79,7 +80,7 @@ namespace FirstPersonPlayer.FPNPCs
         }
         public float GetInteractionDistance()
         {
-            return 5f;
+            return 6f;
         }
         public string UniqueID => uniqueID;
         public void SetUniqueID()

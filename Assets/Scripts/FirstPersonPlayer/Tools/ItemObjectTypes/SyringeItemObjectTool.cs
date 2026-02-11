@@ -1,4 +1,5 @@
 ﻿using System;
+using FirstPersonPlayer.ScriptableObjects.BioticAbility;
 using MoreMountains.InventoryEngine;
 using UnityEngine;
 
@@ -8,9 +9,16 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
     [Serializable]
     public class SyringeItemObjectTool : BaseTool
     {
+        public BioticAbilityToolWrapper bioticAbilityInvItem;
+        [SerializeField] bool equipToUse;
+        public BioticAbility bioticAbility => bioticAbilityInvItem.bioticAbility;
         public override bool Equip(string playerID)
         {
-            MMInventoryEvent.Trigger(MMInventoryEventType.ItemEquipped,
+            if (!equipToUse)
+                return base.Equip(playerID);
+
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.ItemEquipped,
                 null, // Slot is not used in this context
                 "EquippedItemInventory", // Assuming this is the inventory name
                 this, // The item being equipped
@@ -19,6 +27,17 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
                 playerID);
 
             return base.Equip(playerID);
+        }
+
+        public override bool Use(string playerID)
+        {
+            if (equipToUse) return false;
+            base.Use(playerID);
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.Pick, null, bioticAbilityInvItem.TargetInventoryName,
+                bioticAbilityInvItem, 1, 0, playerID);
+
+            return true;
         }
     }
 }

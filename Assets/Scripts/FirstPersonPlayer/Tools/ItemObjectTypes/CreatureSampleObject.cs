@@ -2,7 +2,6 @@
 using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using FirstPersonPlayer.ScriptableObjects;
 using Helpers.Events;
-using MoreMountains.InventoryEngine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -32,16 +31,5 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
             BioSampleEvent.Trigger(uniqueID, BioSampleEventType.CompleteCollection, bioOrganismType, 0f);
             return base.Pick(playerID);
         }
-
-        // public override bool Use(string playerID)
-        // {
-        //     base.Use(playerID);
-        //     if (hasAssociatedBioticAbility)
-        //         MMInventoryEvent.Trigger(
-        //             MMInventoryEventType.Pick, null, associatedBioticAbility.TargetInventoryName,
-        //             associatedBioticAbility, 1, 0, playerID);
-        //
-        //     return true;
-        // }
     }
 }
