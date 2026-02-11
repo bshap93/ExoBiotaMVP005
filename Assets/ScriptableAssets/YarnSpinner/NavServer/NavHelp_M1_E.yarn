@@ -10,15 +10,17 @@ Navigation Server: What is your bearing?
 -> South
     <<jump NavHelp_M1_South>>
 -> Save my game here
+    <<jump SaveMyGameAtTerminal>>
+-> Nothing for now
 
 ===
 title: SaveMyGameAtNavHolo
 ---
-Meta Terminal: Saving Game...
+Navigation Terminal: Saving Game...
 <<wait  2>>
 <<set_last_spawn_point>>
 <<save_game>>
-Meta Terminal: Game Saved!
+Navigation Terminal: Game Saved!
 ===
 
 title: NavHelp_M1_North
@@ -30,4 +32,12 @@ Navigation Server: Lower Levels
 title: NavHelp_M1_South
 ---
 Navigation Server: Forward Operating Base
+===
+
+title: NavHelp_Hotsprings_House
+---
+Navigation Terminal: Shahil greets you. How may his terminal serve you?
+-> Save my game here
+    <<jump SaveMyGameAtTerminal>>
+-> Nothing for now
 ===

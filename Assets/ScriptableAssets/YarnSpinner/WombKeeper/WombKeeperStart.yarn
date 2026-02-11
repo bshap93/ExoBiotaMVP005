@@ -1,8 +1,83 @@
 title: WombKeeperStart
 ---
 Womb Keeper: Good, you're awake. You're lucky to be alive.
-Womb Keeper: When you were left here, you had the signs of one unable to recover.
+-> Uh, nope.. I'm was just leaving.
+-> Huh... how am I hearing you? Or maybe not hearing... How?
+    <<jump WombKeeperDialogue01>>
+-> My mind feels... I can't remember anything except fragments. 
+    <<jump WombKeeperDialogue02A>>
+
+===
+
+title: WombKeeperStartAgain
+---
+Womb Keeper: I touch your presence. What purpose may I serve?
+-> Uh, nope.. I'm was just leaving.
+-> Huh... how am I hearing you? Or maybe not hearing... How?
+    <<jump WombKeeperDialogue01>>
+
+
+===
+
+title: WombKeeperDialogue01
+---
+Womb Keeper: I communicate with you like I would with an animal. My mind to your mind.
+-> Your... mind?
+    <<jump WombKeeperDialogue01A>>
+-> All right, I will be leaving.
+===
+
+title: WombKeeperDialogue01A
+---
+Womb Keeper: You have been improved. I oversaw the process.
+<<jump WombKeeperDialogue01A_QA>>
+===
+
+title: WombKeeperDialogue01A_QA
+---
+-> Improved how?
+    <<jump WombKeeperDialogue03A>>
+-> Oversaw? Was someone else here?
+    <<jump WombKeeperDialogue03B>>
+-> [Leave]
+===
+
+title: WombKeeperDialogue02A
+---
+Womb Keeper: What does a newborn animal remember? Something of the nothingness before? I think not.
+-> I'm not a newborn. I remember fragments. Tell me something. What is this place?
+    <<jump WombKeeperDialogue02C>>
+-> I'm not a newborn. I should be leaving.
+===
+
+title: WombKeeperDialogue02B
+---
+Womb Keeper: This is a womb. You were left here when you died. I delivered you when the time was right.
+-> Who left me here? 
+    Womb Keeper: A sister of the kin. Them that move about these halls. Sheolites, you call them, or so I am told.
+    -> An alien? They brought you my dead body?
+        Womb Keeper: Yes. Dead. And not. We two of the kin disagree on the definition.
+        -> I better get going.
+        -> The kin... I almost... Oughh... my head hurts.
+-> I was dead?
+    Womb Keeper: Broken. Components disordered. One does not cheat death. Reborn. Your life starts here.
+    -> Ok, well, I appreciate any aid. If you really saved my life, I guess I should be grateful.
+    Womb Keeper: No need.
+===
+
+title: WombKeeperDialogue02C
+---
 Womb Keeper: Yet I knew so little of how your kind is organized on the inside.
 Womb Keeper: You'll have to forgive me if things are arranged quite differently than you remember.
 Womb Keeper: Have no fear, you will continue on in this form, as have all my womb-children.
+===
+
+title: WombKeeperDialogue03A
+---
+Womb Keeper: New components in, old ones out. Toward perfection... improved.
+<<jump WombKeeperDialogue01A_QA>>
+===
+title: WombKeeperDialogue03B
+---
+Womb Keeper: Keeper
 ===
