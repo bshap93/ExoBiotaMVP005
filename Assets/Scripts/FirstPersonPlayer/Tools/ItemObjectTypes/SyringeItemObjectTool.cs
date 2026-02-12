@@ -1,5 +1,6 @@
 ﻿using System;
 using FirstPersonPlayer.ScriptableObjects.BioticAbility;
+using Helpers.Events.Feedback;
 using MoreMountains.InventoryEngine;
 using UnityEngine;
 
@@ -36,6 +37,9 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
             MMInventoryEvent.Trigger(
                 MMInventoryEventType.Pick, null, bioticAbilityInvItem.TargetInventoryName,
                 bioticAbilityInvItem, 1, 0, playerID);
+
+            ConsumableFeedbackEvent.Trigger(
+                ConsumableFeedbackEventType.InjectableAbilityItemUsed, bioticAbility.UniqueID);
 
             return true;
         }

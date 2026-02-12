@@ -26,6 +26,8 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
             UseWhileHeld
         }
 
+        [SerializeField] AudioClip injectionOfAbilityFluidClip;
+
         [Header("Basic Properties")] public string displayName;
         public BioticAbilityType abilityType;
         public UsageType usageType;
@@ -46,6 +48,8 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
 
         public float abilityBaseRange;
         public float bioticReductionFactor = 0.05f;
+
+        public string UniqueID => name; // Using the asset's name as a unique identifier
 
         public PlayerAttack GetPlayerAttack()
         {
