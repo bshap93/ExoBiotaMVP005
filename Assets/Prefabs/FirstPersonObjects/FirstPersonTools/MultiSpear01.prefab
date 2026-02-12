@@ -60,7 +60,7 @@ MonoBehaviour:
   swing02HitDelay: 0.65
   swing03HitDelay: 0.4
   swingHeavyHitDelay: 0.325
-  swingSpeedMultiplier: 1.5
+  overallToolSwingSpeedMultiplier: 1.5
   defaultHitDelay: 0.4
   useOnRelease: 0
   ineffectualDebrisEffectPrefab: {fileID: 761645417365632772, guid: d930383bf4b2ce64d95f23bedbd942db, type: 3}
@@ -77,6 +77,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483647
   timeToFullCharge: 1.5
+  trailRendererGo: {fileID: 0}
   allowedTags: []
   attackCooldown: 0.6
   spearPower: 1
@@ -828,6 +829,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3547265546420942481, guid: 35d8bb39d7b61ea4cac21ebea30c15ed, type: 3}
+      propertyPath: managedReferences[1616504783501787305].Sfx
+      value: 
+      objectReference: {fileID: 8300000, guid: d4212c1686a187d41a892a0f27a38153, type: 3}
     - target: {fileID: 8918165920025493608, guid: 35d8bb39d7b61ea4cac21ebea30c15ed, type: 3}
       propertyPath: m_Name
       value: MeleeWeaponMMFPlayers

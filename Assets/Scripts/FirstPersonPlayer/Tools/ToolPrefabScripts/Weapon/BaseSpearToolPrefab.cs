@@ -30,27 +30,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
         [SerializeField] float staminaHeavyAttackThreshold = 19.9f;
 
         float StaminaCostPerNormalAttack => 20f;
-        // var attrMgr = AttributesManager.Instance;
-        // if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
-        //
-        // var agility = attrMgr.Agility;
-        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-        //
-        // var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
-        //
-        //
-        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+
         float StaminaCostPerHeavyAttack => 20f;
-        // var attrMgr = AttributesManager.Instance;
-        // if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
-        //
-        // var agility = attrMgr.Agility;
-        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-        //
-        // var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
-        //
-        //
-        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+
         public override void Initialize(PlayerEquipment owner)
         {
             mainCamera = Camera.main;
