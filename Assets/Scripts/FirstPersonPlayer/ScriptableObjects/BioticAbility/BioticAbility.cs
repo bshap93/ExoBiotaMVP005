@@ -13,7 +13,8 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
     {
         public enum BioticAbilityType
         {
-            RangedAttack,
+            RangedHitscanAttack,
+            RangedSlowProjectileAttack,
             AreaOfEffectAttack,
             RangedEffect,
             InstantiateObject,
