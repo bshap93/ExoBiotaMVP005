@@ -55,5 +55,9 @@ namespace Helpers.ScriptableObjects.Animation
 
         [Header("Audio for Equip / Unequip")] public AudioClip pullOutAudioClip;
         public AudioClip putAwayAudioClip;
+        public float swing01DurationForTrailRenderer;
+        public float swing02DurationForTrailRenderer;
+        public float swing03DurationForTrailRenderer;
+        public float heavySwingDurationForTrailRenderer;
     }
 }

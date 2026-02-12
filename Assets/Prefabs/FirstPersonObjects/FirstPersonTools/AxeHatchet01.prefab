@@ -102,13 +102,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826207712872531646}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.6764807, y: -0.009450518, z: 0.032500878, w: 0.73568225}
+  m_LocalPosition: {x: 0.001, y: -0.007, z: 0.001}
   m_LocalScale: {x: 2.1839306, y: 2.1839306, z: 2.1839306}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5681167320243487533}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -84.118, y: -34.387, z: 36.257}
 --- !u!96 &6490074744266302779
 TrailRenderer:
   serializedVersion: 3
@@ -154,7 +154,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -164,7 +164,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.072906494
+        value: 0.105651855
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -172,14 +172,14 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.98587126
-        value: 0.040271074
+        time: 0.98088235
+        value: 0.038541604
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -215,8 +215,8 @@ TrailRenderer:
       m_NumAlphaKeys: 5
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 1
-    textureMode: 0
+    alignment: 0
+    textureMode: 2
     textureScale: {x: 1, y: 1}
     shadowBias: 0
     generateLightingData: 0
@@ -255,8 +255,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4239224177064474150}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.039859332, y: 0.16197792, z: 0.60091984, w: 0.7817095}
-  m_LocalPosition: {x: 0.06803874, y: -0.09138563, z: -0.14954156}
+  m_LocalRotation: {x: -0.02244112, y: 0.18454681, z: 0.6018226, w: 0.77669066}
+  m_LocalPosition: {x: 0.05337497, y: -0.09138563, z: -0.14750695}
   m_LocalScale: {x: 1.0837953, y: 1.0837953, z: 1.0837953}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -264,7 +264,7 @@ Transform:
   - {fileID: 3257898083727519851}
   - {fileID: 5681167320243487533}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -14.891, y: 12.267, z: 73.492}
+  m_LocalEulerAnglesHint: {x: -14.891, y: 15.586, z: 73.492}
 --- !u!33 &6896062785490582663
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -381,6 +381,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 134348799
   timeToFullCharge: 1.5
+  trailRendererGo: {fileID: 1826207712872531646}
   allowedTags:
   - HackableBioStructure
   swingCooldown: 1.2

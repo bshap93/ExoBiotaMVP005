@@ -191,8 +191,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             }
             else
             {
-                AnimController.PlayToolUseOneShot(speedMultiplier: swingSpeedMultiplier);
-                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
+                AnimController.PlayToolUseOneShot(speedMultiplier: overallToolSwingSpeedMultiplier);
+                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / overallToolSwingSpeedMultiplier));
             }
         }
 

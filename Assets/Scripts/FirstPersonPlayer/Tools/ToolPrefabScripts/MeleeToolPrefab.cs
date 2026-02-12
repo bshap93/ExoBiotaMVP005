@@ -43,7 +43,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public float swingHeavyHitDelay = 0.1f;
 
-        [SerializeField] protected float swingSpeedMultiplier = 1f;
+        [FormerlySerializedAs("swingSpeedMultiplier")] [SerializeField]
+        protected float overallToolSwingSpeedMultiplier = 1f;
 
         [Tooltip("Fallback delay if using beginUseAnimation (legacy mode).")]
         public float defaultHitDelay = 0.2f;
@@ -80,12 +81,19 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         [ShowIf("useOnRelease")] public float timeToFullCharge = 1.5f;
 
+        [SerializeField] protected GameObject trailRendererGo;
+
 
         protected AnimancerArmController AnimController;
 
 
         protected int CurrentSwingIndex; // Track which swing we're on
         protected RaycastHit LastHit;
+
+        void Awake()
+        {
+            if (trailRendererGo != null) trailRendererGo.SetActive(false);
+        }
 
         public abstract void Initialize(PlayerEquipment owner);
 
@@ -192,7 +200,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             var swingClip = animSet.heavySwingAnimation;
             var swingSound = animSet.heavySwingAudioClip;
 
-            var hitDelay = swingHeavyHitDelay / swingSpeedMultiplier;
+            var hitDelay = swingHeavyHitDelay / overallToolSwingSpeedMultiplier;
 
             if (swingClip == null)
             {
@@ -204,14 +212,14 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             if (swingClip != null)
             {
-                PlaySwingAnimation(swingClip);
+                PlaySwingAnimation(swingClip, animSet.heavySwingDurationForTrailRenderer);
 
                 StartCoroutine(ApplyHeavyHitAfterDelay(hitDelay));
             }
             else
             {
                 AnimController.PlayToolUseOneShot();
-                StartCoroutine(ApplyHeavyHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
+                StartCoroutine(ApplyHeavyHitAfterDelay(defaultHitDelay / overallToolSwingSpeedMultiplier));
             }
         }
 
@@ -220,25 +228,29 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             var animSet = AnimController.currentToolAnimationSet;
             AnimationClip swingClip = null;
             AudioClip swingSound = null;
-            var hitDelay = defaultHitDelay / swingSpeedMultiplier;
+            float durationForTrailRenderer = 0;
+            var hitDelay = defaultHitDelay / overallToolSwingSpeedMultiplier;
 
             // Determine which swing to use based on current index
             switch (CurrentSwingIndex)
             {
                 case 0:
                     swingClip = animSet.swing01Animation;
-                    hitDelay = swing01HitDelay / swingSpeedMultiplier;
+                    hitDelay = swing01HitDelay / overallToolSwingSpeedMultiplier;
                     swingSound = animSet.swing01AudioClip;
+                    durationForTrailRenderer = animSet.swing01DurationForTrailRenderer;
                     break;
                 case 1:
                     swingClip = animSet.swing02Animation;
-                    hitDelay = swing02HitDelay / swingSpeedMultiplier;
+                    hitDelay = swing02HitDelay / overallToolSwingSpeedMultiplier;
                     swingSound = animSet.swing02AudioClip;
+                    durationForTrailRenderer = animSet.swing02DurationForTrailRenderer;
                     break;
                 case 2:
                     swingClip = animSet.swing03Animation;
-                    hitDelay = swing03HitDelay / swingSpeedMultiplier;
+                    hitDelay = swing03HitDelay / overallToolSwingSpeedMultiplier;
                     swingSound = animSet.swing03AudioClip;
+                    durationForTrailRenderer = animSet.swing03DurationForTrailRenderer;
                     break;
             }
 
@@ -256,7 +268,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             if (swingClip != null)
             {
                 // Play the specific swing animation
-                PlaySwingAnimation(swingClip);
+                PlaySwingAnimation(swingClip, durationForTrailRenderer, 1.25f);
 
                 // Start coroutine with the appropriate delay
                 StartCoroutine(ApplyNormalHitAfterDelay(hitDelay));
@@ -268,7 +280,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             {
                 // No swing animations available, use legacy mode
                 AnimController.PlayToolUseOneShot();
-                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
+                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / overallToolSwingSpeedMultiplier));
             }
         }
 
@@ -279,7 +291,17 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             AudioSource.PlayClipAtPoint(clip, mainCamera.transform.position);
         }
 
-        public void PlaySwingAnimation(AnimationClip clip)
+        IEnumerator SequenceTrailRendererEnable(float duration)
+        {
+            yield return new WaitForSeconds(duration * 0.4f);
+
+            trailRendererGo.SetActive(true);
+
+            yield return new WaitForSeconds(duration);
+
+            trailRendererGo.SetActive(false);
+        }
+        public void PlaySwingAnimation(AnimationClip clip, float durationForTrailRenderer, float speedMultiplier = 1f)
         {
             if (AnimController.animancerComponent == null) return;
 
@@ -288,7 +310,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             // Play swing on Layer 1
             var state = layer.Play(clip, AnimController.defaultTransitionDuration);
             state.NormalizedTime = 0f; // Start from the beginning
-            state.Speed = swingSpeedMultiplier;
+            if (trailRendererGo != null) StartCoroutine(SequenceTrailRendererEnable(durationForTrailRenderer));
+            //StartCoroutine(SequenceTrailRendererEnable(durationForTrailRenderer));
+            state.Speed = speedMultiplier * overallToolSwingSpeedMultiplier;
             layer.Weight = 1f;
 
             // Mark this as the active action animation
@@ -297,11 +321,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             // Clear previous events to avoid stacked callbacks
             state.Events(this).Clear();
 
+
             // Add a SINGLE end event
             state.Events(this).OnEnd = () =>
             {
                 // Disable swing layer
                 layer.Weight = 0f;
+
+                // if (trailRendererGo != null) trailRendererGo.SetActive(false);
+
 
                 // Clear action state so locomotion can resume
                 AnimController.ClearActionState();

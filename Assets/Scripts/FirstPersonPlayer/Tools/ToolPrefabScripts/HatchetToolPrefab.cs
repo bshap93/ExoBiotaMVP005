@@ -39,22 +39,10 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         public float heavySwingDownFactor = 1.2f;
 
         float StaminaCostPerNormalConnectingSwing => 20f;
-        // var attrMgr = AttributesManager.Instance;
-        // if (attrMgr == null) return toolAttackProfile.basicAttack.baseStaminaCost;
-        //
-        // var agility = attrMgr.Agility;
-        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-        // var finalCost = toolAttackProfile.basicAttack.baseStaminaCost * (1f - reduction);
-        //
-        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+
         float StaminaCostPerHeavyConnectingSwing => 20f;
-        // var attrMgr = AttributesManager.Instance;
-        // if (attrMgr == null) return toolAttackProfile.heavyAttack.baseStaminaCost;
-        // var agility = attrMgr.Agility;
-        // var reduction = toolAttackProfile.agilityReductionFactor * (agility - 1); // Example: 0.05
-        // var finalCost = toolAttackProfile.heavyAttack.baseStaminaCost * (1f - reduction);
-        //
-        // return Mathf.Max(0.1f, finalCost); // Ensure a minimum cost
+
+
         public override void Use()
         {
             if (attributesManager == null) attributesManager = AttributesManager.Instance;
@@ -265,9 +253,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             else
             {
                 // Fallback to legacy single animation mode
-                AnimController.PlayToolUseOneShot(speedMultiplier: swingSpeedMultiplier);
+                AnimController.PlayToolUseOneShot(speedMultiplier: overallToolSwingSpeedMultiplier);
                 // ToolIsHeldInChargePosition = false;
-                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / swingSpeedMultiplier));
+                StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / overallToolSwingSpeedMultiplier));
             }
         }
 
