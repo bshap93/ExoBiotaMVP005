@@ -170,6 +170,7 @@ MonoBehaviour:
   hardness: 1
   actionId: 54
   actionText: Break
+  highlightEffectController: {fileID: 0}
   breakActionId: 0
   examinableObjectData:
     ActionIcon: {fileID: 21300000, guid: 2175e7b567174444cb43d771ef12f410, type: 3}
@@ -214,6 +215,7 @@ MonoBehaviour:
   knockDuration: 1
   oreHitFeedback: {fileID: 351502127407646979}
   oreDestroyFeedback: {fileID: 1167775466265340998}
+  onHitFeedbacks: {fileID: 0}
   OnOreDestroyed:
     m_PersistentCalls:
       m_Calls: []
@@ -223,9 +225,7 @@ MonoBehaviour:
   OreHardness: 0
   uniqueID: 8066d7af-7e1c-4404-ba23-5f37c436e808
   failHitFeedbacks: {fileID: 0}
-  failHitParticles: {fileID: 0}
   oreHitParticles: {fileID: 6948713295122520351, guid: a82accbffacd8b44f8f4815fe94260d3, type: 3}
-  oreDestroyParticles: {fileID: 0}
   itemTypeMined: {fileID: 11400000, guid: 2ca11962337766e4cb48df943498d897, type: 2}
 --- !u!1 &3071511310979043128
 GameObject:
@@ -323,7 +323,7 @@ MonoBehaviour:
   overlayTextureScrolling: {x: 0, y: 0}
   overlayVisibility: 0
   outline: 1
-  outlineColor: {r: 0.27917883, g: 0.007843134, b: 0.4392157, a: 1}
+  outlineColor: {r: 0.45627072, g: 0.33018857, b: 1, a: 1}
   outlineColorStyle: 0
   outlineGradient:
     serializedVersion: 2
@@ -356,7 +356,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   outlineGradientInLocalSpace: 0
-  outlineWidth: 0.69
+  outlineWidth: 0.6
   outlineBlurPasses: 2
   outlineQuality: 1
   outlineEdgeMode: 0
@@ -512,7 +512,6 @@ MonoBehaviour:
   onScanned:
     m_PersistentCalls:
       m_Calls: []
-  targetDuration: 3
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &8540761866048175123
 SphereCollider:
@@ -533,7 +532,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5466967375016351614
 GameObject:

@@ -1628,7 +1628,7 @@ MonoBehaviour:
   overlayTextureScrolling: {x: 0, y: 0}
   overlayVisibility: 0
   outline: 1
-  outlineColor: {r: 0.6272726, g: 0, b: 1, a: 1}
+  outlineColor: {r: 0.45627072, g: 0.33018857, b: 1, a: 1}
   outlineColorStyle: 0
   outlineGradient:
     serializedVersion: 2
@@ -1661,7 +1661,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   outlineGradientInLocalSpace: 0
-  outlineWidth: 0.8
+  outlineWidth: 0.6
   outlineBlurPasses: 2
   outlineQuality: 1
   outlineEdgeMode: 0
@@ -1817,7 +1817,6 @@ MonoBehaviour:
   onScanned:
     m_PersistentCalls:
       m_Calls: []
-  targetDuration: 3
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &965327859704679781
 SphereCollider:
@@ -1838,7 +1837,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7654453213033655078
 GameObject:

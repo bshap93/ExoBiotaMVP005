@@ -460,7 +460,7 @@ namespace Manager
                     {
                         CurrentHealth += e.Amount;
                         CurrentHealth += e.Percent * BaseMaxHealth;
-                        // CurrentHealth = Mathf.Clamp(CurrentHealth, 0, BaseMaxHealth);
+                        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, CurrentMaxHealth);
 
                         restoreHealthFeedbacks?.PlayFeedbacks();
 
@@ -538,14 +538,12 @@ namespace Manager
                         if (CurrentHealth > CurrentMaxHealth)
                             CurrentHealth = CurrentMaxHealth;
 
-                        CurrentMaxHealth = Mathf.Clamp(CurrentMaxHealth, 0, BaseMaxHealth);
                         PlayerStatsSyncEvent.Trigger();
                     }
                     else if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Increase)
                     {
                         CurrentMaxHealth += e.Amount;
                         CurrentMaxHealth += e.Percent * BaseMaxHealth;
-                        // CurrentMaxHealth = Mathf.Clamp(CurrentMaxHealth, 0, BaseMaxHealth);
                         PlayerStatsSyncEvent.Trigger();
                     }
 
@@ -570,26 +568,6 @@ namespace Manager
 
                     break;
 
-                // case PlayerStatsEvent.PlayerStat.CurrentMaxStamina:
-                //     if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
-                //     {
-                //         CurrentMaxStamina -= e.Amount;
-                //         CurrentMaxStamina -= e.Percent * BaseMaxStamina;
-                //         if (CurrentStamina > CurrentMaxStamina)
-                //             CurrentStamina = CurrentMaxStamina;
-                //
-                //         CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
-                //         PlayerStatsSyncEvent.Trigger();
-                //     }
-                //     else if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Increase)
-                //     {
-                //         CurrentMaxStamina += e.Amount;
-                //         CurrentMaxStamina += e.Percent * BaseMaxStamina;
-                //         // CurrentMaxStamina = Mathf.Clamp(CurrentMaxStamina, 0, BaseMaxStamina);
-                //         PlayerStatsSyncEvent.Trigger();
-                //     }
-                //
-                //     break;
                 case PlayerStatsEvent.PlayerStat.CurrentVision:
                     if (e.ChangeType == PlayerStatsEvent.PlayerStatChangeType.Decrease)
                     {
@@ -624,15 +602,7 @@ namespace Manager
             // }
         }
 
-        // public float GetBaseStatminaRestoreRateForCharacterWithAgility(int attributeValue)
-        // {
-        //     var multiplier = 1f;
-        //     foreach (var entry in )
-        //         if (entry.Agility == attributeValue)
-        //             multiplier = entry.RestoreRateMultiplier;
-        //
-        //     return defaultPlayerStatsSheet.initialBaseStaminaRestoreRate * multiplier;
-        // }
+
         void DieIfDead()
         {
             if (CurrentHealth <= 0)

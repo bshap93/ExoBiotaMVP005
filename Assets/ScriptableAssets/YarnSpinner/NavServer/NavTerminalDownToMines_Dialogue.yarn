@@ -1,0 +1,13 @@
+title: NavTerminalDownToMines_Dialogue
+---
+Navigation Server: How can I be of service?
+-> Save Here
+    <<jump SaveMyGameAtNavHolo>>
+-> Call for mine transport elevator
+    Navigation Server: Mine transport elevator is unavailable
+-> What is this place?
+    Navigation Server: You are standing in the southmost cavern room before reaching the lower levels of the Science Directorate military forward operating base.
+-> What is to the North?
+    Navigation Server: Unincorporated buffer quadrant CZ_L2. Alien ruins scattered throughout.
+    Navigation Server: Data updated 2.2 Earth years prior to this date.
+===

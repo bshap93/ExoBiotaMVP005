@@ -34,10 +34,3 @@ title: NavHelp_M1_South
 Navigation Server: Forward Operating Base
 ===
 
-title: NavHelp_Hotsprings_House
----
-Navigation Terminal: Shahil greets you. How may his terminal serve you?
--> Save my game here
-    <<jump SaveMyGameAtTerminal>>
--> Nothing for now
-===
