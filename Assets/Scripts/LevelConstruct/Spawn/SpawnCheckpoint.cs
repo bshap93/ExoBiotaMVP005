@@ -21,7 +21,7 @@ namespace LevelConstruct.Spawn
         [FormerlySerializedAs("_point")] [SerializeField]
         SpawnPoint point;
 
-        [SerializeField] bool useAsAutoSavePoint = true;
+        [SerializeField] bool useAsAutoSavePoint;
 
 
         void Awake()

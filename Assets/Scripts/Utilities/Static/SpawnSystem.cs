@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Events;
-using Helpers.Events;
 using LevelConstruct.Spawn;
 using Manager;
 using Manager.Global;
-using Spawn;
 using Structs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,10 +55,6 @@ namespace Utilities.Static
 
             // Now switch to the mode (instantiate dirigible)
             ModeLoadEvent.Trigger(ModeLoadEventType.Enabled, info.Mode);
-
-            // if (point is DockSpawnPoint dock) OverviewManager.Instance.currentDock = dock.dockDefinition;
-            if (point is DockSpawnPoint dock)
-                DockingEvent.Trigger(DockingEventType.SetCurrentDock, dock.dockDefinition);
 
 
             CurrentSpawn = info;
