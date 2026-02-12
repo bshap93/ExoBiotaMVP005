@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: isPlayerAttack
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4863402674160213542, guid: aa8dc38e46a04484fadabdd8173d2100, type: 3}
+      propertyPath: ignoreLayers.m_Bits
+      value: 1141948456
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

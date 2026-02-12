@@ -44,7 +44,7 @@ namespace NewScript
 
             if (isPlayerAttack && other.CompareTag("EnemyNPC"))
             {
-                var enemyController = other.GetComponent<CreatureController>();
+                var enemyController = other.GetComponentInParent<CreatureController>();
 
                 if (enemyController == null)
                 {

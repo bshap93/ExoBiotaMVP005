@@ -735,7 +735,6 @@ GameObject:
   - component: {fileID: 2558118364625417175}
   - component: {fileID: 8429515732166940746}
   - component: {fileID: 4420731997538020387}
-  - component: {fileID: 4726996509472835830}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -789,7 +788,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0890db6e8d6c3474982623cbd2fc46e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -811,27 +810,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4726996509472835830
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4018453037904610018}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7321130133072767527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2397,6 +2375,19 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8044562072124699137, guid: e29556e105ae24b49ac5693332a26f5d, type: 3}
   ProjectileLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 419516177
   muzzleFlashPrefab: {fileID: 0}
   projectileSpeed: 35
+  abilityData: {fileID: 11400000, guid: 059adee451a88884d8b2a8320ec259ca, type: 2}
+  muzzlePosition: {fileID: 2558118364625417175}
+  aimRaycastMask:
+    serializedVersion: 2
+    m_Bits: 420040193
+  maxRange: 100
+  equipFeedbacks: {fileID: 7182709680355473136}
+  unequipFeedbacks: {fileID: 7182709680355473136}
+  shootFeedbacks: {fileID: 1308847032130834121}
+  cooldownTime: 0.5
+  projectileLayerMask:
+    serializedVersion: 2
+    m_Bits: 420040193

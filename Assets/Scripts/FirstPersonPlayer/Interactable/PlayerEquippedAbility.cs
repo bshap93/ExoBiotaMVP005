@@ -229,6 +229,9 @@ namespace FirstPersonPlayer.Interactable
             if (abilityGO.TryGetComponent<SingleBeamAbilityPrefab>(out var beamAbility))
                 beamAbility.SetAbilityData(bioticAbility.bioticAbility);
 
+            if (abilityGO.TryGetComponent<SingleProjectileAbilityPrefab>(out var projectileAbility))
+                projectileAbility.SetAbilityData(bioticAbility.bioticAbility);
+
             // Equip the ability
             CurrentRuntimeAbility.Equip();
 
