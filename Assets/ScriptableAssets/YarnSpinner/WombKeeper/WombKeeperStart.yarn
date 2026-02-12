@@ -46,7 +46,7 @@ title: WombKeeperDialogue02A
 ---
 Womb Keeper: What does a newborn animal remember? Something of the nothingness before? I think not.
 -> I'm not a newborn. I remember fragments. Tell me something. What is this place?
-    <<jump WombKeeperDialogue02C>>
+    <<jump WombKeeperDialogue02B>>
 -> I'm not a newborn. I should be leaving.
 ===
 
@@ -79,5 +79,14 @@ Womb Keeper: New components in, old ones out. Toward perfection... improved.
 ===
 title: WombKeeperDialogue03B
 ---
-Womb Keeper: Keeper
+Womb Keeper: Thralls, yes. And the kin which entrusted you to me.
+<<jump WombKeeperDialogue03B_QA>>
+===
+title: WombKeeperDialogue03B_QA
+---
+-> Where are these thralls now?
+    Womb Keeper: Not needed. Served their purpose. Back to mines, most of them.
+-> What are you going to do with me?
+    Womb Keeper: You must leave. You may not become a thrall. The Kindred was clear on this.
+-> Goodbye.
 ===

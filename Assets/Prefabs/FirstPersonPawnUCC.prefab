@@ -1248,8 +1248,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424032279914331450}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.059763726, y: 0.09545216, z: -0.0057411953, w: 0.9936218}
-  m_LocalPosition: {x: -0.014, y: -1.019, z: 0.174}
+  m_LocalRotation: {x: -0.060149495, y: 0.093268424, z: -0.003054085, w: 0.99381775}
+  m_LocalPosition: {x: -0.013, y: -1.005, z: 0.173}
   m_LocalScale: {x: 0.57995284, y: 0.57995284, z: 0.57995284}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1261,7 +1261,7 @@ Transform:
   - {fileID: 429914293824044736}
   - {fileID: 425725299946636218}
   m_Father: {fileID: 8659367383444788419}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -6.834, y: 10.782, z: -0.998}
 --- !u!95 &338702168198722978
 Animator:
   serializedVersion: 7
@@ -4206,7 +4206,6 @@ MonoBehaviour:
   aimSpeedMultiplier: 0.5
   playerMutableStatsManager: {fileID: 0}
   attributesManager: {fileID: 0}
-  cannotRunFeedbacks: {fileID: 7361642293195615526}
   animancerArmController: {fileID: 985055603499480454}
   planarMovementParameters:
     baseSpeedLimit: 5

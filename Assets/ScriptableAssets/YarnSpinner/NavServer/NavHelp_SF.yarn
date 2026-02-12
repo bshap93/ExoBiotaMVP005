@@ -20,10 +20,10 @@ title: NavHelp_SF01_QA
 title: NavHelp_SF01_Directions
 ---
 Navigation Server: You are currently at the border of the buffer zone and human controlled territory.
--> South
+-> What's to the South?
     Navigation Server: To the south is human controlled territory.
     <<jump NavHelp_SF01_QA>>
--> North
+-> What's to the North?
     Navigation Server: North of current position, including it: exclusion zone, as of ceasefire. Last update
     Navigation Server: to this unit: 2.2 earth years prior. 
     <<jump NavHelp_SF01_QA>>

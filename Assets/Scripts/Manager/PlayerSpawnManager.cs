@@ -232,11 +232,11 @@ namespace Manager
             return new[]
             {
                 // Overworld
-                "ScienceDockSpawn", "Mine01Dock", "MidFlightTestSpawn", "TestFPSpawn",
-                "EnterValleySpawn", "DockAshpoolMineSpawn",
+                // "ScienceDockSpawn", "Mine01Dock", "MidFlightTestSpawn", "TestFPSpawn",
+                // "EnterValleySpawn", "DockAshpoolMineSpawn",
                 // Mine01
-                "Mine01DoorSpawn", "CorePatchSpawn", "BailoutFacilitySpawn", "UndergroundSpawnMine01",
-                "UndergroundSpawnMine02",
+                // "Mine01DoorSpawn", "CorePatchSpawn", "BailoutFacilitySpawn", "UndergroundSpawnMine01",
+                // "UndergroundSpawnMine02",
                 // Bionics Lab
                 "BionicsLabSpawn",
 
@@ -254,11 +254,9 @@ namespace Manager
         {
             return new[]
             {
-                "Overworld",
                 "Mine01",
                 "AshpoolMine",
-                "TradeStation01", "FirstPersonTestbed", "Mine01a", "ThreeJaneMine",
-                "ChokedCaverns"
+                "FirstPersonTestbed"
             };
         }
     }
