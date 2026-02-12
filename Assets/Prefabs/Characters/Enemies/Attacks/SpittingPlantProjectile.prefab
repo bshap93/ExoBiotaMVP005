@@ -9856,7 +9856,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burstEffectPrefab: {fileID: 111264, guid: efd1c3cbf12b5f54e8fe70eed8dd31cc, type: 3}
+  isEnemyAttack: 1
   enemyAttack: {fileID: 11400000, guid: 68d1f84bfe200a64693ab67879e388e1, type: 2}
+  isPlayerAttack: 0
+  playerAttack: {fileID: 0}
   maxLifetime: 5
   ignoreLayers:
     serializedVersion: 2

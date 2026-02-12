@@ -1,5 +1,8 @@
 using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
+using FirstPersonPlayer.Combat.Player.ScriptableObjects;
+using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using Helpers.Events.NPCs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace NewScript
@@ -7,7 +10,12 @@ namespace NewScript
     public class MovingProjectileController : MonoBehaviour
     {
         [SerializeField] GameObject burstEffectPrefab;
-        [SerializeField] EnemyAttack enemyAttack;
+        [SerializeField] bool isEnemyAttack;
+        [ShowIf("isEnemyAttack")] [SerializeField]
+        EnemyAttack enemyAttack;
+        [SerializeField] bool isPlayerAttack;
+        [ShowIf("isPlayerAttack")] [SerializeField]
+        PlayerAttack playerAttack;
         [SerializeField] float maxLifetime = 5f;
         [SerializeField] LayerMask ignoreLayers;
 
@@ -31,8 +39,25 @@ namespace NewScript
             if (((1 << other.gameObject.layer) & ignoreLayers) != 0) return;
             // Instantiate burst effect at the collision point
             if (burstEffectPrefab != null) Instantiate(burstEffectPrefab, transform.position, Quaternion.identity);
-            if (other.CompareTag("FirstPersonPlayer"))
+            if (isEnemyAttack && other.CompareTag("FirstPersonPlayer"))
                 NPCAttackEvent.Trigger(enemyAttack);
+
+            if (isPlayerAttack && other.CompareTag("EnemyNPC"))
+            {
+                var enemyController = other.GetComponent<CreatureController>();
+
+                if (enemyController == null)
+                {
+                    Debug.LogWarning(
+                        "Player projectile collided with an object tagged 'EnemyNPC' that does not have a CreatureController component.");
+
+                    return;
+                }
+
+                enemyController.ProcessAttackDamage(
+                    playerAttack,
+                    other.ClosestPoint(transform.position));
+            }
 
             Destroy(gameObject);
         }

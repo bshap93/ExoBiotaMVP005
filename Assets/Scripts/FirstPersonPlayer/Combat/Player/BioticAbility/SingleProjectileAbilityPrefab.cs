@@ -8,26 +8,44 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
 {
     public class SingleProjectileAbilityPrefab : MonoBehaviour, IRuntimeBioticAbility
     {
+        [SerializeField] GameObject projectilePrefab;
+        public LayerMask ProjectileLayerMask = -1;
+        [SerializeField] GameObject muzzleFlashPrefab;
+        [SerializeField] float projectileSpeed = 15f;
+        Camera _mainCamera;
+        PlayerEquippedAbility _owner;
+        bool _readyToFire = true;
+        float _timeSinceLastUse;
+        
+        
+
         public void Activate(FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility abilityData,
             Transform originTransform)
         {
-            throw new NotImplementedException();
         }
         public IRuntimeBioticAbility.UsageScheme GetUsageScheme()
         {
-            throw new NotImplementedException();
+            return IRuntimeBioticAbility.UsageScheme.UseTool;
         }
         public void Deactivate()
         {
-            throw new NotImplementedException();
         }
         public bool IsActive()
         {
-            throw new NotImplementedException();
+            return false;
         }
         public void Initialize(PlayerEquippedAbility owner)
         {
-            throw new NotImplementedException();
+            _owner = owner;
+            _mainCamera = Camera.main;
+
+            if (_owner != null && _owner.bioticAbilityAnchor != null)
+            {
+                // Position the ability prefab correctly
+                transform.SetParent(_owner.bioticAbilityAnchor);
+                transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.identity;
+            }
         }
         public void Use()
         {

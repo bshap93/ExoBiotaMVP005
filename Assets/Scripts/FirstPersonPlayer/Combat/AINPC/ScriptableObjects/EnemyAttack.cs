@@ -1,6 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
 {
@@ -21,14 +22,14 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
     public class EnemyAttack : ScriptableObject
     {
         public string displayName;
-        [UnityEngine.Header("Attack Properties")]
-        public float rawDamage;
+        [Header("Attack Properties")] public float rawDamage;
         // Amount that an attack ignores armor. 
         // [Range(0f, 1f)] public float armorPenetration;
         public float contaminationAmount;
         [Range(0f, 1f)] public float critChance;
         public float critMultiplier = 1f;
-        public float knockbackForce = 1f;
+        [FormerlySerializedAs("knockbackForce")]
+        public float rawKnockbackForce = 1f;
         public bool causesBleeding;
         // showif
         [ShowIf("causesBleeding")] [Range(0f, 1f)]
@@ -37,10 +38,11 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         // showif
         [ShowIf("causesStagger")] [Range(0f, 1f)]
         public float chanceToCauseStagger;
-        
+
         public bool causesPoisoning;
         [ShowIf("causesPoisoning")] public float poisonAmount;
-        [ShowIf("causesPoisoning")] [Range(0f, 1f)] public float chanceToCausePoisoning;
+        [ShowIf("causesPoisoning")] [Range(0f, 1f)]
+        public float chanceToCausePoisoning;
         [ShowIf("causesPoisoning")] public float poisonDuration;
 
         public NPCAttackType attackType;
