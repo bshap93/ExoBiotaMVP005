@@ -167,6 +167,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerNormalAttack);
 
+            StartCoroutine(ApplyAttackLunge(toolAttackProfile.basicAttack, defaultHitDelay));
+
             if (useMultipleSwings && AnimController.currentToolAnimationSet != null)
             {
                 PlaySwingSequence();
@@ -189,6 +191,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
             PlayerStatsEvent.Trigger(
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerHeavyAttack);
+
+            StartCoroutine(ApplyAttackLunge(toolAttackProfile.heavyAttack, swingHeavyHitDelay));
 
             // Heavy attack logic goes here.
 

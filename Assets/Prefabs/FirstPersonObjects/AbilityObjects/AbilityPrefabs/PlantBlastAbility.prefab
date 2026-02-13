@@ -1751,11 +1751,9 @@ MonoBehaviour:
         Owner: {fileID: 1308847032130834121}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 0}
+        Sfx: {fileID: 8300000, guid: d750c69ca20704f0d823a3378789760a, type: 3}
         AudioResourceToPlay: {fileID: 0}
-        RandomSfx:
-        - {fileID: 8300000, guid: 771364288cc264940b0214cf34ff05a0, type: 3}
-        - {fileID: 8300000, guid: 28fc96d5baf864af4875065bc10f2705, type: 3}
+        RandomSfx: []
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
@@ -2070,7 +2068,7 @@ MonoBehaviour:
         Owner: {fileID: 1308847032130834121}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 8300000, guid: c5c73d773a9b44db5bdabfb20704fb25, type: 3}
+        Sfx: {fileID: 8300000, guid: d3f998a9bd86f4c469f8c9c1a970bda9, type: 3}
         AudioResourceToPlay: {fileID: 0}
         RandomSfx: []
         SequentialOrder: 0

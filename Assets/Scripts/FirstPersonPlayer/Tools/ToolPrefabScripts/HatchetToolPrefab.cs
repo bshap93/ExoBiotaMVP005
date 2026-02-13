@@ -153,12 +153,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
                 breakable.ApplyHit(hatchetPower, hit.point, hit.normal, hitType);
 
                 if (go.CompareTag("MiscRigidOrganism")) hitRigidOrganismFeedbacks?.PlayFeedbacks();
-
-
-                // SpawnFxForConnectingHit(hit.point, hit.normal);
-                // PlayerStatsEvent.Trigger(
-                //     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
-                //     StaminaCostPerNormalConnectingSwing);
             }
             else if (go.TryGetComponent<MyOreNode>(out var oreNode))
             {
@@ -245,16 +239,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerNormalConnectingSwing);
 
+            StartCoroutine(ApplyAttackLunge(toolAttackProfile.basicAttack, defaultHitDelay));
+
             if (useMultipleSwings && AnimController.currentToolAnimationSet != null)
             {
                 PlaySwingSequence();
-                // ToolIsHeldInChargePosition = false;
             }
             else
             {
-                // Fallback to legacy single animation mode
                 AnimController.PlayToolUseOneShot(speedMultiplier: overallToolSwingSpeedMultiplier);
-                // ToolIsHeldInChargePosition = false;
                 StartCoroutine(ApplyNormalHitAfterDelay(defaultHitDelay / overallToolSwingSpeedMultiplier));
             }
         }
@@ -269,17 +262,12 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             lastSwingTime = Time.time;
 
 
-            // PlayerStatsEvent.Trigger(
-            //     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
-            //     StaminaCostPerNormalConnectingSwing);
-
-
             PlayerStatsEvent.Trigger(
                 PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Decrease,
                 StaminaCostPerHeavyConnectingSwing);
 
-            // PlayHeavyDownFromHeldUpSwingAnimation();
-            PlayerToolUseRootMovementEvent.Trigger(toolAttackProfile.heavyAttack);
+
+            StartCoroutine(ApplyAttackLunge(toolAttackProfile.heavyAttack, swingHeavyHitDelay));
 
             PlayHeavySwingSequence();
         }

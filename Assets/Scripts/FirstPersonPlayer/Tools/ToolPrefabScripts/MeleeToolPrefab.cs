@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using FirstPersonPlayer.Combat.Player.ScriptableObjects;
+using FirstPersonPlayer.InputHandling;
 using FirstPersonPlayer.Tools.Interface;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.AnimancerHelper;
@@ -86,7 +87,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         protected AnimancerArmController AnimController;
 
-
         protected int CurrentSwingIndex; // Track which swing we're on
         protected RaycastHit LastHit;
 
@@ -145,6 +145,39 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             // ChargeToolEvent.Trigger(
             //     ChargeToolEventType.Update,
             //     ChargeTimeElapsed / timeToFullCharge);
+        }
+
+        protected IEnumerator ApplyAttackLunge(PlayerAttack attack, float delay)
+        {
+            if (attack == null || !attack.playerMovesWithAttack) yield break;
+
+            yield return new WaitForSeconds(delay * 0.3f);
+
+            // Cache this reference in Initialize() instead of finding it each time
+            var movement = FindFirstObjectByType<MyNormalMovement>();
+            if (movement == null) yield break;
+
+            var forward = mainCamera.transform.forward;
+            forward.y = 0f;
+            forward.Normalize();
+
+            var lungeDuration = 0.15f;
+            var elapsed = 0f;
+            var lungeSpeed = attack.movementAmount;
+
+            while (elapsed < lungeDuration)
+            {
+                var t = elapsed / lungeDuration;
+                var factor = 1f - t * t;
+
+                movement.SetAttackLungeVelocity(forward * (lungeSpeed * factor));
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // Clear it when done
+            movement.SetAttackLungeVelocity(Vector3.zero);
         }
         public SecondaryActionType GetSecondaryActionType()
         {

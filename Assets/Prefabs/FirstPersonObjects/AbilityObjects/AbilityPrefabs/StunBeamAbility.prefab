@@ -2020,18 +2020,16 @@ MonoBehaviour:
         Owner: {fileID: 1308847032130834121}
         DebugActive: 0
         Source: 0
-        Sfx: {fileID: 0}
+        Sfx: {fileID: 8300000, guid: 27a5f85b1ea33400c9365a3859de3367, type: 3}
         AudioResourceToPlay: {fileID: 0}
-        RandomSfx:
-        - {fileID: 8300000, guid: 90ab1d513c7824b1a83201ad88c74f4a, type: 3}
-        - {fileID: 8300000, guid: 622f10e1819d641debfe0e614bf59b27, type: 3}
+        RandomSfx: []
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
         RandomUnique: 0
         SoundDataSO: {fileID: 0}
-        MinVolume: 0.726
-        MaxVolume: 0.72
+        MinVolume: 0.83
+        MaxVolume: 0.811
         MinPitch: 0.86
         MaxPitch: 0.9
         MmSoundManagerTrack: 0
@@ -2168,7 +2166,7 @@ MonoBehaviour:
     - rid: 2956590678400303486
       type: {class: MMF_MMSoundManagerSound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: -1382376303
         Label: MMSoundManager Sound
         OriginalLabel: MMSoundManager Sound

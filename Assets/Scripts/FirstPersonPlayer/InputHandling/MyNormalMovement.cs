@@ -99,6 +99,14 @@ namespace FirstPersonPlayer.InputHandling
         [SerializeField] float jetPackActivationDelay = 0.3f; // Time in seconds to hold before jetpack activates
         public bool isBlocking;
 
+
+        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+        // Near your other fields
+        Vector3 _attackLungeVelocity;
+
         bool _isDead;
 
         protected PlanarMovementParameters.PlanarMovementProperties currentMotion;
@@ -457,6 +465,9 @@ namespace FirstPersonPlayer.InputHandling
                 targetPlanarVelocity,
                 acceleration * dt
             );
+
+            // Attack lunge — applied after normal movement so it doesn't get overwritten
+            if (_attackLungeVelocity.sqrMagnitude > 0.001f) CharacterActor.PlanarVelocity += _attackLungeVelocity;
         }
 
         protected virtual void UpdateArmLocomotion()
@@ -887,11 +898,10 @@ namespace FirstPersonPlayer.InputHandling
             ProcessPlanarMovement(dt);
         }
 
-
-        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-        // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
+        public void SetAttackLungeVelocity(Vector3 velocity)
+        {
+            _attackLungeVelocity = velocity;
+        }
 
         #region Events
 
