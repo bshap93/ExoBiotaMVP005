@@ -279,6 +279,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
                 StaminaCostPerHeavyConnectingSwing);
 
             // PlayHeavyDownFromHeldUpSwingAnimation();
+            PlayerToolUseRootMovementEvent.Trigger(toolAttackProfile.heavyAttack);
 
             PlayHeavySwingSequence();
         }

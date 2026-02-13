@@ -58,6 +58,10 @@ namespace FirstPersonPlayer.Combat.Player.ScriptableObjects
         [Header("Stagger Effect Properties")] public bool causesStagger;
         [ShowIf("causesStagger")] [Range(0f, 1f)]
         public float chanceToCauseStagger;
+        
+        [Header("Effect on Player Character Controller")]
+        public bool playerMovesWithAttack;
+        [ShowIf("playerMovesWithAttack")] public float movementAmount;
 
 
         [Header("Area of Effect Properties")] [FormerlySerializedAs("HasAOEEffect")]
