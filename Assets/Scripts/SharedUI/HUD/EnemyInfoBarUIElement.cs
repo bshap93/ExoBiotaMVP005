@@ -1,19 +1,23 @@
+using System.Collections;
 using DG.Tweening;
 using Helpers.Events.Combat;
 using Helpers.Events.UI;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using SharedUI.Progression;
 using TMPro;
 using UnityEngine;
 
 namespace SharedUI.HUD
 {
-    public class EnemyInfoBarUIElement : MonoBehaviour, MMEventListener<EnemyDamageEvent>, MMEventListener<HotbarEvent>
+    public class EnemyInfoBarUIElement : MonoBehaviour, MMEventListener<EnemyDamageEvent>, MMEventListener<HotbarEvent>,
+        MMEventListener<CriticalHitEvent>
     {
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] TMP_Text enemyNameText;
         [SerializeField] MMProgressBar enemyHealthBar;
         [SerializeField] MMProgressBar enemyStunDamageBar;
+        [SerializeField] CanvasGroup criticalHitCanvasGroup;
         [Header("Feedbacks")] [SerializeField] MMFeedbacks infoBarDeathFeedbacks;
         [SerializeField] MMFeedbacks hitEnemyFeedbacks;
         [SerializeField] MMFeedbacks criticalHitEnemyFeedbacks;
@@ -32,6 +36,8 @@ namespace SharedUI.HUD
         bool _isVisible;
 
         float _timeSinceLastDamageDealt;
+        [Header("Critical Hit")] [SerializeField]
+        CriticalHitNotify criticalHitNotify;
 
         void Awake()
         {
@@ -46,6 +52,8 @@ namespace SharedUI.HUD
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
             }
+
+            if (criticalHitCanvasGroup != null) criticalHitCanvasGroup.alpha = 0f;
         }
 
         void Update()
@@ -59,12 +67,20 @@ namespace SharedUI.HUD
         {
             this.MMEventStartListening<EnemyDamageEvent>();
             this.MMEventStartListening<HotbarEvent>();
+            this.MMEventStartListening<CriticalHitEvent>();
         }
 
         void OnDisable()
         {
             this.MMEventStopListening<EnemyDamageEvent>();
             this.MMEventStopListening<HotbarEvent>();
+            this.MMEventStopListening<CriticalHitEvent>();
+        }
+        public void OnMMEvent(CriticalHitEvent eventType)
+        {
+            // The enemy info bar listens for the PLAYER's critical hits on enemies.
+            if (eventType.MyWhoseCriticalHit == CriticalHitEvent.WhoseCriticalHit.Player)
+                ShowCriticalHitNotification(eventType.Multipler);
         }
         public void OnMMEvent(EnemyDamageEvent eventType)
         {
@@ -166,6 +182,22 @@ namespace SharedUI.HUD
             _fadeTween = canvasGroup
                 .DOFade(0f, duration)
                 .SetEase(Ease.InQuad);
+        }
+
+        void ShowCriticalHitNotification(float multipler)
+        {
+            StartCoroutine(ShowCriticalHitNotificationCoroutine(multipler));
+        }
+
+        IEnumerator ShowCriticalHitNotificationCoroutine(float multipler)
+        {
+            criticalHitNotify.SetCriticalHitText(multipler);
+            // fades in tween
+            criticalHitCanvasGroup.DOFade(1f, fadeInOnDamageDuration);
+            // notificationCanvasGroup.alpha = 1;
+            yield return new WaitForSeconds(2f);
+            // fades out
+            criticalHitCanvasGroup.DOFade(0f, fadeOutOnTimeoutDuration);
         }
     }
 }
