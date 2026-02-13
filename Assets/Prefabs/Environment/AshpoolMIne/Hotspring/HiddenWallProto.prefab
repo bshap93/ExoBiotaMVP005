@@ -1117,15 +1117,15 @@ MonoBehaviour:
   openRotation: {x: 0, y: 2.926, z: 0}
   closedRotation: {x: 0, y: 0, z: 0}
   usePositionChange: 1
-  openPosition: {x: 0, y: 3.04, z: 4}
-  closedPosition: {x: 0, y: 0.01, z: 4}
+  openPosition: {x: 0, y: 3.38, z: 4}
+  closedPosition: {x: 0, y: 0.359, z: 4}
   startOpen: 0
   openFeedback: {fileID: 2540531259086573535}
   closeFeedback: {fileID: 4023676465047239875}
   proximityHighlightEffect: {fileID: 0}
   shouldDisableHighlightOnInteraction: 1
   openCloseDuration: 2
-  distanceToInteract: 3
+  distanceToInteract: 5
   interactionCollider: []
   shouldDisableColliderOnInteraction: 1
 --- !u!65 &2807967644788638602
@@ -1148,7 +1148,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.6161804, y: 3.4384673, z: 3.1091404}
-  m_Center: {x: 0.19190979, y: 1.6343654, z: 3.9939737}
+  m_Center: {x: 0.19190979, y: 1.98, z: 3.9939737}
 --- !u!1 &5038503217695005379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,8 +1212,8 @@ Transform:
   m_GameObject: {fileID: 6133565939316810693}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0.012000024, z: 4}
-  m_LocalScale: {x: 0.77470803, y: 0.7747077, z: 0.77470803}
+  m_LocalPosition: {x: 0, y: 0.359, z: 4}
+  m_LocalScale: {x: 0.7454171, y: 0.7816026, z: 0.77470803}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5945311515207278598}
