@@ -19390,17 +19390,145 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7019560535867170957}
     m_Modifications:
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: scale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: wind.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: wind.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: wind.z
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: albedo.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: albedo.b
+      value: 0.44792527
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: albedo.g
+      value: 0.70132375
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: albedo.r
+      value: 0.9559748
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: sdfQuality
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: noiseTexture
+      value: 
+      objectReference: {fileID: 11700000, guid: 1c66affda0cd9184d9ff056bfe97e3f8, type: 2}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: activeLifetime
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: cleanupOptions
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: maximumDensity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: shadowStepSize
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: fadeOutDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: mainLightTint.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: mainLightTint.b
+      value: 0.36871552
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: mainLightTint.g
+      value: 0.616394
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: mainLightTint.r
+      value: 0.64779866
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: shadowStepCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: expansionDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: minimumVisibility
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: ambientColorTint.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: ambientColorTint.b
+      value: 0.5415133
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: ambientColorTint.g
+      value: 0.5415133
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: ambientColorTint.r
+      value: 0.9308176
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: targetFillPercentage
+      value: 0.029
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: expansionUpdateFrequency
+      value: 0.0167
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: maximumFrameCostMilliseconds
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.499121
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 11.499121
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11.499121
+      objectReference: {fileID: 0}
     - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78
+      value: 4.85
       objectReference: {fileID: 0}
     - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4156508659957069478, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19438,6 +19566,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6976569532878601777, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
