@@ -46,6 +46,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         [FormerlySerializedAs("swingSpeedMultiplier")] [SerializeField]
         protected float overallToolSwingSpeedMultiplier = 1f;
+        
+        protected Vector3 savedAimOrigin;
+        protected Vector3 savedAimDirection;
+
+        protected void CaptureAim()
+        {
+            savedAimOrigin = mainCamera.transform.position;
+            savedAimDirection = mainCamera.transform.forward;
+        }
 
         [Tooltip("Fallback delay if using beginUseAnimation (legacy mode).")]
         public float defaultHitDelay = 0.2f;
