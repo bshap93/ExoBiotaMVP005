@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Feedbacks.Interface;
 using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Interactable;
@@ -140,21 +139,21 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             if (!mainCamera) mainCamera = Camera.main;
             if (!mainCamera) return;
 
-            // if (!Physics.Raycast(
-            //         mainCamera.transform.position, mainCamera.transform.forward,
-            //         out var hit, reach, hitMask, QueryTriggerInteraction.Ignore))
-            //     return;
+            if (!Physics.Raycast(
+                    mainCamera.transform.position, mainCamera.transform.forward,
+                    out var hit, reach, hitMask, QueryTriggerInteraction.Ignore))
+                return;
             //
             // if (!Physics.Raycast(
             //         savedAimOrigin, savedAimDirection,
             //         out var hit, reach, hitMask, QueryTriggerInteraction.Ignore))
             //     return;
-            
-            if (!Physics.Raycast(savedAimOrigin, savedAimDirection,
-                    out var hit, reach, hitMask, QueryTriggerInteraction.Ignore)
-                && !Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,
-                    out hit, reach, hitMask, QueryTriggerInteraction.Ignore))
-                return;
+
+            // if (!Physics.Raycast(savedAimOrigin, savedAimDirection,
+            //         out var hit, reach, hitMask, QueryTriggerInteraction.Ignore)
+            //     && !Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,
+            //         out hit, reach, hitMask, QueryTriggerInteraction.Ignore))
+            //     return;
 
             var go = hit.collider.gameObject;
 
@@ -238,7 +237,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public override void PerformToolAction()
         {
-            CaptureAim();
+            // CaptureAim();
             var adjustedCooldown =
                 swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
 
@@ -268,7 +267,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         public override void PerformHeavyChargedToolAction()
         {
-            CaptureAim();
+            // CaptureAim();
             var adjustedCooldown =
                 swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
 
