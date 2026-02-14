@@ -303,6 +303,9 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             currentHealth -= damageAmount;
             currentStunDamage += stunAmount;
 
+            if (isCriticalHit)
+                CriticalHitEvent.Trigger(CriticalHitEvent.WhoseCriticalHit.Player, playerAttack.critMultiplier);
+
             if (currentStunDamage >= StunThreshold) currentStunDamage = StunThreshold;
 
             // Check if creature is now stunned
