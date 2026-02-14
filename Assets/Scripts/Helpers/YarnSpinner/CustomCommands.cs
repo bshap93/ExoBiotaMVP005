@@ -3,6 +3,7 @@ using Helpers.Events;
 using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
 using Helpers.Events.Progression;
+using Helpers.Events.Status;
 using Inventory;
 using Manager;
 using Manager.ProgressionMangers;
@@ -12,6 +13,7 @@ using Overview.NPC;
 using SharedUI.Progression;
 using Structs;
 using UnityEngine;
+using VTabs.Libs;
 using Yarn.Unity;
 
 namespace Helpers.YarnSpinner
@@ -95,6 +97,10 @@ namespace Helpers.YarnSpinner
                 "unlock_door",
                 UnlockDoor);
 
+            dialogueRunner.AddCommandHandler<int>(
+                "heal_player",
+                HealPlayer);
+
             dialogueRunner.AddCommandHandler(
                 "save_game",
                 SaveGame);
@@ -141,6 +147,21 @@ namespace Helpers.YarnSpinner
         {
             SaveDataEvent.Trigger();
             AlertEvent.Trigger(AlertReason.SavingGame, "All data saved successfully!", "Saved Game");
+        }
+
+        void HealPlayer(int amount)
+        {
+            var isPlayerHealthMaxed = false;
+            var statsMgr = PlayerMutableStatsManager.Instance;
+            if (statsMgr != null)
+                if (statsMgr.CurrentHealth >= statsMgr.CurrentMaxHealth - 0.5f)
+                    isPlayerHealthMaxed = true;
+
+            if (!isPlayerHealthMaxed)
+                PlayerStatsEvent.Trigger(
+                    PlayerStatsEvent.PlayerStat.CurrentHealth,
+                    PlayerStatsEvent.PlayerStatChangeType.Increase,
+                    amount.ToFloat());
         }
 
         void FastTravelToTerminal(int terminalId)

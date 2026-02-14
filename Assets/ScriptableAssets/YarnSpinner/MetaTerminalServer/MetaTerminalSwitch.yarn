@@ -263,10 +263,10 @@ title: TerminalGeneralDirectory
 //     -> Not yet
 // <<endif>>
 Meta Terminal: What would you like to do?
--> Save My Game
+-> Save My Game and Heal
     <<jump SaveMyGameAtTerminal>>
--> Transport to another Terminal
-    <<jump FastTravelBetweenTerminals>>
+// -> Transport to another Terminal
+//     <<jump FastTravelBetweenTerminals>>
 -> Quit
 ===
 
@@ -275,6 +275,7 @@ title: SaveMyGameAtTerminal
 Meta Terminal: Saving Game...
 <<wait  2>>
 <<set_last_spawn_point>>
+<<heal_player 40>>
 <<save_game>>
 Meta Terminal: Game Saved!
 ===
