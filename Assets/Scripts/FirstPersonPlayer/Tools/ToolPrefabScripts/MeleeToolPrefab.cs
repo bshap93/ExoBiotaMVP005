@@ -46,15 +46,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         [FormerlySerializedAs("swingSpeedMultiplier")] [SerializeField]
         protected float overallToolSwingSpeedMultiplier = 1f;
-        
-        protected Vector3 savedAimOrigin;
-        protected Vector3 savedAimDirection;
-
-        protected void CaptureAim()
-        {
-            savedAimOrigin = mainCamera.transform.position;
-            savedAimDirection = mainCamera.transform.forward;
-        }
 
         [Tooltip("Fallback delay if using beginUseAnimation (legacy mode).")]
         public float defaultHitDelay = 0.2f;
@@ -98,6 +89,9 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
         protected int CurrentSwingIndex; // Track which swing we're on
         protected RaycastHit LastHit;
+
+
+        protected RaycastHit? SavedAimHitInfo;
 
         void Awake()
         {
@@ -154,6 +148,15 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
             // ChargeToolEvent.Trigger(
             //     ChargeToolEventType.Update,
             //     ChargeTimeElapsed / timeToFullCharge);
+        }
+
+        protected void CaptureAim()
+        {
+            Physics.Raycast(
+                mainCamera.transform.position, mainCamera.transform.forward,
+                out var hit, reach, hitMask, QueryTriggerInteraction.Ignore);
+
+            SavedAimHitInfo = hit;
         }
 
         protected IEnumerator ApplyAttackLunge(PlayerAttack attack, float delay)
@@ -464,6 +467,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             // Perform the actual hit detection and application
             ApplyHit();
+
+            SavedAimHitInfo = null;
         }
 
 
@@ -474,6 +479,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
 
             // Perform the actual hit detection and application
             ApplyHit(HitType.Heavy);
+
+            SavedAimHitInfo = null;
         }
 
         public abstract void ApplyHit(HitType hitType = HitType.Normal);

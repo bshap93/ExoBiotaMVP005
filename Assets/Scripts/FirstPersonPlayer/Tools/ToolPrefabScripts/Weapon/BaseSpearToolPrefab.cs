@@ -77,24 +77,30 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                     out var hit, reach, hitMask, QueryTriggerInteraction.Ignore))
                 return;
 
-            var go = hit.collider.gameObject;
+            var applyTimeHit = hit.collider.gameObject;
+
+            var aimTimeHit = SavedAimHitInfo != null && SavedAimHitInfo.Value.collider != null
+                ? SavedAimHitInfo.Value.collider.gameObject
+                : null;
+
 
             // do damage to valid targets
-            if (go.TryGetComponent<IBreakable>(out var breakable))
+            if (applyTimeHit.TryGetComponent<IBreakable>(out var breakable))
             {
                 // hardness/HP handled inside component
                 breakable.ApplyHit(spearPower, hit.point, hit.normal, hitType);
 
-                if (go.CompareTag("MiscRigidOrganism")) hitRigidOrganismFeedbacks?.PlayFeedbacks();
+                if (applyTimeHit.CompareTag("MiscRigidOrganism")) hitRigidOrganismFeedbacks?.PlayFeedbacks();
             }
-            else if (go.TryGetComponent<MyOreNode>(out var oreNode))
+            else if (applyTimeHit.TryGetComponent<MyOreNode>(out var oreNode))
             {
                 // No apply here – ore nodes are for pickaxe only
 
                 SpawnFxForIneffectualHit(hit.point, hit.normal);
                 hitRockFeedbacks?.PlayFeedbacks();
             }
-            else if (go.TryGetComponent<IFleshyObject>(out var fleshyObject))
+            else if (applyTimeHit.TryGetComponent<IFleshyObject>(out var fleshyObject) ||
+                     (aimTimeHit != null && aimTimeHit.TryGetComponent(out fleshyObject)))
             {
                 hitFleshyFeedbacks?.PlayFeedbacks();
                 fleshyObject.MakeJiggle();
@@ -105,18 +111,19 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                         PlayerStatsEvent.PlayerStatChangeType.Increase,
                         contaminationAmt);
             }
-            else if (go.CompareTag("DiggerChunk") || go.CompareTag("MainSceneTerrain"))
+            else if (applyTimeHit.CompareTag("DiggerChunk") || applyTimeHit.CompareTag("MainSceneTerrain"))
             {
                 SpawnFxForIneffectualHit(hit.point, hit.normal);
                 hitRockFeedbacks?.PlayFeedbacks();
             }
-            else if (go.CompareTag("MiscRigidOrganism"))
+            else if (applyTimeHit.CompareTag("MiscRigidOrganism") ||
+                     (aimTimeHit != null && aimTimeHit.CompareTag("MiscRigidOrganism")))
             {
                 hitRigidOrganismFeedbacks?.PlayFeedbacks();
             }
-            else if (go.CompareTag("EnemyNPC"))
+            else if (applyTimeHit.CompareTag("EnemyNPC") || (aimTimeHit != null && aimTimeHit.CompareTag("EnemyNPC")))
             {
-                var enemyController = go.GetComponentInParent<CreatureController>();
+                var enemyController = applyTimeHit.GetComponentInParent<CreatureController>();
 
                 if (enemyController == null)
                 {
@@ -155,7 +162,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts.Weapon
                 hitRockFeedbacks?.PlayFeedbacks();
             }
 
-            Debug.Log($"[BaseSpearToolPrefab] Hit object: {go.name}, tag: {go.tag}");
+            Debug.Log($"[BaseSpearToolPrefab] Hit object: {applyTimeHit.name}, tag: {applyTimeHit.tag}");
         }
         public override void PerformToolAction()
         {
