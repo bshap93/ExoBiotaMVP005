@@ -1,6 +1,7 @@
 title: NavigationServerSwitch
 ---
 Navigation Server: Stand by for navigation data...
+<<jump NavHelp_C1_BH>>
 ===
 
 title: NavHelp_C1_BH
@@ -21,7 +22,7 @@ Navigation Server: Hot Springs
 
 title: NavHelp_C1_BH_East
 ---
-Navigation Server: Blue Hole Access
+Navigation Server: Access Shaft
 ===
 
 title: NavHelp_C1_BH_South
