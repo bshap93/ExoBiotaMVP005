@@ -247,7 +247,7 @@ namespace Manager
                 "chapel_center", "chapel_exit", "hotspring_house", "WestEntrySpawnHSAdjCorr",
                 "SouthEntrySpawnHSAdjCorr",
                 "StartSpawn", "TerminalSpawn00", "FacilityUtilityC2Spawn", "DownwardPsgTopSpawn",
-                "BattlefieldGateSpawn"
+                "BattlefieldGateSpawn", "hotspring_gate",
             };
         }
 
