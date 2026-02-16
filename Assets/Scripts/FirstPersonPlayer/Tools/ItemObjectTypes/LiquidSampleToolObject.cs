@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace FirstPersonPlayer.Tools.ItemObjectTypes
 {
-    [CreateAssetMenu(fileName = "LiquidSampleToolObject", menuName = "Scriptable Objects/Items/LiquidSampleToolObject",
+    [CreateAssetMenu(
+        fileName = "LiquidSampleToolObject", menuName = "Scriptable Objects/Items/LiquidSampleToolObject",
         order = 0)]
     [Serializable]
-    public class LiquidSampleToolObject : BaseTool
+    public class LiquidSampleToolObject : RightHandEquippableTool
     {
         public override bool Equip(string playerID)
         {
-            MMInventoryEvent.Trigger(MMInventoryEventType.ItemEquipped,
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.ItemEquipped,
                 null, // Slot is not used in this context
                 "EquippedItemInventory", // Assuming this is the inventory name
                 this, // The item being equipped

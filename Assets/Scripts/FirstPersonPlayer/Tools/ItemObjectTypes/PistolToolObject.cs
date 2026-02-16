@@ -6,7 +6,7 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
     [CreateAssetMenu(
         fileName = "PistolToolObject", menuName = "Scriptable Objects/Items/PistolToolObject",
         order = 0)]
-    public class PistolToolObject : BaseTool
+    public class PistolToolObject : RightHandEquippableTool
     {
         public Sprite defaultReticle;
         public override bool Equip(string playerID)
