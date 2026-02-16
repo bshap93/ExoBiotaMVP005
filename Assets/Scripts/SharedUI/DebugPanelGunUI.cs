@@ -15,11 +15,13 @@ namespace SharedUI
         [SerializeField] TMP_Text spareCartridgesText;
         [FormerlySerializedAs("cartridgeTypeText")] [FormerlySerializedAs("currentCartridgeText")] [SerializeField]
         TMP_Text ammoTypeText;
+        // [SerializeField] TMP_Text gunModeText;
         [SerializeField] CanvasGroup canvasGroup;
 
 
         int _ammoCount;
         AmmoType _currentAmmoType;
+        // EnergyGunMode _currentGunMode;
 
         void Awake()
         {
@@ -84,31 +86,31 @@ namespace SharedUI
             if (eventType.EventDirection == AmmoEvent.EventDirection.Inbound) return;
             var toolsStateManager = ToolsStateManager.Instance;
             if (toolsStateManager == null) return;
-            // if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.ChangedFireMode)
-            // {
-            //     _currentGunMode = eventType.NewGunMode;
-            //     gunModeText.text = $"Gun Mode: {_currentGunMode}";
-            // }
-            // else if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.InitializedGunState)
-            // {
-            //     _currentGunMode = toolsStateManager.EnergyGunMode;
-            //     // should be magnium energy ammo
-            //     _currentAmmoType = toolsStateManager.CurrentAmmoType;
-            //
-            //     gunModeText.text = $"Gun Mode: {_currentGunMode}";
-            //     ammoTypeText.text =
-            //         $"Ammo Type: {_currentAmmoType}";
-            //
-            //     spareCartridgesText.text =
-            //         $"Spare Cartridges: {toolsStateManager.MagniumEnergyUnitsAvailable}";
-            //
-            //     Show();
-            // }
-            // else if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.UnequippedGun)
-            // {
-            //     Debug.Log("Hiding gun UI - gun unequipped.");
-            //     Hide();
-            // }
+            if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.ChangedFireMode)
+            {
+                // _currentGunMode = eventType.NewGunMode;
+                // gunModeText.text = $"Gun Mode: {_currentGunMode}";
+            }
+            else if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.InitializedGunState)
+            {
+                // _currentGunMode = toolsStateManager.EnergyGunMode;
+                // should be magnium energy ammo
+                _currentAmmoType = toolsStateManager.CurrentAmmoType;
+
+                // gunModeText.text = $"Gun Mode: {_currentGunMode}";
+                ammoTypeText.text =
+                    $"Ammo Type: {_currentAmmoType}";
+
+                spareCartridgesText.text =
+                    $"Spare Cartridges: {toolsStateManager.MagniumEnergyUnitsAvailable}";
+
+                Show();
+            }
+            else if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.UnequippedGun)
+            {
+                Debug.Log("Hiding gun UI - gun unequipped.");
+                Hide();
+            }
         }
 
         public void Hide()
