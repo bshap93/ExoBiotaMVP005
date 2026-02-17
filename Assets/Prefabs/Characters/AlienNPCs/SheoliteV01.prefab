@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 1088487718980799717}
   - component: {fileID: 8733878770947843069}
   - component: {fileID: 200930312352523093}
+  - component: {fileID: 7063622645864892623}
   m_Layer: 8
   m_Name: SheoliteV01
   m_TagString: Untagged
@@ -114,15 +115,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d587ea0930b47baa39930eebdd6823e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   uniqueID: fe570b9b-bb09-40da-9f96-0678af1e2ff3
   blackboard: {fileID: 0}
   animancerComponent: {fileID: 8733878770947843069}
+  fsmOwner: {fileID: 0}
+  feedbacksContainer: {fileID: 0}
   creatureType: {fileID: 0}
   initialCreatureState: 0
+  deathFeedbacks: {fileID: 0}
+  critDamageFeedbacks: {fileID: 0}
+  meleeHitFeedbacksBasic: {fileID: 0}
+  rangedHitFeedbacksBasic: {fileID: 0}
+  meleeHitFeedbacksHeavy: {fileID: 0}
+  rangedHitFeedbacksHeavy: {fileID: 0}
   secondsBeforeSettingShouldBeDestroyed: 5
+  currentHealth: 0
+  attackCount: 1
+  attackInstances: []
+  currentStunDamage: 0
+  highlightEffect: {fileID: 0}
+  startAsActivated: 0
+  isStunned: 0
+  destroyAfterDeath: 1
+  doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
-  animancerComponent: {fileID: 8733878770947843069}
   npcId: Sheolite001
+  interactDistanceOverride: 5
+  exobioticLanguageThreshold: 2
   defaultStartNode: IncomprehensibleGreeting
   startDialogueFeedback: {fileID: 3356145858617524677}
   initialState: 0
@@ -183,6 +203,22 @@ MonoBehaviour:
   - {fileID: -3548273549459496330, guid: 512e2ee199d510c4588b28b6f95446da, type: 3}
   - {fileID: -7095233583796928237, guid: 285edbde9b4b2ee4399d714d24439210, type: 3}
   animancerComponent: {fileID: 8733878770947843069}
+--- !u!114 &7063622645864892623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418743432324650267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{}}'
+  _objectReferences: []
+  _serializedVariables: []
 --- !u!1 &494614926638513416
 GameObject:
   m_ObjectHideFlags: 0

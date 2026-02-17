@@ -1,0 +1,18 @@
+title: OutcastKinMotileIntro
+---
+Outcast Kin: Greetings, [Name]. I had hoped you'd find your way here. Please make yourself at home.
+Outcast Kin: I preserve this humble establishment's safety. You may rest here as long as you like.
+-> Thank you, I have to go.
+-> I'll have to get used to talking like this, mind to mind. What is your name?
+Outcast Kin: My name is forfeit. I am but a nameless outcast.
+-> Is there anything you can tell me about the area around this establishment of yours?
+    Outcast Kin: To the north is the true no man's land. Not much reason to go there, except that beyond it is edge of Kin territory.
+    -> What is the Kin? My memories are still coming back in bits and pieces.
+        Outcast Kin: Not to worry. Kin is the threefold Triarchy of species which has dominated this world for untold millenia.
+        Outcast Kin: I am but a stray motile, cut off from the Kinship. 
+        -> The motiles are one of the species?
+            Outcast  Kin: Yes, we are the mobile arm as the name suggests. The other two are less so.
+                -> I met one of the Womb Keepers. I think it helped save my life.
+        I feel the great longing to be re-integrated. But it is not your burden.
+-> What did you do to become outcast?
+===

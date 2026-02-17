@@ -52,7 +52,7 @@ namespace Overview.NPC
             return new[]
             {
                 "ScientistHypolita", "CheckpointSoldier", "NavigationServer", "MetaTerminalServer",
-                "WombKeeper", "WombSquire"
+                "WombKeeper", "WombSquire", "OutcastKinMotile"
             };
         }
 

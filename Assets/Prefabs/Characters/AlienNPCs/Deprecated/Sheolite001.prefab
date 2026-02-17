@@ -3508,6 +3508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7896189615930874483}
   - component: {fileID: 209451414844788972}
+  - component: {fileID: 757431159491454182}
   m_Layer: 0
   m_Name: Sheolite001
   m_TagString: Untagged
@@ -3545,14 +3546,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d587ea0930b47baa39930eebdd6823e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   uniqueID: 
   blackboard: {fileID: 0}
   animancerComponent: {fileID: 3630283722626017367}
+  fsmOwner: {fileID: 0}
+  feedbacksContainer: {fileID: 0}
   creatureType: {fileID: 11400000, guid: da59ae8e795f15044a7d655fbc665d51, type: 2}
   initialCreatureState: 0
+  deathFeedbacks: {fileID: 0}
+  critDamageFeedbacks: {fileID: 0}
+  meleeHitFeedbacksBasic: {fileID: 0}
+  rangedHitFeedbacksBasic: {fileID: 0}
+  meleeHitFeedbacksHeavy: {fileID: 0}
+  rangedHitFeedbacksHeavy: {fileID: 0}
   secondsBeforeSettingShouldBeDestroyed: 5
-  appearsOnlyOnce: 0
+  currentHealth: 0
+  attackCount: 1
+  attackInstances: []
+  currentStunDamage: 0
+  highlightEffect: {fileID: 0}
+  startAsActivated: 0
+  isStunned: 0
+  destroyAfterDeath: 1
   doesNotImmediatelyNeedToMove: 0
+  appearsOnlyOnce: 0
   npcId: Sheollite001
   interactDistanceOverride: 5
   exobioticLanguageThreshold: 2
@@ -3561,6 +3579,22 @@ MonoBehaviour:
   initialState: 0
   isInteractable: 1
   npcDefinition: {fileID: 11400000, guid: 67f109c8dc806c142851122430904afe, type: 2}
+--- !u!114 &757431159491454182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126976127344951643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{}}'
+  _objectReferences: []
+  _serializedVariables: []
 --- !u!1 &9155866176797218975
 GameObject:
   m_ObjectHideFlags: 0
