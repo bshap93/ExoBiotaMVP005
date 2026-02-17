@@ -4,44 +4,47 @@ using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class AmbienceManagerHelper : MonoBehaviour, MMEventListener<SceneEvent>
+namespace Manager.ManagerHelpers
 {
-    [FormerlySerializedAs("_ambienceManager")] [SerializeField]
-    AmbienceManager ambienceManager;
-    bool _isPaused;
-
-    void Awake()
+    public class AmbienceManagerHelper : MonoBehaviour, MMEventListener<SceneEvent>
     {
-        if (ambienceManager == null) ambienceManager = GetComponent<AmbienceManager>();
-        if (ambienceManager == null) Debug.LogError("AmbienceManager not found in the scene.");
+        [FormerlySerializedAs("_ambienceManager")] [SerializeField]
+        AmbienceManager ambienceManager;
+        bool _isPaused;
 
-        _isPaused = false;
-    }
-
-    void OnEnable()
-    {
-        this.MMEventStartListening();
-    }
-
-    void OnDisable()
-    {
-        this.MMEventStopListening();
-    }
-
-    public void OnMMEvent(SceneEvent eventType)
-    {
-        if (eventType.EventType == SceneEventType.TogglePauseScene)
+        void Awake()
         {
-            if (!_isPaused)
-            {
-                AmbienceManager.PausePlayback();
+            if (ambienceManager == null) ambienceManager = GetComponent<AmbienceManager>();
+            if (ambienceManager == null) Debug.LogError("AmbienceManager not found in the scene.");
 
-                _isPaused = true;
-            }
-            else
+            _isPaused = false;
+        }
+
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(SceneEvent eventType)
+        {
+            if (eventType.EventType == SceneEventType.TogglePauseScene)
             {
-                AmbienceManager.ContinuePlayback();
-                _isPaused = false;
+                if (!_isPaused)
+                {
+                    AmbienceManager.PausePlayback();
+
+                    _isPaused = true;
+                }
+                else
+                {
+                    AmbienceManager.ContinuePlayback();
+                    _isPaused = false;
+                }
             }
         }
     }

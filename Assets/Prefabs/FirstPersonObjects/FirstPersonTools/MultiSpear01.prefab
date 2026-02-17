@@ -59,7 +59,7 @@ MonoBehaviour:
   swing01HitDelay: 0.65
   swing02HitDelay: 0.65
   swing03HitDelay: 0.4
-  swingHeavyHitDelay: 0.325
+  swingHeavyHitDelay: 0.425
   overallToolSwingSpeedMultiplier: 1.5
   defaultHitDelay: 0.4
   useOnRelease: 0

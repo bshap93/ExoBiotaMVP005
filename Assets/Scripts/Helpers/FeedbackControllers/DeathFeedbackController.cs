@@ -21,6 +21,7 @@ namespace Helpers.FeedbackControllers
         [SerializeField] AudioSource otherEnvironmentalAS;
         [SerializeField] AudioListener playerAudioListener;
 
+        [SerializeField] bool volumeShouldFade;
         // [Header("Camera Settings")]
         // [SerializeField] private Transform cameraTransform;
         // [SerializeField] private float deathShakeIntensity = 0.3f;
@@ -74,7 +75,8 @@ namespace Helpers.FeedbackControllers
             yield return new WaitForSeconds(delayBeforeFade);
 
             StartCoroutine(FadeScreen());
-            StartCoroutine(FadeOutAudio());
+            if (volumeShouldFade)
+                StartCoroutine(FadeOutAudio());
             // ApplyCameraEffects();
 
             yield return new WaitForSeconds(fadeDuration);
