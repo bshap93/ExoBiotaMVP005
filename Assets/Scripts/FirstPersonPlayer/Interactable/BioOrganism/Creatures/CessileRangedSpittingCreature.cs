@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using Animancer;
-using Helpers.Events.Combat;
-using Helpers.Events.NPCs;
-using Manager.StateManager;
+using FirstPersonPlayer.Combat.AINPC;
 using UnityEngine;
 using Utilities.Interface;
 
@@ -10,7 +8,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 {
     public class CessileRangedSpittingCreature : CreatureController, IDamageable
     {
-
         // Each of the 8 trunk points 0.2m up (in negative X direction) from the Root
         [SerializeField] GameObject[] trunkPoints;
 
@@ -18,6 +15,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [SerializeField] GameObject centerOfHead;
 
         [SerializeField] Transform projectileSpawnPoint;
+
+        [SerializeField] CreaturePoisonAOE poisonAOEPrefab;
 
         // protected AnimancerState AttackState;
         protected AnimancerState DeathState;
@@ -78,8 +77,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
                 OnDeath();
             }
         }
-
-
 
 
         public IEnumerator StartAttack(int attackIndex)

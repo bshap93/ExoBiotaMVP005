@@ -1674,6 +1674,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
+      propertyPath: maximumDensity
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 790512458728592226, guid: ec6513bb95ad1bf4c88a97860cb2b85f, type: 3}
       propertyPath: mainLightTint.b
       value: 0.9811321
       objectReference: {fileID: 0}
