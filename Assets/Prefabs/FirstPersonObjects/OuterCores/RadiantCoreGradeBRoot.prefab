@@ -322,7 +322,6 @@ GameObject:
   - component: {fileID: 6525095784053945111}
   - component: {fileID: 7876096316737028779}
   - component: {fileID: 6018752830012461347}
-  - component: {fileID: 7392444892469141973}
   m_Layer: 20
   m_Name: RadiantCoreGradeBRoot
   m_TagString: Untagged
@@ -729,26 +728,6 @@ MonoBehaviour:
   compassIconDistanceText: {fileID: 0}
   compassIconDistanceTextRT: {fileID: 0}
   miniMapCurrentIconScale: 0
---- !u!114 &7392444892469141973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6430045966664620688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53fa13f4caf470b99adb31cfaabb261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onScanHit:
-    m_PersistentCalls:
-      m_Calls: []
-  revealPolicy: 0
-  examinationPolicy: 1
-  canBeAreaScannedType: 1
-  compassProPOI: {fileID: 0}
-  locationObject: {fileID: -4038893289790566941, guid: 8b39446f6099d944b8282c10cc7b3055, type: 2}
 --- !u!1 &6563510901454044286
 GameObject:
   m_ObjectHideFlags: 0

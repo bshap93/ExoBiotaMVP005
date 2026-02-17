@@ -17,6 +17,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ActionTasks.SpittingVine
         //EndAction can be called from anywhere.
         protected override void OnExecute()
         {
+            PoisonAOE.value.ReleasePoison();
             EndAction(true);
         }
 

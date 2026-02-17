@@ -113,7 +113,28 @@ namespace LevelConstruct.Interactable.Door
         }
         public void OnMMEvent(DoorEvent eventType)
         {
-            throw new NotImplementedException();
+            if (!(eventType.UniqueId == uniqueID)) return;
+
+            switch (eventType.EventType)
+            {
+                case DoorEventType.Unlock:
+                    IsLocked = false;
+                    associatedHighlightEffectController.SetPrimaryStateHighlightColor();
+                    break;
+                case DoorEventType.Lock:
+                    IsLocked = true;
+                    associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+                    break;
+                case DoorEventType.Open:
+                    OpenDoor();
+                    break;
+                case DoorEventType.Close:
+                    CloseDoor();
+                    break;
+                default:
+                    Debug.LogWarning("Unhandled DoorEventType: " + eventType.EventType);
+                    break;
+            }
         }
         public void OnMMEvent(LoadedManagerEvent eventType)
         {

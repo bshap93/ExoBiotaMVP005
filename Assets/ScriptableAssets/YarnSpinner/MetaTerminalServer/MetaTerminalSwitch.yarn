@@ -244,7 +244,7 @@ title: TerminalGeneralDirectory
 <<if get_current_class_id() == 0>>
     Meta Terminal: Choose the attribute profile you want.
     -> Yes
-        Meta Terminal: Excellent.
+        Meta Terminal: Affirmation Acknowledged.
         <<jump IntroduceAttributeClass>>
     -> Not now
 <<endif>>
