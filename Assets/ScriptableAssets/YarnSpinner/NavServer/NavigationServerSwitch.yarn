@@ -13,16 +13,18 @@ Navigation Server: What is your bearing?
     <<jump NavHelp_C1_BH_North>>
 // -> South
 //     <<jump NavHelp_C1_BH_South>>
+-> Save my Game
+    <<jump SaveMyGameAtNavHolo>>
 === 
 
 title: NavHelp_C1_BH_North
 ---
-Navigation Server: Hot Springs
+Navigation Server: Ruins, Hot Springs Access
 ===
 
 title: NavHelp_C1_BH_East
 ---
-Navigation Server: Access Shaft
+Navigation Server: Access Shaft to Blue Gap
 ===
 
 title: NavHelp_C1_BH_South

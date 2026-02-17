@@ -88,15 +88,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6767300df002438ba7ff8f6169b67339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 1
   uniqueID: 
   keyID: Mine01ElevatorKey01
+  usesAnimationClips: 1
   animancerComponent: {fileID: 7211761101133029349}
+  overrideLockState: 0
+  defaultLockState: 1
+  startLocked: 1
   openAnimation: {fileID: 7400000, guid: 7695b5a9160466a468f90993277ec337, type: 2}
   closeAnimation: {fileID: 7400000, guid: 4080b0865d8748b478c4427c96f12306, type: 2}
   openedAnimation: {fileID: 7400000, guid: 41080bb502a042b4dbaa710daf2d4e4b, type: 2}
+  usesDotWeenForSwing: 0
+  doubleDoors: 1
+  leftDoor: {fileID: 0}
+  rightDoor: {fileID: 0}
+  leftDoorOpenRotation: {x: 0, y: 0, z: 0}
+  rightDoorOpenRotation: {x: 0, y: 0, z: 0}
+  leftDoorCloseRotation: {x: 0, y: 0, z: 0}
+  rightDoorCloseRotation: {x: 0, y: 0, z: 0}
+  leftDoorOpenPosition: {x: 0, y: 0, z: 0}
+  rightDoorOpenPosition: {x: 0, y: 0, z: 0}
+  leftDoorClosePosition: {x: 0, y: 0, z: 0}
+  rightDoorClosePosition: {x: 0, y: 0, z: 0}
+  swingDuration: 1
+  swingEase: 4
   openFeedbacks: {fileID: 5565741282224640884}
   closeFeedbacks: {fileID: 3416305054860797298}
+  associatedHighlightEffectController: {fileID: 0}
   isOpen: 0
 --- !u!1 &2762648568668016456
 GameObject:

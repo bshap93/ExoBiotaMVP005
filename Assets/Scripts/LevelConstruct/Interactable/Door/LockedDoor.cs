@@ -1,16 +1,21 @@
 ﻿using System;
 using Animancer;
 using DG.Tweening;
+using Helpers.Events;
+using Helpers.Events.Machine;
+using LevelConstruct.Highlighting;
+using Manager.SceneManagers;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Interface;
 
 namespace LevelConstruct.Interactable.Door
 {
-    public class LockedDoor : MonoBehaviour, IRequiresUniqueID
+    public class LockedDoor : MonoBehaviour, IRequiresUniqueID, MMEventListener<DoorEvent>,
+        MMEventListener<LoadedManagerEvent>
     {
-        public bool isLocked;
         public string uniqueID;
 
 
@@ -22,14 +27,22 @@ namespace LevelConstruct.Interactable.Door
         AnimancerComponent animancerComponent;
 
 
-        [ShowIf("usesAnimationClips")] [SerializeField]
+        [Header("Override Lock State")] [SerializeField]
+        bool overrideLockState;
+        [SerializeField] bool defaultLockState;
+        [ShowIf("overrideLockState")] [SerializeField]
+        bool startLocked = true;
+
+
+        [Header("Animation Clips")] [ShowIf("usesAnimationClips")] [SerializeField]
         AnimationClip openAnimation;
         [ShowIf("usesAnimationClips")] [SerializeField]
         AnimationClip closeAnimation;
         [ShowIf("usesAnimationClips")] [SerializeField]
         AnimationClip openedAnimation;
 
-        [SerializeField] bool usesDotWeenForSwing;
+        [Header("DOTween Swing Settings")] [SerializeField]
+        bool usesDotWeenForSwing;
         [ShowIf("usesDotWeenForSwing")] [SerializeField]
         bool doubleDoors = true;
 
@@ -61,10 +74,33 @@ namespace LevelConstruct.Interactable.Door
         [ShowIf("usesDotWeenForSwing")] [SerializeField]
         Ease swingEase = Ease.InOutSine;
 
-        [SerializeField] MMFeedbacks openFeedbacks;
+        [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedbacks;
         [SerializeField] MMFeedbacks closeFeedbacks;
+        [Header("Highlighting")] [SerializeField]
+        HighlightEffectController associatedHighlightEffectController;
+
 
         public bool isOpen;
+        DoorManager _doorManager;
+        public bool IsLocked { get; set; }
+
+        void Start()
+        {
+            if (overrideLockState) IsLocked = startLocked;
+
+            if (IsLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+        }
+        void OnEnable()
+        {
+            this.MMEventStartListening<DoorEvent>();
+            this.MMEventStartListening<LoadedManagerEvent>();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening<DoorEvent>();
+            this.MMEventStopListening<LoadedManagerEvent>();
+        }
 
         public string UniqueID => uniqueID;
         public void SetUniqueID()
@@ -74,6 +110,31 @@ namespace LevelConstruct.Interactable.Door
         public bool IsUniqueIDEmpty()
         {
             return string.IsNullOrEmpty(uniqueID);
+        }
+        public void OnMMEvent(DoorEvent eventType)
+        {
+            throw new NotImplementedException();
+        }
+        public void OnMMEvent(LoadedManagerEvent eventType)
+        {
+            if (eventType.ManagerType != ManagerType.All)
+                return;
+
+            _doorManager = DoorManager.Instance;
+
+            if (_doorManager.DoorHasLockedState(uniqueID))
+            {
+                var lockState = _doorManager.GetDoorLockState(uniqueID);
+                IsLocked = lockState == DoorManager.DoorLockState.Locked;
+                if (IsLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+                else associatedHighlightEffectController.SetPrimaryStateHighlightColor();
+            }
+            else
+            {
+                IsLocked = defaultLockState;
+                if (IsLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+                else associatedHighlightEffectController.SetPrimaryStateHighlightColor();
+            }
         }
 
         public void ToggleDoor()
@@ -88,6 +149,8 @@ namespace LevelConstruct.Interactable.Door
         public void OpenDoor()
         {
             if (isOpen) return;
+
+            if (IsLocked) return;
 
             if (usesAnimationClips && openAnimation != null)
             {

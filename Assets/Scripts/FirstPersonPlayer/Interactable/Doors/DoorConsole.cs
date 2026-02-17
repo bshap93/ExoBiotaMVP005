@@ -1,5 +1,6 @@
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
+using Helpers.Events.Machine;
 using Inventory;
 using LevelConstruct.Interactable.Door;
 using MoreMountains.Feedbacks;
@@ -27,7 +28,7 @@ namespace FirstPersonPlayer.Interactable.Doors
         void Start()
         {
             // Initialize switch animation based on door state
-            AnimateSwitch(!lockedDoor.isLocked);
+            AnimateSwitch(!lockedDoor.IsLocked);
         }
 
 
@@ -35,8 +36,11 @@ namespace FirstPersonPlayer.Interactable.Doors
         {
             if (!CanInteract()) return;
 
+
+            if (lockedDoor.IsLocked) DoorEvent.Trigger(lockedDoor.uniqueID, DoorEventType.Unlock);
             // Toggle door open/close
             lockedDoor.ToggleDoor();
+
 
             // Update console switch animation
             AnimateSwitch(!lockedDoor.isOpen);
@@ -44,12 +48,12 @@ namespace FirstPersonPlayer.Interactable.Doors
 
         public bool CanInteract()
         {
-            if (!lockedDoor.isLocked)
+            if (!lockedDoor.IsLocked)
                 return true;
 
             if (GlobalInventoryManager.Instance.HasKeyForDoor(lockedDoor.keyID))
             {
-                lockedDoor.isLocked = false;
+                lockedDoor.IsLocked = false;
                 switchFeedbacks?.PlayFeedbacks();
                 return true;
             }

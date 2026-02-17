@@ -926,15 +926,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6767300df002438ba7ff8f6169b67339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 1
   uniqueID: 
   keyID: AshpoolMineKey
+  usesAnimationClips: 1
   animancerComponent: {fileID: 5625961580951410118}
+  overrideLockState: 0
+  defaultLockState: 1
+  startLocked: 1
   openAnimation: {fileID: 7400000, guid: a2dda4d05cf80f74abbf0a3eb7a6f7f1, type: 2}
   closeAnimation: {fileID: 7400000, guid: 93bbbb7a1632c0442881e5431ef3a231, type: 2}
   openedAnimation: {fileID: 7400000, guid: 8d56804cd65617a4fb3c2b68a314c1fa, type: 2}
+  usesDotWeenForSwing: 0
+  doubleDoors: 1
+  leftDoor: {fileID: 0}
+  rightDoor: {fileID: 0}
+  leftDoorOpenRotation: {x: 0, y: 0, z: 0}
+  rightDoorOpenRotation: {x: 0, y: 0, z: 0}
+  leftDoorCloseRotation: {x: 0, y: 0, z: 0}
+  rightDoorCloseRotation: {x: 0, y: 0, z: 0}
+  leftDoorOpenPosition: {x: 0, y: 0, z: 0}
+  rightDoorOpenPosition: {x: 0, y: 0, z: 0}
+  leftDoorClosePosition: {x: 0, y: 0, z: 0}
+  rightDoorClosePosition: {x: 0, y: 0, z: 0}
+  swingDuration: 1
+  swingEase: 4
   openFeedbacks: {fileID: 743753414573807073}
   closeFeedbacks: {fileID: 8577365717127671632}
+  associatedHighlightEffectController: {fileID: 0}
   isOpen: 0
 --- !u!1 &4812607057896557233
 GameObject:
