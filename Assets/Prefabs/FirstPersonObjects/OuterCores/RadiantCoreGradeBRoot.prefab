@@ -270,7 +270,7 @@ MonoBehaviour:
   actionId: 43
   actionText: For Options, or F to Pickup
   quantity: 1
-  interactionDistance: 2
+  interactionDistance: 3
   onItemPicked:
     m_PersistentCalls:
       m_Calls: []
