@@ -72,7 +72,7 @@ MonoBehaviour:
   hitRigidOrganismFeedbacks: {fileID: 3628061213080190667}
   hitFleshyFeedbacks: {fileID: 2715987480175634209}
   mainCamera: {fileID: 0}
-  reach: 4.1
+  reach: 3.9
   hitMask:
     serializedVersion: 2
     m_Bits: 2147483455

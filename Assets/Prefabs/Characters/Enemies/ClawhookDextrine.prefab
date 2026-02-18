@@ -259,8 +259,8 @@ MonoBehaviour:
         SequentialOrderHoldCooldownDuration: 2
         RandomUnique: 0
         SoundDataSO: {fileID: 0}
-        MinVolume: 1.2
-        MaxVolume: 1.24
+        MinVolume: 0.775
+        MaxVolume: 0.825
         MinPitch: 1
         MaxPitch: 1
         MmSoundManagerTrack: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
         PlaybackDuration: {x: 0, y: 0}
         DopplerLevel: 1
         Spread: 131
-        RolloffMode: 0
+        RolloffMode: 1
         MinDistance: 1
         MaxDistance: 30
         UseCustomRolloffCurve: 0
@@ -432,7 +432,7 @@ MonoBehaviour:
         AutomatedTargetAcquisition:
           Mode: 0
           ChildIndex: 0
-        RandomizeOutput: 0
+        RandomizeOutput: 1
         RandomMultiplier: {x: 0.8, y: 1}
         RandomizeDuration: 0
         RandomDurationMultiplier: {x: 0.5, y: 2}
@@ -477,8 +477,8 @@ MonoBehaviour:
         SequentialOrderHoldCooldownDuration: 2
         RandomUnique: 0
         SoundDataSO: {fileID: 0}
-        MinVolume: 1
-        MaxVolume: 1
+        MinVolume: 0.575
+        MaxVolume: 0.625
         MinPitch: 1
         MaxPitch: 1
         MmSoundManagerTrack: 0
@@ -571,7 +571,7 @@ MonoBehaviour:
         PlaybackDuration: {x: 0, y: 0}
         DopplerLevel: 1
         Spread: 130
-        RolloffMode: 0
+        RolloffMode: 1
         MinDistance: 0.1
         MaxDistance: 30
         UseCustomRolloffCurve: 0
@@ -6931,7 +6931,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.144, z: 2.4}
-  m_LocalScale: {x: 2.3893251, y: 2.4906504, z: 2.8753917}
+  m_LocalScale: {x: 2, y: 2.4906504, z: 2.8753917}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075388668643215367}
@@ -18209,7 +18209,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.144, z: 2.3776}
-  m_LocalScale: {x: 2.3893251, y: 2.4906504, z: 2.7766898}
+  m_LocalScale: {x: 2, y: 2.4906504, z: 2.7766898}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075388668643215367}
@@ -35423,7 +35423,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.94, z: 0.24}
-  m_LocalScale: {x: 5.5736847, y: 5.5736847, z: 5.5736847}
+  m_LocalScale: {x: 5.5, y: 5.5736847, z: 5.5736847}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075388668643215367}
