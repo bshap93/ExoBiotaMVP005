@@ -138,6 +138,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 287724d791b609348874f88ced467cd1, type: 2}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.Name
+      value: Plant Blast Ability Injector
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.ShortBlurb
+      value: A hypo for gaining abilities. This grants Plant Blast.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.UnknownIcon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.FullDescription
+      value: "A hypodermic injector with a green bioluminescent vial attached. Contains
+        refined extract of alien plant. You hope this will have the desired effect.
+        \nA hypo for gaining abilities. This grants Plant Blast, a ranged projectile
+        attack.\n---\nBiotic Power Requirement: 2"
+      objectReference: {fileID: 0}
     - target: {fileID: 8076146276000589036, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

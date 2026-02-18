@@ -1,5 +1,5 @@
 using System.Collections;
-using Helpers.Events;
+using Helpers.Events.Combat;
 using Manager.Status;
 using Manager.Status.Scriptable;
 using UnityEngine;

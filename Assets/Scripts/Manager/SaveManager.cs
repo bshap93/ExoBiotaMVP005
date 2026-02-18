@@ -67,7 +67,7 @@ namespace Manager
         AttributesSave,
         CreatureStateSave,
         HotbarSave,
-        BioticAbilitiesSave,
+        // BioticAbilitiesSave,
         ToolsStateSave,
         LevelingSave,
         TerminalsSave
@@ -392,8 +392,8 @@ namespace Manager
                     return "CreatureStateSave.es3";
                 case GlobalManagerType.HotbarSave:
                     return "HotbarSave.es3";
-                case GlobalManagerType.BioticAbilitiesSave:
-                    return "BioticAbilitiesSave.es3";
+                // case GlobalManagerType.BioticAbilitiesSave:
+                //     return "BioticAbilitiesSave.es3";
                 case GlobalManagerType.ToolsStateSave:
                     return "ToolsStateSave.es3";
                 case GlobalManagerType.LevelingSave:

@@ -10,7 +10,7 @@ Navigation Server: What is your bearing?
 -> South
     <<jump NavHelp_M1_South>>
 -> Save my game here
-    <<jump SaveMyGameAtTerminal>>
+    <<jump SaveMyGameAtNavHolo>>
 -> Nothing for now
 
 ===

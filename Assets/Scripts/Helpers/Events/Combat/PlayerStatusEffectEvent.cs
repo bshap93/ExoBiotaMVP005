@@ -1,7 +1,7 @@
 ﻿using Manager.Status.Scriptable;
 using MoreMountains.Tools;
 
-namespace Helpers.Events
+namespace Helpers.Events.Combat
 {
     public struct PlayerStatusEffectEvent
     {
@@ -14,8 +14,7 @@ namespace Helpers.Events
             RemoveAllFromCatalog,
             RemoveAllOfAKind
         }
-        
-        
+
 
         public enum DirectionOfEvent
         {
@@ -31,7 +30,7 @@ namespace Helpers.Events
         public StatusEffect.StatusEffectKind StatusEffectKind;
 
         public static void Trigger(StatusEffectEventType type, string effectID, string catalogID,
-            DirectionOfEvent direction,  StatusEffect.StatusEffectKind statusEffectKind)
+            DirectionOfEvent direction, StatusEffect.StatusEffectKind statusEffectKind)
         {
             _e.Type = type;
             _e.EffectID = effectID;

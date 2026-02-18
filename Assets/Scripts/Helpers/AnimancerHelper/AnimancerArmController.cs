@@ -3,8 +3,10 @@ using Animancer;
 using FirstPersonPlayer.Combat.AINPC.ScriptableObjects;
 using Helpers.Events.NPCs;
 using Helpers.ScriptableObjects.Animation;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Helpers.AnimancerHelper
 {
@@ -20,6 +22,9 @@ namespace Helpers.AnimancerHelper
 
         [Tooltip("Transition duration for locomotion changes (idle/walk/run)")]
         public float locomotionTransitionDuration = 0.15f;
+
+        [FormerlySerializedAs("_enableBlockFeedbacks")] [Header("Feedbacks")] [SerializeField]
+        MMFeedbacks enableBlockFeedbacks;
         AnimancerState _currentActionState;
 
         LocomotionState _currentLocoMode = LocomotionState.Idle;
@@ -117,7 +122,11 @@ namespace Helpers.AnimancerHelper
                 locomotionTransitionDuration
             );
 
-            _currentLocomotionState.Events(this).OnEnd = () => { _currentLocomotionState.Time = 0f; };
+            _currentLocomotionState.Events(this).OnEnd = () =>
+            {
+                enableBlockFeedbacks?.PlayFeedbacks();
+                _currentLocomotionState.Time = 0f;
+            };
         }
         public void ReturnFromBlockState()
         {

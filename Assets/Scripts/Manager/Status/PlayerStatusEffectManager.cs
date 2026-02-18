@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Helpers.Events;
+using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Helpers.Interfaces;
 using Helpers.ScriptableObjects;

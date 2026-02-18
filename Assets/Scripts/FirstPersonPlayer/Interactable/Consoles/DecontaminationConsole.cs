@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Helpers.Events;
+using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using LevelConstruct.Interactable.ItemInteractables;
 using Manager;

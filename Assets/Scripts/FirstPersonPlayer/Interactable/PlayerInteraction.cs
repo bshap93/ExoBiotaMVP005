@@ -3,14 +3,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Dirigible.Input;
-using FirstPersonPlayer.BioticAbilities;
 using FirstPersonPlayer.Interface;
 using FirstPersonPlayer.Tools;
 using FirstPersonPlayer.UI;
 using Helpers.Events;
 using LevelConstruct.Interactable.ItemInteractables.ItemPicker;
 using MoreMountains.Tools;
-using Rewired;
 using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using Unity.Cinemachine;

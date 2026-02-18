@@ -11,13 +11,12 @@ using UnityEngine;
 namespace SharedUI.HUD
 {
     public class EnemyInfoBarUIElement : MonoBehaviour, MMEventListener<EnemyDamageEvent>, MMEventListener<HotbarEvent>,
-        MMEventListener<CriticalHitEvent>
+        MMEventListener<CriticalHitEvent>, MMEventListener<EnemyStatusEffectEvent>
     {
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] TMP_Text enemyNameText;
         [SerializeField] MMProgressBar enemyHealthBar;
         [SerializeField] MMProgressBar enemyStunDamageBar;
-        [SerializeField] CanvasGroup criticalHitCanvasGroup;
         [Header("Feedbacks")] [SerializeField] MMFeedbacks infoBarDeathFeedbacks;
         [SerializeField] MMFeedbacks hitEnemyFeedbacks;
         [SerializeField] MMFeedbacks criticalHitEnemyFeedbacks;
@@ -28,6 +27,13 @@ namespace SharedUI.HUD
         [SerializeField] float fadeOutOnTimeoutDuration = 0.3f;
         [SerializeField] float visibleDurationAfterDamageDealt = 5f;
         [SerializeField] GameObject barVisual;
+        [Header("Critical Hit")] [SerializeField]
+        CriticalHitNotify criticalHitNotify;
+        [SerializeField] CanvasGroup criticalHitCanvasGroup;
+
+        [Header("Status Effect")] [SerializeField]
+        EnemyStatusEffectNotify enemyStatusEffectNotify;
+        [SerializeField] CanvasGroup enemyStatusEffectCanvasGroup;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,8 +42,6 @@ namespace SharedUI.HUD
         bool _isVisible;
 
         float _timeSinceLastDamageDealt;
-        [Header("Critical Hit")] [SerializeField]
-        CriticalHitNotify criticalHitNotify;
 
         void Awake()
         {
@@ -54,6 +58,8 @@ namespace SharedUI.HUD
             }
 
             if (criticalHitCanvasGroup != null) criticalHitCanvasGroup.alpha = 0f;
+
+            if (enemyStatusEffectCanvasGroup != null) enemyStatusEffectCanvasGroup.alpha = 0f;
         }
 
         void Update()
@@ -68,6 +74,7 @@ namespace SharedUI.HUD
             this.MMEventStartListening<EnemyDamageEvent>();
             this.MMEventStartListening<HotbarEvent>();
             this.MMEventStartListening<CriticalHitEvent>();
+            this.MMEventStartListening<EnemyStatusEffectEvent>();
         }
 
         void OnDisable()
@@ -75,6 +82,7 @@ namespace SharedUI.HUD
             this.MMEventStopListening<EnemyDamageEvent>();
             this.MMEventStopListening<HotbarEvent>();
             this.MMEventStopListening<CriticalHitEvent>();
+            this.MMEventStopListening<EnemyStatusEffectEvent>();
         }
         public void OnMMEvent(CriticalHitEvent eventType)
         {
@@ -113,6 +121,11 @@ namespace SharedUI.HUD
                 FadeOut(fadeOutOnTimeoutDuration);
                 ResetBar();
             }
+        }
+        public void OnMMEvent(EnemyStatusEffectEvent eventType)
+        {
+            if (eventType.EffectType == EnemyStatusEffectType.Stun)
+                StartCoroutine(ShowEnemyStatusEffectNotificationCoroutine(eventType.EffectType, eventType.Value));
         }
         public void OnMMEvent(HotbarEvent eventType)
         {
@@ -198,6 +211,16 @@ namespace SharedUI.HUD
             yield return new WaitForSeconds(2f);
             // fades out
             criticalHitCanvasGroup.DOFade(0f, fadeOutOnTimeoutDuration);
+        }
+
+        IEnumerator ShowEnemyStatusEffectNotificationCoroutine(EnemyStatusEffectType effectType, float value)
+        {
+            enemyStatusEffectNotify.SetStatusEffectText(effectType, value);
+            // fades in tween
+            enemyStatusEffectCanvasGroup.DOFade(1f, fadeInOnDamageDuration);
+            yield return new WaitForSeconds(2f);
+            // fades out
+            enemyStatusEffectCanvasGroup.DOFade(0f, fadeOutOnTimeoutDuration);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Helpers.Events;
+using Helpers.Events.Combat;
 using Manager.Status;
 using Manager.Status.Scriptable;
 using MoreMountains.Tools;
