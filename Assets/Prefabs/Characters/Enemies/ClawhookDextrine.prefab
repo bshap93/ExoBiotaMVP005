@@ -35732,7 +35732,8 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"alertDistance":{"_value":10.0,"_name":"alertDistance","_id":"7abafb18-75d5-4bc9-b8db-a622f2345281","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"ableToPursueDistance":{"_value":17.0,"_name":"ableToPursueDistance","_id":"dfdacf92-b70b-4a7a-8ea1-b778f22c4aa5","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"attackFeedbacks03":{"_value":7,"_name":"attackFeedbacks03","_id":"647961e2-e2e1-4069-98f8-bbfb90557e68","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
-    MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+    MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"canSeeLayers":{"_value":{"value":420040457},"_name":"canSeeLayers","_id":"a3fdaf76-284b-4d8d-adf0-f661fed33982","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.LayerMask,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 4426288389754977875}
@@ -35832,6 +35833,9 @@ MonoBehaviour:
     _references:
     - {fileID: 0}
     - {fileID: 343086385322953310}
+  - _json: '{"_value":{"value":420040457},"_name":"canSeeLayers","_id":"a3fdaf76-284b-4d8d-adf0-f661fed33982","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.LayerMask,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
 --- !u!95 &4661465343941467447
 Animator:
   serializedVersion: 7
