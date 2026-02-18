@@ -14,6 +14,7 @@ namespace Helpers.ScriptableObjects
         public Sprite skinIcon;
         public Sprite eyesIcon;
         public Sprite brainIcon;
+        public Sprite chestIcon;
 
         public Sprite InteractIcon()
         {

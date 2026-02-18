@@ -75,7 +75,7 @@ MonoBehaviour:
   reach: 4.1
   hitMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 2147483455
   timeToFullCharge: 1.5
   trailRendererGo: {fileID: 0}
   allowedTags: []

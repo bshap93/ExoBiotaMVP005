@@ -11,6 +11,10 @@ Meta Terminal: You're using the Womb facility self-service terminal array.
 <<jump TerminalGeneralDirectory>>
 ===
 
+title: ChapelMetaTerminal
+---
+Meta Terminal: You're using the Outcast Refuge temple terminal.
+<<jump TerminalGeneralDirectory>>
 
 title: MetaTerminalSwitch
 ---

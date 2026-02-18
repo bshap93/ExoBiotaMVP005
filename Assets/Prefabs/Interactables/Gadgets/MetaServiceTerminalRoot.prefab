@@ -971,4 +971,9 @@ MonoBehaviour:
   startDialogueFeedback: {fileID: 0}
   defaultStartNode: NavigationServerSwitch
   nodeToUse: 
+  metaTerminalInfoSO: {fileID: 0}
   npcId: 
+  overrideSpawnInfo:
+    SceneName: 
+    SpawnPointId: 
+    Mode: 0

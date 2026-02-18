@@ -376,10 +376,10 @@ MonoBehaviour:
   hitRigidOrganismFeedbacks: {fileID: 1203341742329971200}
   hitFleshyFeedbacks: {fileID: 7801593088898751592}
   mainCamera: {fileID: 0}
-  reach: 3
+  reach: 3.25
   hitMask:
     serializedVersion: 2
-    m_Bits: 134348799
+    m_Bits: 164187907
   timeToFullCharge: 1.5
   trailRendererGo: {fileID: 1826207712872531646}
   allowedTags:
