@@ -143,6 +143,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 287724d791b609348874f88ced467cd1, type: 2}
     - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: interactionDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
       propertyPath: examinableObjectData.Name
       value: Plant Blast Ability Injector
       objectReference: {fileID: 0}

@@ -212,7 +212,7 @@ MonoBehaviour:
   actionId: 0
   actionText: Pick
   quantity: 1
-  interactionDistance: 2
+  interactionDistance: 3
   onItemPicked:
     m_PersistentCalls:
       m_Calls: []

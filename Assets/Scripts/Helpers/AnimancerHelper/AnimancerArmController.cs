@@ -116,6 +116,8 @@ namespace Helpers.AnimancerHelper
                 _currentLocoMode = LocomotionState.Walk;
             else
                 _currentLocoMode = LocomotionState.Idle;
+            
+            enableBlockFeedbacks?.PlayFeedbacks();
 
             _currentLocomotionState = animancerComponent.Play(
                 currentToolAnimationSet.blockAnimationClip,
@@ -124,7 +126,7 @@ namespace Helpers.AnimancerHelper
 
             _currentLocomotionState.Events(this).OnEnd = () =>
             {
-                enableBlockFeedbacks?.PlayFeedbacks();
+
                 _currentLocomotionState.Time = 0f;
             };
         }
