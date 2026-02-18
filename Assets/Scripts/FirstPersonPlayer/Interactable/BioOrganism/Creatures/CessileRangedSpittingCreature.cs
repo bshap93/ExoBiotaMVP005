@@ -34,29 +34,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
                 IdleState.Time = 0f;
                 PlayNextIdle();
             };
-
-            // if (doesNotImmediatelyNeedToMove)
-            //     return;
-            //
-            // if (creatureType.animationSet.moveAnimation == null)
-            // {
-            //     Debug.Log(
-            //         $"CreatureType {creatureType.name} does not have a move animation assigned in its AnimationSet.");
-            //
-            //     return;
-            // }
-
-            // var moveAnimSpeedMultiplier =
-            //     creatureType.animationSet.moveAnimationSpeedMultiplier;
-            //
-            // MoveState = animancerComponent.States.GetOrCreate(creatureType.animationSet.moveAnimation);
-            // MoveState.Speed = moveAnimSpeedMultiplier;
-            // MoveState.Time = 0f;
-            // MoveState.Events(this).OnEnd = () =>
-            // {
-            //     MoveState.Time = 0f;
-            //     MoveState.Speed = 1f;
-            // }; 
         }
 
         protected void Update()
