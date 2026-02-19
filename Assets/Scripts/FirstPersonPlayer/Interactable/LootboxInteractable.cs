@@ -19,7 +19,8 @@ namespace FirstPersonPlayer.Interactable
         {
             WeaponChest,
             ToolChest,
-            AbilityInjectorChest
+            AbilityInjectorChest,
+            AmmoBox,
         }
 
         [Header("Controls Help & Action Info")]
