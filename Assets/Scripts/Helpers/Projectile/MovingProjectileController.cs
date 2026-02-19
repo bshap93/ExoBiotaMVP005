@@ -5,7 +5,7 @@ using Helpers.Events.NPCs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace NewScript
+namespace Helpers.Projectile
 {
     public class MovingProjectileController : MonoBehaviour
     {
@@ -33,7 +33,7 @@ namespace NewScript
             if (_lifetimeTimer <= 0f) Destroy(gameObject);
         }
 
-        void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(UnityEngine.Collider other)
         {
             // Ignore collisions with specified layers
             if (((1 << other.gameObject.layer) & ignoreLayers) != 0) return;

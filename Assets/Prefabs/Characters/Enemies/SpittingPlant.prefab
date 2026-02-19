@@ -10976,7 +10976,7 @@ GameObject:
   - component: {fileID: 2278547856447566387}
   - component: {fileID: 2278547856432363381}
   - component: {fileID: 2278547856432385749}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Magic Toxic Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15871,7 +15871,7 @@ GameObject:
   - component: {fileID: 2278547856447566389}
   - component: {fileID: 2278547856432363383}
   - component: {fileID: 2278547856432385751}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: PComponent Smoke Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22424,7 +22424,7 @@ MonoBehaviour:
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isPeaceful":{"_name":"isPeaceful","_id":"462a0ebc-c79e-4f06-ad8a-bba5a0b4f02d","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"shootAnim":{"_value":4,"_name":"shootAnim","_id":"60ffef79-1cf3-419e-b25e-67c7ce3de2c5","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"shootRange":{"_value":17.0,"_name":"shootRange","_id":"310ac529-5b9a-47eb-be50-a17b0dc9fb27","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"poisonRange":{"_value":3.0,"_name":"poisonRange","_id":"d9b44428-b854-4862-b9ea-9515421c1453","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"poisonRange":{"_value":4.0,"_name":"poisonRange","_id":"d9b44428-b854-4862-b9ea-9515421c1453","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"poisonFeedback":{"_value":10,"_name":"poisonFeedback","_id":"f59d2f3b-3441-4e8c-9ee2-2cfa78b65788","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"aboutToReleasePoisonAnimationClip":{"_value":4,"_name":"aboutToReleasePoisonAnimationClip","_id":"e3b88cce-6e85-4c28-bc3b-02e582edeeea","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"myCreaturePoisonAOE":{"_value":11,"_name":"myCreaturePoisonAOE","_id":"5d3173fc-1b6c-4d7a-8e50-621169bd7393","$type":"NodeCanvas.Framework.Variable`1[[FirstPersonPlayer.Combat.AINPC.CreaturePoisonAOE,
@@ -22548,7 +22548,7 @@ MonoBehaviour:
   - _json: '{"_value":17.0,"_name":"shootRange","_id":"310ac529-5b9a-47eb-be50-a17b0dc9fb27","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
-  - _json: '{"_value":3.0,"_name":"poisonRange","_id":"d9b44428-b854-4862-b9ea-9515421c1453","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+  - _json: '{"_value":4.0,"_name":"poisonRange","_id":"d9b44428-b854-4862-b9ea-9515421c1453","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
   - _json: '{"_value":1,"_name":"poisonFeedback","_id":"f59d2f3b-3441-4e8c-9ee2-2cfa78b65788","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
@@ -28121,7 +28121,7 @@ GameObject:
   - component: {fileID: 6495765711410124269}
   - component: {fileID: 3270708006408175720}
   - component: {fileID: 7924088618120024638}
-  m_Layer: 27
+  m_Layer: 26
   m_Name: RootPoisonAOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}

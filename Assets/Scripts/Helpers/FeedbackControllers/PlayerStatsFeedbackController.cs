@@ -19,6 +19,8 @@ namespace Helpers.FeedbackControllers
         [Header("Low Health Warning")] [SerializeField]
         MMFeedbacks lowHealthFeedback;
 
+        bool _lowHealth;
+
         void OnEnable()
         {
             this.MMEventStartListening();
@@ -111,7 +113,10 @@ namespace Helpers.FeedbackControllers
 
             if (PlayerMutableStatsManager.Instance.GetHealthFraction() < 0.4f) // threshold
             {
-                lowHealthFeedback?.PlayFeedbacksTask();
+                if (_lowHealth) return; // Don't trigger multiple times if already in low health state
+                _lowHealth = true;
+
+                lowHealthFeedback?.PlayFeedbacks();
                 AlertEvent.Trigger(
                     AlertReason.HealthWarning, "Your health is low. Find medical supplies soon.",
                     "Health Alert");
@@ -123,6 +128,9 @@ namespace Helpers.FeedbackControllers
         {
             if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentMaxHealth)
                 increasedCurrentMaxHealthFeedbacks?.PlayFeedbacks();
+            else if (eventType.StatType == PlayerStatsEvent.PlayerStat.CurrentHealth)
+                if (PlayerMutableStatsManager.Instance.GetHealthFraction() >= 0.4f)
+                    _lowHealth = false;
         }
 
         void HandleStaminaFeedback(PlayerStatsEvent eventType)
