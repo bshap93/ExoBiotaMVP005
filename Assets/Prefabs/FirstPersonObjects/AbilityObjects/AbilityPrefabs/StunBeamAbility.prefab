@@ -2554,7 +2554,7 @@ MonoBehaviour:
   cooldownTime: 0.5
   hitMask:
     serializedVersion: 2
-    m_Bits: 1003061231
+    m_Bits: 1003061039
   muzzleFlashPrefab: {fileID: 1244097275185869250, guid: 9c8b68410fdfa794ca504adde8f08343, type: 3}
   hitSparksPrefab: {fileID: 84516229166269364, guid: 9a575e7d2efae9343ae855e06d290dce, type: 3}
   missSparksPrefab: {fileID: 84516229166269364, guid: 9a575e7d2efae9343ae855e06d290dce, type: 3}

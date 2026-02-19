@@ -315,6 +315,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
                 blackboard.SetVariableValue("isStunned", true);
                 blackboard.SetVariableValue("wasStunnedAtThreshold", true);
                 Debug.Log(creatureType.creatureName + " is now stunned!");
+                EnemyStatusEffectEvent.Trigger(uniqueID, EnemyStatusEffectType.Stun, StunDuration);
 
                 // Start the stun decay coroutine
                 if (_stunDecayCoroutine != null) StopCoroutine(_stunDecayCoroutine);
