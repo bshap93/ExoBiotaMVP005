@@ -236,5 +236,9 @@ namespace SharedUI
             _isDitheringOn = !_isDitheringOn;
             GlobalSettingsEvent.Trigger(GlobalSettingsEventType.DitheringToggled, _isDitheringOn ? 1 : 0);
         }
+
+        public void OnControlsCheetSheetTogglePressed()
+        {
+        }
     }
 }
