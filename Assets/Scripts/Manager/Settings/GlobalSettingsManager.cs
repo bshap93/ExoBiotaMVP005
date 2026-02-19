@@ -54,6 +54,7 @@ namespace Manager.Settings
         readonly RefreshRate initialRefreshRate = new() { numerator = 60, denominator = 1 };
         bool _dirty;
         FullScreenMode _fullScreenMode;
+        bool _isControlCheatsheetOn;
         bool _isFullScreen;
         Player _player;
 
@@ -67,6 +68,17 @@ namespace Manager.Settings
         public bool DitheringEnabled { get; private set; }
         public float MouseXSensitivity { get; set; }
         public float MouseYSensitivity { get; set; }
+
+        public bool IsControlCheatsheetOn
+        {
+            get => _isControlCheatsheetOn;
+            set
+            {
+                _isControlCheatsheetOn = value;
+                MarkDirty();
+                ConditionalSave();
+            }
+        }
 
         public bool IsTutorialOn { get; private set; }
 
@@ -123,6 +135,7 @@ namespace Manager.Settings
             ES3.Save("MouseYSensitivity", MouseYSensitivity, savePath);
             ES3.Save("TutorialOn", IsTutorialOn, savePath);
             ES3.Save("AutoSaveAtCheckpoints", AutoSaveAtCheckpoints, savePath);
+            ES3.Save("IsControlCheatsheetOn", _isControlCheatsheetOn, savePath);
         }
         public void Load()
         {
@@ -137,6 +150,9 @@ namespace Manager.Settings
 
             if (ES3.KeyExists("IsFullScreen", savePath))
                 _isFullScreen = ES3.Load<bool>("IsFullScreen", savePath);
+
+            if (ES3.KeyExists("IsControlCheatsheetOn", savePath))
+                _isControlCheatsheetOn = ES3.Load<bool>("IsControlCheatsheetOn", savePath);
 
             if (ES3.KeyExists("RefreshRate", savePath))
                 _refreshRate = ES3.Load<RefreshRate>("RefreshRate", savePath);
@@ -215,6 +231,8 @@ namespace Manager.Settings
 
             IsTutorialOn = true;
             TutorialManager.Instance.SetTutorialsEnabled(IsTutorialOn);
+
+            IsControlCheatsheetOn = true;
 
             AutoSaveAtCheckpoints = initialIsAutoSaveAtCheckpoints;
 

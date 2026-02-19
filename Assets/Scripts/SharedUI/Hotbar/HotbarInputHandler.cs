@@ -1,5 +1,8 @@
 ﻿using FirstPersonPlayer;
+using Helpers.Events;
+using Manager;
 using Manager.Global;
+using MoreMountains.Tools;
 using UnityEngine;
 
 namespace SharedUI.Hotbar
@@ -8,7 +11,7 @@ namespace SharedUI.Hotbar
     ///     Connects the RewiredFirstPersonInputs to the Hotbar system
     /// </summary>
     [RequireComponent(typeof(RewiredFirstPersonInputs))]
-    public class HotbarInputHandler : MonoBehaviour
+    public class HotbarInputHandler : MonoBehaviour, MMEventListener<LoadedManagerEvent>
     {
         [SerializeField] FPHUDHotbars fpHudHotbars;
 
@@ -19,6 +22,8 @@ namespace SharedUI.Hotbar
 
         RewiredFirstPersonInputs _inputs;
         float _lastScrollTime;
+        PauseManager pauseManager;
+        PlayerUIManager playerUiManager;
 
         void Start()
         {
@@ -54,10 +59,28 @@ namespace SharedUI.Hotbar
             else if (_inputs.hotbarFP6) fpHudHotbars.HandleHotbarKeyPress(6);
         }
 
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+        public void OnMMEvent(LoadedManagerEvent eventType)
+        {
+            if (eventType.ManagerType == ManagerType.All)
+            {
+                pauseManager = PauseManager.Instance;
+                playerUiManager = PlayerUIManager.Instance;
+            }
+        }
+
         void HandleMouseWheelCycling()
         {
-            var pauseManager = PauseManager.Instance;
             if (pauseManager != null && pauseManager.IsPaused()) return;
+            if (playerUiManager != null && playerUiManager.iGUIsOpen) return;
             var scrollDelta = _inputs.scrollBetweenTools;
 
             // Check if enough time has passed since last scroll and scroll amount is significant

@@ -2000,6 +2000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8117564328820475261}
   - component: {fileID: 4126491058205068929}
+  - component: {fileID: 3315518699974996477}
   m_Layer: 0
   m_Name: ControlsCheatsheet
   m_TagString: Untagged
@@ -2016,7 +2017,7 @@ RectTransform:
   m_GameObject: {fileID: 7068937632226414495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6930783, y: 1.6930783, z: 1.6930783}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8998674150948096392}
@@ -2036,10 +2037,24 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7068937632226414495}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &3315518699974996477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068937632226414495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6648dc2c002811c4a82618d2fd778f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalSettingsManager: {fileID: 0}
+  canvasGroup: {fileID: 4126491058205068929}
 --- !u!1 &7732770231423271940
 GameObject:
   m_ObjectHideFlags: 0

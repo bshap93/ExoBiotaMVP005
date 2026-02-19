@@ -74,6 +74,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [Header("Flags")] public bool startAsActivated;
         public bool isStunned;
         public bool destroyAfterDeath = true;
+        public float deathDelay = 1f;
         public bool doesNotImmediatelyNeedToMove;
 
         public bool appearsOnlyOnce;
@@ -142,6 +143,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
         public virtual void OnDeath()
         {
+            StartCoroutine(DisableFSMAfterDelay(deathDelay));
             var lootDef = creatureType.lootDefinition;
 
             // Instantiate loot based on loot definition
@@ -354,6 +356,13 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             else if (eventType.EventType == PauseEventType.TogglePause)
                 _isPaused = !_isPaused;
         }
+
+        IEnumerator DisableFSMAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            fsmOwner.enabled = false;
+            animancerComponent.Stop();
+        }
         protected void SetupAnimationStates()
         {
             // Pre-load looping animation states
@@ -531,6 +540,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         {
             IsPlayingCustomAnimation = false;
             animancerComponent.Stop();
+            animancerComponent.enabled = false;
         }
         protected virtual IEnumerator InitializeAfterCreatureStateManager()
         {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Helpers.Events;
+using Helpers.Events.UI;
 using Manager.Settings;
 using Michsky.MUIP;
 using MoreMountains.Feedbacks;
@@ -21,6 +22,8 @@ namespace SharedUI
 
         [SerializeField] MMFeedbacks onOpenFeedbacks;
         [SerializeField] MMFeedbacks onCloseFeedbacks;
+
+        [SerializeField] Toggle controlsCheetsheetToggle;
 
         [SerializeField] CustomDropdown tutorialOnDropdown;
 
@@ -51,6 +54,7 @@ namespace SharedUI
             SetupDitheringButton();
             SetupMouseSensitivitySlider();
             SetupGameplaySettings();
+            SetupControlsCheetsheetToggle();
         }
 
         void OnEnable()
@@ -104,6 +108,22 @@ namespace SharedUI
             else
             {
                 ditherToggleButton.gameObject.SetActive(false);
+            }
+        }
+
+        void SetupControlsCheetsheetToggle()
+        {
+            if (controlsCheetsheetToggle != null)
+            {
+                var gsm = GlobalSettingsManager.Instance;
+                controlsCheetsheetToggle.isOn = gsm.IsControlCheatsheetOn;
+
+                controlsCheetsheetToggle.onValueChanged.RemoveAllListeners();
+                controlsCheetsheetToggle.onValueChanged.AddListener(OnControlsCheetSheetTogglePressed);
+            }
+            else
+            {
+                Debug.LogWarning("ControlsCheetsheetToggle is not assigned in the inspector.");
             }
         }
 
@@ -237,8 +257,12 @@ namespace SharedUI
             GlobalSettingsEvent.Trigger(GlobalSettingsEventType.DitheringToggled, _isDitheringOn ? 1 : 0);
         }
 
-        public void OnControlsCheetSheetTogglePressed()
+        public void OnControlsCheetSheetTogglePressed(bool isOn)
         {
+            HUDOptionalUIElementEvent.Trigger(
+                HUDOptionalUIElement.ControlCheetsheet, isOn
+                    ? HUDOptionalUIElementEventType.Show
+                    : HUDOptionalUIElementEventType.Hide);
         }
     }
 }

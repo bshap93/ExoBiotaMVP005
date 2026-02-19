@@ -1,4 +1,5 @@
 using Helpers.Events.UI;
+using Manager.Settings;
 using MoreMountains.Tools;
 using UnityEngine;
 
@@ -6,15 +7,17 @@ namespace NewScript.UI
 {
     public class ControlsCheetsheetController : MonoBehaviour, MMEventListener<HUDOptionalUIElementEvent>
     {
+        [SerializeField] GlobalSettingsManager globalSettingsManager;
         [SerializeField] CanvasGroup canvasGroup;
 
         bool _shown;
 
         void Start()
         {
-            // TODO: query settings manager whether to show on start
-
-            Hide();
+            if (globalSettingsManager.IsControlCheatsheetOn)
+                Show();
+            else
+                Hide();
         }
 
 
