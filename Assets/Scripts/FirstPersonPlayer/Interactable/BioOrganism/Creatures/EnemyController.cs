@@ -24,6 +24,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [SerializeField] Transform rangedAttackOrigin;
 
         [SerializeField] MMFeedbacks movementLoopFeedbacks;
+        [SerializeField] GameObject deathParticlesDustPrefab;
 
         Tween _hitTween;
 

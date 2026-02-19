@@ -11,6 +11,7 @@ using Helpers.Events.NPCs;
 using Helpers.Events.Progression;
 using Helpers.Events.Status;
 using HighlightPlus;
+using LevelConstruct.Highlighting;
 using Manager.ProgressionMangers;
 using Manager.StateManager;
 using MoreMountains.Feedbacks;
@@ -20,7 +21,9 @@ using NodeCanvas.StateMachines;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utilities.Interface;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 {
@@ -48,7 +51,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         [SerializeField] GameObject feedbacksContainer;
         [SerializeField] public CreatureType creatureType;
         public CreatureStateManager.CreatureState initialCreatureState;
-        [Header("Feedbacks")] [SerializeField] protected MMFeedbacks deathFeedbacks;
+        [Header("Feedbacks")] [SerializeField] public MMFeedbacks deathFeedbacks;
 
         [SerializeField] protected MMFeedbacks critDamageFeedbacks;
         [Header("Basic Hit Feedbacks")] [SerializeField]
@@ -70,6 +73,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
 
         [SerializeField] protected HighlightEffect highlightEffect;
+        [SerializeField] protected HighlightEffectController highlightEffectController;
 
         [Header("Flags")] public bool startAsActivated;
         public bool isStunned;
@@ -173,7 +177,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             //     Instantiate(deathParticlesPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
             if (destroyAfterDeath)
-                Destroy(gameObject, 2f);
+                Destroy(gameObject, deathDelay);
         }
         public void ProcessAttackDamage(PlayerAttack playerAttack, Vector3 attackOrigin)
         {
@@ -359,10 +363,14 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
         IEnumerator DisableFSMAfterDelay(float delay)
         {
+            // fade
+
+
             yield return new WaitForSeconds(delay);
             fsmOwner.enabled = false;
             animancerComponent.Stop();
             animancerComponent.enabled = false;
+            highlightEffect.enabled = false;
         }
         protected void SetupAnimationStates()
         {

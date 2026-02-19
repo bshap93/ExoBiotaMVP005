@@ -10567,7 +10567,7 @@ MonoBehaviour:
         RandomizePosition: 0
         RandomizedPositionMin: {x: 0, y: 0, z: 0}
         RandomizedPositionMax: {x: 1, y: 1, z: 1}
-        ParentTransform: {fileID: 0}
+        ParentTransform: {fileID: 7113583987799951104}
         CreateObjectPool: 1
         ObjectPoolSize: 5
         MutualizePools: 0
@@ -10575,7 +10575,7 @@ MonoBehaviour:
     - rid: 2956590283608293730
       type: {class: MMF_Scale, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 0
+        Active: 1
         UniqueID: -121476993
         Label: Scale
         OriginalLabel: Scale
@@ -10892,8 +10892,8 @@ MonoBehaviour:
         RecycleAudioSource: {fileID: 0}
         Loop: 0
         Persistent: 0
-        DoNotPlayIfClipAlreadyPlaying: 0
-        StopSoundOnFeedbackStop: 0
+        DoNotPlayIfClipAlreadyPlaying: 1
+        StopSoundOnFeedbackStop: 1
         FadeIn: 0
         FadeInInitialVolume: 0
         FadeInDuration: 1
@@ -10976,7 +10976,7 @@ MonoBehaviour:
         PlaybackDuration: {x: 0, y: 0}
         DopplerLevel: 1
         Spread: 0
-        RolloffMode: 0
+        RolloffMode: 1
         MinDistance: 1
         MaxDistance: 500
         UseCustomRolloffCurve: 0
@@ -11110,8 +11110,8 @@ MonoBehaviour:
         RecycleAudioSource: {fileID: 0}
         Loop: 0
         Persistent: 0
-        DoNotPlayIfClipAlreadyPlaying: 0
-        StopSoundOnFeedbackStop: 0
+        DoNotPlayIfClipAlreadyPlaying: 1
+        StopSoundOnFeedbackStop: 1
         FadeIn: 0
         FadeInInitialVolume: 0
         FadeInDuration: 1
@@ -32767,10 +32767,11 @@ MonoBehaviour:
     leadupTime: 0.1
   currentStunDamage: 0
   highlightEffect: {fileID: 6303951586462562092}
+  highlightEffectController: {fileID: 0}
   startAsActivated: 0
   isStunned: 0
-  destroyAfterDeath: 0
-  deathDelay: 2
+  destroyAfterDeath: 1
+  deathDelay: 2.3
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4739854027701427398}
@@ -32851,7 +32852,8 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"distanceToAttack":{"_value":3.6,"_name":"distanceToAttack","_id":"f9b9c7b6-39e2-482f-82c6-cda5f9758005","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"deathAnimationClip":{"_value":7,"_name":"deathAnimationClip","_id":"944919c9-e09f-400a-96f0-04d1ab486a83","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"deathDelay":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.deathDelay","_name":"deathDelay","_id":"441fabf8-f6bd-401b-b6d7-86165681f1d2","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"deathFeedbacks":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.deathFeedbacks","_name":"deathFeedbacks","_id":"05690265-0468-49d6-9e5f-f13ade89bec2","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
+    MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 3511506572292569057}
@@ -32947,6 +32949,9 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 7522e27b396f6a94195379a8adf5b110, type: 2}
   - _json: '{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.deathDelay","_name":"deathDelay","_id":"441fabf8-f6bd-401b-b6d7-86165681f1d2","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
+  - _json: '{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.deathFeedbacks","_name":"deathFeedbacks","_id":"05690265-0468-49d6-9e5f-f13ade89bec2","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
+      MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references: []
 --- !u!114 &6588288626416064837
 MonoBehaviour:
