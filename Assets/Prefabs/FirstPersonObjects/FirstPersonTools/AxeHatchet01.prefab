@@ -746,7 +746,8 @@ MonoBehaviour:
   trailRendererGo: {fileID: 1826207712872531646}
   allowedTags:
   - HackableBioStructure
-  swingCooldown: 1.2
+  normalSwingCooldown: 0.6
+  heavySwingCooldown: 0.4
   hatchetPower: 1
   defaultReticleForTool: {fileID: 21300000, guid: 85b809804a98b954dbc107053cc51dfb, type: 3}
   lastSwingTime: -999

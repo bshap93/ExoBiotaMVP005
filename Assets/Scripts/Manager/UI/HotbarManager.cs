@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
+using Helpers.Events;
 using Helpers.Events.Inventory;
 using Helpers.Events.UI;
 using Helpers.Interfaces;
@@ -294,6 +295,8 @@ namespace Manager.UI
                 }
 
             Debug.LogWarning("[HotbarManager] Tool hotbar is full. Cannot add more tools.");
+            AlertEvent.Trigger(
+                AlertReason.HotbarFull, "Hotbar is full. Remove a tool before adding another.", "Hotbar Full");
         }
 
         void TryAddItemToConsumableHotbar(string itemID, int indexInInventory)

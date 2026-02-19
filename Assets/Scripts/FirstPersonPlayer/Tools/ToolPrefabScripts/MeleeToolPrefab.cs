@@ -5,7 +5,6 @@ using FirstPersonPlayer.InputHandling;
 using FirstPersonPlayer.Tools.Interface;
 using FirstPersonPlayer.Tools.ItemObjectTypes;
 using Helpers.AnimancerHelper;
-using Helpers.Events.Combat;
 using Helpers.Events.ManagerEvents;
 using Helpers.ScriptableObjects.Animation;
 using Manager.ProgressionMangers;
@@ -141,8 +140,8 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         public virtual void ChargeUse(bool justPressed)
         {
             // Only start animation on initial press
-            if (justPressed) StartChargePullbackAnimation();
-
+            // if (justPressed) StartChargePullbackAnimation();
+            //
             // ChargeTimeElapsed += Time.deltaTime;
             //
             // ChargeToolEvent.Trigger(
@@ -419,31 +418,6 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
                 // layer.Weight = 0f;
                 // AnimController.ClearActionState();
                 // AnimController.ReturnToLocomotion();
-            };
-        }
-
-        public void ReverseChargePullbackAnimation()
-        {
-            if (AnimController.animancerComponent == null) return;
-
-            var layer = AnimController.animancerComponent.Layers[1];
-
-            var state = layer.Play(AnimController.currentToolAnimationSet.beginUseAnimation);
-            state.Speed *= -pullbackQuicknessFactor; // Reverse playback
-            layer.Weight = 1f;
-
-            AnimController.SetActionState(state);
-
-            state.Events(this).Clear();
-
-            state.Events(this).OnEnd = () =>
-            {
-                // ToolIsHeldInChargePosition = false;
-                // ChargeTimeElapsed = 0f;
-                ChargeToolEvent.Trigger(ChargeToolEventType.Cancel);
-                layer.Weight = 0f;
-                AnimController.ClearActionState();
-                AnimController.ReturnToLocomotion();
             };
         }
 

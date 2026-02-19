@@ -20,10 +20,11 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         [Tooltip("Tags this hatchet is allowed to affect (e.g., BioObstacle, Vegetation).")]
         public string[] allowedTags;
         // No cost if swing didn't make contact
-        [FormerlySerializedAs("normalSwingCooldown")]
+        [FormerlySerializedAs("swingCooldown")]
         [FormerlySerializedAs("staminaCostPerConnectingSwing")]
         [Tooltip("Number of seconds between swings.")]
-        public float swingCooldown = 0.6f;
+        public float normalSwingCooldown = 0.6f;
+        public float heavySwingCooldown = 0.4f;
 
         // public float fromHeldUpChargedSwingCooldown = 0.3f;
 
@@ -235,7 +236,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         {
             CaptureAim();
             var adjustedCooldown =
-                swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+                normalSwingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
 
             if (Time.time < lastSwingTime + adjustedCooldown) return;
             // swingCooldown -= agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
@@ -265,7 +266,7 @@ namespace FirstPersonPlayer.Tools.ToolPrefabScripts
         {
             CaptureAim();
             var adjustedCooldown =
-                swingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
+                heavySwingCooldown - agilityCooldownSecondsReducePerPoint * (attributesManager.Agility - 1);
 
             if (Time.time < lastSwingTime + adjustedCooldown) return;
             lastSwingTime = Time.time;
