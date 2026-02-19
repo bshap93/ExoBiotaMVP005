@@ -324,7 +324,7 @@ MonoBehaviour:
   iconScale: 0.5
   iconScaleIsFixed: 0
   iconShowDistance: 1
-  iconNonVisited: {fileID: 21300000, guid: e6fa1a4fd31164876a1cf0d185e282c7, type: 3}
+  iconNonVisited: {fileID: 0}
   iconVisited: {fileID: 0}
   tintColor: {r: 1, g: 1, b: 1, a: 1}
   showOnScreenIndicator: 1
