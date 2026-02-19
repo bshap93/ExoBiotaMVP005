@@ -362,6 +362,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             yield return new WaitForSeconds(delay);
             fsmOwner.enabled = false;
             animancerComponent.Stop();
+            animancerComponent.enabled = false;
         }
         protected void SetupAnimationStates()
         {
@@ -540,7 +541,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         {
             IsPlayingCustomAnimation = false;
             animancerComponent.Stop();
-            animancerComponent.enabled = false;
         }
         protected virtual IEnumerator InitializeAfterCreatureStateManager()
         {
