@@ -226,7 +226,6 @@ MonoBehaviour:
   changeHeightValue: 0
   maxForwardThrust: 9000
   maxBackwardThrust: 4000
-  turnTorque: 1
   stabilizationForce: 0
   verticalThrustForce: 5000
   hoverStabilization: 50
@@ -265,7 +264,6 @@ MonoBehaviour:
   minAirDensity: 0.05
   heightWarningThreshold: 40
   enableEngineStrain: 1
-  strainEffectMultiplier: 2
   enableTurbulence: 1
   turbulenceIntensity: 100
   thrustResponseTime: 0.1
@@ -294,10 +292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dirigibleInteractionLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   dirigiblePlayerLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   _dirigibleAbilityController: {fileID: 6527946611892802426}
   interact: 0
   dirigibleCrashFeedbacks: {fileID: 3041864746258642452}
