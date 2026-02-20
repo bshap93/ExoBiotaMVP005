@@ -22330,9 +22330,11 @@ MonoBehaviour:
   attackInstances: []
   currentStunDamage: 0
   highlightEffect: {fileID: 2173594207809035696}
+  highlightEffectController: {fileID: 0}
   startAsActivated: 0
   isStunned: 0
   destroyAfterDeath: 1
+  deathDelay: 1
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   trunkPoints:
@@ -22346,7 +22348,7 @@ MonoBehaviour:
   - {fileID: 7812269942612218119}
   centerOfHead: {fileID: 1762954037841882043}
   projectileSpawnPoint: {fileID: 1243771876038991886}
-  poisonAOEPrefab: {fileID: 0}
+  poisonAOEPrefab: {fileID: 3270708006408175720}
 --- !u!95 &7319795465437634945
 Animator:
   serializedVersion: 7

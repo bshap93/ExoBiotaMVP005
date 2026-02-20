@@ -45,7 +45,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         [ShowIf("causesPoisoning")] public string poisonEffectCatalogId;
         [ShowIf("causesPoisoning")] [Range(0f, 1f)]
         public float chanceToCausePoisoning;
-        [ShowIf("causesPoisoning")] public float poisonDuration;
+        // [ShowIf("causesPoisoning")] public float poisonDuration;
 
         public NPCAttackType attackType;
 
