@@ -281,7 +281,7 @@ namespace Manager.DialogueScene
             // In editor, find the DialogueManager in the scene
             if (!Application.isPlaying)
             {
-                var manager = FindObjectOfType<DialogueManager>();
+                var manager = FindFirstObjectByType<DialogueManager>();
                 if (manager?.npcDatabase != null)
                     return manager.npcDatabase.GetAllNpcIds();
             }

@@ -46,6 +46,9 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         [ShowIf("causesPoisoning")] public float poisonDuration;
 
         public NPCAttackType attackType;
+
+        public string testString;
+        public string anotherTestString;
         public string AttackId => name;
     }
 }

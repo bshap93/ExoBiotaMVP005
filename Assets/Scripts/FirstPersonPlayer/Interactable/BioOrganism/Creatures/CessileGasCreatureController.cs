@@ -41,7 +41,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         GameObject deathParticlesPrefab;
 
 
-        [SerializeField] float attackStartupTime = 0.35f; // wind-up before it hits
+        // [SerializeField] float attackStartupTime = 0.35f; // wind-up before it hits
 
 
         // bool _gasReleased;
