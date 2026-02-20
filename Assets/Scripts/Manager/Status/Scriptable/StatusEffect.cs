@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Helpers.Events.Status;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,7 +24,8 @@ namespace Manager.Status.Scriptable
         public enum StatusEffectKind
         {
             MinorInfections,
-            None
+            None,
+            Poison
         }
 
         [FormerlySerializedAs("Description")] [TextArea(1, 4)]
@@ -39,9 +41,15 @@ namespace Manager.Status.Scriptable
 
         [Header("Removal Settings")] public bool removableViaDecontaminationTank = true;
 
+        public bool causesPoisoning;
+        [ShowIf("causesPoisoning")] public float poisonDamagePerSecond = 3f;
+
+        [ShowIf("causesPoisoning")] public float poisonDuration = 10f;
+
         [Range(0f, 1f)] public float riskOfDeath;
         [FormerlySerializedAs("stats")] [FormerlySerializedAs("Stats")]
         public List<StatsChange> statsChanges = new();
         public StatusEffectKind statusEffectKind = StatusEffectKind.None;
+        public string catalogID;
     }
 }

@@ -232,48 +232,6 @@ namespace Manager.DialogueScene
             }
         }
 
-        // void TriggerRetreatFromLocationEvent()
-        // {
-        //     if (DockManager.Instance == null)
-        //     {
-        //         Debug.LogWarning("DockManager instance is not initialized.");
-        //         return;
-        //     }
-        //
-        //     var locationType = DockManager.Instance.currentLocationType;
-        //     var locationId = DockManager.Instance.currentLocationId;
-        //     if (DockManager.Instance.currentDockInteractable == null)
-        //     {
-        //         Debug.LogWarning("Current dock interactable is null.");
-        //         return;
-        //     }
-        //
-        //     var cameraTrasform = DockManager.Instance.currentDockInteractable.overviewCameraTarget;
-        //
-        //
-        //     OverviewLocationEvent.Trigger(
-        //         locationType,
-        //         LocationActionType.RetreatFrom,
-        //         locationId,
-        //         cameraTrasform
-        //     );
-        // }
-
-        // public static string[] GetAllNpcIdOptions()
-        // {
-        //     return new[]
-        //     {
-        //         // Convenience Structures
-        //         "NarratorAsNPC",
-        //         // NPCs
-        //         "FabricatorClancy", "ScientistHypolita", "ShadyCoreTrafficker", "None", "ScienceShopRobot",
-        //         "VitalSystems",
-        //         // Consoles
-        //         "Mine01GrottoSanctumConsole", "Mine01GrottoNookConsole",
-        //         // Aliens
-        //         "Sheolite001"
-        //     };
-        // }
 
         public static string[] GetAllNpcIdOptions()
         {
@@ -300,7 +258,7 @@ namespace Manager.DialogueScene
             // In editor, find the DialogueManager in the scene
             if (!Application.isPlaying)
             {
-                var manager = FindObjectOfType<DialogueManager>();
+                var manager = FindFirstObjectByType<DialogueManager>();
                 if (manager?.npcDatabase != null)
                     return manager.npcDatabase.GetStartNodesForNpc(npcId);
             }

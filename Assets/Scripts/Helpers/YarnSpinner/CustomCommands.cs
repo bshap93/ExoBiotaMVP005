@@ -13,7 +13,6 @@ using Overview.NPC;
 using SharedUI.Progression;
 using Structs;
 using UnityEngine;
-using VTabs.Libs;
 using Yarn.Unity;
 
 namespace Helpers.YarnSpinner
@@ -161,7 +160,7 @@ namespace Helpers.YarnSpinner
                 PlayerStatsEvent.Trigger(
                     PlayerStatsEvent.PlayerStat.CurrentHealth,
                     PlayerStatsEvent.PlayerStatChangeType.Increase,
-                    amount.ToFloat());
+                    amount);
         }
 
         void FastTravelToTerminal(int terminalId)

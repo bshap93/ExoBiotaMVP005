@@ -15,24 +15,12 @@ namespace Manager.SceneManagers
 
         readonly Dictionary<string, string> _sceneSavePaths = new();
 
-        string _currentWorldSceneName;
-
         bool _dirty;
 
         string _savePath;
 
 
-        public string CurrentWorldSceneName
-        {
-            get => _currentWorldSceneName;
-            private set
-            {
-                if (true)
-                    ;
-
-                _currentWorldSceneName = value;
-            }
-        }
+        public string CurrentWorldSceneName { get; private set; }
 
         public static ScenePersistenceManager Instance { get; private set; }
 

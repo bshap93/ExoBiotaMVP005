@@ -101,6 +101,6 @@ public class BootLoader : MonoBehaviour
 
         // 5) tidy up – Boot scene no longer needed
         if (!isBridge)
-            SceneManager.UnloadSceneAsync("Boot");
+            await SceneManager.UnloadSceneAsync("Boot");
     }
 }

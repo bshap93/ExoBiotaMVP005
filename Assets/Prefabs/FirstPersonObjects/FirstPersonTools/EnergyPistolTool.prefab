@@ -5393,7 +5393,7 @@ MonoBehaviour:
   range: 25
   hitMask:
     serializedVersion: 2
-    m_Bits: 1073741823
+    m_Bits: 1073741631
   attackProfile: {fileID: 11400000, guid: 8e9d0dc8a71665e489c035d0f18bc257, type: 2}
   requiresEnergy: 1
   muzzlePosition: {fileID: 3044257727786208642}
@@ -5413,9 +5413,6 @@ MonoBehaviour:
   beamDuration: 0.1
   beamColor: {r: 1, g: 0.9687844, b: 0.90880495, a: 1}
   recoilBackComponent: 0.009
-  recoilBackDuration: 0.15
-  recoilBackVibrato: 8
-  recoilBackElasticity: 0.4
   shootFeedbacks: {fileID: 6335247859753198447}
   nonLocalHitFeedbacks: {fileID: 423635619983870098}
   missFeedbacks: {fileID: 0}

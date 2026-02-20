@@ -15,15 +15,19 @@ namespace Manager.Status
     /// </summary>
     public class PoisonDOTHandler : MonoBehaviour, MMEventListener<PlayerStatusEffectEvent>
     {
-        [Header("Poison Settings")] [Tooltip("Must match the effectID used by CreaturePoisonAOE")] [SerializeField]
-        string poisonEffectID = "Poison";
+        // [Header("Poison Settings")] [Tooltip("Must match the effectID used by CreaturePoisonAOE")] [SerializeField]
+        // string poisonEffectID = "Poison";
 
-        [Tooltip("Health lost per second while poisoned")] [SerializeField]
-        float damagePerSecond = 3f;
+        [SerializeField] PlayerStatusEffectManager statusEffectManager;
 
-        [Tooltip("How long the poison lasts before auto-clearing (seconds)")] [SerializeField]
-        float poisonDuration = 10f;
         bool _isPoisoned;
+
+        // [Tooltip("Health lost per second while poisoned")] [SerializeField]
+        // float damagePerSecond = 3f;
+        //
+        // [Tooltip("How long the poison lasts before auto-clearing (seconds)")] [SerializeField]
+        // float poisonDuration = 10f;
+        // StatusEffect _poisonEffect;
 
         Coroutine _poisonRoutine;
 
@@ -39,24 +43,26 @@ namespace Manager.Status
 
         public void OnMMEvent(PlayerStatusEffectEvent eventType)
         {
+            var eventStatusEffect = statusEffectManager.GetStatusEffectByID(eventType.EffectID);
             // Only react to outbound events (confirmed applied/removed by the manager)
             if (eventType.Direction != PlayerStatusEffectEvent.DirectionOfEvent.Outbound) return;
-            if (eventType.EffectID != poisonEffectID) return;
+            // if (eventType.EffectID != poisonEffectID) return;
 
             if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Apply)
-                StartPoison();
+                StartPoison(eventStatusEffect);
             else if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Remove) StopPoison();
         }
 
-        void StartPoison()
+        void StartPoison(StatusEffect statusEffect)
         {
+            if (!statusEffect.causesPoisoning) return;
             if (_isPoisoned) return;
             _isPoisoned = true;
             StatusDebuffEvent.Trigger(
                 StatusDebuffEvent.StatusDebuffEventType.Apply,
-                StatusDebuffEvent.DebuffType.Poison, poisonEffectID);
+                StatusDebuffEvent.DebuffType.Poison, statusEffect.effectID);
 
-            _poisonRoutine = StartCoroutine(PoisonDrainRoutine());
+            _poisonRoutine = StartCoroutine(PoisonDrainRoutine(statusEffect));
         }
 
         void StopPoison()
@@ -71,13 +77,13 @@ namespace Manager.Status
             }
         }
 
-        IEnumerator PoisonDrainRoutine()
+        IEnumerator PoisonDrainRoutine(StatusEffect statusEffect)
         {
             var elapsed = 0f;
 
-            while (elapsed < poisonDuration)
+            while (elapsed < statusEffect.poisonDuration)
             {
-                var damage = damagePerSecond * Time.deltaTime;
+                var damage = statusEffect.poisonDamagePerSecond * Time.deltaTime;
 
                 PlayerStatsEvent.Trigger(
                     PlayerStatsEvent.PlayerStat.CurrentHealth,
@@ -95,8 +101,8 @@ namespace Manager.Status
 
             PlayerStatusEffectEvent.Trigger(
                 PlayerStatusEffectEvent.StatusEffectEventType.Remove,
-                poisonEffectID,
-                "",
+                statusEffect.effectID,
+                statusEffect.catalogID,
                 PlayerStatusEffectEvent.DirectionOfEvent.Inbound,
                 StatusEffect.StatusEffectKind.None
             );

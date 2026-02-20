@@ -40,15 +40,18 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         public float chanceToCauseStagger;
 
         public bool causesPoisoning;
-        [ShowIf("causesPoisoning")] public float poisonAmount;
+
+        [ShowIf("causesPoisoning")] public string poisonEffectId;
+        [ShowIf("causesPoisoning")] public string poisonEffectCatalogId;
         [ShowIf("causesPoisoning")] [Range(0f, 1f)]
         public float chanceToCausePoisoning;
         [ShowIf("causesPoisoning")] public float poisonDuration;
 
         public NPCAttackType attackType;
 
-        public string testString;
-        public string anotherTestString;
+        public string testingAnimationTriggerName;
+
+
         public string AttackId => name;
     }
 }

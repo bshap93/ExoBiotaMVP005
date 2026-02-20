@@ -41,15 +41,9 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         GameObject deathParticlesPrefab;
 
 
-        // [SerializeField] float attackStartupTime = 0.35f; // wind-up before it hits
-
-
-        // bool _gasReleased;
         bool _hasAppliedBurstContamination; // NEW: track if burst contamination was applied
 
         Tween _hitTween;
-        // bool _hazardActive; // true while smoke.IsAlive()
-        // bool _playerInsideInner; // track inner-zone entry for burst
 
         Transform _playerTransform;
 

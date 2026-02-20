@@ -26,14 +26,13 @@ namespace FirstPersonPlayer.Combat.AINPC.NodeCanvasCondition
     [Description("Checks if gas has already been released")]
     public class CheckGasReleased : ConditionTask
     {
-        public BBParameter<bool> gasReleased;
-
         [Tooltip("If true, checks if gas has NOT been released")]
-        public bool invert = false;
+        readonly bool _myInvert = false;
+        public BBParameter<bool> GasReleased;
 
         protected override bool OnCheck()
         {
-            return invert ? !gasReleased.value : gasReleased.value;
+            return _myInvert ? !GasReleased.value : GasReleased.value;
         }
     }
 
@@ -42,14 +41,14 @@ namespace FirstPersonPlayer.Combat.AINPC.NodeCanvasCondition
     [Description("Checks if the gas hazard is currently active (smoke is alive)")]
     public class CheckHazardActive : ConditionTask
     {
-        public BBParameter<bool> hazardActive;
+        public BBParameter<bool> HazardActive;
 
         [Tooltip("If true, checks if hazard is NOT active")]
-        public bool invert = false;
+        public new bool Invert = false;
 
         protected override bool OnCheck()
         {
-            return invert ? !hazardActive.value : hazardActive.value;
+            return Invert ? !HazardActive.value : HazardActive.value;
         }
     }
 
