@@ -1,8 +1,14 @@
 title: ZinniaInitialIntroduction
 ---
-Zinnia: Salutations, human. Have you come to bask in the healing waters?
-Zinnia: Come, come. I am called Zinnia by humans. 
-<<jump QuestionsForZinniaSwitch>>
+<<if !has_npc_been_contacted("HospitableFlora")>>
+    Zinnia: Salutations, human. Have you come to bask in the healing waters?
+    Zinnia: Come, come. I am called Zinnia by humans. I shan't bite or sting.
+    <<make_contact_with_npc "HospitableFlora">>
+    <<jump QuestionsForZinniaSwitch>>
+<<else>>
+    Zinnia: Good to see you well. [Needles you playfully]
+    <<jump QuestionsForZinniaSwitch>>
+<<endif>>
 ===
 
 title: QuestionsForZinniaSwitch
@@ -46,12 +52,15 @@ Zinnia: It might even work. The ability first placates the subject, then, I am h
 -> Uh, I'll have to think about just injecting your tonic. Is it even safe?
     Zinnia: I have no idea! But it would be very interesting to see what happens and it could do much good.
     -> Ok, I'll give it a try.
+        <<jump ZinniaPlayerAgreesToGiveATry>>
     -> I don't think it's a good idea.
 -> Ok, I'll give it a try.
+    <<jump ZinniaPlayerAgreesToGiveATry>>
 ===
 
 title: ZinniaPlayerAgreesToGiveATry
 ---
-Zinnia: Ok, the injector is over to the West. I think you'll be fine. And keep a note of side effects, will you?
+Zinnia: Ok, I unlocked the shed door, right over there. I think you'll be fine. And keep a note of side effects, will you?
+<<unlock_door "ZinniaShedDoor">>
 Zinnia: Oh, I can't wait! Go. Do this for me, and I'll find a way to reward you. We Florites can be formidable allies.
 ===
