@@ -70,7 +70,8 @@ namespace Manager
         // BioticAbilitiesSave,
         ToolsStateSave,
         LevelingSave,
-        TerminalsSave
+        TerminalsSave,
+        FriendlyNPCSave
     }
 
     public enum LocalManagerType
@@ -200,6 +201,7 @@ namespace Manager
             CreatureStateManager.Instance.Load();
             ToolsStateManager.Instance.Load();
             LevelingManager.Instance.Load();
+            FriendlyNPCManager.Instance.Load();
 
             TerminalManager.Instance.Load();
 
@@ -255,6 +257,7 @@ namespace Manager
             ToolsStateManager.Instance.Save();
             LevelingManager.Instance.Save();
             TerminalManager.Instance.Save();
+            FriendlyNPCManager.Instance.Save();
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Save();
@@ -301,6 +304,7 @@ namespace Manager
             ToolsStateManager.Instance.Reset();
             LevelingManager.Instance.Reset();
             TerminalManager.Instance.Reset();
+            FriendlyNPCManager.Instance.Reset();
 
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
@@ -400,6 +404,8 @@ namespace Manager
                     return "LevelingSave.es3";
                 case GlobalManagerType.TerminalsSave:
                     return "TerminalsSave.es3";
+                case GlobalManagerType.FriendlyNPCSave:
+                    return "FriendlyNPCSave.es3";
                 default:
 
                     Debug.LogError($"Unknown manager type: {globalManagerType}");

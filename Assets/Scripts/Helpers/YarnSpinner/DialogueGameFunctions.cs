@@ -27,6 +27,16 @@ namespace Helpers.YarnSpinner
             return 0;
         }
 
+        [YarnFunction("has_npc_been_contacted")]
+        public static bool HasNPCBeenContacted(string npcId)
+        {
+            if (FriendlyNPCManager.Instance != null)
+                return FriendlyNPCManager.Instance.HasNPCBeenContactedAtLeastOnce(npcId);
+
+            Debug.LogError("FriendlyNPCManager instance is null. Returning false for NPC contact status.");
+            return false;
+        }
+
         [YarnFunction("get_current_level")]
         public static int GetCurrentLevel()
         {

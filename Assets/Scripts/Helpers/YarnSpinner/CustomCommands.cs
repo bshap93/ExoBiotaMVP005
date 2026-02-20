@@ -1,5 +1,6 @@
 using System.Collections;
 using Helpers.Events;
+using Helpers.Events.Dialog;
 using Helpers.Events.Machine;
 using Helpers.Events.ManagerEvents;
 using Helpers.Events.Progression;
@@ -111,6 +112,10 @@ namespace Helpers.YarnSpinner
             dialogueRunner.AddCommandHandler<int>(
                 "fast_travel_to_terminal",
                 FastTravelToTerminal);
+
+            dialogueRunner.AddCommandHandler<string>(
+                "make_contact_with_npc",
+                MakeContactWithNPC);
         }
 
         // The method that gets called when '<<camera_look>>' is run.
@@ -120,6 +125,11 @@ namespace Helpers.YarnSpinner
         }
 
         // Game State Save
+
+        void MakeContactWithNPC(string npcId)
+        {
+            MakeContactWithNPCEvent.Trigger(npcId);
+        }
 
         void SetSpawnPoint(string sceneName, string spawnPointId)
         {
