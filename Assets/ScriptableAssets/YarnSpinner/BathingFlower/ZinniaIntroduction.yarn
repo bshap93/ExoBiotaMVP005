@@ -1,0 +1,56 @@
+title: ZinniaInitialIntroduction
+---
+Zinnia: Salutations, human. Have you come to bask in the healing waters?
+Zinnia: Come, come. I am called Zinnia by humans. 
+===
+
+title: QuestionsForZinniaSwitch
+---
+-> I'm surprised to be communicating with you like this. I have encountered only hostile members of your kind.
+    <<jump ZinniaExplainsOurFirstQuestion>>
+-> You've met other humans? And communicated with them telepathically?
+    <<jump ZinnaAndOtherHumans>>
+-> I should go. 
+===
+
+title: ZinniaExplainsOurFirstQuestion
+---
+Zinnia: I hope you were not harmed. Come, enter the water and be refreshed and healed of your injuries.
+Zinnia: My sisters have been dealt a terrible fate. They are sick, you see. The Blight, it makes them violent.
+Zinnia: I have not yet succumbed. These waters seem to be a natural innoculation.
+-> I had other questions.
+    <<jump QuestionsForZinniaSwitch>>
+-> Have you tried using the water to heal them?
+    <<jump ZinniaTalksAboutHealingSisters>>
+===
+
+title: ZinnaAndOtherHumans
+---
+Zinnia: Truth be told, you are but the second human I could communicate with, but the other... she was a friend to me. She gave me that name.
+===
+
+title: ZinniaTalksAboutHealingSisters
+---
+Zinnia: Yes. Alas the water is innoculation, but not cure. But I have not been idle. I have been working on a treatment.
+Zinnia: However, I cannot leave these hotsprings. I'd get sick myself before I could help them. 
+-> Maybe I could help.
+    <<jump ZinniaPlayerAsksIfCanHelp>>
+-> That's too bad. 
+=== 
+
+title: ZinniaPlayerAsksIfCanHelp
+---
+Zinnia: Hmm, yes it could work. Your modifications by the Kin... I could adapt the gene tonic for human use. You'd have to inject it intravenously.
+Zinnia: It might even work. The ability first placates the subject, then, I am hoping, actually cures the blight.
+-> Uh, I'll have to think about just injecting your tonic. Is it even safe?
+    Zinnia: I have no idea! But it would be very interesting to see what happens and it could do much good.
+    -> Ok, I'll give it a try.
+    -> I don't think it's a good idea.
+-> Ok, I'll give it a try.
+===
+
+title: ZinniaPlayerAgreesToGiveATry
+---
+Zinnia: Ok, the injector is over to the West. I think you'll be fine. And keep a note of side effects, will you?
+Zinnia: Oh, I can't wait! Go. Do this for me, and I'll find a way to reward you. We Florites can be formidable allies.
+===
