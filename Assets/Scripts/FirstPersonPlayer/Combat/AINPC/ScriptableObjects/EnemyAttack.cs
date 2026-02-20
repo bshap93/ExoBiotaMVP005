@@ -40,8 +40,9 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         public float chanceToCauseStagger;
 
         public bool causesPoisoning;
-        [ShowIf("causesPoisoning")] public float poisonAmount;
-        [ShowIf("causesPoisoning")] [Range(0f, 1f)]
+        [ShowIf("causesPoisoning")] [ShowIf("causesPoisoning")]
+        public string poisonEffectId;
+        [ShowIf("causesPoisoning")] public string poisonEffectCatalogId;
         public float chanceToCausePoisoning;
         [ShowIf("causesPoisoning")] public float poisonDuration;
 

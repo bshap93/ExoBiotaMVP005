@@ -12,6 +12,7 @@ using Helpers.Interfaces;
 using Manager.DialogueScene;
 using Manager.FirstPerson;
 using Manager.ProgressionMangers;
+using Manager.Status.Scriptable;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using OWPData.ScriptableObjects;
@@ -750,6 +751,15 @@ namespace Manager
                 else if (PlayerEquipment.InstanceRight.IsBlocking && eventTypeAttack.attackType == NPCAttackType.Ranged)
                     damage *= playerToolSo.blockDamageMultiplierAgainstRanged;
             }
+
+            if (eventTypeAttack.causesPoisoning && Random.value < eventTypeAttack.chanceToCausePoisoning)
+                PlayerStatusEffectEvent.Trigger(
+                    PlayerStatusEffectEvent.StatusEffectEventType.Apply,
+                    eventTypeAttack.poisonEffectId,
+                    eventTypeAttack.poisonEffectCatalogId,
+                    PlayerStatusEffectEvent.DirectionOfEvent.Inbound,
+                    StatusEffect.StatusEffectKind.None
+                );
 
             // Calculate critical hit
             if (Random.value < eventTypeAttack.critChance)
