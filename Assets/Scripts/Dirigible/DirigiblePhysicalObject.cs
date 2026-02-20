@@ -6,7 +6,7 @@ namespace Dirigible
 {
     public class DirigiblePhysicalObject : MonoBehaviour, MMEventListener<DockingEvent>
     {
-        public new Rigidbody rigidbody;
+        public  Rigidbody rigidbody;
 
         public GameObject dockingGear;
 
