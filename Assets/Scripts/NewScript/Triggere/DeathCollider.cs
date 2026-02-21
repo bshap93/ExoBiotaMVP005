@@ -11,7 +11,8 @@ namespace NewScript.Triggere
 
         void OnTriggerEnter(Collider other)
         {
-            PlayerDeathEvent.Trigger(deathInformation);
+            if (other.CompareTag("FirstPersonPlayer"))
+                PlayerDeathEvent.Trigger(deathInformation);
         }
     }
 }
