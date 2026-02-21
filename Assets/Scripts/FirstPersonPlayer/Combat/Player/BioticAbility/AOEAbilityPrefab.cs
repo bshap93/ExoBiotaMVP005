@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using FirstPersonPlayer.Interactable;
 using FirstPersonPlayer.Tools.Interface;
+using Helpers.Events;
+using Manager;
 using Manager.ProgressionMangers;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace FirstPersonPlayer.Combat.Player.BioticAbility
 {
@@ -15,12 +19,14 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         [SerializeField] FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility
             abilityData; // Reference to the ScriptableObject for range and damage info
         [SerializeField] float cooldownTime = 1f; // Cooldown time in seconds
+        [SerializeField] float delayBeforeAOEAfterFeedbacks = 0.4f;
+        VisualEffect _aoeEffectComponent;
+
+        GameObject _aoeEffectInstance; // Instance of the AOE effect prefab
+        FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility _currentAbilityData;
         PlayerEquippedAbility _owner;
         bool _readyToFire = true;
         float _timeSinceLastUse;
-        
-        GameObject _aoeEffectInstance; // Instance of the AOE effect prefab
-
         float ContaminationCostPerNormalUse
         {
             get
@@ -34,6 +40,18 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
                 return Mathf.Max(0.1f, finalCost);
             }
         }
+
+        void Awake()
+        {
+            if (aoeEffectPrefab != null && rootPosition != null)
+            {
+                _aoeEffectInstance = Instantiate(aoeEffectPrefab, rootPosition.position, rootPosition.rotation);
+                _aoeEffectInstance.transform.SetParent(rootPosition);
+                _aoeEffectComponent = _aoeEffectInstance.GetComponent<VisualEffect>();
+
+                if (_aoeEffectComponent != null) _aoeEffectComponent.Stop();
+            }
+        }
         void Update()
         {
             if (_timeSinceLastUse < abilityData.baseCooldownTime)
@@ -42,15 +60,9 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
                 _readyToFire = true;
         }
 
-        void Awake()
+        void OnDestroy()
         {
-            if (aoeEffectPrefab != null && rootPosition != null)
-            {
-                _aoeEffectInstance = Instantiate(aoeEffectPrefab, rootPosition.position, rootPosition.rotation);
-                _aoeEffectInstance.transform.SetParent(rootPosition);
-                
-            }
-            
+            if (_aoeEffectInstance != null) Destroy(_aoeEffectInstance);
         }
         public void Activate(FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility abilityData,
             Transform originTransform)
@@ -71,11 +83,43 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         }
         public void Initialize(PlayerEquippedAbility owner)
         {
-            throw new NotImplementedException();
+            _owner = owner;
+            if (_owner != null && _owner.bioticAbilityAnchor != null)
+            {
+                transform.SetParent(_owner.bioticAbilityAnchor);
+                transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.identity;
+            }
         }
         public void Use()
         {
-            throw new NotImplementedException();
+            if (!_readyToFire)
+            {
+                Debug.Log("On cooldown");
+                return;
+            }
+
+            if (_currentAbilityData == null)
+            {
+                Debug.LogError("Ability data not set for AOEAbilityPrefab.");
+                return;
+            }
+
+            if (PlayerMutableStatsManager.Instance.CurrentContamination < ContaminationCostPerNormalUse)
+            {
+                // Not enough stamina
+                AlertEvent.Trigger(
+                    AlertReason.NotEnoughContamination, "Not enough contamination to use ability.",
+                    "Insufficient Contamination");
+
+
+                return;
+            }
+
+            StartCoroutine(FireAOEAbility());
+
+            _readyToFire = false;
+            _timeSinceLastUse = 0f;
         }
         public void Unequip()
         {
@@ -104,6 +148,16 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         public MMFeedbacks GetUnequipFeedbacks()
         {
             throw new NotImplementedException();
+        }
+        IEnumerator FireAOEAbility()
+        {
+            yield return new WaitForSeconds(delayBeforeAOEAfterFeedbacks);
+        }
+
+        // Public method to set ability data (called during equip)
+        public void SetAbilityData(FirstPersonPlayer.ScriptableObjects.BioticAbility.BioticAbility abilityData)
+        {
+            _currentAbilityData = abilityData;
         }
     }
 }
