@@ -50,6 +50,8 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
         public float abilityBaseRange;
         public float bioticReductionFactor = 0.05f;
 
+        [FormerlySerializedAs("cooldownTime")] public float baseCooldownTime = 1f; // Cooldown time in seconds
+
         public string UniqueID => name; // Using the asset's name as a unique identifier
 
         public PlayerAttack GetPlayerAttack()

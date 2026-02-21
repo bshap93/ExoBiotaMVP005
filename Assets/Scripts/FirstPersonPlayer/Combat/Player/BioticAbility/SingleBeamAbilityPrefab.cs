@@ -26,8 +26,7 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
 
         [Header("Delays")] [SerializeField] float delayBeforeBeamAfterFeedbacks;
 
-        [Header("Shooting Settings")] [SerializeField]
-        float cooldownTime = 0.5f;
+
         [SerializeField] LayerMask hitMask = ~0;
 
         [Header("Visual Effects")] [SerializeField]
@@ -83,7 +82,7 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
 
         void Update()
         {
-            if (_timeSinceLastUse < cooldownTime)
+            if (_timeSinceLastUse < abilityData.baseCooldownTime)
                 _timeSinceLastUse += Time.deltaTime;
             else
                 _readyToFire = true;
