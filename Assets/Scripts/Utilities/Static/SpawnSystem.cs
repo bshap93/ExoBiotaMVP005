@@ -50,6 +50,7 @@ namespace Utilities.Static
             var root = GameObject.FindWithTag("PlayerRoot");
             var point = SpawnRegistry.Get(info.SpawnPointId);
             root.transform.SetPositionAndRotation(point.Xform.position, point.Xform.rotation);
+            SpawnCheckpoint.NotifySpawned(); // <- add this
 
             if (point != null && info.Mode != point.Mode) info.Mode = point.Mode; // Ensure we use the correct mode
 
@@ -130,6 +131,7 @@ namespace Utilities.Static
             root.transform.SetPositionAndRotation(
                 point.transform.position,
                 point.transform.rotation);
+            SpawnCheckpoint.NotifySpawned(); // <- add this
 
             GameStateManager.Instance.SwitchTo(mode);
         }

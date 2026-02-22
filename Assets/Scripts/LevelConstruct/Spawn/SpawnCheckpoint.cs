@@ -15,6 +15,8 @@ namespace LevelConstruct.Spawn
     public class SpawnCheckpoint : MonoBehaviour
     {
         const float SpawnGraceDuration = 10f;
+
+        static float _spawnedAtRealtime = float.MinValue;
 #if UNITY_EDITOR
         [ValueDropdown("GetListOfTags")] [SerializeField]
 #endif
@@ -23,6 +25,9 @@ namespace LevelConstruct.Spawn
         SpawnPoint point;
 
         [SerializeField] bool useAsAutoSavePoint;
+
+        static bool IsInSpawnGracePeriod =>
+            Time.realtimeSinceStartup - _spawnedAtRealtime < SpawnGraceDuration;
 
 
         void Awake()
@@ -36,8 +41,11 @@ namespace LevelConstruct.Spawn
             if (string.IsNullOrEmpty(playerPawnTag)) return;
             if (!other.CompareTag(playerPawnTag)) return;
 
-            // if (SpawnSystem.CurrentSpawn.SpawnPointId == point.Id)
-            //     Debug.Log("Checkpoint Reached");
+            if (IsInSpawnGracePeriod)
+            {
+                Debug.Log("[SpawnCheckpoint] Trigger suppressed — within spawn grace period.");
+                return;
+            }
 
             var globalSettingsMgr = GlobalSettingsManager.Instance;
             if (globalSettingsMgr == null)
@@ -71,6 +79,11 @@ namespace LevelConstruct.Spawn
             AlertEvent.Trigger(
                 AlertReason.AutoSave, "Saved at checkpoint: " + point.Id, "Checkpoint Reached", AlertType.Basic, 2f);
             // CheckpointEvent.Trigger(spawnInfo);
+        }
+
+        public static void NotifySpawned()
+        {
+            _spawnedAtRealtime = Time.realtimeSinceStartup;
         }
 
 #if UNITY_EDITOR
