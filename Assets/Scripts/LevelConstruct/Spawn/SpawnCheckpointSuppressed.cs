@@ -12,9 +12,12 @@ using UnityEditorInternal;
 
 namespace LevelConstruct.Spawn
 {
-    public class SpawnCheckpoint : MonoBehaviour
+    public class SpawnCheckpointSuppressed : MonoBehaviour
     {
-        const float SpawnGraceDuration = 10f;
+        // Set by the spawn system just before the player is placed in the world.
+        // All checkpoints will suppress their next trigger until the player exits their collider.
+        static bool _spawnJustOccurred;
+
 #if UNITY_EDITOR
         [ValueDropdown("GetListOfTags")] [SerializeField]
 #endif
@@ -23,6 +26,9 @@ namespace LevelConstruct.Spawn
         SpawnPoint point;
 
         [SerializeField] bool useAsAutoSavePoint;
+
+        // Per-instance: true while we are waiting for the player to leave after a spawn.
+        bool _suppressUntilExit;
 
 
         void Awake()
@@ -36,8 +42,17 @@ namespace LevelConstruct.Spawn
             if (string.IsNullOrEmpty(playerPawnTag)) return;
             if (!other.CompareTag(playerPawnTag)) return;
 
-            // if (SpawnSystem.CurrentSpawn.SpawnPointId == point.Id)
-            //     Debug.Log("Checkpoint Reached");
+            // If a spawn just happened, begin suppressing this checkpoint until the player leaves.
+            if (_spawnJustOccurred)
+            {
+                _suppressUntilExit = true;
+                _spawnJustOccurred = false; // consumed — only one checkpoint needs to catch this
+                Debug.Log("[SpawnCheckpoint] Trigger suppressed — player just spawned, waiting for exit.");
+                return;
+            }
+
+            // Still inside from a previous spawn, not yet exited.
+            if (_suppressUntilExit) return;
 
             var globalSettingsMgr = GlobalSettingsManager.Instance;
             if (globalSettingsMgr == null)
@@ -47,7 +62,6 @@ namespace LevelConstruct.Spawn
             }
 
             if (!globalSettingsMgr.AutoSaveAtCheckpoints)
-                // Debug.Log("[SpawnCheckpoint] Autosave at the checkpoint is disabled in Global Settings.");
                 return;
 
             if (!useAsAutoSavePoint)
@@ -67,10 +81,26 @@ namespace LevelConstruct.Spawn
 
             SaveDataEvent.Trigger();
 
-
             AlertEvent.Trigger(
                 AlertReason.AutoSave, "Saved at checkpoint: " + point.Id, "Checkpoint Reached", AlertType.Basic, 2f);
-            // CheckpointEvent.Trigger(spawnInfo);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (string.IsNullOrEmpty(playerPawnTag)) return;
+            if (!other.CompareTag(playerPawnTag)) return;
+
+            // Grace period is over — the player has physically left the spawn zone.
+            _suppressUntilExit = false;
+        }
+
+        /// <summary>
+        ///     Call this immediately before/after the player is spawned so that any
+        ///     checkpoint the player lands inside ignores that first trigger.
+        /// </summary>
+        public static void NotifySpawned()
+        {
+            _spawnJustOccurred = true;
         }
 
 #if UNITY_EDITOR
