@@ -20,7 +20,7 @@ namespace FirstPersonPlayer.Interactable
             WeaponChest,
             ToolChest,
             AbilityInjectorChest,
-            AmmoBox,
+            AmmoBox
         }
 
         [Header("Controls Help & Action Info")]
@@ -120,7 +120,7 @@ namespace FirstPersonPlayer.Interactable
         public void Interact()
         {
             openFeedbacks?.PlayFeedbacks();
-            if (topPiece != null) topPiece.transform.DORotate(openRotation, openDuration);
+            if (topPiece != null) topPiece.transform.DOLocalRotate(openRotation, openDuration);
             if (topPiece != null) topPiece.transform.DOLocalMove(openPosition, openDuration);
             interactionCollider.enabled = false;
             if (disableHighlightOnOpen) highlightEffect.enabled = false;
