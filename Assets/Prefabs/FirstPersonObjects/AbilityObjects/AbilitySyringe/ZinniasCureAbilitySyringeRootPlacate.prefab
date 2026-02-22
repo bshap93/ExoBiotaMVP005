@@ -52,6 +52,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3753624810568562286, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: rmsCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a25b56329dcc1142b485e0027c571cf, type: 2}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.Name
+      value: Zinnia's Cure Injector
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.ShortBlurb
+      value: A hypo for gaining the ability to cure Blight, and placate creatures.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.UnknownIcon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355738637123826462, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
+      propertyPath: examinableObjectData.FullDescription
+      value: 'A hypo for gaining the ability to cure Blight, and placate creatures.
+        Will cure Floral creatures of Blight, and placate hostile creatures for a
+        time.
+
+        ---
+
+        Use SHIFT to use the ability once gained and
+        equipped.
+
+        ---
+
+        Biotic Power Requirement: 1'
+      objectReference: {fileID: 0}
     - target: {fileID: 7506886061510833288, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -62,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5fcbb9b07b7adb14e9ccdc0df6bc433a, type: 2}
     - target: {fileID: 8789701820304532467, guid: 8bdfb06d32c7bcb41b30655d8f6930f7, type: 3}
       propertyPath: m_Name
-      value: AbilitySyringeRootPlacate
+      value: ZinniasCureAbilitySyringeRootPlacate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

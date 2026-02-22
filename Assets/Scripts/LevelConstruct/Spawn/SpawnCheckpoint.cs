@@ -67,6 +67,8 @@ namespace LevelConstruct.Spawn
             SaveDataEvent.Trigger();
 
 
+            AlertEvent.Trigger(
+                AlertReason.AutoSave, "Saved at checkpoint: " + point.Id, "Checkpoint Reached", AlertType.Basic, 2f);
             // CheckpointEvent.Trigger(spawnInfo);
         }
 

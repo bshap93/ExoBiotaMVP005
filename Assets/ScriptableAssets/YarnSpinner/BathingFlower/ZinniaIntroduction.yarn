@@ -40,8 +40,8 @@ title: ZinniaTalksAboutHealingSisters
 ---
 Zinnia: Yes. Alas the water is innoculation, but not cure. But I have not been idle. I have been working on a treatment.
 Zinnia: However, I cannot leave these hotsprings. I'd get sick myself before I could help them. 
--> Maybe I could help.
-    <<jump ZinniaPlayerAsksIfCanHelp>>
+// -> Maybe I could help.
+//     <<jump ZinniaPlayerAsksIfCanHelp>>
 -> That's too bad. 
 === 
 

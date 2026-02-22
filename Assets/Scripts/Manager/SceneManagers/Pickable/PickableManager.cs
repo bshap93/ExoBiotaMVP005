@@ -467,8 +467,8 @@ namespace Manager.SceneManagers.Pickable
 
 
             _dirty = false;
-            Debug.Log(
-                $"[PickableManager] Saved {_pickedItems.Count} picked items and {_movedPickables.Count} moved items");
+            // Debug.Log(
+            // $"[PickableManager] Saved {_pickedItems.Count} picked items and {_movedPickables.Count} moved items");
         }
 
         public void Load()

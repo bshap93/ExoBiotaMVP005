@@ -23,6 +23,7 @@ namespace Manager.Settings
         [Range(0.1f, 2.0f)] [SerializeField] float initialMouseYSensitivity = 1.0f;
         // [SerializeField] int numInputBehaviors = 4;
         [SerializeField] bool initialIsAutoSaveAtCheckpoints;
+        [SerializeField] bool overrideAutoSaveAtCheckpoints;
 
 
         public List<ResolutionSettings> chooseableResolutions = new()
@@ -196,6 +197,9 @@ namespace Manager.Settings
 
             if (ES3.KeyExists("AutoSaveAtCheckpoints", savePath))
                 AutoSaveAtCheckpoints = ES3.Load<bool>("AutoSaveAtCheckpoints", savePath);
+            else AutoSaveAtCheckpoints = initialIsAutoSaveAtCheckpoints;
+
+            if (overrideAutoSaveAtCheckpoints) AutoSaveAtCheckpoints = initialIsAutoSaveAtCheckpoints;
         }
         public void Reset()
         {

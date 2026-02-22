@@ -54,7 +54,7 @@ namespace SharedUI
             {
                 if (eventType.AmmoType == AmmoType.None)
                 {
-                    Debug.Log("Hiding gun UI - no ammo type.");
+                    // Debug.Log("Hiding gun UI - no ammo type.");
                     Hide();
                     return;
                 }

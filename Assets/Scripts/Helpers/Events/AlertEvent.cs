@@ -68,7 +68,8 @@ namespace Helpers.Events
         NewStatUpgrade,
         AttributePointSpent,
         HealtMaxIncrease,
-        HotbarFull
+        HotbarFull,
+        AutoSave
     }
 
     [Serializable]

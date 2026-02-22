@@ -20,6 +20,9 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
             abilityData; // Reference to the ScriptableObject for range and damage info
         [SerializeField] float cooldownTime = 1f; // Cooldown time in seconds
         [SerializeField] float delayBeforeAOEAfterFeedbacks = 0.4f;
+
+        [Header("Feedbacks")] [SerializeField] MMFeedbacks equipFeedbacks;
+        [SerializeField] MMFeedbacks unequipFeedbacks;
         VisualEffect _aoeEffectComponent;
 
         GameObject _aoeEffectInstance; // Instance of the AOE effect prefab
@@ -143,11 +146,11 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         }
         public MMFeedbacks GetEquipFeedbacks()
         {
-            throw new NotImplementedException();
+            return equipFeedbacks;
         }
         public MMFeedbacks GetUnequipFeedbacks()
         {
-            throw new NotImplementedException();
+            return unequipFeedbacks;
         }
         IEnumerator FireAOEAbility()
         {
