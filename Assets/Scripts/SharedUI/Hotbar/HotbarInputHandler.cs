@@ -1,6 +1,7 @@
 ﻿using FirstPersonPlayer;
 using Helpers.Events;
 using Manager;
+using Manager.DialogueScene;
 using Manager.Global;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -19,11 +20,12 @@ namespace SharedUI.Hotbar
         bool enableMouseWheelToolCycling = true;
         [SerializeField] float scrollThreshold = 0.1f; // Minimum scroll amount to register
         [SerializeField] float scrollCooldown = 0.2f; // Cooldown between scroll actions
+        DialogueManager _dialogueManager;
 
         RewiredFirstPersonInputs _inputs;
         float _lastScrollTime;
-        PauseManager pauseManager;
-        PlayerUIManager playerUiManager;
+        PauseManager _pauseManager;
+        PlayerUIManager _playerUiManager;
 
         void Start()
         {
@@ -72,15 +74,17 @@ namespace SharedUI.Hotbar
         {
             if (eventType.ManagerType == ManagerType.All)
             {
-                pauseManager = PauseManager.Instance;
-                playerUiManager = PlayerUIManager.Instance;
+                _pauseManager = PauseManager.Instance;
+                _playerUiManager = PlayerUIManager.Instance;
+                _dialogueManager = DialogueManager.Instance;
             }
         }
 
         void HandleMouseWheelCycling()
         {
-            if (pauseManager != null && pauseManager.IsPaused()) return;
-            if (playerUiManager != null && playerUiManager.iGUIsOpen) return;
+            if (_pauseManager != null && _pauseManager.IsPaused()) return;
+            if (_playerUiManager != null && _playerUiManager.iGUIsOpen) return;
+            if (_dialogueManager != null && _dialogueManager.IsDialogueActive) return;
             var scrollDelta = _inputs.scrollBetweenTools;
 
             // Check if enough time has passed since last scroll and scroll amount is significant

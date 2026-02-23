@@ -73,6 +73,10 @@ namespace Manager.Status
             if (_poisonRoutine != null)
             {
                 StopCoroutine(_poisonRoutine);
+                StatusDebuffEvent.Trigger(
+                    StatusDebuffEvent.StatusDebuffEventType.Remove,
+                    StatusDebuffEvent.DebuffType.Poison, string.Empty);
+
                 _poisonRoutine = null;
             }
         }
@@ -98,6 +102,10 @@ namespace Manager.Status
             // Duration expired — remove the status effect (which also triggers StopPoison via the event)
             _poisonRoutine = null;
             _isPoisoned = false;
+
+            StatusDebuffEvent.Trigger(
+                StatusDebuffEvent.StatusDebuffEventType.Remove,
+                StatusDebuffEvent.DebuffType.Poison, string.Empty);
 
             PlayerStatusEffectEvent.Trigger(
                 PlayerStatusEffectEvent.StatusEffectEventType.Remove,

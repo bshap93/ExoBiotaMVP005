@@ -42,27 +42,21 @@ namespace LevelConstruct.Spawn
             if (!other.CompareTag(playerPawnTag)) return;
 
             if (IsInSpawnGracePeriod)
-            {
-                Debug.Log("[SpawnCheckpoint] Trigger suppressed — within spawn grace period.");
+                // Debug.Log("[SpawnCheckpoint] Trigger suppressed — within spawn grace period.");
                 return;
-            }
 
             var globalSettingsMgr = GlobalSettingsManager.Instance;
             if (globalSettingsMgr == null)
-            {
-                Debug.LogError("[SpawnCheckpoint] No GlobalSettingsManager found in scene.");
+                // Debug.LogError("[SpawnCheckpoint] No GlobalSettingsManager found in scene.");
                 return;
-            }
 
             if (!globalSettingsMgr.AutoSaveAtCheckpoints)
                 // Debug.Log("[SpawnCheckpoint] Autosave at the checkpoint is disabled in Global Settings.");
                 return;
 
             if (!useAsAutoSavePoint)
-            {
-                Debug.Log("[SpawnCheckpoint] This checkpoint is not set to be used as an autosave point.");
+                // Debug.Log("[SpawnCheckpoint] This checkpoint is not set to be used as an autosave point.");
                 return;
-            }
 
             var spawnInfo = new SpawnInfo
             {

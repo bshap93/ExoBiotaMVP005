@@ -55,6 +55,7 @@ namespace Manager.DialogueScene
         public CanvasGroup avatarUIElement;
         GameObject _currentModel;
 
+
         bool _dirty;
 
         public bool IsDialogueActive => dialogueRunner.IsDialogueRunning;
@@ -123,6 +124,16 @@ namespace Manager.DialogueScene
                     Debug.LogWarning(
                         $"SpecialDialogueEvent: Unknown SpecialDialogueType {eventType.SpecialDialogueType} received.");
             }
+        }
+
+        public void OnStartDialogue()
+        {
+            ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, 0);
+        }
+
+        public void OnEndDialogue()
+        {
+            ControlsHelpEvent.Trigger(ControlHelpEventType.Show, dialogueActionId);
         }
 
         public void ConditionalSave()
