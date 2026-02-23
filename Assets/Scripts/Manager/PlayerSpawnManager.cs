@@ -248,7 +248,9 @@ namespace Manager
                 "SouthEntrySpawnHSAdjCorr",
                 "StartSpawn", "TerminalSpawn00", "FacilityUtilityC2Spawn", "DownwardPsgTopSpawn",
                 "BattlefieldGateSpawn", "hotspring_gate", "BunkerSpawnL2",
-                "spawnpoint_terr_gate", "mine_embankment_spawn"
+                "spawnpoint_terr_gate", "mine_embankment_spawn",
+                // Kinship Magnium Mine,
+                "ElevatorRoomInitSpawn"
             };
         }
 

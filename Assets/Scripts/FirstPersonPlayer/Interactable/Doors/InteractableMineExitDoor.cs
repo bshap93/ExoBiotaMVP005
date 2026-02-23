@@ -5,6 +5,7 @@ using LevelConstruct;
 using Manager;
 using MoreMountains.Feedbacks;
 using Objectives.ScriptableObjects;
+using SharedUI.Interface;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,24 @@ namespace FirstPersonPlayer.Interactable.Doors
         [SerializeField] SpawnInfoEditor spawnInfo;
         [SerializeField] ObjectiveObject objectiveIfActiveToComplete;
         [SerializeField] bool inaccessible = true;
+        protected override bool OnHoverStart(GameObject obj)
+        {
+            var nameToShow = GetName();
+            var iconToShow = GetIcon();
+            var shortToShow = ShortBlurb();
+            var icon = GetActionIcon();
+
+            data = new SceneObjectData(nameToShow, iconToShow, shortToShow, icon, "Use Door");
+            data.Id = uniqueId;
+
+            BillboardEvent.Trigger(data, BillboardEventType.Show);
+            if (actionId != 0 && !inaccessible)
+                ControlsHelpEvent.Trigger(
+                    ControlHelpEventType.Show, actionId
+                );
+
+            return true; // return false to cancel hover highlight
+        }
 
         public override void Interact()
         {

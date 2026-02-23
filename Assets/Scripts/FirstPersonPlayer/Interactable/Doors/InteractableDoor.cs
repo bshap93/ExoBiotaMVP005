@@ -15,7 +15,7 @@ namespace FirstPersonPlayer.Interactable.Doors
     {
         public bool isLocked;
         public string keyId;
-        [SerializeField] string uniqueId;
+        [SerializeField] protected string uniqueId;
 #if UNITY_EDITOR
         [ValueDropdown(nameof(GetAllRewiredActions))]
 #endif
