@@ -1,8 +1,7 @@
 title: WombKeeperStart
 ---
-Womb Keeper: Good, you're awake. You're lucky to be alive.
--> Uh, nope.. I'm was just leaving.
--> Huh... how am I hearing you? Or maybe not hearing... How?
+Womb Keeper: Good, you're awake. You're lucky to be alive, child.
+-> This isn't real, is it? I've been dreaming... but this feels different.
     <<jump WombKeeperDialogue01>>
 -> My mind feels... I can't remember anything except fragments. 
     <<jump WombKeeperDialogue02A>>
