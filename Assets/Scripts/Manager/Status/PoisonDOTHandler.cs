@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager.Status.Scriptable;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace Manager.Status
         [SerializeField] PlayerStatusEffectManager statusEffectManager;
 
         [SerializeField] List<string> poisonEffectIDs;
+
+        [SerializeField] MMFeedbacks antidoteAppliedFeedbacks;
 
         bool _isPoisoned;
 
@@ -49,6 +52,7 @@ namespace Manager.Status
             if (eventType.EffectID == "Poison" &&
                 eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.RemoveAllOfAKind)
             {
+                antidoteAppliedFeedbacks.PlayFeedbacks();
                 StopPoison();
                 return;
             }
@@ -62,7 +66,8 @@ namespace Manager.Status
                 poisonEffectIDs.Contains(eventType.EffectID))
                 StartPoison(eventStatusEffect);
             else if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Remove &&
-                     poisonEffectIDs.Contains(eventType.EffectID)) StopPoison();
+                     poisonEffectIDs.Contains(eventType.EffectID))
+                StopPoison();
         }
 
         void StartPoison(StatusEffect statusEffect)
