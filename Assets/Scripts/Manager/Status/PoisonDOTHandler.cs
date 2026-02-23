@@ -46,6 +46,13 @@ namespace Manager.Status
 
         public void OnMMEvent(PlayerStatusEffectEvent eventType)
         {
+            if (eventType.EffectID == "Poison" &&
+                eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.RemoveAllOfAKind)
+            {
+                StopPoison();
+                return;
+            }
+
             var eventStatusEffect = statusEffectManager.GetStatusEffectByID(eventType.EffectID);
             // Only react to outbound events (confirmed applied/removed by the manager)
             if (eventType.Direction != PlayerStatusEffectEvent.DirectionOfEvent.Outbound) return;

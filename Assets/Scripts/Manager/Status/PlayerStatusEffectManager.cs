@@ -57,6 +57,8 @@ namespace Manager.Status
 
         public List<StatusEffect> nonCatalogStatusEffects;
 
+        public List<string> statusEffectGroupNames;
+
         [Header("Test Effect")] public StatusEffect testEffect;
         public List<StatusEffect> appliedStatusEffectObjects;
 
