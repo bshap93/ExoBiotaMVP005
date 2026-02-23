@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dirigible.Input;
+using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
@@ -38,6 +39,7 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         [SerializeField] AlienNPCState initialState = AlienNPCState.Hailable;
         [SerializeField] bool isInteractable = true;
         [SerializeField] NpcDefinition npcDefinition;
+        [SerializeField] bool cannotBeAttacked = true;
 
         [Header("Controls Help & Action Info")]
 #if UNITY_EDITOR
@@ -166,6 +168,13 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         }
         public void OnUnfocus()
         {
+        }
+
+        public override void ProcessAttackDamage(PlayerAttack playerAttack, Vector3 attackOrigin)
+        {
+            if (cannotBeAttacked) return;
+
+            base.ProcessAttackDamage(playerAttack, attackOrigin);
         }
 
 

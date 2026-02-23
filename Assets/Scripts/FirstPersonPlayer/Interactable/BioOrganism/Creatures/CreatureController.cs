@@ -179,7 +179,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             if (destroyAfterDeath)
                 Destroy(gameObject, deathDelay);
         }
-        public void ProcessAttackDamage(PlayerAttack playerAttack, Vector3 attackOrigin)
+        public virtual void ProcessAttackDamage(PlayerAttack playerAttack, Vector3 attackOrigin)
         {
             var attributeManager = AttributesManager.Instance;
             var damageAmount = playerAttack.rawDamage;

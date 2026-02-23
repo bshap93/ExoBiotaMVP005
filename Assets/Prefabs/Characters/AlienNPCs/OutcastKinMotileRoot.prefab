@@ -1873,9 +1873,11 @@ MonoBehaviour:
   attackInstances: []
   currentStunDamage: 0
   highlightEffect: {fileID: 1074621798047154189}
+  highlightEffectController: {fileID: 0}
   startAsActivated: 0
   isStunned: 0
   destroyAfterDeath: 0
+  deathDelay: 1
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   npcId: OutcastKinMotile
@@ -1886,7 +1888,8 @@ MonoBehaviour:
   initialState: 0
   isInteractable: 1
   npcDefinition: {fileID: 11400000, guid: cdfcf45ac35699748b7019d4d19de6af, type: 2}
-  actionId: 0
+  cannotBeAttacked: 1
+  actionId: 43
 --- !u!114 &6096736537308323306
 MonoBehaviour:
   m_ObjectHideFlags: 0

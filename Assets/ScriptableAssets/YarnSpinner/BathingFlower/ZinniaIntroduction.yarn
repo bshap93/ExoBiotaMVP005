@@ -13,7 +13,7 @@ title: ZinniaInitialIntroduction
 
 title: QuestionsForZinniaSwitch
 ---
--> I'm surprised to be communicating with you like this. I have encountered only hostile members of your kind.
+-> I'm surprised to be communicating with you like this, mind to mind. I have encountered only hostile members of your kind.
     <<jump ZinniaExplainsOurFirstQuestion>>
 -> You've met other humans? And communicated with them telepathically?
     <<jump ZinnaAndOtherHumans>>
@@ -29,6 +29,8 @@ Zinnia: I have not yet succumbed. These waters seem to be a natural innoculation
     <<jump QuestionsForZinniaSwitch>>
 -> Have you tried using the water to heal them?
     <<jump ZinniaTalksAboutHealingSisters>>
+-> So, all of you are sentient?
+    <<jump ZinniaIsSentient>>
 ===
 
 title: ZinnaAndOtherHumans
@@ -63,4 +65,12 @@ title: ZinniaPlayerAgreesToGiveATry
 Zinnia: Ok, I unlocked the shed door, right over there. I think you'll be fine. And keep a note of side effects, will you?
 <<unlock_door "ZinniaShedDoor">>
 Zinnia: Oh, I can't wait! Go. Do this for me, and I'll find a way to reward you. We Florites can be formidable allies.
+===
+
+title: ZinniaIsSentient
+---
+Zinnia: Aye. We were in these caves before the Kin ever delved and descended, having destroyed the surface.
+Zinnia: They came down and continue in their destructive behavior. They invented the blight. See us as pests, they do.
+Zinnia: We used to be peaceful. Those of us unaffected still are.
+<<jump QuestionsForZinniaSwitch>>
 ===
