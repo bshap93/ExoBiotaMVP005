@@ -1,27 +1,31 @@
 title: WombKeeperStart
 ---
-Womb Keeper: Good, you're awake. You're lucky to be alive, child.
--> This isn't real, is it? I've been dreaming... but this feels different.
-    <<jump WombKeeperDialogue01>>
--> My mind feels... I can't remember anything except fragments. 
-    <<jump WombKeeperDialogue02A>>
-
+<<if !has_npc_been_contacted("WombKeeper")>>
+    Womb Keeper: Good, you're awake. You're lucky to be alive, child.
+    -> This isn't real, is it? I've been dreaming... but this feels different.
+        <<make_contact_with_npc "WombKeeper">>
+        <<jump WombKeeperDialogue01>>
+<<else>>
+   <<jump WombKeeperStartAgain>> 
+<<endif>>
 ===
 
 title: WombKeeperStartAgain
 ---
 Womb Keeper: I touch your presence. What purpose may I serve?
 -> Uh, nope.. I'm was just leaving.
--> Huh... how am I hearing you? Or maybe not hearing... How?
-    <<jump WombKeeperDialogue01>>
+-> I had a question.
+    <<jump WombKeeperDialogue01A_QA>>
 
 
 ===
 
 title: WombKeeperDialogue01
 ---
-Womb Keeper: I communicate with you like I would with an animal. My mind to your mind.
--> Your... mind?
+Womb Keeper: Not a dream.
+-> But I'm conversing with you without speaking. And I don't remember how I got here.
+Womb Keeper: Ah, I see the issue. You have been modified. This explains how we're speaking and why you forget.
+-> Modified? How?
     <<jump WombKeeperDialogue01A>>
 -> All right, I will be leaving.
 ===
@@ -34,9 +38,9 @@ Womb Keeper: You have been improved. I oversaw the process.
 
 title: WombKeeperDialogue01A_QA
 ---
--> Improved how?
+-> How was I improved?
     <<jump WombKeeperDialogue03A>>
--> Oversaw? Was someone else here?
+-> You mentioned you oversaw my recovery. Was someone else here?
     <<jump WombKeeperDialogue03B>>
 -> [Leave]
 ===
@@ -73,7 +77,8 @@ Womb Keeper: Have no fear, you will continue on in this form, as have all my wom
 
 title: WombKeeperDialogue03A
 ---
-Womb Keeper: New components in, old ones out. Toward perfection... improved.
+Womb Keeper: New components in, old ones out. Toward perfection... improved. Old memories, reshuffled, but not gone.
+Womb Keeper: New Input and Output shunts. Makes vibrating air with human voice obsolete. You'll see.
 <<jump WombKeeperDialogue01A_QA>>
 ===
 title: WombKeeperDialogue03B
