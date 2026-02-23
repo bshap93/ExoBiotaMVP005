@@ -4,6 +4,7 @@ using Events;
 using FirstPersonPlayer.UI.LocationButtonBase.Test;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using Helpers.Events.NPCs;
 using Helpers.Events.UI;
 using Interfaces;
 using LevelConstruct.Interactable.ItemInteractables;
@@ -161,6 +162,8 @@ namespace Manager.DialogueScene
 
         void Close()
         {
+            // Always release dialogue camera focus, regardless of how dialogue ended.
+            DialogueCameraEvent.Trigger(DialogueCameraEventType.ReleaseFocus);
             if (_currentModel) Destroy(_currentModel);
             MyUIEvent.Trigger(UIType.Dialogue, UIActionType.Close);
 

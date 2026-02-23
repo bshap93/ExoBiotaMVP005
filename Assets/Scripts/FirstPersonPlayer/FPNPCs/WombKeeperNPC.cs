@@ -2,6 +2,7 @@ using System;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using Helpers.Events.NPCs;
 using MoreMountains.Feedbacks;
 using Overview.NPC;
 using SharedUI.Interface;
@@ -16,7 +17,26 @@ namespace FirstPersonPlayer.FPNPCs
         [Header("NPC Definition")] public NpcDefinition npcDefinition;
         public string nodeToUse;
 
+        [Header("Dialogue Camera")]
+        [Tooltip(
+            "Transform the dialogue camera will look at during conversation. " +
+            "Drag a child bone/empty here (e.g. head or chest). " +
+            "If left null, the NPC's root transform is used as a fallback.")]
+        [SerializeField]
+        Transform dialogueFocusPoint;
+
         [Header("Feedbacks")] [SerializeField] MMFeedbacks startDialogueFeedback;
+
+#if UNITY_EDITOR
+        /// Draws a gizmo so you can visually confirm focus point placement in the editor.
+        void OnDrawGizmosSelected()
+        {
+            var target = dialogueFocusPoint != null ? dialogueFocusPoint.position : transform.position;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(target, 0.08f);
+            Gizmos.DrawLine(transform.position, target);
+        }
+#endif
         public string GetName()
         {
             return npcDefinition.characterName;
@@ -54,8 +74,12 @@ namespace FirstPersonPlayer.FPNPCs
             FirstPersonDialogueEvent.Trigger(
                 FirstPersonDialogueEventType.StartDialogue, npcDefinition.npcId, nodeToUse);
 
-            startDialogueFeedback?.PlayFeedbacks();
+            // Focus the dialogue camera on this NPC
+            var focusTarget = dialogueFocusPoint != null ? dialogueFocusPoint : transform;
+            DialogueCameraEvent.Trigger(DialogueCameraEventType.FocusOnTarget, focusTarget);
 
+
+            startDialogueFeedback?.PlayFeedbacks();
             MyUIEvent.Trigger(UIType.Any, UIActionType.Open);
         }
         public void OnInteractionStart()
@@ -63,6 +87,8 @@ namespace FirstPersonPlayer.FPNPCs
         }
         public void OnInteractionEnd(string param)
         {
+            // Release camera focus when dialogue ends
+            DialogueCameraEvent.Trigger(DialogueCameraEventType.ReleaseFocus);
         }
         public bool CanInteract()
         {

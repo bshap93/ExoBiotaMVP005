@@ -10,7 +10,8 @@ using UnityEngine;
 namespace Helpers
 {
     public class FPCameraEventHandler : MonoBehaviour, MMEventListener<PlayerDamageEvent>,
-        MMEventListener<PlayerDeathEvent>, MMEventListener<NPCAttackEvent>
+        MMEventListener<PlayerDeathEvent>, MMEventListener<NPCAttackEvent>,
+        MMEventListener<DialogueCameraEvent>
     {
         [SerializeField] CinemachineCamera cinemachineCamera;
         // [SerializeField] DOTweenAnimation dOTweenAnimation;
@@ -21,6 +22,7 @@ namespace Helpers
             this.MMEventStartListening<PlayerDamageEvent>();
             this.MMEventStartListening<PlayerDeathEvent>();
             this.MMEventStartListening<NPCAttackEvent>();
+            this.MMEventStartListening<DialogueCameraEvent>();
         }
 
         void OnDisable()
@@ -28,6 +30,13 @@ namespace Helpers
             this.MMEventStopListening<PlayerDamageEvent>();
             this.MMEventStopListening<PlayerDeathEvent>();
             this.MMEventStopListening<NPCAttackEvent>();
+            this.MMEventStopListening<DialogueCameraEvent>();
+        }
+        public void OnMMEvent(DialogueCameraEvent e)
+        {
+            if (axisController == null) return;
+
+            axisController.enabled = e.Type != DialogueCameraEventType.FocusOnTarget;
         }
         public void OnMMEvent(NPCAttackEvent eventType)
         {
@@ -43,9 +52,7 @@ namespace Helpers
         {
             if (e.HitType == PlayerDamageEvent.HitTypes.CriticalHit)
                 ShakeCamera(0.1f, 0.05f);
-            // dOTweenAnimation.DORestart();
             else if (e.HitType == PlayerDamageEvent.HitTypes.Normal) ShakeCamera(0.05f, 0.05f);
-            // dOTweenAnimation.DORestart();
         }
         public void OnMMEvent(PlayerDeathEvent eventType)
         {
