@@ -13,18 +13,18 @@ title: WombKeeperStart
 title: WombKeeperStartAgain
 ---
 Womb Keeper: I touch your presence. What purpose may I serve?
--> Uh, nope.. I'm was just leaving.
 -> I had a question.
     <<jump WombKeeperDialogue01A_QA>>
+-> Uh, nope.. I'm was just leaving.
 
 
 ===
 
 title: WombKeeperDialogue01
 ---
-Womb Keeper: Not a dream.
+Womb Keeper: Not a dream. I release you from dreams.
 -> But I'm conversing with you without speaking. And I don't remember how I got here.
-Womb Keeper: Ah, I see the issue. You have been modified. This explains how we're speaking and why you forget.
+Womb Keeper: You have been modified. This explains how we're speaking and why you forget how you got here.
 -> Modified? How?
     <<jump WombKeeperDialogue01A>>
 -> All right, I will be leaving.
@@ -32,8 +32,8 @@ Womb Keeper: Ah, I see the issue. You have been modified. This explains how we'r
 
 title: WombKeeperDialogue01A
 ---
-Womb Keeper: You have been improved. I oversaw the process.
-<<jump WombKeeperDialogue01A_QA>>
+Womb Keeper: You have been improved. I oversaw the process. We can now inform you of the essentials. You may report to ones such as I.
+Womb Keeper: You were dissarrayed when you were abandoned to my care. I tended your womb and enacted the appropriate changes. That is all I will say. The rest you would not understand.
 ===
 
 title: WombKeeperDialogue01A_QA
