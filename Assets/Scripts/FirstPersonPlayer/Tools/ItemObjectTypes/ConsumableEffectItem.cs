@@ -1,4 +1,6 @@
-﻿using Helpers.Events.Status;
+﻿using Helpers.Events.Combat;
+using Helpers.Events.Status;
+using Manager.Status.Scriptable;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,6 +17,8 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
         public bool restoresStamina;
         [ShowIf("restoresStamina")] public float staminaRestored;
 
+        public bool curesPoisoning;
+
         public override bool Use(string playerID)
         {
             if (restoresHealth)
@@ -26,6 +30,12 @@ namespace FirstPersonPlayer.Tools.ItemObjectTypes
                 PlayerStatsEvent.Trigger(
                     PlayerStatsEvent.PlayerStat.CurrentStamina, PlayerStatsEvent.PlayerStatChangeType.Increase,
                     staminaRestored);
+
+            if (curesPoisoning)
+            {
+                PlayerStatusEffectEvent.Trigger(PlayerStatusEffectEvent.StatusEffectEventType.RemoveAllOfAKind, "Poison", null,
+                    PlayerStatusEffectEvent.DirectionOfEvent.Inbound, StatusEffect.StatusEffectKind.Poison);
+            }
 
             return true;
         }

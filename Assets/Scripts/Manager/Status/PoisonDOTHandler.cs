@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Helpers.Events.Combat;
 using Helpers.Events.Status;
 using Manager.Status.Scriptable;
@@ -19,6 +20,8 @@ namespace Manager.Status
         // string poisonEffectID = "Poison";
 
         [SerializeField] PlayerStatusEffectManager statusEffectManager;
+
+        [SerializeField] List<string> poisonEffectIDs;
 
         bool _isPoisoned;
 
@@ -48,9 +51,11 @@ namespace Manager.Status
             if (eventType.Direction != PlayerStatusEffectEvent.DirectionOfEvent.Outbound) return;
             // if (eventType.EffectID != poisonEffectID) return;
 
-            if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Apply)
+            if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Apply &&
+                poisonEffectIDs.Contains(eventType.EffectID))
                 StartPoison(eventStatusEffect);
-            else if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Remove) StopPoison();
+            else if (eventType.Type == PlayerStatusEffectEvent.StatusEffectEventType.Remove &&
+                     poisonEffectIDs.Contains(eventType.EffectID)) StopPoison();
         }
 
         void StartPoison(StatusEffect statusEffect)
