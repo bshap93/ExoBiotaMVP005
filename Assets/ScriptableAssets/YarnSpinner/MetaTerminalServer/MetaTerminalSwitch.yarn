@@ -24,17 +24,18 @@ Meta Terminal: Stand by for terminal data...
 
 title: IntroduceAttributeClass
 ---
-Meta Terminal: You'll set your 4 main attributes: Strength, Dexterity, Agility, and Biotic Strength.
+Meta Terminal: Meta Terminal: I will work with you to remember your basic competencies. 
+Meta Terminal: Try to recall your former self. Ponder your Strength, Dexterity, Agility, and Exobiotic Ability.
 <<jump ExplainAttributes>>
 ===
 
 title: ExplainAttributes
 ---
 <<if get_current_class_id() == 0>>
-    -> I'll choose a class now.
+    -> I'll try to recall my competencies now.
         <<jump ChooseAttributeClass>>
 <<else>>
-    -> I'll choose an attribute now.
+    -> I'll choose an competency to enhance now.
         <<jump ChooseAttributeToIncrement>>
 <<endif>>
 -> Explain Strength
@@ -246,11 +247,8 @@ Meta Terminal: Successful Profile Imprint. Unlocking womb facility entrance door
 title: TerminalGeneralDirectory
 ---
 <<if get_current_class_id() == 0>>
-    Meta Terminal: Choose the attribute profile you want.
-    -> Yes
-        Meta Terminal: Affirmation Acknowledged.
-        <<jump IntroduceAttributeClass>>
-    -> Not now
+    Meta Terminal: Which of these profiles best matches what you remember?
+    <<jump IntroduceAttributeClass>>
 <<endif>>
 <<if get_attribute_points_unused() > 0>> 
     Meta Terminal: Choose which attribute to increment.
