@@ -5,6 +5,7 @@ using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
+using Helpers.Events.NPCs;
 using Lightbug.Utilities;
 using Manager;
 using Manager.DialogueScene;
@@ -40,6 +41,9 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         [SerializeField] bool isInteractable = true;
         [SerializeField] NpcDefinition npcDefinition;
         [SerializeField] bool cannotBeAttacked = true;
+
+        [Header("Dialogue Camera")] [SerializeField]
+        Transform dialogueFocusPoint;
 
         [Header("Controls Help & Action Info")]
 #if UNITY_EDITOR
@@ -142,8 +146,11 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
             else
                 FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcId, nodeToUse);
 
-            startDialogueFeedback?.PlayFeedbacks();
+            // Focus the dialogue camera on this NPC
+            var focusTarget = dialogueFocusPoint != null ? dialogueFocusPoint : transform;
+            DialogueCameraEvent.Trigger(DialogueCameraEventType.FocusOnTarget, focusTarget);
 
+            startDialogueFeedback?.PlayFeedbacks();
             MyUIEvent.Trigger(UIType.Any, UIActionType.Open);
         }
         public void OnInteractionStart()
@@ -151,6 +158,8 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         }
         public void OnInteractionEnd(string param)
         {
+            // Release camera focus when dialogue ends
+            DialogueCameraEvent.Trigger(DialogueCameraEventType.ReleaseFocus);
         }
         public bool CanInteract()
         {
@@ -178,15 +187,6 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         }
 
 
-#if UNITY_EDITOR
-        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
-        {
-            return AllRewiredActions.GetAllRewiredActions();
-        }
-
-#endif
-
-
         protected string GetAppropriateDialogueNode()
         {
             // For now, just return the default start node.
@@ -196,5 +196,22 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
         {
             return DialogueManager.GetAllNpcIdOptions();
         }
+
+
+#if UNITY_EDITOR
+        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
+        {
+            return AllRewiredActions.GetAllRewiredActions();
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            var target = dialogueFocusPoint != null ? dialogueFocusPoint.position : transform.position;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(target, 0.08f);
+            Gizmos.DrawLine(transform.position, target);
+        }
+
+#endif
     }
 }

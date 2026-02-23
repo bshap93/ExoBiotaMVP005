@@ -5002,6 +5002,7 @@ Transform:
   - {fileID: 5781561774953986186}
   - {fileID: 8884838671552942788}
   - {fileID: 7356121260690890949}
+  - {fileID: 969263828429166311}
   - {fileID: 2851341765942372293}
   m_Father: {fileID: 4267848976288002663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5123,6 +5124,8 @@ MonoBehaviour:
   initialState: 0
   isInteractable: 1
   npcDefinition: {fileID: 11400000, guid: 66ecd1bbbff5c834698abce1bb64abd8, type: 2}
+  cannotBeAttacked: 1
+  dialogueFocusPoint: {fileID: 969263828429166311}
   actionId: 43
 --- !u!65 &1430238318707877133
 BoxCollider:
@@ -5272,6 +5275,37 @@ Transform:
   m_Children:
   - {fileID: 8435371140919408640}
   m_Father: {fileID: 2741240131712955014}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1327400288724189875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 969263828429166311}
+  m_Layer: 8
+  m_Name: CameraLookAtTgtr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &969263828429166311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327400288724189875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.446, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9214769291721715175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1475120591898804910
 GameObject:
