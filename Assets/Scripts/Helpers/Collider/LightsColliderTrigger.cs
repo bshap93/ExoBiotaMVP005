@@ -23,12 +23,16 @@ namespace Helpers.Collider
 
         void DeactivateLights()
         {
-            foreach (var mixLight in lightsToToggle) mixLight.SetActive(false);
+            foreach (var mixLight in lightsToToggle)
+                if (mixLight != null)
+                    mixLight.SetActive(false);
         }
 
         void ActivateLights()
         {
-            foreach (var mixLight in lightsToToggle) mixLight.SetActive(true);
+            foreach (var mixLight in lightsToToggle)
+                if (mixLight != null)
+                    mixLight.SetActive(true);
         }
     }
 }

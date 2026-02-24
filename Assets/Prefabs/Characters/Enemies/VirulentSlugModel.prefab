@@ -210,11 +210,14 @@ PrefabInstance:
         UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectilePrefab":{"_value":10,"_name":"projectilePrefab","_id":"5f84526e-fb56-49af-8d8b-9e28fb5a07c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
         UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectileOrigin":{"_value":11,"_name":"projectileOrigin","_id":"25572e61-6794-4611-9840-5f0998970aa8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
         UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"prepareToUseRange":{"_value":12,"_name":"prepareToUseRange","_id":"bb79b9d6-0729-41fa-a573-c782ca6a4107","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
-        UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+        UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"chargingRangedFB":{"_value":13,"_name":"chargingRangedFB","_id":"f0370c01-5f79-490d-8597-42642e4791e3","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
+        MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"waitBFHurl01":{"_value":1.0,"_name":"waitBFHurl01","_id":"2faa5e5b-bf78-4c38-a18e-119451b4cd3f","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"waitBFHurl02":{"_value":0.5,"_name":"waitBFHurl02","_id":"a6a94131-342e-41ec-81ce-b366e35b7801","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
       objectReference: {fileID: 0}
     - target: {fileID: 6935839604250593367, guid: 7866ae91e846a844eb88c309583619fd, type: 3}
       propertyPath: _objectReferences.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6935839604250593367, guid: 7866ae91e846a844eb88c309583619fd, type: 3}
       propertyPath: '_objectReferences.Array.data[1]'

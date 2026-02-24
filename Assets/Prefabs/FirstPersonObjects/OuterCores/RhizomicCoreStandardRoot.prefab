@@ -538,7 +538,7 @@ MonoBehaviour:
         PlayEvents:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5629469997975301874}
+            - m_Target: {fileID: 0}
               m_TargetAssemblyTypeName: INab.Dissolve.Dissolver, Assembly-CSharp
               m_MethodName: Dissolve
               m_Mode: 1
@@ -711,13 +711,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 6.11e-43, y: 2.02e-43, z: 0, w: 4.3e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -1267,8 +1267,6 @@ GameObject:
   - component: {fileID: 6848155542340164019}
   - component: {fileID: 520753049208745981}
   - component: {fileID: 3646299497801979570}
-  - component: {fileID: 5796294873663944846}
-  - component: {fileID: 6828142590143789934}
   m_Layer: 20
   m_Name: RhizomicCoreStandardRoot
   m_TagString: Untagged
@@ -1562,139 +1560,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &5796294873663944846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6570760025486468190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ba861a214074aa4bdac708dcacc9fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -336283020
-  priority: 0
-  visibility: 2
-  ignoreAreaOfInterest: 0
-  clampPosition: 0
-  visibleDistanceOverride: 0
-  visibleMinDistanceOverride: 0
-  titleMinPOIDistanceOverride: 0
-  title: 
-  titleVisibility: 0
-  canBeVisited: 0
-  visitedDistanceOverride: 0
-  hideWhenVisited: 0
-  isVisited: 0
-  visitedText: 
-  playAudioClipWhenVisited: 0
-  visitedAudioClipOverride: {fileID: 0}
-  radius: 0
-  iconScale: 1
-  iconScaleIsFixed: 0
-  iconShowDistance: 1
-  iconNonVisited: {fileID: 21300000, guid: 6ffe3573a7cb749439c12e348204b319, type: 3}
-  iconVisited: {fileID: 0}
-  tintColor: {r: 1, g: 1, b: 1, a: 1}
-  showOnScreenIndicator: 0
-  onScreenIndicatorScale: 1
-  onScreenIndicatorShowDistance: 1
-  onScreenIndicatorShowTitle: 1
-  positionOffset: {x: 0, y: 0, z: 0}
-  showOffScreenIndicator: 0
-  offScreenIndicatorShowDistance: 1
-  offScreenIndicatorMarginOverride: 0
-  onScreenIndicatorNearFadeDistance: 0
-  onScreenIndicatorNearFadeMin: 0
-  onScreenIndicatorFarDistance: 0
-  onScreenIndicatorFarFadeDistance: 0
-  beaconAudioClip: {fileID: 0}
-  scanHitAudioClip: {fileID: 0}
-  dontDestroyOnLoad: 0
-  heartbeatEnabled: 0
-  heartbeatAudioClip: {fileID: 0}
-  heartbeatDistance: 20
-  heartbeatInterval:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.25
-      inSlope: 0
-      outSlope: 2.75
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 3
-      inSlope: 2.75
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  miniMapType: 0
-  miniMapVisibility: 2
-  miniMapIconPrefabOverride: {fileID: 0}
-  miniMapVisibleDistanceOverride: 0
-  miniMapClampPosition: 0
-  miniMapClampedScaleMultiplier: 1.1
-  miniMapShowRotation: 0
-  miniMapRotationAngleOffset: 0
-  miniMapIconScale: 1
-  miniMapShowCircle: 0
-  miniMapCircleRadius: 0
-  miniMapCircleColor: {r: 0, g: 1, b: 0, a: 0.5}
-  miniMapCircleInnerColor: {r: 0, g: 0, b: 1, a: 0}
-  miniMapCircleStartRadius: 0.25
-  miniMapCircleAnimationWhenAppears: 1
-  miniMapCircleAnimationRepetitions: 5
-  scene:
-    m_Handle: 0
-  compassIconRT: {fileID: 0}
-  compassIconImage: {fileID: 0}
-  miniMapIconRT: {fileID: 0}
-  miniMapIconImageRT: {fileID: 0}
-  miniMapIconImage: {fileID: 0}
-  miniMapCircleImage: {fileID: 0}
-  miniMapCircleMaterial: {fileID: 0}
-  miniMapCircleRT: {fileID: 0}
-  indicatorRT: {fileID: 0}
-  indicatorImage: {fileID: 0}
-  indicatorCanvasGroup: {fileID: 0}
-  indicatorArrowRT: {fileID: 0}
-  indicatorDistanceText: {fileID: 0}
-  indicatorTitleText: {fileID: 0}
-  compassIconDistanceText: {fileID: 0}
-  compassIconDistanceTextRT: {fileID: 0}
-  miniMapCurrentIconScale: 0
---- !u!114 &6828142590143789934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6570760025486468190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53fa13f4caf470b99adb31cfaabb261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onScanHit:
-    m_PersistentCalls:
-      m_Calls: []
-  revealPolicy: 0
-  examinationPolicy: 1
-  canBeAreaScannedType: 2
-  compassProPOI: {fileID: 0}
-  locationObject: {fileID: -6104182998175089887, guid: 8b39446f6099d944b8282c10cc7b3055, type: 2}
 --- !u!1 &7184228678057466039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,7 +2297,6 @@ GameObject:
   - component: {fileID: 2715945549090042073}
   - component: {fileID: 5561699221519330759}
   - component: {fileID: 3241420051667680610}
-  - component: {fileID: 5629469997975301874}
   - component: {fileID: 9057319915980026688}
   - component: {fileID: 6955988566311841442}
   - component: {fileID: 5327410457765555355}
@@ -2562,79 +2426,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1053372749013774962, guid: 7f91716cbff4097408293f1545fe43f4, type: 3}
---- !u!114 &5629469997975301874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891384549887737094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b719996c4202324191c171b7f44a3c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manualControl: 0
-  updateValues: 1
-  MaterialsDissolveValue: 1
-  MaterialsInvertedDissolveValue: 0
-  curveSettings: 1
-  dissolveCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  materializeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  duration: 2
-  initialState: 1
-  currentState: 1
-  keywordsFlags: 0
-  useAutomaticKeywords: 0
-  materials:
-  - {fileID: 2100000, guid: 59505ea0420283345864c0f81d55ce47, type: 2}
-  materialsInverted: []
 --- !u!114 &9057319915980026688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,8 +2452,8 @@ MonoBehaviour:
   detachedFreshMaterial: {fileID: 2100000, guid: 8142d95039b31ab46936fdedc8f6c94a, type: 2}
   hadCatalystAppliedMaterial: {fileID: 2100000, guid: 59505ea0420283345864c0f81d55ce47, type: 2}
   dissolvedMaterial: {fileID: 2100000, guid: 59505ea0420283345864c0f81d55ce47, type: 2}
-  dissolver: {fileID: 5629469997975301874}
-  isGatedInteraction: 1
+  dissolver: {fileID: 0}
+  isGatedInteraction: 0
   gatedInteractionDetails:
   - {fileID: 11400000, guid: 3435ececf1390304f93defd0d94b52a3, type: 2}
   - {fileID: 11400000, guid: 45a6c54ca8ebb65429ea22b39fb4cf19, type: 2}

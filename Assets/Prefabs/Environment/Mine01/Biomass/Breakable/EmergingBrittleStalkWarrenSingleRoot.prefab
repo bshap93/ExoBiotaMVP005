@@ -886,7 +886,6 @@ GameObject:
   - component: {fileID: 8914006450780626323}
   - component: {fileID: 1683106217742918085}
   - component: {fileID: 6878239000369273557}
-  - component: {fileID: 6648957410173047775}
   m_Layer: 20
   m_Name: EmergingBrittleStalkWarrenSingleRoot
   m_TagString: Untagged
@@ -1182,24 +1181,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   secondaryStateHighlightColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &6648957410173047775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781915257372415050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 824dc23d1a5ff464f9a7b82b9f05256d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emergeEventID: 
-  childObject: {fileID: 7092621697038784283}
-  emergeFeedbacks: {fileID: 6680181630226056032}
-  initialPosition: {fileID: 4106845162130946943}
-  duration: 1
-  shouldEmerge: 0
 --- !u!1 &6597093310656713786
 GameObject:
   m_ObjectHideFlags: 0

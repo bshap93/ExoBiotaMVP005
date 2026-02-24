@@ -227,8 +227,11 @@ namespace LevelConstruct.Interactable.ItemInteractables
                             NotifyType.Regular, 1);
 
                     // Dissolve visual effects
-                    dissolver.FindMaterials();
-                    dissolver.Dissolve();
+                    if (dissolver != null)
+                    {
+                        dissolver.FindMaterials();
+                        dissolver.Dissolve();
+                    }
 
                     var bestChemID = details.mostEfficientChemicalID;
                     InventoryHelperCommands.RemovePlayerItem(bestChemID);
@@ -271,8 +274,11 @@ namespace LevelConstruct.Interactable.ItemInteractables
             var mats = coreMeshRenderer.materials; // Unity automatically creates instances
 
             // Clear and reassign dissolver materials with the instanced copies
-            dissolver.materials.Clear();
-            dissolver.materials.AddRange(mats);
+            if (dissolver != null)
+            {
+                dissolver.materials.Clear();
+                dissolver.materials.AddRange(mats);
+            }
 
             // Load or initialize state
             HarvestableState stateToApply;
@@ -358,8 +364,11 @@ namespace LevelConstruct.Interactable.ItemInteractables
         // Helper method to update dissolver with current instanced materials
         void UpdateDissolverMaterials()
         {
-            dissolver.materials.Clear();
-            dissolver.materials.AddRange(coreMeshRenderer.materials);
+            if (dissolver != null)
+            {
+                dissolver.materials.Clear();
+                dissolver.materials.AddRange(coreMeshRenderer.materials);
+            }
         }
 
         IEnumerator ApplyAdvancedStateCoroutine(HarvestableState state)
@@ -378,9 +387,13 @@ namespace LevelConstruct.Interactable.ItemInteractables
                 if (newCorePicker != null) newCorePicker.uniqueID = Guid.NewGuid().ToString();
 
                 _numInnerCoresHarvested++;
-                dissolver.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                dissolver.gameObject.GetComponent<MeshCollider>().enabled = false;
-                dissolver.gameObject.GetComponent<HighlightEffect>().enabled = false;
+                if (dissolver != null)
+                {
+                    dissolver.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    dissolver.gameObject.GetComponent<MeshCollider>().enabled = false;
+                    dissolver.gameObject.GetComponent<HighlightEffect>().enabled = false;
+                }
+
                 newCore.gameObject.SetActive(true);
 
                 PickableEvent.Trigger(
@@ -389,7 +402,8 @@ namespace LevelConstruct.Interactable.ItemInteractables
 
                 // Dissolve the outer core
 
-                dissolver.Dissolve();
+                if (dissolver != null)
+                    dissolver.Dissolve();
 
                 yield return new WaitForSeconds(timeToDissolve);
 
@@ -434,8 +448,11 @@ namespace LevelConstruct.Interactable.ItemInteractables
                         objectiveProgressOnSolvent.objectiveId, ObjectiveEventType.IncrementObjectiveProgress,
                         NotifyType.Regular, 1);
 
-                dissolver.FindMaterials();
-                dissolver.Dissolve();
+                if (dissolver != null)
+                {
+                    dissolver.FindMaterials();
+                    dissolver.Dissolve();
+                }
 
                 solventAppliedFeedback.PlayFeedbacks();
 

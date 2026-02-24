@@ -82,18 +82,11 @@ namespace FirstPersonPlayer.Interactable.BioOrganism
         protected override void Awake()
         {
             base.Awake();
-            // Ensure uniqueID is set FIRST
-            // if (string.IsNullOrEmpty(uniqueID)) uniqueID = Guid.NewGuid().ToString();
-            // Ensure hatchetBreakable uses the same uniqueID
-            // if (hatchetBreakable != null)
+
             if (string.IsNullOrEmpty(uniqueID))
                 uniqueID = Guid.NewGuid().ToString();
 
-            // if (string.IsNullOrEmpty(hatchetBreakable.uniqueIdForPersistence))
-            //     hatchetBreakable.uniqueIdForPersistence = uniqueID;
-            // else
-            //     // Make sure they match
-            //     uniqueID = hatchetBreakable.uniqueIdForPersistence;
+
             _highlight = GetComponent<HighlightEffect>();
             rf = GetComponent<RayfireRigid>();
 
@@ -103,9 +96,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism
 
         void Start()
         {
-            // // Check synchronously - no coroutine
-            // if (DestructableManager.Instance != null && DestructableManager.Instance.IsDestroyed(uniqueID))
-            //     Destroy(gameObject);
             StartCoroutine(InitializeAfterDestructableManager());
         }
 
