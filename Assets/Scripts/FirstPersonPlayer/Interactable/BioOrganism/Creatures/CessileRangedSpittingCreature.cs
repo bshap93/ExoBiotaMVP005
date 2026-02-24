@@ -21,6 +21,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         // protected AnimancerState AttackState;
         protected AnimancerState DeathState;
 
+        protected bool IsPlacated;
+
         public bool IsAttacking { get; private set; }
 
         protected override void Awake()

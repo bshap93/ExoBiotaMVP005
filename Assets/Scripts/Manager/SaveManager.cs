@@ -71,7 +71,8 @@ namespace Manager
         ToolsStateSave,
         LevelingSave,
         TerminalsSave,
-        FriendlyNPCSave
+        FriendlyNPCSave,
+        CheckpointsSave
     }
 
     public enum LocalManagerType
@@ -204,6 +205,7 @@ namespace Manager
             FriendlyNPCManager.Instance.Load();
 
             TerminalManager.Instance.Load();
+            CheckpointManager.Instance.Load();
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Load();
@@ -259,6 +261,8 @@ namespace Manager
             TerminalManager.Instance.Save();
             FriendlyNPCManager.Instance.Save();
 
+            CheckpointManager.Instance.Save();
+
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
                 TutorialManager.Instance?.Save();
 
@@ -305,6 +309,7 @@ namespace Manager
             LevelingManager.Instance.Reset();
             TerminalManager.Instance.Reset();
             FriendlyNPCManager.Instance.Reset();
+            CheckpointManager.Instance.Reset();
 
 
             if (!saveConfig.DisabledGlobalManagers.Contains(GlobalManagerType.TutorialSave))
@@ -406,6 +411,8 @@ namespace Manager
                     return "TerminalsSave.es3";
                 case GlobalManagerType.FriendlyNPCSave:
                     return "FriendlyNPCSave.es3";
+                case GlobalManagerType.CheckpointsSave:
+                    return "CheckpointsSave.es3";
                 default:
 
                     Debug.LogError($"Unknown manager type: {globalManagerType}");

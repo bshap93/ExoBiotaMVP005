@@ -1,22 +1,27 @@
-﻿using Helpers.Events;
+﻿using System;
+using Helpers.Events;
 using Manager;
 using Manager.Global;
+using Manager.ProgressionMangers;
 using Manager.Settings;
 using Sirenix.OdinInspector;
 using Structs;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utilities.Interface;
 #if UNITY_EDITOR
 using UnityEditorInternal;
 #endif
 
 namespace LevelConstruct.Spawn
 {
-    public class SpawnCheckpoint : MonoBehaviour
+    public class SpawnCheckpoint : MonoBehaviour, IRequiresUniqueID
     {
         const float SpawnGraceDuration = 10f;
 
         static float _spawnedAtRealtime = float.MinValue;
+
+        [SerializeField] string uniqueCheckpointId;
 #if UNITY_EDITOR
         [ValueDropdown("GetListOfTags")] [SerializeField]
 #endif
@@ -25,6 +30,8 @@ namespace LevelConstruct.Spawn
         SpawnPoint point;
 
         [SerializeField] bool useAsAutoSavePoint;
+
+        CheckpointManager _checkpointManager;
 
         static bool IsInSpawnGracePeriod =>
             Time.realtimeSinceStartup - _spawnedAtRealtime < SpawnGraceDuration;
@@ -36,10 +43,19 @@ namespace LevelConstruct.Spawn
                 point = GetComponent<SpawnPoint>();
         }
 
+        void Start()
+        {
+            _checkpointManager = CheckpointManager.Instance;
+        }
+
         void OnTriggerEnter(Collider other)
         {
             if (string.IsNullOrEmpty(playerPawnTag)) return;
             if (!other.CompareTag(playerPawnTag)) return;
+
+            if (_checkpointManager == null || _checkpointManager.HasCheckpointBeenVisited(uniqueCheckpointId))
+                return;
+
 
             if (IsInSpawnGracePeriod)
                 // Debug.Log("[SpawnCheckpoint] Trigger suppressed — within spawn grace period.");
@@ -67,12 +83,25 @@ namespace LevelConstruct.Spawn
 
             PlayerSpawnManager.Instance.Save(spawnInfo);
 
+            CheckpointEvent.Trigger(
+                CheckpointEventType.Visited,
+                uniqueCheckpointId, spawnInfo);
+
             SaveDataEvent.Trigger();
 
 
             AlertEvent.Trigger(
                 AlertReason.AutoSave, "Saved at checkpoint: " + point.Id, "Checkpoint Reached", AlertType.Basic, 2f);
             // CheckpointEvent.Trigger(spawnInfo);
+        }
+        public string UniqueID => uniqueCheckpointId;
+        public void SetUniqueID()
+        {
+            uniqueCheckpointId = Guid.NewGuid().ToString();
+        }
+        public bool IsUniqueIDEmpty()
+        {
+            return string.IsNullOrEmpty(uniqueCheckpointId);
         }
 
         public static void NotifySpawned()

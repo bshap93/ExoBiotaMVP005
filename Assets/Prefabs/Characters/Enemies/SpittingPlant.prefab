@@ -12744,7 +12744,8 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"poisonFeedback":{"_value":10,"_name":"poisonFeedback","_id":"f59d2f3b-3441-4e8c-9ee2-2cfa78b65788","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
     MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"aboutToReleasePoisonAnimationClip":{"_value":4,"_name":"aboutToReleasePoisonAnimationClip","_id":"e3b88cce-6e85-4c28-bc3b-02e582edeeea","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"myCreaturePoisonAOE":{"_value":11,"_name":"myCreaturePoisonAOE","_id":"5d3173fc-1b6c-4d7a-8e50-621169bd7393","$type":"NodeCanvas.Framework.Variable`1[[FirstPersonPlayer.Combat.AINPC.CreaturePoisonAOE,
-    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isPlacated":{"_name":"isPlacated","_id":"6572c289-682d-412e-a52a-4dd02b8f8579","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
   _objectReferences:
   - {fileID: 0}
   - {fileID: 2814150201899916695}
@@ -12882,6 +12883,9 @@ MonoBehaviour:
     _references:
     - {fileID: 0}
     - {fileID: 3270708006408175720}
+  - _json: '{"_name":"isPlacated","_id":"6572c289-682d-412e-a52a-4dd02b8f8579","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
 --- !u!114 &6051364946677830182
 MonoBehaviour:
   m_ObjectHideFlags: 0
