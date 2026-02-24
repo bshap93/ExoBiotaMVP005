@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 6278714023016105070}
   - component: {fileID: 254252979392715}
   m_Layer: 20
-  m_Name: MagniumNuggerRoot
+  m_Name: MagniumNuggerRoot_Pickable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
