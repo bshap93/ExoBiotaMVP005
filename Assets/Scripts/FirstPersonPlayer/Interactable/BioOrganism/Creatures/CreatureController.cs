@@ -140,9 +140,10 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
         public virtual void PlayHitAnimation(AnimationClip value)
         {
+            IsPlayingCustomAnimation = true;
             HitState = animancerComponent.Play(value, 0.05f);
 
-            HitState.Events(this).OnEnd = () => { };
+            HitState.Events(this).OnEnd = () => { IsPlayingCustomAnimation = false; };
         }
 
         public virtual void OnDeath()

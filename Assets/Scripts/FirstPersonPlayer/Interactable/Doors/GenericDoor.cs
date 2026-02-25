@@ -4,6 +4,7 @@ using FirstPersonPlayer.Interface;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Utilities.Interface;
 
@@ -27,6 +28,8 @@ namespace FirstPersonPlayer.Interactable.Doors
         [ShowIf("usePositionChange")] [SerializeField]
         Vector3 closedPosition;
 
+        [SerializeField] NavMeshLink navMeshLink;
+
 
         [SerializeField] bool startOpen;
 
@@ -49,6 +52,8 @@ namespace FirstPersonPlayer.Interactable.Doors
         void Start()
         {
             _isOpen = startOpen;
+            if (navMeshLink != null)
+                navMeshLink.enabled = _isOpen;
         }
         public virtual void Interact()
         {
@@ -112,6 +117,8 @@ namespace FirstPersonPlayer.Interactable.Doors
                 doorModel.transform.DOLocalMove(openPosition, openCloseDuration);
 
             _isOpen = true;
+            if (navMeshLink != null)
+                navMeshLink.enabled = true;
         }
 
         public void CloseDoor()
@@ -124,6 +131,8 @@ namespace FirstPersonPlayer.Interactable.Doors
                 doorModel.transform.DOLocalMove(closedPosition, openCloseDuration);
 
             _isOpen = false;
+            if (navMeshLink != null)
+                navMeshLink.enabled = false;
         }
     }
 }

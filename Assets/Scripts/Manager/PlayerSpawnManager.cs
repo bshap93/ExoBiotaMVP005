@@ -260,7 +260,8 @@ namespace Manager
             {
                 "Mine01",
                 "AshpoolMine",
-                "FirstPersonTestbed"
+                "FirstPersonTestbed",
+                "KinshipMagniumMine"
             };
         }
     }

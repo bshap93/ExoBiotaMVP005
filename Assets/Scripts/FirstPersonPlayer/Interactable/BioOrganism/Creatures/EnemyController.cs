@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Animancer;
 using DG.Tweening;
 using FirstPersonPlayer.Combat.AINPC;
@@ -17,11 +16,10 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
     public class EnemyController : CreatureController
     {
         [SerializeField] protected NavMeshAgent navMeshAgent;
-
-
+        [SerializeField] protected float movementSpeedThreshold = 0.1f;
         [SerializeField] bool hasRangedAttack;
-        [ShowIf("hasRangedAttack")]
-        [SerializeField] Transform rangedAttackOrigin;
+        [ShowIf("hasRangedAttack")] [SerializeField]
+        Transform rangedAttackOrigin;
 
         [SerializeField] MMFeedbacks movementLoopFeedbacks;
         [SerializeField] GameObject deathParticlesDustPrefab;
@@ -48,7 +46,7 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
             var speed = navMeshAgent.velocity.magnitude;
 
-            if (speed < 0.1f)
+            if (speed < movementSpeedThreshold)
             {
                 // Idle should NOT interrupt custom animations
                 if (!IsPlayingCustomAnimation && !IdleState.IsPlaying)
@@ -62,9 +60,13 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
                 if (!MoveState.IsPlaying)
                 {
                     animancerComponent.Play(MoveState, 0.2f);
-                    movementLoopFeedbacks?.PlayFeedbacks();
+
                     IsPlayingCustomAnimation = false; // Reset the flag when interrupted
+
                 }
+                
+                if (movementLoopFeedbacks != null && !movementLoopFeedbacks.IsPlaying)
+                    movementLoopFeedbacks.PlayFeedbacks();
             }
 
             if (currentHealth <= 0f && !isDead)
@@ -151,10 +153,6 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
                         NPCAttackEvent.Trigger(attackInstances[2].playerAttackData);
                         break;
                 }
-        }
-        public IEnumerator StartDoubleAttack(int attackIndexValue)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -35656,15 +35656,19 @@ MonoBehaviour:
     leadupTime: 0.1
   currentStunDamage: 0
   highlightEffect: {fileID: 8850704384962898016}
+  highlightEffectController: {fileID: 2874101695742056311}
   startAsActivated: 0
   isStunned: 0
   destroyAfterDeath: 1
+  deathDelay: 1
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4910336818156672049}
+  movementSpeedThreshold: 0.05
   hasRangedAttack: 0
   rangedAttackOrigin: {fileID: 0}
   movementLoopFeedbacks: {fileID: 8523868604088296807}
+  deathParticlesDustPrefab: {fileID: 0}
 --- !u!114 &5604256302807840470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35741,7 +35745,7 @@ MonoBehaviour:
   - {fileID: 3033212754462453926}
   - {fileID: 6459945072742630861}
   - {fileID: 1788783181287047146}
-  - {fileID: 7400000, guid: 16855a3cb62d4f141a351451e05a193f, type: 2}
+  - {fileID: 7400000, guid: 6da59e57eceaff84986583b6352ebc38, type: 2}
   - {fileID: 343086385322953310}
   _serializedVariables:
   - _json: '{"_value":0.5,"_name":"pursuitSpeed","_id":"fa4b7448-ebe9-4755-8c91-3d4c37c43a1b","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
@@ -35803,7 +35807,7 @@ MonoBehaviour:
       UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references:
     - {fileID: 0}
-    - {fileID: 7400000, guid: 16855a3cb62d4f141a351451e05a193f, type: 2}
+    - {fileID: 7400000, guid: 6da59e57eceaff84986583b6352ebc38, type: 2}
   - _json: '{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"currentStunDamage","_id":"72f70bdd-ec5e-43a9-bc75-c5cfa9a588d8","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
