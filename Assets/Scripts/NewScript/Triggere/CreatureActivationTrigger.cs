@@ -30,7 +30,7 @@ namespace NewScript.Triggere
                     if (creature != null && creature.ShouldDeactivateUponPlayerLeavingArea)
                     {
                         creature.DeactivateCreature();
-                        creature.gameObject.SetActive(false);
+                        // creature.gameObject.SetActive(false);
                     }
         }
     }
