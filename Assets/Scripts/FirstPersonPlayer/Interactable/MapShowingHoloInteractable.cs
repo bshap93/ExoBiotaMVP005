@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Dirigible.Input;
 using EditorScripts;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
@@ -6,15 +8,18 @@ using Helpers.Events.Dialog;
 using Helpers.Events.Spawn;
 using LevelConstruct.Spawn;
 using Lightbug.Utilities;
+using Manager;
 using Manager.DialogueScene;
 using MoreMountains.Feedbacks;
+using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Interface;
 
 namespace FirstPersonPlayer.Interactable
 {
-    public class MapShowingHoloInteractable : MonoBehaviour, IInteractable, IRequiresUniqueID
+    public class MapShowingHoloInteractable : MonoBehaviour, IInteractable, IRequiresUniqueID, IBillboardable,
+        IHoverable
     {
         [ValueDropdown("GetNpcIdOptions")] public
             string npcId;
@@ -36,11 +41,69 @@ namespace FirstPersonPlayer.Interactable
         [SerializeField] bool showPlayerPosition;
         [SerializeField] bool showAdditionalOverlay;
 
+#if UNITY_EDITOR
+        [ValueDropdown(nameof(GetAllRewiredActions))]
+#endif
+        public int actionId;
+
         [SerializeField] [InlineProperty] [HideLabel]
         SpawnInfoEditor overrideSpawnInfo;
 
         [ShowIf("showAdditionalOverlay")] [SerializeField]
         Sprite additionalOverlaySprite;
+        SceneObjectData _sceneObjectData;
+        public string GetName()
+        {
+            return "Navigation Server";
+        }
+        public Sprite GetIcon()
+        {
+            return PlayerUIManager.Instance.defaultIconRepository.navigationServerIcon;
+        }
+        public string ShortBlurb()
+        {
+            return "N/A";
+        }
+
+        public Sprite GetActionIcon()
+        {
+            return PlayerUIManager.Instance.defaultIconRepository.InteractIcon();
+        }
+        public string GetActionText()
+        {
+            return "Access";
+        }
+
+        public bool OnHoverStay(GameObject go)
+        {
+            return true;
+        }
+        public bool OnHoverEnd(GameObject go)
+        {
+            if (_sceneObjectData == null) _sceneObjectData = SceneObjectData.Empty();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Hide);
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, actionId);
+
+            return true;
+        }
+
+        public bool OnHoverStart(GameObject go)
+        {
+            _sceneObjectData = SceneObjectData.Empty();
+
+            _sceneObjectData.ActionIcon = GetActionIcon();
+            _sceneObjectData.ActionText = GetActionText();
+            _sceneObjectData.Name = GetName();
+            _sceneObjectData.ShortBlurb = ShortBlurb();
+            _sceneObjectData.Icon = GetIcon();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Show);
+
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Show, actionId);
+
+            return true;
+        }
         public void Interact()
         {
             if (!CanInteract()) return;
@@ -96,5 +159,13 @@ namespace FirstPersonPlayer.Interactable
         {
             return DialogueManager.GetAllNpcIdOptions();
         }
+
+#if UNITY_EDITOR
+        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
+        {
+            return AllRewiredActions.GetAllRewiredActions();
+        }
+
+#endif
     }
 }

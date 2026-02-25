@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
+using Dirigible.Input;
 using FirstPersonPlayer.Interface;
+using Helpers.Events;
 using HighlightPlus;
+using Manager;
 using MoreMountains.Feedbacks;
+using SharedUI.Interface;
 using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -10,50 +15,150 @@ using Utilities.Interface;
 
 namespace FirstPersonPlayer.Interactable.Doors
 {
-    public class GenericDoor : MonoBehaviour, IInteractable, IRequiresUniqueID
+    public class GenericDoor : MonoBehaviour, IInteractable, IRequiresUniqueID, IBillboardable, IHoverable
     {
+        public enum DoorType
+        {
+            Cabinet,
+            Lootbox,
+            SlidingDoor,
+            HingedDoor
+        }
+
         public string uniqueID;
         [Header("Rotation Settings")] [SerializeField]
-        GameObject doorModel;
+        protected
+            GameObject doorModel;
         [SerializeField] bool useRotationChange = true;
         [ShowIf("useRotationChange")] [SerializeField]
-        Vector3 openRotation;
+        protected
+            Vector3 openRotation;
         [ShowIf("useRotationChange")] [SerializeField]
-        Vector3 closedRotation;
+        protected
+            Vector3 closedRotation;
+
+        [SerializeField] protected bool isSecretDoor;
+        public int actionId;
+
+        [SerializeField] protected DoorType doorType;
+
+        [SerializeField] protected string doorName;
 
         [Header("Position Settings")] [SerializeField]
         bool usePositionChange;
         [ShowIf("usePositionChange")] [SerializeField]
-        Vector3 openPosition;
+        protected
+            Vector3 openPosition;
         [ShowIf("usePositionChange")] [SerializeField]
-        Vector3 closedPosition;
+        protected
+            Vector3 closedPosition;
 
-        [SerializeField] NavMeshLink navMeshLink;
+        [SerializeField] protected NavMeshLink navMeshLink;
 
 
-        [SerializeField] bool startOpen;
+        [SerializeField] protected bool startOpen;
 
-        [Header("Feedbacks")] [SerializeField] MMFeedbacks openFeedback;
-        [SerializeField] MMFeedbacks closeFeedback;
+        [Header("Feedbacks")] [SerializeField] protected MMFeedbacks openFeedback;
+        [SerializeField] protected MMFeedbacks closeFeedback;
 
         [Header("Highlighting")] [SerializeField]
-        HighlightEffect proximityHighlightEffect;
+        protected
+            HighlightEffect proximityHighlightEffect;
         [SerializeField] bool shouldDisableHighlightOnInteraction = true;
 
-        [Header("Settings")] [SerializeField] float openCloseDuration = 1f;
+        [Header("Settings")] [SerializeField] protected float openCloseDuration = 1f;
 
-        [SerializeField] float distanceToInteract = 3f;
+        [SerializeField] protected float distanceToInteract = 3f;
 
         [ShowIf("shouldDisableColliderOnInteraction")] [SerializeField]
-        Collider[] interactionCollider;
+        protected Collider[] interactionCollider;
         [SerializeField] bool shouldDisableColliderOnInteraction = true;
 
         bool _isOpen;
+
+
+        SceneObjectData _sceneObjectData;
         void Start()
         {
             _isOpen = startOpen;
             if (navMeshLink != null)
                 navMeshLink.enabled = _isOpen;
+        }
+        public string GetName()
+        {
+            if (!string.IsNullOrEmpty(doorName))
+                return doorName;
+
+            switch (doorType)
+            {
+                case DoorType.Cabinet:
+                    return "Cabinet";
+                case DoorType.Lootbox:
+                    return "Lootbox";
+                case DoorType.SlidingDoor:
+                    return "Sliding Door";
+                case DoorType.HingedDoor:
+                    return "Hinged Door";
+                default:
+                    return "Door";
+            }
+        }
+        public Sprite GetIcon()
+        {
+            switch (doorType)
+            {
+                case DoorType.Cabinet:
+                    return PlayerUIManager.Instance.defaultIconRepository.cabinetIcon;
+                case DoorType.Lootbox:
+                    return PlayerUIManager.Instance.defaultIconRepository.chestIcon;
+                case DoorType.SlidingDoor:
+                    return PlayerUIManager.Instance.defaultIconRepository.slidingDoorIcon;
+                case DoorType.HingedDoor:
+                    return PlayerUIManager.Instance.defaultIconRepository.hingedDoorIcon;
+                default:
+                    return PlayerUIManager.Instance.defaultIconRepository.doorIcon;
+            }
+        }
+        public string ShortBlurb()
+        {
+            return "N/A";
+        }
+        public Sprite GetActionIcon()
+        {
+            return PlayerUIManager.Instance.defaultIconRepository.InteractIcon();
+        }
+        public string GetActionText()
+        {
+            return _isOpen ? "Close" : "Open";
+        }
+        public bool OnHoverStart(GameObject go)
+        {
+            _sceneObjectData = SceneObjectData.Empty();
+
+            _sceneObjectData.ActionIcon = GetActionIcon();
+            _sceneObjectData.ActionText = GetActionText();
+            _sceneObjectData.Name = GetName();
+            _sceneObjectData.ShortBlurb = ShortBlurb();
+            _sceneObjectData.Icon = GetIcon();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Show);
+
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Show, actionId);
+
+            return true;
+        }
+        public bool OnHoverStay(GameObject go)
+        {
+            return true;
+        }
+        public bool OnHoverEnd(GameObject go)
+        {
+            if (_sceneObjectData == null) _sceneObjectData = SceneObjectData.Empty();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Hide);
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, actionId);
+
+            return true;
         }
         public virtual void Interact()
         {
@@ -98,6 +203,16 @@ namespace FirstPersonPlayer.Interactable.Doors
         {
             return string.IsNullOrEmpty(uniqueID);
         }
+#if UNITY_EDITOR
+        [ValueDropdown(nameof(GetAllRewiredActions))]
+#endif
+#if UNITY_EDITOR
+        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
+        {
+            return AllRewiredActions.GetAllRewiredActions();
+        }
+
+#endif
 
         public void ToggleDoor()
         {

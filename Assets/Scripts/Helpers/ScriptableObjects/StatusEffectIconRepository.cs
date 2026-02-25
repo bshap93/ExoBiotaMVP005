@@ -16,6 +16,11 @@ namespace Helpers.ScriptableObjects
         public Sprite brainIcon;
         public Sprite chestIcon;
         public Sprite talkIcon;
+        public Sprite navigationServerIcon;
+        public Sprite doorIcon;
+        public Sprite hingedDoorIcon;
+        public Sprite slidingDoorIcon;
+        public Sprite cabinetIcon;
 
         public Sprite InteractIcon()
         {

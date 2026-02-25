@@ -1,4 +1,5 @@
 title: WombKeeperStart
+position: -36,-310
 ---
 <<if !has_npc_been_contacted("WombKeeper")>>
     Womb Keeper: Good, you're awake. You're lucky to be alive, child.
@@ -11,6 +12,8 @@ title: WombKeeperStart
 ===
 
 title: WombKeeperStartAgain
+color: blue
+position: 183,-249
 ---
 Womb Keeper: I touch your presence. What purpose may I serve?
 -> I had a question.
@@ -21,39 +24,57 @@ Womb Keeper: I touch your presence. What purpose may I serve?
 ===
 
 title: WombKeeperDialogue01
+position: -264,-112
 ---
-Womb Keeper: Not a dream. I release you from dreams.
+Womb Keeper: Not a dream. The time for dreaming is over. Be glad tis so.
 -> But I'm conversing with you without speaking. And I don't remember how I got here.
-Womb Keeper: You have been modified. This explains how we're speaking and why you forget how you got here.
--> Modified? How?
+Womb Keeper: You have been modified to converse with members of the Kin. Your brain lacked basic input/output.
+Womb Keeper: This is no longer true. Your memories need time to adjust. They will return, we are 83.3 percent certain.
+Womb Keeper: You have been improved. I oversaw the process.
+<<jump WombKeeperDialogue01A_QA>>
+===
+
+title: WombKeeperDialogue01_Questions
+position: -44,579
+---
+-> How does this input/output work anyway?
+    <<jump InputOutputNonExplanation>>
+-> Why mess with me like that? I can't recall the Kin ever giving a human new implants, but that's not saying much.
     <<jump WombKeeperDialogue01A>>
 -> All right, I will be leaving.
 ===
 
-title: WombKeeperDialogue01A
+title: InputOutputNonExplanation
+position: 67,132
 ---
-Womb Keeper: You have been improved. I oversaw the process. We can now inform you of the essentials. You may report to ones such as I.
-Womb Keeper: You were dissarrayed when you were abandoned to my care. I tended your womb and enacted the appropriate changes. That is all I will say. The rest you would not understand.
+Womb Keeper: I am not going to provide you with explanations you would not understand.
+Womb Keeper: It is not a method of data transfer familiar to you humans. Understand I do not keep you ignorant out of any ill will.
+Womb Keeper: You may pursue an answer elsewhere, but it is not for me to give it, here, now.
+<<jump WombKeeperDialogue01_Questions>>
+===
+
+title: WombKeeperDialogue01A
+position: 185,413
+---
+Womb Keeper: You were dissarrayed when you were abandoned to my care. Almost beyond repair. I tended your womb and enacted the appropriate changes. 
+Womb Keeper: That is all I will say. The rest you would not understand.
+<<jump WombKeeperDialogue01_Questions>>
 ===
 
 title: WombKeeperDialogue01A_QA
+position: 403,135
 ---
 -> How was I improved?
     <<jump WombKeeperDialogue03A>>
 -> You mentioned you oversaw my recovery. Was someone else here?
     <<jump WombKeeperDialogue03B>>
+-> What is this place?
+    <<jump WombKeeperDialogue02B>>
 -> [Leave]
 ===
 
-title: WombKeeperDialogue02A
----
-Womb Keeper: What does a newborn animal remember? Something of the nothingness before? I think not.
--> I'm not a newborn. I remember fragments. Tell me something. What is this place?
-    <<jump WombKeeperDialogue02B>>
--> I'm not a newborn. I should be leaving.
-===
-
 title: WombKeeperDialogue02B
+position: -213,235
 ---
 Womb Keeper: This is a womb. You were left here when you died. I delivered you when the time was right.
 -> Who left me here? 
@@ -63,12 +84,15 @@ Womb Keeper: This is a womb. You were left here when you died. I delivered you w
         -> I better get going.
         -> The kin... I almost... Oughh... my head hurts.
 -> I was dead?
-    Womb Keeper: Broken. Components disordered. One does not cheat death. Reborn. Your life starts here.
+    Womb Keeper: Broken. Components disordered.
     -> Ok, well, I appreciate any aid. If you really saved my life, I guess I should be grateful.
-    Womb Keeper: No need.
+        Womb Keeper: No need.
+    -> How did you know how to repair me?
+        <<jump WombKeeperDialogue02C>>
 ===
 
 title: WombKeeperDialogue02C
+position: -297,529
 ---
 Womb Keeper: Yet I knew so little of how your kind is organized on the inside.
 Womb Keeper: You'll have to forgive me if things are arranged quite differently than you remember.
@@ -76,17 +100,20 @@ Womb Keeper: Have no fear, you will continue on in this form, as have all my wom
 ===
 
 title: WombKeeperDialogue03A
+position: 769,36
 ---
 Womb Keeper: New components in, old ones out. Toward perfection... improved. Old memories, reshuffled, but not gone.
 Womb Keeper: New Input and Output shunts. Makes vibrating air with human voice obsolete. You'll see.
 <<jump WombKeeperDialogue01A_QA>>
 ===
 title: WombKeeperDialogue03B
+position: 439,350
 ---
 Womb Keeper: Thralls, yes. And the kin which entrusted you to me.
 <<jump WombKeeperDialogue03B_QA>>
 ===
 title: WombKeeperDialogue03B_QA
+position: 731,367
 ---
 -> Where are these thralls now?
     Womb Keeper: Not needed. Served their purpose. Back to mines, most of them.
