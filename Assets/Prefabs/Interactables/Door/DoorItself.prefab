@@ -918,13 +918,18 @@ MonoBehaviour:
   useRotationChange: 0
   openRotation: {x: 0, y: 0, z: 0}
   closedRotation: {x: 0, y: 0, z: 0}
+  isSecretDoor: 0
+  actionId: 0
+  doorType: 2
+  doorName: Facility Door
   usePositionChange: 1
   openPosition: {x: 0, y: 2, z: 0}
   closedPosition: {x: 0, y: 0, z: 0}
+  navMeshLink: {fileID: 0}
   startOpen: 0
   openFeedback: {fileID: 2906934026503933071}
   closeFeedback: {fileID: 2906934026503933071}
-  proximityHighlightEffect: {fileID: 0}
+  proximityHighlightEffect: {fileID: 2922723448432734794}
   shouldDisableHighlightOnInteraction: 1
   openCloseDuration: 1
   distanceToInteract: 3
@@ -936,6 +941,10 @@ MonoBehaviour:
   associatedHighlightEffectController: {fileID: 5113294682848817946}
   overrideLockState: 1
   startLocked: 0
+  hasDoorLight: 0
+  doorLight: {fileID: 0}
+  lockedLightColor: {r: 0, g: 0, b: 0, a: 0}
+  unlockedLightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!64 &3821987567429743253
 MeshCollider:
   m_ObjectHideFlags: 0

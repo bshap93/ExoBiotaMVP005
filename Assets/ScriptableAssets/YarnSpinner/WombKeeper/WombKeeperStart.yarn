@@ -109,7 +109,7 @@ Womb Keeper: New Input and Output shunts. Makes vibrating air with human voice o
 title: WombKeeperDialogue03B
 position: 439,350
 ---
-Womb Keeper: Thralls, yes. And the kin which entrusted you to me.
+Womb Keeper: Thralls, yes. And the Kin which entrusted you to me.
 <<jump WombKeeperDialogue03B_QA>>
 ===
 title: WombKeeperDialogue03B_QA
@@ -118,6 +118,6 @@ position: 731,367
 -> Where are these thralls now?
     Womb Keeper: Not needed. Served their purpose. Back to mines, most of them.
 -> What are you going to do with me?
-    Womb Keeper: You must leave. You may not become a thrall. The Kindred was clear on this.
+    Womb Keeper: You must leave. You may not become a thrall. The Kindred Choir was clear on this.
 -> Goodbye.
 ===
