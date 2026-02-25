@@ -21,6 +21,7 @@ namespace FirstPersonPlayer.Combat.AINPC.ScriptableObjects
         public float heavyMeleeAttackShakeIntensity = 0.15f;
         public float meleeAttackShakeDuration = 0.3f;
         public float stunCooldownTime = 5f;
+        public bool shouldDeactivateWhenPlayerLeavesImmediateArea;
 
         [Header("Contamination Settings")] public float baseBlowbackContaminationAmt = 0.5f;
 

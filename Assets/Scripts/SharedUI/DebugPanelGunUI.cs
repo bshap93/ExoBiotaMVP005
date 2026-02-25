@@ -104,6 +104,8 @@ namespace SharedUI
                 spareCartridgesText.text =
                     $"Spare Cartridges: {toolsStateManager.MagniumEnergyUnitsAvailable}";
 
+                _ammoCount = toolsStateManager.MagniumEnergyUnitsAvailable;
+
                 Show();
             }
             else if (eventType.EventType == EnergyGunStateEvent.GunStateEventType.UnequippedGun)

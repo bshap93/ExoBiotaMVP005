@@ -1,7 +1,7 @@
 using FirstPersonPlayer.Interactable.BioOrganism.Creatures;
 using UnityEngine;
 
-namespace NewScript
+namespace NewScript.Triggere
 {
     public class CreatureActivationTrigger : MonoBehaviour
     {
@@ -19,6 +19,18 @@ namespace NewScript
                     {
                         creature.gameObject.SetActive(true);
                         creature.ActivateCreature();
+                    }
+        }
+
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("FirstPersonPlayer"))
+                foreach (var creature in creaturesToActivate)
+                    if (creature != null && creature.ShouldDeactivateUponPlayerLeavingArea)
+                    {
+                        creature.DeactivateCreature();
+                        creature.gameObject.SetActive(false);
                     }
         }
     }

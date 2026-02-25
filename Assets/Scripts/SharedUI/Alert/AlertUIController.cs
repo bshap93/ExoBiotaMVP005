@@ -38,8 +38,8 @@ namespace SharedUI.Alert
             _notificationManager = GetComponentInChildren<NotificationManager>();
             _canvasGroup = GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 1;
-            _canvasGroup.interactable = true;
-            _canvasGroup.blocksRaycasts = true;
+            // _canvasGroup.interactable = true;
+            // _canvasGroup.blocksRaycasts = true;
         }
 
         void Start()

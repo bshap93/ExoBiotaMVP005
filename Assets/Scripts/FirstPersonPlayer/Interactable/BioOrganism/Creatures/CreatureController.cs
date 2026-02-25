@@ -100,6 +100,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
         protected bool IsActivated;
         protected AnimancerState MoveState;
 
+        public bool ShouldDeactivateUponPlayerLeavingArea => creatureType.shouldDeactivateWhenPlayerLeavesImmediateArea;
+
         public CreatureState CurrentCreatureState
         {
             get

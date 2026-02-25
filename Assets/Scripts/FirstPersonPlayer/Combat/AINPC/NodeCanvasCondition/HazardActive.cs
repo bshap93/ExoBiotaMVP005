@@ -44,7 +44,7 @@ namespace FirstPersonPlayer.Combat.AINPC.NodeCanvasCondition
         public BBParameter<bool> HazardActive;
 
         [Tooltip("If true, checks if hazard is NOT active")]
-        public new bool Invert = false;
+        public bool Invert = false;
 
         protected override bool OnCheck()
         {

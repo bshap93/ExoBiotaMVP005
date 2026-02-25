@@ -15,4 +15,16 @@ namespace FirstPersonPlayer.Combat.AINPC
             EndAction(true);
         }
     }
+
+    [Category("MoreMountains/Feedbacks")]
+    public class StopMMFeedbackOfChoice : ActionTask
+    {
+        public readonly BBParameter<MMFeedbacks> Feedbacks;
+
+        protected override void OnExecute()
+        {
+            Feedbacks.value?.StopFeedbacks();
+            EndAction(true);
+        }
+    }
 }
