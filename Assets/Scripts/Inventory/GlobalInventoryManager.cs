@@ -48,7 +48,6 @@ namespace Inventory
         public const string AmmoInventoryName = "AmmoInventory";
         public const string AbilitiesBankInventoryName = "AbilitiesBankInventory";
 
-
         static string _savePath;
         static string _currentSceneName;
 
@@ -105,6 +104,9 @@ namespace Inventory
         float _maxDirigibleWeight;
 
         float _maxPlayerFPWeight;
+        bool _shouldEmptyBioticAbilityIntoPlayerInventoryOnQuit;
+
+        bool _shouldEmptyRHandEquipIntoPlayerInventoryOnQuit;
 
         public Dictionary<string, EquippableType> ItemEquippableTypesDictionary;
 
@@ -361,7 +363,6 @@ namespace Inventory
 
         public void SaveGlobalInventories()
         {
-            TryEmptyIntoInventory(equipmentInventory, playerInventory);
             SaveOne(playerInventory);
             SaveOne(equipmentInventory);
 
@@ -375,17 +376,22 @@ namespace Inventory
             SaveOne(ammoInventory);
             SaveOne(abilitiesBankInventory);
         }
-        void TryEmptyIntoInventory(MoreMountains.InventoryEngine.Inventory rEquipInventory,
+        // void FlagToEmptyIntoInventoryOnQuit(MoreMountains.InventoryEngine.Inventory equipInventory,
+        //     MoreMountains.InventoryEngine.Inventory playerInventory1)
+        // {
+        //     if (equipInventory == null || playerInventory1 == null) return;
+        // }
+        void TryEmptyIntoInventory(MoreMountains.InventoryEngine.Inventory equipInventory,
             MoreMountains.InventoryEngine.Inventory playerInventory1)
         {
-            if (rEquipInventory == null || playerInventory1 == null) return;
+            if (equipInventory == null || playerInventory1 == null) return;
 
-            var itemsToMove = new List<InventoryItem>(rEquipInventory.Content);
+            var itemsToMove = new List<InventoryItem>(equipInventory.Content);
             foreach (var item in itemsToMove)
             {
                 if (item == null) continue;
                 playerInventory1.AddItem(item, Math.Max(1, item.Quantity));
-                rEquipInventory.RemoveItem(0, item.Quantity);
+                equipInventory.RemoveItem(0, item.Quantity);
             }
         }
 
@@ -417,6 +423,8 @@ namespace Inventory
             LoadOne(bioticAbilityInventory);
             LoadOne(ammoInventory);
             LoadOne(abilitiesBankInventory);
+            TryEmptyIntoInventory(equipmentInventory, playerInventory);
+            TryEmptyIntoInventory(bioticAbilityInventory, playerInventory);
         }
 
         static void SaveOne(MoreMountains.InventoryEngine.Inventory inv)
