@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Dirigible.Input;
 using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
@@ -6,12 +8,13 @@ using Helpers.Events.NPCs;
 using MoreMountains.Feedbacks;
 using Overview.NPC;
 using SharedUI.Interface;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Utilities.Interface;
 
 namespace FirstPersonPlayer.FPNPCs
 {
-    public class WombKeeperNPC : MonoBehaviour, IRequiresUniqueID, IInteractable, IBillboardable
+    public class WombKeeperNPC : MonoBehaviour, IRequiresUniqueID, IInteractable, IBillboardable, IHoverable
     {
         public string uniqueID;
         [Header("NPC Definition")] public NpcDefinition npcDefinition;
@@ -25,7 +28,20 @@ namespace FirstPersonPlayer.FPNPCs
         [SerializeField]
         Transform dialogueFocusPoint;
 
+        SceneObjectData _sceneObjectData;
         [Header("Feedbacks")] [SerializeField] MMFeedbacks startDialogueFeedback;
+#if UNITY_EDITOR
+        [ValueDropdown(nameof(GetAllRewiredActions))]
+#endif
+        public int actionId;
+        
+#if UNITY_EDITOR
+        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
+        {
+            return AllRewiredActions.GetAllRewiredActions();
+        }
+
+#endif
 
 #if UNITY_EDITOR
         /// Draws a gizmo so you can visually confirm focus point placement in the editor.
@@ -67,7 +83,7 @@ namespace FirstPersonPlayer.FPNPCs
         }
         public string GetActionText()
         {
-            return "Begin Telepathy";
+            return "Talk to";
         }
         public void Interact()
         {
@@ -116,6 +132,35 @@ namespace FirstPersonPlayer.FPNPCs
         public bool IsUniqueIDEmpty()
         {
             return string.IsNullOrEmpty(uniqueID);
+        }
+        public bool OnHoverStart(GameObject go)
+        {
+            _sceneObjectData = SceneObjectData.Empty();
+
+            _sceneObjectData.ActionIcon = GetActionIcon();
+            _sceneObjectData.ActionText = GetActionText();
+            _sceneObjectData.Name = GetName();
+            _sceneObjectData.ShortBlurb = ShortBlurb();
+            _sceneObjectData.Icon = GetIcon();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Show);
+
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Show, actionId);
+
+            return true;
+        }
+        public bool OnHoverStay(GameObject go)
+        {
+            return true;
+        }
+        public bool OnHoverEnd(GameObject go)
+        {
+            if (_sceneObjectData == null) _sceneObjectData = SceneObjectData.Empty();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Hide);
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, actionId);
+
+            return true;
         }
     }
 }

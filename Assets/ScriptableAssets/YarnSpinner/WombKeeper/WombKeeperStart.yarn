@@ -2,7 +2,7 @@ title: WombKeeperStart
 position: -111,-622
 ---
 <<if !has_npc_been_contacted("WombKeeper")>>
-    Womb Keeper: Good, you're awake. You're lucky to be alive, child.
+    Womb Keeper: Good, you're still alive. I welcome you back, child.
     <<make_contact_with_npc "WombKeeper">>
     <<jump WombKeeperDialogue01>>
 <<else>>
@@ -27,8 +27,10 @@ position: -387,-450
 ---
 Womb Keeper: You're not dreaming. The time for dreaming is over. Be glad tis so.
 -> But I'm conversing with you without speaking. And I don't remember how I got here.
+-> Gotta go... I am having trouble believing that. I must be dreaming.
+    <<jump WombKeeperSaysBye>>
 Womb Keeper: You have been modified to converse with members of the Kin. Your brain lacked basic input/output.
-Womb Keeper: This is no longer true. Your memories need time to adjust. They will return, we are 83.3 percent certain.
+Womb Keeper: This is no longer true. Your memories need time to adjust. They will return, we think.
 Womb Keeper: You have been improved. I oversaw the process.
 <<jump WombKeeperDialogue01A_QA>>
 ===
@@ -86,9 +88,9 @@ title: WombKeeperDialogue02B_QA
     -> I better get going.
     -> The Kin. I remember hearing the word. What can you tell me about them?
         <<jump AskedAboutTheKin>>
--> I was dead?
-    Womb Keeper: Broken. Components disordered.
-    -> Ok, well, I appreciate any aid. If you really saved my life, I guess I should be grateful.
+-> Why was I left here?
+    Womb Keeper: You were... broken. Components disordered.
+    -> Ok, well, I appreciate the aid. If you really saved my life, I guess I should be grateful.
         Womb Keeper: No need.
         <<jump WombKeeperDialogue02B_QA>>
     -> How did you know how to repair me?
@@ -107,7 +109,7 @@ position: -297,529
 ---
 Womb Keeper: Yet I knew so little of how your kind is organized on the inside.
 Womb Keeper: You'll have to forgive me if things are arranged quite differently than you remember.
-Womb Keeper: Have no fear, you will continue on in this form, as have all my womb-children.
+Womb Keeper: Have no fear, you will continue on in this form, as have all my womb-children that make it this far.
 <<jump WombKeeperDialogue02B_QA>>
 ===
 
@@ -121,7 +123,7 @@ Womb Keeper: New Input and Output shunts. Makes vibrating air with human voice o
 title: WombKeeperDialogue03B
 position: 439,350
 ---
-Womb Keeper: Thralls, yes. And the Kin which entrusted you to me.
+Womb Keeper: My squire and my thralls, yes. And the Motile who depositited you into my care.
 <<jump WombKeeperDialogue03B_QA>>
 ===
 title: WombKeeperDialogue03B_QA
@@ -130,6 +132,9 @@ position: 731,367
 -> Where are these thralls now?
     Womb Keeper: Not needed. Served their purpose. Back to mines, most of them.
     <<jump WombKeeperDialogue03B_QA>>
+-> Your squire?
+    Womb Keeper: Yes, my squire. It's on the other side of the room. Speak with it if you wish.
+    <<jump WombKeeperDialogue03B_QA>>
 -> What are you going to do with me?
     Womb Keeper: You must leave my Keeping now. You may not become a thrall. The Kindred Choir was clear on this.
     -> What is the Kindred Choir?
@@ -137,4 +142,9 @@ position: 731,367
 -> I had another question.
     <<jump WombKeeperDialogue02B_QA>>
 -> Ok, goodbye.
+===
+
+title: WombKeeperSaysBye
+---
+Womb Keeper: Go then, child. You are welcome to the supplies in this room.
 ===
