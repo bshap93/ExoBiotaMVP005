@@ -180,6 +180,7 @@ namespace Manager.Global
         void PauseAudio()
         {
             AudioEvent.Trigger(AudioEventType.PauseAudio);
+            // Debug.Log("Audio Paused");
         }
 
         public bool IsPaused()

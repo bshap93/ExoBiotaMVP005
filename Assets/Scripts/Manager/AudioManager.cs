@@ -56,6 +56,7 @@ namespace Manager
             UIAudioSource.UnPause();
             GlobalAmbientAudioSource.UnPause();
             OtherEnvironmentalAudioSource.UnPause();
+            SoundManager.PlayAllSounds();
         }
 
         void PauseAudio()
@@ -68,6 +69,7 @@ namespace Manager
             UIAudioSource.Pause();
             GlobalAmbientAudioSource.Pause();
             OtherEnvironmentalAudioSource.Pause();
+            SoundManager.StopAllSounds();
         }
     }
 }

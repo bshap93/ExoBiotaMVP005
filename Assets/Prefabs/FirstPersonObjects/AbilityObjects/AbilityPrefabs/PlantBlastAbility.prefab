@@ -2384,7 +2384,7 @@ MonoBehaviour:
     m_Bits: 420040193
   maxRange: 100
   equipFeedbacks: {fileID: 7182709680355473136}
-  unequipFeedbacks: {fileID: 7182709680355473136}
+  unequipFeedbacks: {fileID: 0}
   shootFeedbacks: {fileID: 1308847032130834121}
   cooldownTime: 0.5
   projectileLayerMask:

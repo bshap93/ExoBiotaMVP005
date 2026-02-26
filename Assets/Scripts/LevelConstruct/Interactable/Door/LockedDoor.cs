@@ -8,7 +8,9 @@ using Manager.SceneManagers;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Sirenix.OdinInspector;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.Interface;
 
 namespace LevelConstruct.Interactable.Door
@@ -20,6 +22,9 @@ namespace LevelConstruct.Interactable.Door
 
 
         public string keyID;
+        
+        [FormerlySerializedAs("navMeshLink")] [SerializeField] protected NavMeshLink[] navMeshLinks;
+        
 
 
         [SerializeField] bool usesAnimationClips = true;
@@ -89,6 +94,11 @@ namespace LevelConstruct.Interactable.Door
             if (overrideLockState) IsLocked = startLocked;
 
             if (IsLocked) associatedHighlightEffectController.SetSecondaryStateHighlightColor();
+            
+            
+            foreach (var navMeshLink in navMeshLinks)
+                if (navMeshLink != null)
+                    navMeshLink.enabled = isOpen;
         }
         void OnEnable()
         {
@@ -186,6 +196,10 @@ namespace LevelConstruct.Interactable.Door
                         animancerComponent.Play(openedAnimation);
 
                     isOpen = true;
+                    
+                    foreach (var navMeshLink in navMeshLinks)
+                        if (navMeshLink != null)
+                            navMeshLink.enabled = isOpen;
                 };
             }
             else if (usesDotWeenForSwing)
@@ -202,6 +216,10 @@ namespace LevelConstruct.Interactable.Door
                 }
 
                 isOpen = true;
+                
+                foreach (var navMeshLink in navMeshLinks)
+                    if (navMeshLink != null)
+                        navMeshLink.enabled = isOpen;
             }
         }
 
@@ -216,6 +234,9 @@ namespace LevelConstruct.Interactable.Door
                 closeState.Events(this).OnEnd = () =>
                 {
                     isOpen = false;
+                    foreach (var navMeshLink in navMeshLinks)
+                        if (navMeshLink != null)
+                            navMeshLink.enabled = isOpen;
                     closeState.Stop();
                 };
             }
@@ -232,6 +253,10 @@ namespace LevelConstruct.Interactable.Door
                 }
 
                 isOpen = false;
+                
+                foreach (var navMeshLink in navMeshLinks)
+                    if (navMeshLink != null)
+                        navMeshLink.enabled = isOpen;
             }
 
             // isOpen = false;

@@ -46,9 +46,9 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
         [SerializeField] protected Blackboard blackboard;
         [SerializeField] protected AnimancerComponent animancerComponent;
-        [FormerlySerializedAs("owner")] [SerializeField]
+        [FormerlySerializedAs("owner")] [SerializeField] protected 
         FSMOwner fsmOwner;
-        [SerializeField] GameObject feedbacksContainer;
+        [SerializeField] protected GameObject feedbacksContainer;
         [SerializeField] public CreatureType creatureType;
         public CreatureStateManager.CreatureState initialCreatureState;
         [Header("Feedbacks")] [SerializeField] public MMFeedbacks deathFeedbacks;
@@ -417,7 +417,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
 
             IsActivated = true;
             animancerComponent.enabled = true;
-            fsmOwner.enabled = true;
+            if (fsmOwner != null)
+                fsmOwner.enabled = true;
             feedbacksContainer.SetActive(true);
             SetupAnimationStates();
 
@@ -432,7 +433,8 @@ namespace FirstPersonPlayer.Interactable.BioOrganism.Creatures
             IsActivated = false;
             // Additional deactivation logic can be added here
             animancerComponent.enabled = false;
-            fsmOwner.enabled = false;
+            if (fsmOwner != null)
+                fsmOwner.enabled = false;
             feedbacksContainer.SetActive(false);
             DisableAnimationStates();
         }
