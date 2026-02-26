@@ -38,6 +38,10 @@ namespace FirstPersonPlayer.Interactable.Doors
             Vector3 closedRotation;
 
         [SerializeField] protected bool isSecretDoor;
+        
+#if UNITY_EDITOR
+        [ValueDropdown(nameof(GetAllRewiredActions))]
+#endif
         public int actionId;
 
         [SerializeField] protected DoorType doorType;
@@ -203,9 +207,7 @@ namespace FirstPersonPlayer.Interactable.Doors
         {
             return string.IsNullOrEmpty(uniqueID);
         }
-#if UNITY_EDITOR
-        [ValueDropdown(nameof(GetAllRewiredActions))]
-#endif
+
 #if UNITY_EDITOR
         public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
         {

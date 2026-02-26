@@ -123,7 +123,8 @@ namespace FirstPersonPlayer.Interactable
             if (topPiece != null) topPiece.transform.DOLocalRotate(openRotation, openDuration);
             if (topPiece != null) topPiece.transform.DOLocalMove(openPosition, openDuration);
             interactionCollider.enabled = false;
-            if (disableHighlightOnOpen) highlightEffect.enabled = false;
+            if (disableHighlightOnOpen && highlightEffect != null)
+                highlightEffect.enabled = false;
         }
         public void OnInteractionStart()
         {

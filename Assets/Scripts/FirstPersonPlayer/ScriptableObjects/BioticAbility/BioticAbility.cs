@@ -1,10 +1,17 @@
-﻿using FirstPersonPlayer.Combat.Player.ScriptableObjects;
+﻿using System;
+using FirstPersonPlayer.Combat.Player.ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
 {
+    [Serializable]
+    public class ContaminationCostsByExobioticLevel
+    {
+        [Range(1,20)] public int ExobioticLevel = 1;
+        public float ContaminationCost;
+    }
     [CreateAssetMenu(
         fileName = "PlayerBioticAbility_",
         menuName = "Scriptable Objects/Character/First Person Player/Player Biotic Ability",
@@ -21,10 +28,25 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
             Passive
         }
 
+
+
         public enum UsageType
         {
             SingleUse,
             UseWhileHeld
+        }
+        
+        public ContaminationCostsByExobioticLevel[] ContaminationCostsByExobioticLevel;
+        
+        public float GetContaminationCostForExobioticLevel(int exobioticLevel)
+        {
+            foreach (var entry in ContaminationCostsByExobioticLevel)
+            {
+                if (entry.ExobioticLevel == exobioticLevel)
+                    return entry.ContaminationCost;
+            }
+            Debug.LogWarning($"No contamination cost found for exobiotic level {exobioticLevel}. Returning 0.");
+            return 0f; // Default cost if not found
         }
 
         [SerializeField] AudioClip injectionOfAbilityFluidClip;

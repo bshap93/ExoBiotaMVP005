@@ -14,7 +14,7 @@ title: WombKeeperStartAgain
 color: blue
 position: 151,-489
 ---
-Womb Keeper: I touch your presence. What purpose may I serve?
+Womb Keeper: What purpose may I serve?
 -> I had a question.
     <<jump WombKeeperDialogue01A_QA>>
 -> Uh, nope.. I'm was just leaving.
@@ -95,6 +95,7 @@ title: WombKeeperDialogue02B_QA
         <<jump WombKeeperDialogue02B_QA>>
     -> How did you know how to repair me?
         <<jump WombKeeperDialogue02C>>
+-> I should go.
 ===
 
 title: AskedAboutTheKin
