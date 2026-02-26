@@ -1,11 +1,10 @@
 title: WombKeeperStart
-position: -36,-310
+position: -111,-622
 ---
 <<if !has_npc_been_contacted("WombKeeper")>>
     Womb Keeper: Good, you're awake. You're lucky to be alive, child.
-    -> This isn't real, is it? I've been dreaming... but this feels different.
-        <<make_contact_with_npc "WombKeeper">>
-        <<jump WombKeeperDialogue01>>
+    <<make_contact_with_npc "WombKeeper">>
+    <<jump WombKeeperDialogue01>>
 <<else>>
    <<jump WombKeeperStartAgain>> 
 <<endif>>
@@ -13,7 +12,7 @@ position: -36,-310
 
 title: WombKeeperStartAgain
 color: blue
-position: 183,-249
+position: 151,-489
 ---
 Womb Keeper: I touch your presence. What purpose may I serve?
 -> I had a question.
@@ -24,9 +23,9 @@ Womb Keeper: I touch your presence. What purpose may I serve?
 ===
 
 title: WombKeeperDialogue01
-position: -264,-112
+position: -387,-450
 ---
-Womb Keeper: Not a dream. The time for dreaming is over. Be glad tis so.
+Womb Keeper: You're not dreaming. The time for dreaming is over. Be glad tis so.
 -> But I'm conversing with you without speaking. And I don't remember how I got here.
 Womb Keeper: You have been modified to converse with members of the Kin. Your brain lacked basic input/output.
 Womb Keeper: This is no longer true. Your memories need time to adjust. They will return, we are 83.3 percent certain.
@@ -45,7 +44,7 @@ position: -44,579
 ===
 
 title: InputOutputNonExplanation
-position: 67,132
+position: 144,316
 ---
 Womb Keeper: I am not going to provide you with explanations you would not understand.
 Womb Keeper: It is not a method of data transfer familiar to you humans. Understand I do not keep you ignorant out of any ill will.
@@ -54,7 +53,7 @@ Womb Keeper: You may pursue an answer elsewhere, but it is not for me to give it
 ===
 
 title: WombKeeperDialogue01A
-position: 185,413
+position: 293,523
 ---
 Womb Keeper: You were dissarrayed when you were abandoned to my care. Almost beyond repair. I tended your womb and enacted the appropriate changes. 
 Womb Keeper: That is all I will say. The rest you would not understand.
@@ -62,7 +61,7 @@ Womb Keeper: That is all I will say. The rest you would not understand.
 ===
 
 title: WombKeeperDialogue01A_QA
-position: 403,135
+position: -108,-349
 ---
 -> How was I improved?
     <<jump WombKeeperDialogue03A>>
@@ -74,21 +73,33 @@ position: 403,135
 ===
 
 title: WombKeeperDialogue02B
-position: -213,235
+position: -387,119
 ---
 Womb Keeper: This is a womb. You were left here when you died. I delivered you when the time was right.
+<<jump WombKeeperDialogue02B_QA>>
+===
+
+title: WombKeeperDialogue02B_QA
+---
 -> Who left me here? 
-    Womb Keeper: A sister of the kin. Them that move about these halls. Sheolites, you call them, or so I am told.
-    -> An alien? They brought you my dead body?
-        Womb Keeper: Yes. Dead. And not. We two of the kin disagree on the definition.
-        -> I better get going.
-        -> The kin... I almost... Oughh... my head hurts.
+    Womb Keeper: An outcast of the Kin. One of the motiles from the mines. I am a Keeper, likewise Outcast.
+    -> I better get going.
+    -> The Kin. I remember hearing the word. What can you tell me about them?
+        <<jump AskedAboutTheKin>>
 -> I was dead?
     Womb Keeper: Broken. Components disordered.
     -> Ok, well, I appreciate any aid. If you really saved my life, I guess I should be grateful.
         Womb Keeper: No need.
+        <<jump WombKeeperDialogue02B_QA>>
     -> How did you know how to repair me?
         <<jump WombKeeperDialogue02C>>
+===
+
+title: AskedAboutTheKin
+position: 283,6
+---
+Womb Keeper: My role is not to dispense information. I am but a Keeper.
+<<jump WombKeeperDialogue02B_QA>>
 ===
 
 title: WombKeeperDialogue02C
@@ -97,6 +108,7 @@ position: -297,529
 Womb Keeper: Yet I knew so little of how your kind is organized on the inside.
 Womb Keeper: You'll have to forgive me if things are arranged quite differently than you remember.
 Womb Keeper: Have no fear, you will continue on in this form, as have all my womb-children.
+<<jump WombKeeperDialogue02B_QA>>
 ===
 
 title: WombKeeperDialogue03A
@@ -117,7 +129,12 @@ position: 731,367
 ---
 -> Where are these thralls now?
     Womb Keeper: Not needed. Served their purpose. Back to mines, most of them.
+    <<jump WombKeeperDialogue03B_QA>>
 -> What are you going to do with me?
-    Womb Keeper: You must leave. You may not become a thrall. The Kindred Choir was clear on this.
--> Goodbye.
+    Womb Keeper: You must leave my Keeping now. You may not become a thrall. The Kindred Choir was clear on this.
+    -> What is the Kindred Choir?
+        <<jump AskedAboutTheKin>>
+-> I had another question.
+    <<jump WombKeeperDialogue02B_QA>>
+-> Ok, goodbye.
 ===
