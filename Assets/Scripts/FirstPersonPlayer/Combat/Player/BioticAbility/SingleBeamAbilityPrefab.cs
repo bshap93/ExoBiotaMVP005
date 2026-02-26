@@ -16,6 +16,7 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
         [Header("Beam Settings")] [SerializeField]
         LineRenderer[] beamLineRenderers;
         [SerializeField] Transform muzzlePosition;
+        
         [SerializeField] float beamWidth = 0.05f;
         [SerializeField] float beamDuration = 0.15f;
         [SerializeField] Color beamColor = new(0.5f, 0.8f, 1f, 1f); // Stun beam color
@@ -59,6 +60,18 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
 
                 var finalCost = abilityData.GetContaminationCostForExobioticLevel(bioticCompetency) ;
                 return Mathf.Max(0.1f, finalCost);
+            }
+        }
+        
+        float AbilityRange
+        {
+            get
+            {
+                var attrMgr = AttributesManager.Instance;
+                var bioticCompetency = attrMgr.Exobiotic;
+                if (attrMgr == null) throw new System.Exception("AttributesManager instance not found");
+
+                return abilityData.GetAbilityRangeForExobioticLevel(bioticCompetency);
             }
         }
 
@@ -219,7 +232,7 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
 
             // Perform raycast
             var ray = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
-            var range = _currentAbilityData != null ? _currentAbilityData.abilityBaseRange : 50f;
+            var range = _currentAbilityData != null ? AbilityRange : 10f;
             var didHit = Physics.Raycast(ray, out var hit, range, hitMask, QueryTriggerInteraction.Ignore);
             var endPoint = didHit ? hit.point : ray.GetPoint(range);
 

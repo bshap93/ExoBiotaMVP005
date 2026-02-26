@@ -7,10 +7,11 @@ using UnityEngine.Serialization;
 namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
 {
     [Serializable]
-    public class ContaminationCostsByExobioticLevel
+    public class KeyValuesByExobioticLevel
     {
         [Range(1,20)] public int ExobioticLevel = 1;
         public float ContaminationCost;
+        public float AbilityRange;
     }
     [CreateAssetMenu(
         fileName = "PlayerBioticAbility_",
@@ -37,7 +38,7 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
         }
         
         [FormerlySerializedAs("ContaminationCostsByExobioticLevel")] [ShowIf("usageType", UsageType.SingleUse)]
-        public ContaminationCostsByExobioticLevel[] contaminationCostsByExobioticLevel;
+        public KeyValuesByExobioticLevel[] contaminationCostsByExobioticLevel;
         
         public float GetContaminationCostForExobioticLevel(int exobioticLevel)
         {
@@ -48,6 +49,17 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
             }
             Debug.LogWarning($"No contamination cost found for exobiotic level {exobioticLevel}. Returning 0.");
             return 0f; // Default cost if not found
+        }
+
+        public float GetAbilityRangeForExobioticLevel(int exobioticLevel)
+        {
+            foreach (var entry in contaminationCostsByExobioticLevel)
+            {
+                if (entry.ExobioticLevel == exobioticLevel)
+                    return entry.AbilityRange;
+            }
+            Debug.LogWarning($"No ability range found for exobiotic level {exobioticLevel}. Returning 0.");
+            return 0f; // Default range if not found
         }
 
         [SerializeField] AudioClip injectionOfAbilityFluidClip;
@@ -67,7 +79,7 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
         PlayerAttack playerAttack;
 
 
-        public float abilityBaseRange;
+        // public float abilityBaseRange;
         public float bioticReductionFactor = 0.05f;
 
         [FormerlySerializedAs("cooldownTime")] public float baseCooldownTime = 1f; // Cooldown time in seconds
