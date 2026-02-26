@@ -54,11 +54,10 @@ namespace FirstPersonPlayer.Combat.Player.BioticAbility
             get
             {
                 var attrMgr = AttributesManager.Instance;
-                if (attrMgr == null) return abilityData.baseContaminationCostPerUse;
+                var bioticCompetency = attrMgr.Exobiotic;
+                if (attrMgr == null) throw new System.Exception("AttributesManager instance not found");
 
-                var biotic = attrMgr.Exobiotic;
-                var reduction = abilityData.bioticReductionFactor * (biotic - 1);
-                var finalCost = abilityData.baseContaminationCostPerUse * (1 - reduction);
+                var finalCost = abilityData.GetContaminationCostForExobioticLevel(bioticCompetency) ;
                 return Mathf.Max(0.1f, finalCost);
             }
         }

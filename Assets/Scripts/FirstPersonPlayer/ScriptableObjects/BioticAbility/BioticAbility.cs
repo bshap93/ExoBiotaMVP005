@@ -36,11 +36,12 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
             UseWhileHeld
         }
         
-        public ContaminationCostsByExobioticLevel[] ContaminationCostsByExobioticLevel;
+        [FormerlySerializedAs("ContaminationCostsByExobioticLevel")] [ShowIf("usageType", UsageType.SingleUse)]
+        public ContaminationCostsByExobioticLevel[] contaminationCostsByExobioticLevel;
         
         public float GetContaminationCostForExobioticLevel(int exobioticLevel)
         {
-            foreach (var entry in ContaminationCostsByExobioticLevel)
+            foreach (var entry in contaminationCostsByExobioticLevel)
             {
                 if (entry.ExobioticLevel == exobioticLevel)
                     return entry.ContaminationCost;
@@ -55,10 +56,7 @@ namespace FirstPersonPlayer.ScriptableObjects.BioticAbility
         public BioticAbilityType abilityType;
         public UsageType usageType;
 
-        [FormerlySerializedAs("contaminationCostPerUse")]
-        [Header("Contamination Cost")]
-        [ShowIf("usageType", UsageType.SingleUse)]
-        public float baseContaminationCostPerUse;
+
 
         [ShowIf("usageType", UsageType.UseWhileHeld)]
         public float contaminationCostPerSecond; // Cost while held
