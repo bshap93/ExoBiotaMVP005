@@ -1,12 +1,12 @@
 title: ZinniaInitialIntroduction
 ---
 <<if !has_npc_been_contacted("HospitableFlora")>>
-    Zinnia: Salutations, human. Have you come to bask in the healing waters?
-    Zinnia: Come, come. I am called Zinnia by humans. I shan't bite or sting.
+    Zinnia: Well hello, human! Have you come to bask in the healing waters of these springs?
+    Zinnia: Come, come. I am called Zinnia by humans. I shan't bite or sting. Aren't you quite the ravishing specimen.
     <<make_contact_with_npc "HospitableFlora">>
     <<jump QuestionsForZinniaSwitch>>
 <<else>>
-    Zinnia: Good to see you well. [Needles you playfully]
+    Zinnia: Marvelous to see you still alive, dear. [Needles you playfully]
     <<jump QuestionsForZinniaSwitch>>
 <<endif>>
 ===
@@ -22,15 +22,23 @@ title: QuestionsForZinniaSwitch
 
 title: ZinniaExplainsOurFirstQuestion
 ---
-Zinnia: I hope you were not harmed. Come, enter the water and be refreshed and healed of your injuries.
-Zinnia: My sisters have been dealt a terrible fate. They are sick, you see. The Blight, it makes them violent.
-Zinnia: I have not yet succumbed. These waters seem to be a natural innoculation.
+Zinnia: I do hope you were not harmed. Come, enter the spring water and be infused and healed of your blights.
+
+===
+
+title: ZinniaExplainsOurFirstQuestion_QA
+---
+-> I'm alive. Why are they hostile and not you?
+    Zinnia: My sisters have been dealt a terrible fate. They are sick, you see. A blight created by the Kin long ago, and it makes them violent to all but Kin.
+    Zinnia: I have yet never succumbed. These springs seem to be a natural innoculation. They draw from deep waters, you see.
+    <<jump ZinniaExplainsOurFirstQuestion_QA>>
 -> I had other questions.
     <<jump QuestionsForZinniaSwitch>>
 -> Have you tried using the water to heal them?
     <<jump ZinniaTalksAboutHealingSisters>>
 -> So, all of you are sentient?
     <<jump ZinniaIsSentient>>
+-> I should go.
 ===
 
 title: ZinnaAndOtherHumans

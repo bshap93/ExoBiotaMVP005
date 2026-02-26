@@ -41,14 +41,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24574817410598680}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 2
   m_Color: {r: 0.116292715, g: 0.39311132, b: 0.754717, a: 1}
   m_Intensity: 0.5
   m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -110,17 +110,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &151576520748924781
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +475,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -491,9 +499,11 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
@@ -5777,7 +5787,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1531988126917638677
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5796,6 +5806,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5817,9 +5829,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5851,7 +5865,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &2571023334225607762
 GameObject:
   m_ObjectHideFlags: 0
@@ -10646,7 +10659,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &6494906704201641819
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10665,6 +10678,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10686,9 +10701,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -10720,7 +10737,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &2967110987993848193
 GameObject:
   m_ObjectHideFlags: 0
@@ -15419,7 +15435,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &941787601446120096
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15438,6 +15454,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -15459,9 +15477,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -15493,7 +15513,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &3012178310271229645
 GameObject:
   m_ObjectHideFlags: 0
@@ -22803,7 +22822,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &427343544177279305
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -22822,6 +22841,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22843,9 +22864,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -22877,7 +22900,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &5578148541485229259
 GameObject:
   m_ObjectHideFlags: 0
@@ -27718,7 +27740,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &2196490226210297961
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -27737,6 +27759,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -27758,9 +27782,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -27792,7 +27818,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &5868017374058322510
 GameObject:
   m_ObjectHideFlags: 0
@@ -28341,15 +28366,19 @@ MonoBehaviour:
     leadupTime: 0
   currentStunDamage: 0
   highlightEffect: {fileID: 8655321797429626522}
+  highlightEffectController: {fileID: 3112292963320893407}
   startAsActivated: 1
   isStunned: 0
   destroyAfterDeath: 1
+  deathDelay: 4
   doesNotImmediatelyNeedToMove: 0
   appearsOnlyOnce: 0
   navMeshAgent: {fileID: 4213191547505358671}
+  movementSpeedThreshold: 0.1
   hasRangedAttack: 0
   rangedAttackOrigin: {fileID: 0}
   movementLoopFeedbacks: {fileID: 4182894261112851031}
+  deathParticlesDustPrefab: {fileID: 0}
 --- !u!114 &2748921063369638569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28452,23 +28481,23 @@ MonoBehaviour:
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"attackDistance":{"_value":3.0,"_name":"attackDistance","_id":"f138f71a-4c61-4601-ba07-004900f625a7","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"canSeeLayerMask":{"_value":{"value":3849},"_name":"canSeeLayerMask","_id":"0106f851-426a-4fa6-bbc3-f32066e603c5","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.LayerMask,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"wasHit":{"_name":"wasHit","_id":"d1670856-5e86-4f12-bbc9-2bcef8d034fd","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"wasHitAnimationClip":{"_name":"wasHitAnimationClip","_id":"09cdb936-e3bd-4de5-836c-79e24209e46a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"wasHitAnimationClip":{"_value":5,"_name":"wasHitAnimationClip","_id":"09cdb936-e3bd-4de5-836c-79e24209e46a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"stunDamageThreshold":{"_value":1.0,"_name":"stunDamageThreshold","_id":"7e9ae07d-27e2-4ad4-a3e9-7e789d3afcc0","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"pursuitSpeed":{"_value":2.0,"_name":"pursuitSpeed","_id":"06185f8a-8bca-47d4-82ad-348bf5af1e88","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"waitTime":{"_value":4.0,"_name":"waitTime","_id":"ac42ff05-3e65-41b9-a7fb-2436357b571f","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"numWaypoints":{"_value":1,"_name":"numWaypoints","_id":"fcf39729-86b7-43b2-8f5f-953891f6326e","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"hasAlreadySeenPlayer":{"_name":"hasAlreadySeenPlayer","_id":"64bbaf8d-4003-428d-a011-9ad9358693b6","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"isStunned":{"_name":"isStunned","_id":"07fa897b-388b-4cad-b17a-e7712b5000fc","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunnedEffect":{"_value":5,"_name":"stunnedEffect","_id":"709c5a68-1604-4638-929c-a359e05ad73a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunnedEffect":{"_value":6,"_name":"stunnedEffect","_id":"709c5a68-1604-4638-929c-a359e05ad73a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"mostRecentClosestPoint":{"_name":"mostRecentClosestPoint","_id":"32935082-78c0-416f-8c8f-818702900853","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"battleShoutFB":{"_value":6,"_name":"battleShoutFB","_id":"294f5ea1-b9a6-4fe5-980b-138caad5b5af","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
-    MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"idle2":{"_value":7,"_name":"idle2","_id":"09abbacf-1715-4d08-8c6e-f4b3e0d19efe","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"battleShoutFB":{"_value":7,"_name":"battleShoutFB","_id":"294f5ea1-b9a6-4fe5-980b-138caad5b5af","$type":"NodeCanvas.Framework.Variable`1[[MoreMountains.Feedbacks.MMFeedbacks,
+    MoreMountains.Tools, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"idle2":{"_value":8,"_name":"idle2","_id":"09abbacf-1715-4d08-8c6e-f4b3e0d19efe","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"stunIdleSpeedMultiplier":{"_value":0.25,"_name":"stunIdleSpeedMultiplier","_id":"47e11d9e-2d6a-49de-8f35-a254a50f6702","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"idle1":{"_value":8,"_name":"idle1","_id":"564c1a3a-34ee-49eb-96f3-77b1f876d60f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"idle1":{"_value":9,"_name":"idle1","_id":"564c1a3a-34ee-49eb-96f3-77b1f876d60f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"damageFleeThreshold":{"_value":10.0,"_name":"damageFleeThreshold","_id":"8ac74fe1-735f-472a-92f0-a04f57cced11","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDuration":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.StunDuration","_name":"stunDuration","_id":"22930af7-cfcc-41fc-ba44-3e9d17704b04","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"stunDamage":{"_propertyPath":"FirstPersonPlayer.Interactable.BioOrganism.Creatures.EnemyController.currentStunDamage","_name":"stunDamage","_id":"06f80a34-a870-4389-805a-222fad9e32c4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"rangedHurlAnimClip":{"_value":9,"_name":"rangedHurlAnimClip","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"rangedHurlAnimClip":{"_value":5,"_name":"rangedHurlAnimClip","_id":"a9d2a21e-c5c1-429b-b61e-d3f505b5a708","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
     UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectilePrefab":{"_value":10,"_name":"projectilePrefab","_id":"5f84526e-fb56-49af-8d8b-9e28fb5a07c8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"projectileOrigin":{"_value":11,"_name":"projectileOrigin","_id":"25572e61-6794-4611-9840-5f0998970aa8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Transform,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"prepareToUseRange":{"_value":12,"_name":"prepareToUseRange","_id":"bb79b9d6-0729-41fa-a573-c782ca6a4107","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
@@ -28482,11 +28511,11 @@ MonoBehaviour:
   - {fileID: 433660494459215907}
   - {fileID: 4407958944134797134}
   - {fileID: 2201217437127625435}
+  - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
   - {fileID: 8481615970489057819}
   - {fileID: 709852135956699652}
   - {fileID: 1245882690682072010, guid: d012efae3339615448803dc8a5f45070, type: 3}
   - {fileID: -5533903024747340832, guid: 0b3ae7b4d59b6fb4298ffde2e3a0df20, type: 3}
-  - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
   - {fileID: 7036783973982609404, guid: f8d546867e1f67844a257dd271662623, type: 3}
   - {fileID: 4653782747825842691}
   - {fileID: 7400000, guid: baa5b0c9b031d7a43bb18e59da5f8483, type: 2}
@@ -28534,9 +28563,11 @@ MonoBehaviour:
   - _json: '{"_name":"wasHit","_id":"d1670856-5e86-4f12-bbc9-2bcef8d034fd","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
-  - _json: '{"_name":"wasHitAnimationClip","_id":"09cdb936-e3bd-4de5-836c-79e24209e46a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
+  - _json: '{"_value":1,"_name":"wasHitAnimationClip","_id":"09cdb936-e3bd-4de5-836c-79e24209e46a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
       UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
-    _references: []
+    _references:
+    - {fileID: 0}
+    - {fileID: 7400000, guid: b834e1d0efda9e04784fa9fa1f056f52, type: 2}
   - _json: '{"_value":1.0,"_name":"stunDamageThreshold","_id":"7e9ae07d-27e2-4ad4-a3e9-7e789d3afcc0","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
@@ -34079,7 +34110,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1902218226626583416
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -34098,6 +34129,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -34119,9 +34152,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -34153,7 +34188,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1001 &4727548626057325476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34579,6 +34613,10 @@ PrefabInstance:
       propertyPath: managedReferences[1616504639524700662].PoolParentTransform
       value: 
       objectReference: {fileID: 3584766780171252829}
+    - target: {fileID: 7569503658196812541, guid: bd38594515c62c542a4d0adabc62c30a, type: 3}
+      propertyPath: managedReferences[2956590283608293730].AnimateScaleDuration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8611767923585184953, guid: bd38594515c62c542a4d0adabc62c30a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
