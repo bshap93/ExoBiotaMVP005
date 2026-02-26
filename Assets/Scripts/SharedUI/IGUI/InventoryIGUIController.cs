@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Inventory;
 using Michsky.MUIP;
 using MoreMountains.InventoryEngine;
@@ -147,15 +148,35 @@ namespace SharedUI.IGUI
             foreach (Transform child in listTransform)
                 Destroy(child.gameObject);
 
+            var grouped = new Dictionary<string, (int firstIndex, int totalQty)>();
             for (var i = 0; i < inventory.Content.Length; i++)
             {
                 var item = inventory.Content[i];
                 if (InventoryItem.IsNull(item)) continue;
 
+                if (grouped.TryGetValue(item.ItemID, out var existing))
+                    grouped[item.ItemID] = (existing.firstIndex, existing.totalQty + item.Quantity);
+                else
+                    grouped[item.ItemID] = (i, item.Quantity);
+            }
+
+            foreach (var (_, (firstIndex, totalQty)) in grouped)
+            {
                 var go = Instantiate(inventoryListItemPrefab, listTransform);
                 var element = go.GetComponent<InventoryItemIGUIListElement>();
-                element.Initialize(inventory, i, inventoryItemViewOptions); // <-- pass source + index
+                element.Initialize(inventory, firstIndex, inventoryItemViewOptions, totalQty);
             }
+
+
+            // for (var i = 0; i < inventory.Content.Length; i++)
+            // {
+            //     var item = inventory.Content[i];
+            //     if (InventoryItem.IsNull(item)) continue;
+            //
+            //     var go = Instantiate(inventoryListItemPrefab, listTransform);
+            //     var element = go.GetComponent<InventoryItemIGUIListElement>();
+            //     element.Initialize(inventory, i, inventoryItemViewOptions); // <-- pass source + index
+            // }
         }
 
         [Serializable]

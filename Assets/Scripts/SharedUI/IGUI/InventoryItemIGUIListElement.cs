@@ -64,7 +64,7 @@ namespace SharedUI.IGUI
 
 
         public void Initialize(MoreMountains.InventoryEngine.Inventory source, int index,
-            InventoryIGUIController.InventoryItemViewOptions options)
+            InventoryIGUIController.InventoryItemViewOptions options, int totalQuantityOverride = -1)
         {
             _sourceInventory = source;
             _sourceIndex = index;
@@ -82,15 +82,10 @@ namespace SharedUI.IGUI
             itemImage.sprite = _item.GetDisplayIcon();
             itemNameText.text = _item.GetDisplayName();
 
-            if (_item.Quantity > 1)
-            {
-                quantityText.text = $"x{_item.Quantity.ToString()}";
-                quantityText.gameObject.SetActive(true);
-            }
-            else
-            {
-                quantityText.gameObject.SetActive(false);
-            }
+            var displayQty = totalQuantityOverride > 0 ? totalQuantityOverride : _item.Quantity;
+            quantityText.text = $"x{displayQty}";
+            quantityText.gameObject.SetActive(true);
+
 
             infoButton.onClick.AddListener(ShowItemInfo);
 
