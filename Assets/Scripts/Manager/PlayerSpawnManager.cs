@@ -258,7 +258,7 @@ namespace Manager
         {
             return new[]
             {
-                "Mine01",
+                // "Mine01",
                 "AshpoolMine",
                 "FirstPersonTestbed",
                 "KinshipMagniumMine"

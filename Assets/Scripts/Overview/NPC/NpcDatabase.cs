@@ -81,5 +81,26 @@ namespace Overview.NPC
 
             return def.availableStartNodes;
         }
+        public NpcDefinition GetDefinitionByID(string eventTypeNPCId)
+        {
+            if (_map == null)
+            {
+                if (npcDefinitions != null && npcDefinitions.Length > 0)
+                {
+                    _map = npcDefinitions.ToDictionary(n => n.npcId, n => n);
+                }
+                else
+                {
+                    Debug.LogError("NpcDatabase not initialized and npcDefinitions is empty. Call OnEnable first.");
+                    return null;
+                }
+            }
+
+            if (_map.TryGetValue(eventTypeNPCId, out var def))
+                return def;
+
+            Debug.LogWarning($"NPC '{eventTypeNPCId}' not found in database");
+            return null;
+        }
     }
 }

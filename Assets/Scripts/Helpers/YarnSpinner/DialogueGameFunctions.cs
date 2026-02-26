@@ -1,4 +1,5 @@
-﻿using Manager.ProgressionMangers;
+﻿using FirstPersonPlayer.FPNPCs;
+using Manager.ProgressionMangers;
 using UnityEngine;
 using Yarn.Unity;
 

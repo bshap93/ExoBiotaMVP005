@@ -5,6 +5,7 @@ using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
 using Helpers.Events.NPCs;
+using Helpers.Events.Progression;
 using MoreMountains.Feedbacks;
 using Overview.NPC;
 using SharedUI.Interface;
@@ -27,21 +28,13 @@ namespace FirstPersonPlayer.FPNPCs
             "If left null, the NPC's root transform is used as a fallback.")]
         [SerializeField]
         Transform dialogueFocusPoint;
-
-        SceneObjectData _sceneObjectData;
         [Header("Feedbacks")] [SerializeField] MMFeedbacks startDialogueFeedback;
 #if UNITY_EDITOR
         [ValueDropdown(nameof(GetAllRewiredActions))]
 #endif
         public int actionId;
-        
-#if UNITY_EDITOR
-        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
-        {
-            return AllRewiredActions.GetAllRewiredActions();
-        }
 
-#endif
+        SceneObjectData _sceneObjectData;
 
 #if UNITY_EDITOR
         /// Draws a gizmo so you can visually confirm focus point placement in the editor.
@@ -85,10 +78,43 @@ namespace FirstPersonPlayer.FPNPCs
         {
             return "Talk to";
         }
+        public bool OnHoverStart(GameObject go)
+        {
+            _sceneObjectData = SceneObjectData.Empty();
+
+            _sceneObjectData.ActionIcon = GetActionIcon();
+            _sceneObjectData.ActionText = GetActionText();
+            _sceneObjectData.Name = GetName();
+            _sceneObjectData.ShortBlurb = ShortBlurb();
+            _sceneObjectData.Icon = GetIcon();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Show);
+
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Show, actionId);
+
+            return true;
+        }
+        public bool OnHoverStay(GameObject go)
+        {
+            return true;
+        }
+        public bool OnHoverEnd(GameObject go)
+        {
+            if (_sceneObjectData == null) _sceneObjectData = SceneObjectData.Empty();
+
+            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Hide);
+            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, actionId);
+
+            return true;
+        }
         public void Interact()
         {
             FirstPersonDialogueEvent.Trigger(
                 FirstPersonDialogueEventType.StartDialogue, npcDefinition.npcId, nodeToUse);
+
+            var friendlyNPCManager = FriendlyNPCManager.Instance;
+            if (friendlyNPCManager != null && !friendlyNPCManager.HasNPCBeenContactedAtLeastOnce(npcDefinition.npcId))
+                EnemyXPRewardEvent.Trigger(npcDefinition.xpForFirstMeeting);
 
             // Focus the dialogue camera on this NPC
             var focusTarget = dialogueFocusPoint != null ? dialogueFocusPoint : transform;
@@ -133,34 +159,13 @@ namespace FirstPersonPlayer.FPNPCs
         {
             return string.IsNullOrEmpty(uniqueID);
         }
-        public bool OnHoverStart(GameObject go)
+
+#if UNITY_EDITOR
+        public IEnumerable<ValueDropdownItem<int>> GetAllRewiredActions()
         {
-            _sceneObjectData = SceneObjectData.Empty();
-
-            _sceneObjectData.ActionIcon = GetActionIcon();
-            _sceneObjectData.ActionText = GetActionText();
-            _sceneObjectData.Name = GetName();
-            _sceneObjectData.ShortBlurb = ShortBlurb();
-            _sceneObjectData.Icon = GetIcon();
-
-            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Show);
-
-            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Show, actionId);
-
-            return true;
+            return AllRewiredActions.GetAllRewiredActions();
         }
-        public bool OnHoverStay(GameObject go)
-        {
-            return true;
-        }
-        public bool OnHoverEnd(GameObject go)
-        {
-            if (_sceneObjectData == null) _sceneObjectData = SceneObjectData.Empty();
 
-            BillboardEvent.Trigger(_sceneObjectData, BillboardEventType.Hide);
-            if (actionId != 0) ControlsHelpEvent.Trigger(ControlHelpEventType.Hide, actionId);
-
-            return true;
-        }
+#endif
     }
 }

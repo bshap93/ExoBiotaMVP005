@@ -6,6 +6,7 @@ using FirstPersonPlayer.Interface;
 using Helpers.Events;
 using Helpers.Events.Dialog;
 using Helpers.Events.NPCs;
+using Helpers.Events.Progression;
 using Lightbug.Utilities;
 using Manager;
 using Manager.DialogueScene;
@@ -145,6 +146,10 @@ namespace FirstPersonPlayer.FPNPCs.AlienNPC
                 FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcId, defaultStartNode);
             else
                 FirstPersonDialogueEvent.Trigger(FirstPersonDialogueEventType.StartDialogue, npcId, nodeToUse);
+
+            var friendlyNPCManager = FriendlyNPCManager.Instance;
+            if (friendlyNPCManager != null && !friendlyNPCManager.HasNPCBeenContactedAtLeastOnce(npcDefinition.npcId))
+                EnemyXPRewardEvent.Trigger(npcDefinition.xpForFirstMeeting);
 
             // Focus the dialogue camera on this NPC
             var focusTarget = dialogueFocusPoint != null ? dialogueFocusPoint : transform;

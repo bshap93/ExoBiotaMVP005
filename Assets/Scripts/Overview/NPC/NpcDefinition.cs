@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Helpers.Events.Dialog;
 using Manager.DialogueScene;
-using Manager.SceneManagers.Dock;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -73,6 +72,9 @@ namespace Overview.NPC
         [Header("Additional Optional Info")] public Sprite characterIcon;
         public string npcDescription;
 
+        public bool givesXpForFirstMeeting;
+        [ShowIf("givesXpForFirstMeeting")] public int xpForFirstMeeting;
+
         static string[] GetNpcIdOptions()
         {
             return DialogueManager.GetAllNpcIdOptions();
@@ -82,7 +84,7 @@ namespace Overview.NPC
         {
             // return DockManager.GetLocationIdOptions();
             // return DialogueManager.GetAllLocationIdOptions();
-            return new string[] { "Location1", "Location2", "Location3" };
+            return new[] { "Location1", "Location2", "Location3" };
         }
 
         public AnimationClip GetGesture(string key)

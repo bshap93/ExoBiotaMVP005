@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstPersonPlayer.FPNPCs;
 using Helpers.Events;
 using Helpers.ScriptableObjects;
 using Inventory;
